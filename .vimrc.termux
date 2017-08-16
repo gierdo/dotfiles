@@ -47,7 +47,7 @@ Plugin 'kien/ctrlp.vim'
 
 Plugin 'tpope/vim-commentary'
 
-Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+Plugin 'vim-latex/vim-latex'
 
 au BufEnter *.tex set autowrite
 let g:Tex_DefaultTargetFormat = 'pdf'

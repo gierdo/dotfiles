@@ -59,7 +59,7 @@ Plugin 'kien/ctrlp.vim'
 
 Plugin 'tpope/vim-commentary'
 
-Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+Plugin 'vim-latex/vim-latex'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
