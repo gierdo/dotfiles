@@ -1,3 +1,4 @@
+
 set wrap
 set number
 set cc=80
@@ -7,6 +8,7 @@ set mouse=a
 colorscheme evening
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType tex setlocal spell spelllang=en
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -54,6 +56,8 @@ map <C-n> :NERDTreeToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 Plugin 'kien/ctrlp.vim'
+
+Plugin 'tpope/vim-commentary'
 
 Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 
