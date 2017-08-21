@@ -5,8 +5,13 @@ set cc=80
 set encoding=utf-8
 set mouse=a
 
+nmap <F3> <C-]>
+map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+
 colorscheme evening
 
+
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal spell spelllang=en
 
@@ -61,6 +66,22 @@ Plugin 'tpope/vim-commentary'
 
 Plugin 'vim-latex/vim-latex'
 
+au BufEnter *.tex set autowrite
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_MultipleCompileFormats = 'pdf'
+let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
+let g:Tex_GotoError = 0
+"let g:Tex_ViewRule_pdf = 'evince'
+
+let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
+function! SyncTexForward()
+	     let execstr = "silent !okular --unique %:p:r.pdf\#src:".line(".")."%:p &"
+	          exec execstr
+	  endfunction
+	  nmap <Leader>f :call SyncTexForward()<CR>
+
+Plugin 'avakhov/vim-yaml'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -77,19 +98,4 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-au BufEnter *.tex set autowrite
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
-let g:Tex_GotoError = 0
-"let g:Tex_ViewRule_pdf = 'evince'
-
-let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
-function! SyncTexForward()
-	     let execstr = "silent !okular --unique %:p:r.pdf\#src:".line(".")."%:p &"
-	          exec execstr
-	  endfunction
-	  nmap <Leader>f :call SyncTexForward()<CR>
 	  
-nmap <F3> <C-]>
-map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>

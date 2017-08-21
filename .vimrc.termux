@@ -5,6 +5,7 @@ set encoding=utf-8
 
 colorscheme evening
 
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal spell spelllang=en
 
@@ -55,6 +56,7 @@ let g:Tex_MultipleCompileFormats ='pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex -src-specials -interaction=nonstopmode $*'
 let g:Tex_GotoError = 0
 
+Plugin 'avakhov/vim-yaml'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
