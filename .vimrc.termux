@@ -3,6 +3,8 @@ set number
 set cc=80
 set encoding=utf-8
 
+set autoread
+
 colorscheme evening
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab

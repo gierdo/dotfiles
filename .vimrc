@@ -1,9 +1,10 @@
-
 set wrap
 set number
 set cc=80
 set encoding=utf-8
 set mouse=a
+
+set autoread
 
 nmap <F3> <C-]>
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
