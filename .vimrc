@@ -6,6 +6,8 @@ set mouse=a
 
 set autoread
 
+set clipboard=unnamedplus
+
 nmap <F3> <C-]>
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
