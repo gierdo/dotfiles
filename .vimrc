@@ -4,7 +4,14 @@ set cc=80
 set encoding=utf-8
 set mouse=a
 
+set wildmenu
+
+set ignorecase
+set smartcase
+
 set autoread
+
+au VimResized * :wincmd =
 
 set clipboard=unnamedplus
 
@@ -86,6 +93,10 @@ function! SyncTexForward()
 Plugin 'avakhov/vim-yaml'
 
 Plugin 'godlygeek/tabular'
+
+Plugin 'Shougo/vimproc.vim'
+
+Plugin 'idanarye/vim-vebugger'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
