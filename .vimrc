@@ -98,6 +98,9 @@ Plugin 'Shougo/vimproc.vim'
 
 Plugin 'idanarye/vim-vebugger'
 
+Plugin 'dkprice/vim-easygrep'
+let g:EasyGrepFilesToExclude=".svn,.git,*tags"
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
