@@ -16,7 +16,6 @@ au VimResized * :wincmd =
 set clipboard=unnamedplus
 
 nmap <F3> <C-]>
-map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 colorscheme evening
 
@@ -47,7 +46,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 Plugin 'rdnetto/YCM-Generator'
 
 Plugin 'tpope/vim-surround'
-" Plugin 'flazz/vim-colorschemes'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -81,8 +79,6 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
 let g:Tex_GotoError = 0
-"let g:Tex_ViewRule_pdf = 'evince'
-
 let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
 function! SyncTexForward()
 	     let execstr = "silent !okular --unique %:p:r.pdf\#src:".line(".")."%:p &"
