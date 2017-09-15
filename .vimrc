@@ -1,29 +1,3 @@
-set wrap
-set number
-set cc=80
-set encoding=utf-8
-set mouse=a
-
-set wildmenu
-
-set ignorecase
-set smartcase
-
-set autoread
-
-au VimResized * :wincmd =
-
-set clipboard=unnamedplus
-
-nmap <F3> <C-]>
-
-colorscheme evening
-
-
-autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType tex setlocal spell spelllang=en
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -116,4 +90,32 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-	  
+set wrap
+set number
+set cc=80
+set encoding=utf-8
+set mouse=a
+
+set wildmenu
+
+set ignorecase
+set smartcase
+
+set autoread
+
+au VimResized * :wincmd =
+
+set clipboard=unnamedplus
+
+nmap <F3> <C-]>
+
+colorscheme evening
+
+
+filetype plugin indent on
+syntax on
+
+autocmd FileType python setlocal ts=8 sts=8 sw=8 noexpandtab
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType tex setlocal spell spelllang=en
