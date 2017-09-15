@@ -75,6 +75,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'vim-latex/vim-latex'
 
 au BufEnter *.tex set autowrite
+let g:Tex_FoldedSections=""
+let g:Tex_FoldedEnvironments=""
+let g:Tex_FoldedMisc=""
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
