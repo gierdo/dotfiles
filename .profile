@@ -22,18 +22,12 @@ if [ -d "$HOME/bin" ] ; then
 fi
 PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 PATH=$PATH:/home/dominik/.skripte
+
+export GOPATH=~/go
+
 export ANDROID_HOME=~/.android-sdks
 export JAVA_HOME=$(dirname $(dirname $(readlink -f  /usr/bin/javac)))
-#JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-
-export ECLIPSE_HOME=/opt/eclipse
 
 export DEBFULLNAME="Dominikus Gierlach"
 export DEBEMAIL="dominik.gierlach@gmail.com"
 
-# New environment setting added by Freescale Kinetis SDK v1.1.0 on Mon Sep 14 11:52:43 CEST 2015 1.
-# The unmodified version of this file is saved in /home/dominik/.profile1927068572.
-# Do NOT modify these lines; they are used to uninstall.
-KSDK_PATH=/home/dominik/Freescale/KSDK_1.1.0
-export KSDK_PATH
-# End comments by InstallAnywhere on Mon Sep 14 11:52:43 CEST 2015 1.
