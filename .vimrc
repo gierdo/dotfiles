@@ -54,7 +54,7 @@ let g:Tex_FoldedEnvironments=""
 let g:Tex_FoldedMisc=""
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
+let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $* && bibtex'
 let g:Tex_GotoError = 0
 let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
 function! SyncTexForward()
@@ -72,7 +72,7 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'idanarye/vim-vebugger'
 
 Plugin 'dkprice/vim-easygrep'
-let g:EasyGrepFilesToExclude=".svn,.git,*tags"
+let g:EasyGrepFilesToExclude=".svn,.git,*tags,.aux,.toc,.out,.gz"
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
