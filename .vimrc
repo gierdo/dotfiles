@@ -19,6 +19,17 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 Plugin 'rdnetto/YCM-Generator'
 
+Plugin 'Shougo/neocomplete'
+set pumheight=8
+set completeopt=menu
+let g:neocomplete#auto_completion_start_length=2
+let g:neocomplete#force_overwrite_completefunc=1
+let g:neocomplete#max_keyword_width=80
+let g:neocomplete#sources#tags#cache_limit_size=5000000
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+
 Plugin 'tpope/vim-surround'
 
 Plugin 'vim-airline/vim-airline'
@@ -90,28 +101,36 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Basic Behaviour
 set wrap
 set number
 set cc=80
 set encoding=utf-8
 set mouse=a
-
+set noswapfile
+set nobackup
+set nowb
 set wildmenu
 
+" Searching
 set ignorecase
 set smartcase
 
+" Auto Update files
 set autoread
 
 au VimResized * :wincmd =
 
+" Copy-Paste from X-Buffer
 set clipboard=unnamedplus
 
+" Tag Navigation
 nmap <F3> <C-]>
 
 colorscheme evening
 
 
+" Auto filetype settings
 filetype plugin indent on
 syntax on
 
