@@ -45,7 +45,6 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/nerdcommenter'
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " open nerdtree if no file was specified
 autocmd StdinReadPre * let s:std_in=1
@@ -75,6 +74,13 @@ function! SyncTexForward()
 	  nmap <Leader>f :call SyncTexForward()<CR>
 
 Plugin 'avakhov/vim-yaml'
+
+Plugin 'rust-lang/rust.vim'
+
+Plugin 'pangloss/vim-javascript.git'
+Plugin 'elzr/vim-json'
+Plugin 'leafgarland/typescript-vim.git'
+autocmd BufNewFile,BufFilePre,BufRead *.tsx set filetype=typescript
 
 Plugin 'godlygeek/tabular'
 
