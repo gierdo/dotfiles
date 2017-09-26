@@ -96,6 +96,8 @@ Plugin 'idanarye/vim-vebugger'
 Plugin 'dkprice/vim-easygrep'
 let g:EasyGrepFilesToExclude=".svn,.git,*tags,.aux,.toc,.out,.gz"
 
+Plugin 'jeetsukumaran/vim-buffergator'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
