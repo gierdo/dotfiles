@@ -13,6 +13,9 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 
+" base 16 themes
+Plugin 'chriskempson/base16-vim'
+
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
 :let g:ycm_collect_identifiers_from_tags_files=1
@@ -36,7 +39,7 @@ Plugin 'tpope/vim-surround'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='base16_ashes'
+let g:airline_theme='base16_monokai'
 let g:airline_powerline_fonts = 1
 
 Plugin 'majutsushi/tagbar'
@@ -127,6 +130,8 @@ set smartcase
 " Auto Update files
 set autoread
 
+colorscheme base16-monokai
+
 au VimResized * :wincmd =
 
 " Copy-Paste from X-Buffer
@@ -134,9 +139,6 @@ set clipboard=unnamedplus
 
 " Tag Navigation
 nmap <F3> <C-]>
-
-colorscheme evening
-
 
 " Auto filetype settings
 filetype plugin indent on
