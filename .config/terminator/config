@@ -21,7 +21,7 @@
     background_image = None
     custom_command = /usr/bin/zsh
     font = Droid Sans Mono for Powerline 10
-    palette = "#2d2d2d:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#d3d0c8:#747369:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#f2f0ec"
+    palette = "#2d2d2d:#f92672:#6cc72c:#fe9720:#5f91ef:#9358fe:#36af90:#d3d0c8:#4c4c4c:#ff80f4:#a7e22e:#ffee99:#5fd9ef:#ae82fe:#66efd5:#c7cece"
     background_color = "#2d2d2d"
     cursor_color = "#d3d0c8"
     foreground_color = "#d3d0c8"
