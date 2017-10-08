@@ -1,3 +1,7 @@
+" This vim setup uses vundle for vim plugin management.
+" Vundle installation:
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -16,9 +20,11 @@ Plugin 'L9'
 " base 16 themes
 Plugin 'chriskempson/base16-vim'
 
+" YouCompleteMe has to be installed after the first run of PluginInstall:
+" ~/.vim/bundle/YouCompleteMe/install.sh --clang-completer
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
-:let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_tags_files=1
 " let g:ycm_extra_conf_globlist = ['~/dev/*','~/.dotfiles/*','!~/*']
 " let g:ycm_confirm_extra_conf = 0
 
@@ -37,6 +43,8 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 
 Plugin 'tpope/vim-surround'
 
+" The airline setup uses the powerline fonts, installed from here:
+" https://github.com/powerline/fonts
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme='base16_monokai'
@@ -139,7 +147,7 @@ au VimResized * :wincmd =
 " Copy-Paste from X-Buffer
 set clipboard=unnamedplus
 
-" Tag Navigation
+" Tag Navigation, relying on ctags
 nmap <F3> <C-]>
 
 " Auto filetype settings
