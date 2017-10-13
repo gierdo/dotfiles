@@ -58,11 +58,10 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " open nerdtree if no file was specified
 autocmd StdinReadPre * let s:std_in=1
 " toggle nerdtree with ctrl-n
-map <C-n> :NERDTreeToggle<CR>
+map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 Plugin 'kien/ctrlp.vim'
@@ -157,4 +156,5 @@ syntax on
 autocmd FileType python setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal spell spelllang=en
