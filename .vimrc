@@ -30,17 +30,6 @@ let g:ycm_collect_identifiers_from_tags_files=1
 
 Plugin 'rdnetto/YCM-Generator'
 
-Plugin 'Shougo/neocomplete'
-set pumheight=8
-set completeopt=menu
-let g:neocomplete#auto_completion_start_length=2
-let g:neocomplete#force_overwrite_completefunc=1
-let g:neocomplete#max_keyword_width=80
-let g:neocomplete#sources#tags#cache_limit_size=5000000
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-
 Plugin 'tpope/vim-surround'
 
 " The airline setup uses the powerline fonts, installed from here:
