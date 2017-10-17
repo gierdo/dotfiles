@@ -69,8 +69,9 @@ let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nons
 let g:Tex_GotoError = 0
 let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
 function! SyncTexForward()
-	     let execstr = "silent !okular --unique %:p:r.pdf\#src:".line(".")."%:p &"
+	     let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
 	          exec execstr
+		  redraw!
 	  endfunction
 	  nmap <Leader>f :call SyncTexForward()<CR>
 
@@ -130,7 +131,7 @@ set autoread
 
 colorscheme base16-monokai
 
-au VimResized * :wincmd =
+autocmd VimResized * wincmd =
 
 " Copy-Paste from X-Buffer
 set clipboard=unnamedplus
