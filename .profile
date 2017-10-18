@@ -21,7 +21,8 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
-PATH=$PATH:/home/dominik/.skripte
+PATH=$PATH:~/.scripts
+PATH=$PATH:~/.npmpath/bin
 
 export GOPATH=~/go
 
