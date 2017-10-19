@@ -17,9 +17,6 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 
-" base 16 themes
-Plugin 'chriskempson/base16-vim'
-
 " YouCompleteMe has to be installed after the first run of PluginInstall:
 " ~/.vim/bundle/YouCompleteMe/install.sh --clang-completer
 Plugin 'Valloric/YouCompleteMe'
@@ -129,7 +126,7 @@ set smartcase
 " Auto Update files
 set autoread
 
-colorscheme default
+colorscheme delek
 
 autocmd VimResized * wincmd =
 
