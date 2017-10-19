@@ -129,7 +129,7 @@ set smartcase
 " Auto Update files
 set autoread
 
-colorscheme base16-monokai
+colorscheme default
 
 autocmd VimResized * wincmd =
 
