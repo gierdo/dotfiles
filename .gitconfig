@@ -7,3 +7,5 @@
 	prompt = false
 [alias]
 	nicelog = log --graph --decorate=full --all --oneline
+[diff]
+	tool = vimdiff
