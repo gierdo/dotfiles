@@ -1,0 +1,9 @@
+[user]
+	email = dominik.gierlach@gmail.com
+	name = Dominik Gierlach
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+[alias]
+	nicelog = log --graph --decorate=full --all --oneline
