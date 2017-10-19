@@ -22,8 +22,11 @@ if [ -d "$HOME/bin" ] ; then
 fi
 PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 PATH=$PATH:~/.scripts
+PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.npmpath/bin
 
+# go stuff
+PATH=$PATH:/usr/lib/go/bin
 export GOPATH=~/go
 
 export ANDROID_HOME=~/.android-sdks

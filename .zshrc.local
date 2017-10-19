@@ -1,0 +1,6 @@
+# This zsh config file contains alias definitions
+
+# Funny fun:
+alias fucking='sudo '
+
+alias gitlog='git log --graph --decorate=full --all --oneline'
