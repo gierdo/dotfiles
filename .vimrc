@@ -33,7 +33,7 @@ Plugin 'tpope/vim-surround'
 " https://github.com/powerline/fonts
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='base16_3024'
+let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 
 Plugin 'majutsushi/tagbar'
@@ -123,7 +123,7 @@ set smartcase
 " Auto Update files
 set autoread
 
-colorscheme delek
+colorscheme default
 
 autocmd VimResized * wincmd =
 

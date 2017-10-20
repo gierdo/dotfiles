@@ -18,12 +18,12 @@
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#2d2d2d"
+    background_color = "#002b36"
     background_image = None
     cursor_color = "#d3d0c8"
     custom_command = TERM=xterm-256color /usr/bin/zsh
     font = Droid Sans Mono for Powerline 10
-    foreground_color = "#d3d0c8"
-    palette = "#2d2d2d:#f92672:#6cc72c:#fe9720:#5f91ef:#9358fe:#36af90:#d3d0c8:#4c4c4c:#ff80f4:#a7e22e:#ffee99:#5fd9ef:#ae82fe:#66efd5:#c7cece"
+    foreground_color = "#839496"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     use_custom_command = True
     use_system_font = False
