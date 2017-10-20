@@ -33,7 +33,7 @@ Plugin 'tpope/vim-surround'
 " https://github.com/powerline/fonts
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='base16_monokai'
+let g:airline_theme='base16_3024'
 let g:airline_powerline_fonts = 1
 
 Plugin 'majutsushi/tagbar'
@@ -86,9 +86,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'Shougo/vimproc.vim'
 
 Plugin 'idanarye/vim-vebugger'
-
-Plugin 'dkprice/vim-easygrep'
-let g:EasyGrepFilesToExclude=".svn,.git,*tags,.aux,.toc,.out,.gz"
 
 Plugin 'jeetsukumaran/vim-buffergator'
 
