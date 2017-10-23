@@ -131,7 +131,7 @@ autocmd VimResized * wincmd =
 set clipboard=unnamedplus
 
 " Tag Navigation, relying on ctags
-nmap <F3> <C-]>
+nmap <F3> g<C-]> 
 
 " Auto filetype settings
 filetype plugin indent on
