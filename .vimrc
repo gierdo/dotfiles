@@ -125,6 +125,7 @@ set autoread
 
 colorscheme default
 
+" Reorder tabs on window resize
 autocmd VimResized * wincmd =
 
 " Copy-Paste from X-Buffer
@@ -137,6 +138,10 @@ nmap <F3> g<C-]>
 filetype plugin indent on
 syntax on
 
+" Remove trainling whitespace for specified filetypes
+autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
+
+" Set Tab indentation rules for specified filetypes
 autocmd FileType python setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
