@@ -33,7 +33,7 @@ Plugin 'tpope/vim-surround'
 " https://github.com/powerline/fonts
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='solarized'
+let g:airline_theme='atomic'
 let g:airline_powerline_fonts = 1
 
 Plugin 'majutsushi/tagbar'
