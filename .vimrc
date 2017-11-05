@@ -24,8 +24,20 @@ let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files=1
 " let g:ycm_extra_conf_globlist = ['~/dev/*','~/.dotfiles/*','!~/*']
 " let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 Plugin 'rdnetto/YCM-Generator'
+
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 Plugin 'tpope/vim-surround'
 
@@ -39,6 +51,11 @@ let g:airline_powerline_fonts = 1
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+Plugin 'kien/ctrlp.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'tpope/vim-commentary'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
@@ -50,9 +67,7 @@ autocmd StdinReadPre * let s:std_in=1
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
-Plugin 'kien/ctrlp.vim'
-
-Plugin 'tpope/vim-commentary'
+" Language or filetype specific plugins:
 
 Plugin 'vim-latex/vim-latex'
 
@@ -81,13 +96,9 @@ Plugin 'elzr/vim-json'
 Plugin 'leafgarland/typescript-vim.git'
 autocmd BufNewFile,BufFilePre,BufRead *.tsx set filetype=typescript
 
-Plugin 'godlygeek/tabular'
-
-Plugin 'Shougo/vimproc.vim'
-
 Plugin 'idanarye/vim-vebugger'
 
-Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -138,11 +149,15 @@ nmap <F3> g<C-]>
 filetype plugin indent on
 syntax on
 
-" Remove trainling whitespace for specified filetypes
+" mark and Remove trailing whitespace for specified filetypes
 autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType tex,c,cpp,javascript,python match BadWhitespace /\s\+$/
 
 " Set Tab indentation rules for specified filetypes
+" Medineering python indentation
 autocmd FileType python setlocal ts=8 sts=8 sw=8 noexpandtab
+" PEP8 python indentation
+" autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
