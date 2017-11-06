@@ -134,7 +134,21 @@ set smartcase
 " Auto Update files
 set autoread
 
+" Color scheme settings, including color of extra whitespaces
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 colorscheme default
+
+" mark and Remove trailing whitespace for specified filetypes
+autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
+
+" Show trailing whitespace:
+match ExtraWhitespace /\s\+$/
+
+" Show trailing whitespace and spaces before a tab:
+match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Show tabs that are not at the start of a line:
+match ExtraWhitespace /[^\t]\zs\t\+/
 
 " Reorder tabs on window resize
 autocmd VimResized * wincmd =
@@ -148,10 +162,6 @@ nmap <F3> g<C-]>
 " Auto filetype settings
 filetype plugin indent on
 syntax on
-
-" mark and Remove trailing whitespace for specified filetypes
-autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
-autocmd FileType tex,c,cpp,javascript,python match BadWhitespace /\s\+$/
 
 " Set Tab indentation rules for specified filetypes
 " Medineering python indentation
