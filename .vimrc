@@ -141,14 +141,8 @@ colorscheme default
 " mark and Remove trailing whitespace for specified filetypes
 autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
 
-" Show trailing whitespace:
-match ExtraWhitespace /\s\+$/
-
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-" Show tabs that are not at the start of a line:
-match ExtraWhitespace /[^\t]\zs\t\+/
 
 " Reorder tabs on window resize
 autocmd VimResized * wincmd =
