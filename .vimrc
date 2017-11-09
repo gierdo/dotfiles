@@ -138,8 +138,16 @@ set autoread
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 colorscheme default
 
-" mark and Remove trailing whitespace for specified filetypes
-autocmd FileType tex,c,cpp,javascript,python autocmd BufWritePre <buffer> %s/\s\+$//e
+" Remove trailing whitespace for all but specified filetypes
+fun! RemoveTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'ruby\|perl'
+        return
+    endif
+    %s/\s\+$//e
+endfun
+
+autocmd BufWritePre * call RemoveTrailingWhitespace()
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
