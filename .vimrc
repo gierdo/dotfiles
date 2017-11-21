@@ -100,6 +100,10 @@ Plugin 'idanarye/vim-vebugger'
 
 Plugin 'vim-scripts/indentpython.vim'
 
+Plugin 'fatih/vim-go'
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -159,17 +163,16 @@ autocmd VimResized * wincmd =
 set clipboard=unnamedplus
 
 " Tag Navigation, relying on ctags
-nmap <F3> g<C-]> 
+nmap <F3> g<C-]>
 
 " Auto filetype settings
 filetype plugin indent on
 syntax on
 
 " Set Tab indentation rules for specified filetypes
-" Medineering python indentation
-autocmd FileType python setlocal ts=8 sts=8 sw=8 noexpandtab
 " PEP8 python indentation
-" autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
+autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
+
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
