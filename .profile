@@ -26,7 +26,6 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.npmpath/bin
 
 # go stuff
-PATH=$PATH:/usr/lib/go/bin
 PATH=$PATH:~/go/bin
 export GOPATH=~/go
 
