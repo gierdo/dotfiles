@@ -11,3 +11,6 @@
 	tool = vimdiff
 [push]
 	default = simple
+[gui]
+	fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
