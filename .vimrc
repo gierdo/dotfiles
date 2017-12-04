@@ -29,15 +29,10 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 Plugin 'rdnetto/YCM-Generator'
 
-Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+Plugin 'neomake/neomake'
+:highlight NeomakeErrorMsg ctermfg=227 ctermbg=237
+let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
+autocmd! BufWritePost * Neomake
 
 Plugin 'tpope/vim-surround'
 
