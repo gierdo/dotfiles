@@ -30,8 +30,6 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 Plugin 'rdnetto/YCM-Generator'
 
 Plugin 'neomake/neomake'
-:highlight NeomakeErrorMsg ctermfg=227 ctermbg=237
-let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
 autocmd! BufWritePost * Neomake
 
 Plugin 'tpope/vim-surround'
@@ -134,6 +132,9 @@ set smartcase
 set autoread
 
 " Color scheme settings, including color of extra whitespaces
+
+" Set colors of neomake messages
+autocmd ColorScheme * highlight NeomakeErrorMsg ctermfg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 colorscheme default
 
@@ -150,6 +151,11 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Set neomake errormsg sign
+let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
+let g:neomake_highlight_columns=0
+
 
 " Reorder tabs on window resize
 autocmd VimResized * wincmd =
