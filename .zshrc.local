@@ -1,5 +1,8 @@
 # This zsh config file contains alias definitions
 
+# Disable flow control
+stty -ixon
+
 # Funny fun:
 alias fucking='sudo '
 
