@@ -3,6 +3,9 @@
 # Disable flow control
 stty -ixon
 
+alias vim='nvim'
+alias oldvim='\vim'
+
 # Funny fun:
 alias fucking='sudo '
 
