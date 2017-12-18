@@ -1,6 +1,5 @@
-[user]
-	email = dominik.gierlach@gmail.com
-	name = Dominik Gierlach
+[include]
+	path = ~/.gitconfig.local
 [merge]
 	tool = vimdiff
 [mergetool]
