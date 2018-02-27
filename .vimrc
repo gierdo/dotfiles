@@ -80,6 +80,10 @@ function! SyncTexForward()
 	  endfunction
 	  nmap <Leader>f :call SyncTexForward()<CR>
 
+if has("nvim")
+	let g:vimtex_latexmk_progname = 'nvr'
+endif
+
 Plugin 'avakhov/vim-yaml'
 
 Plugin 'rust-lang/rust.vim'
