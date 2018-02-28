@@ -181,6 +181,6 @@ autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType tex setlocal spell spelllang=en
+autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
 
 autocmd FileType c,cpp setlocal cindent ts=2 sts=2 sw=2 expandtab
