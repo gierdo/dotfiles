@@ -139,7 +139,11 @@ set autoread
 
 " Set colors of neomake messages
 autocmd ColorScheme * highlight NeomakeErrorMsg ctermfg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
+autocmd ColorScheme * highlight DiffAdd    cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffDelete cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffChange cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffText   cterm=bold ctermfg=2 ctermbg=88
 colorscheme default
 
 " Remove trailing whitespace for all but specified filetypes
