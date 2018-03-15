@@ -186,6 +186,9 @@ set clipboard=unnamedplus
 " Tag Navigation, relying on ctags
 nmap <F3> g<C-]>
 
+" Open Quickfix window at the bottom
+:autocmd FileType qf wincmd J
+
 " Auto filetype settings
 filetype plugin indent on
 syntax on
