@@ -22,7 +22,7 @@ Plugin 'L9'
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_extra_conf_globlist = ['~/.dotfiles/*','!~/*']
+let g:ycm_extra_conf_globlist = ['./*','~/.dotfiles/*','!~/*']
 let g:ycm_auto_trigger = 1
 let g:ycm_filetype_whitelist = { '*': 1 }
 let g:ycm_confirm_extra_conf = 1
@@ -37,7 +37,7 @@ let g:ycm_warning_symbol = '>>'
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>g :YcmCompleter GoTo<CR>
 
 Plugin 'neomake/neomake'
 autocmd! BufWritePost * Neomake
