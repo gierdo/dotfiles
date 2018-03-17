@@ -39,8 +39,6 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-Plugin 'rdnetto/YCM-Generator'
-
 Plugin 'neomake/neomake'
 autocmd! BufWritePost * Neomake
 
@@ -56,6 +54,7 @@ let g:airline_powerline_fonts = 1
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+Plugin 'mileszs/ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'jeetsukumaran/vim-buffergator'
