@@ -44,6 +44,8 @@ autocmd! BufWritePost * Neomake
 
 Plugin 'tpope/vim-surround'
 
+Plugin 'vim-scripts/DoxygenToolkit.vim'
+
 " The airline setup uses the powerline fonts, installed from here:
 " https://github.com/powerline/fonts
 Plugin 'vim-airline/vim-airline'
