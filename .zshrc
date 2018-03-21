@@ -68,6 +68,7 @@ plugins=(
   docker
   golang
   ng
+  sudo
 )
 
 source $ZSH/oh-my-zsh.sh
