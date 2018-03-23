@@ -39,6 +39,11 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 map <leader>g :YcmCompleter GoTo<CR>
 
+
+Plugin 'rhysd/vim-clang-format'
+let g:clang_format#command = 'clang-format-7'
+let g:clang_format#code_style = 'google'
+
 Plugin 'neomake/neomake'
 autocmd! BufWritePost * Neomake
 
@@ -202,5 +207,5 @@ autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
-
-autocmd FileType c,cpp setlocal cindent ts=2 sts=2 sw=2 expandtab
+autocmd FileType c,cpp,objc,java,ts,js setlocal cindent ts=2 sts=2 sw=2 expandtab
+autocmd FileType c,cpp,objc,java,ts,js,pb ClangFormatAutoEnable
