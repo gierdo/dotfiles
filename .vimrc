@@ -41,8 +41,12 @@ map <leader>g :YcmCompleter GoTo<CR>
 
 
 Plugin 'rhysd/vim-clang-format'
-let g:clang_format#command = 'clang-format-7'
 let g:clang_format#code_style = 'google'
+if executable('clang-format-7')
+	let g:clang_format#command = 'clang-format-7'
+elseif executable('clang-format-6.0')
+	let g:clang_format#command = 'clang-format-6.0'
+endif
 
 Plugin 'neomake/neomake'
 autocmd! BufWritePost * Neomake
