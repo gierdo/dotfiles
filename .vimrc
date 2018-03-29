@@ -39,17 +39,34 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 map <leader>g :YcmCompleter GoTo<CR>
 
-
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#code_style = 'google'
 if executable('clang-format-7')
-	let g:clang_format#command = 'clang-format-7'
+    let g:clang_format#command = 'clang-format-7'
 elseif executable('clang-format-6.0')
-	let g:clang_format#command = 'clang-format-6.0'
+    let g:clang_format#command = 'clang-format-6.0'
 endif
 
-Plugin 'neomake/neomake'
-autocmd! BufWritePost * Neomake
+Plugin 'w0rp/ale'
+if executable('clang-tidy-7')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
+elseif executable('clang-tidy-6.0')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
+endif
+" only search for linters on startup
+let g:ale_cache_executable_check_failures = 1
+" disable fuchsia checker, annoying as hell
+let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
+let g:airline#extensions#ale#enabled = 1
+" save some battery
+let g:ale_lint_delay = 1000
+" clang and g++ get includes wrong, so the linters are specified here
+let g:ale_linters = {
+            \   'cpp': ['clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
+            \   'c': ['clangcheck', 'clangtidy', 'flawfinder'],
+            \}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 Plugin 'tpope/vim-surround'
 
@@ -96,14 +113,14 @@ let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nons
 let g:Tex_GotoError = 0
 let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
 function! SyncTexForward()
-	     let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
-	          exec execstr
-		  redraw!
-	  endfunction
-	  nmap <Leader>f :call SyncTexForward()<CR>
+    let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
+    exec execstr
+    redraw!
+endfunction
+nmap <Leader>f :call SyncTexForward()<CR>
 
 if has("nvim")
-	let g:vimtex_latexmk_progname = 'nvr'
+    let g:vimtex_latexmk_progname = 'nvr'
 endif
 
 Plugin 'avakhov/vim-yaml'
@@ -143,6 +160,7 @@ filetype plugin indent on    " required
 set wrap
 set number
 set cc=80
+set ts=4 sts=4 sw=4 expandtab
 set encoding=utf-8
 set mouse=a
 set noswapfile
