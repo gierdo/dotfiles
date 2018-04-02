@@ -229,5 +229,6 @@ autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
-autocmd FileType c,cpp,objc,java,ts,js setlocal cindent ts=2 sts=2 sw=2 expandtab
+autocmd FileType cpp,objc,java,ts,js setlocal cindent ts=2 sts=2 sw=2 expandtab
+autocmd FileType c setlocal cindent ts=8 sts=8 sw=8 expandtab
 autocmd FileType c,cpp,objc,java,ts,js,pb ClangFormatAutoEnable
