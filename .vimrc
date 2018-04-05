@@ -42,16 +42,16 @@ map <leader>g :YcmCompleter GoTo<CR>
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#code_style = 'google'
 if executable('clang-format-7')
-    let g:clang_format#command = 'clang-format-7'
+  let g:clang_format#command = 'clang-format-7'
 elseif executable('clang-format-6.0')
-    let g:clang_format#command = 'clang-format-6.0'
+  let g:clang_format#command = 'clang-format-6.0'
 endif
 
 Plugin 'w0rp/ale'
 if executable('clang-tidy-7')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
+  let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
 elseif executable('clang-tidy-6.0')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
+  let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
 endif
 " only search for linters on startup
 let g:ale_cache_executable_check_failures = 1
@@ -62,9 +62,9 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_delay = 1000
 " clang and g++ get includes wrong, so the linters are specified here
 let g:ale_linters = {
-            \   'cpp': ['clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
-            \   'c': ['clangcheck', 'clangtidy', 'flawfinder'],
-            \}
+      \   'cpp': ['clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
+      \   'c': ['clangcheck', 'clangtidy', 'flawfinder'],
+      \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
@@ -113,14 +113,14 @@ let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nons
 let g:Tex_GotoError = 0
 let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
 function! SyncTexForward()
-    let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
-    exec execstr
-    redraw!
+  let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
+  exec execstr
+  redraw!
 endfunction
 nmap <Leader>f :call SyncTexForward()<CR>
 
 if has("nvim")
-    let g:vimtex_latexmk_progname = 'nvr'
+  let g:vimtex_latexmk_progname = 'nvr'
 endif
 
 Plugin 'avakhov/vim-yaml'
@@ -160,7 +160,6 @@ filetype plugin indent on    " required
 set wrap
 set number
 set cc=80
-set ts=4 sts=4 sw=4 expandtab
 set encoding=utf-8
 set mouse=a
 set noswapfile
@@ -188,11 +187,11 @@ colorscheme default
 
 " Remove trailing whitespace for all but specified filetypes
 fun! RemoveTrailingWhitespace()
-    " Don't strip on these filetypes
-    if &ft =~ 'ruby\|perl'
-        return
-    endif
-    %s/\s\+$//e
+  " Don't strip on these filetypes
+  if &ft =~ 'ruby\|perl'
+    return
+  endif
+  %s/\s\+$//e
 endfun
 
 autocmd BufWritePre * call RemoveTrailingWhitespace()
@@ -203,7 +202,6 @@ match ExtraWhitespace /\s\+$\| \+\ze\t/
 " Set neomake errormsg sign
 let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
 let g:neomake_highlight_columns=0
-
 
 " Reorder tabs on window resize
 autocmd VimResized * wincmd =
@@ -221,14 +219,16 @@ nmap <F3> g<C-]>
 filetype plugin indent on
 syntax on
 
-" Set Tab indentation rules for specified filetypes
-" PEP8 python indentation
+" Set Tab indentation rules
+set ts=2 sts=2 sw=2 expandtab
+map <leader>1 :set ts=1 sts=1 sw=1 expandtab <CR>
+map <leader>2 :set ts=2 sts=2 sw=2 expandtab <CR>
+map <leader>4 :set ts=4 sts=4 sw=4 expandtab <CR>
+map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
+
+" Set rules for specified filetypes
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
 
-autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
-autocmd FileType cpp,objc,java,ts,js setlocal cindent ts=2 sts=2 sw=2 expandtab
 autocmd FileType c setlocal cindent ts=8 sts=8 sw=8 expandtab
 autocmd FileType c,cpp,objc,java,ts,js,pb ClangFormatAutoEnable
