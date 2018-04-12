@@ -40,7 +40,6 @@ let g:ycm_seed_identifiers_with_syntax = 1
 map <leader>g :YcmCompleter GoTo<CR>
 
 Plugin 'rhysd/vim-clang-format'
-let g:clang_format#code_style = 'google'
 if executable('clang-format-7')
   let g:clang_format#command = 'clang-format-7'
 elseif executable('clang-format-6.0')
@@ -228,7 +227,9 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 
 " Set rules for specified filetypes
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
-
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
 autocmd FileType c setlocal cindent ts=8 sts=8 sw=8 expandtab
-autocmd FileType c,cpp,objc,java,ts,js,pb ClangFormatAutoEnable
+autocmd FileType c,cpp,objc,ts,js,pb ClangFormatAutoEnable
+autocmd FileType c,cpp,objc,ts,js,pb let g:clang_format#code_style = 'google'
+autocmd FileType java setlocal ts=4 sts=4 sw=4
+autocmd FileType json setlocal ts=4 sts=4 sw=4
