@@ -175,8 +175,6 @@ set autoread
 
 " Color scheme settings, including color of extra whitespaces
 
-" Set colors of neomake messages
-autocmd ColorScheme * highlight NeomakeErrorMsg ctermfg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
 autocmd ColorScheme * highlight DiffAdd    cterm=bold ctermfg=2 ctermbg=27
 autocmd ColorScheme * highlight DiffDelete cterm=bold ctermfg=2 ctermbg=27
@@ -197,10 +195,6 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-" Set neomake errormsg sign
-let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
-let g:neomake_highlight_columns=0
 
 " Reorder tabs on window resize
 autocmd VimResized * wincmd =
