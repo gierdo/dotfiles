@@ -220,6 +220,8 @@ map <leader>4 :set ts=4 sts=4 sw=4 expandtab <CR>
 map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 
 " Set rules for specified filetypes
+au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
+autocmd FileType cmake setlocal commentstring=#\ %s
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
 autocmd FileType c setlocal cindent ts=8 sts=8 sw=8 expandtab
