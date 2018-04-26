@@ -14,6 +14,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'guns/xterm-color-table.vim'
+
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 
@@ -78,6 +80,16 @@ Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme='atomic'
 let g:airline_powerline_fonts = 1
 
+Plugin 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_exclude_filetypes = ['nerdtree']
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=237  ctermbg=237
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=235 ctermbg=235
+
+
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
@@ -92,8 +104,6 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-" open nerdtree if no file was specified
-autocmd StdinReadPre * let s:std_in=1
 " toggle nerdtree with ctrl-n
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
@@ -134,6 +144,8 @@ autocmd BufNewFile,BufFilePre,BufRead *.tsx set filetype=typescript
 Plugin 'idanarye/vim-vebugger'
 
 Plugin 'vim-scripts/indentpython.vim'
+
+Plugin 'ekalinin/Dockerfile.vim'
 
 Plugin 'fatih/vim-go'
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
@@ -204,6 +216,22 @@ set clipboard=unnamedplus
 
 " Tag Navigation, relying on ctags
 nmap <F3> g<C-]>
+
+" Nerdtree magic
+autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
+autocmd BufWinEnter * call PreventBuffersInNERDTree()
+
+function! PreventBuffersInNERDTree()
+  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
+        \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
+        \ && &buftype == ''
+    let bufnum = bufnr('%')
+    close
+    exe 'b ' . bufnum
+    exe 'NERDTreeTabsOpen'
+    exe 'NERDTreeFocusToggle'
+  endif
+endfunction
 
 " Open Quickfix window at the bottom
 :autocmd FileType qf wincmd J
