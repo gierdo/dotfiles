@@ -188,10 +188,11 @@ set autoread
 " Color scheme settings, including color of extra whitespaces
 
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
-autocmd ColorScheme * highlight DiffAdd    cterm=bold ctermfg=2 ctermbg=27
-autocmd ColorScheme * highlight DiffDelete cterm=bold ctermfg=2 ctermbg=27
-autocmd ColorScheme * highlight DiffChange cterm=bold ctermfg=2 ctermbg=27
-autocmd ColorScheme * highlight DiffText   cterm=bold ctermfg=2 ctermbg=88
+autocmd ColorScheme * highlight DiffAdd     cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffDelete  cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffChange  cterm=bold ctermfg=2 ctermbg=27
+autocmd ColorScheme * highlight DiffText    cterm=bold ctermfg=2 ctermbg=88
+autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
 colorscheme default
 
 " Remove trailing whitespace for all but specified filetypes
