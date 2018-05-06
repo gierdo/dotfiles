@@ -20,7 +20,6 @@
 [profiles]
   [[default]]
     background_color = "#002b36"
-    background_image = None
     cursor_color = "#d3d0c8"
     custom_command = TERM=xterm-256color /usr/bin/zsh
     font = Droid Sans Mono for Powerline 10
