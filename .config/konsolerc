@@ -1,0 +1,20 @@
+[Desktop Entry]
+DefaultProfile=tmux.profile
+
+[Favorite Profiles]
+Favorites=tmux.profile
+
+[MainWindow]
+Height 1200=644
+Height 1500=563
+Height 900=838
+State=AAAA/wAAAAD9AAAAAAAABkAAAAMoAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1600=795
+Width 2133=1413
+Width 2667=747
+Window-Maximized 1800x3200=true
+Window-Maximized 900x1600=true
+
+[Notification Messages]
+CloseAllEmptyTabs=true
