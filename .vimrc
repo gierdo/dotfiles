@@ -193,7 +193,7 @@ autocmd ColorScheme * highlight DiffDelete  cterm=bold ctermfg=2 ctermbg=27
 autocmd ColorScheme * highlight DiffChange  cterm=bold ctermfg=2 ctermbg=27
 autocmd ColorScheme * highlight DiffText    cterm=bold ctermfg=2 ctermbg=88
 autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
-colorscheme default
+colorscheme industry
 
 " Remove trailing whitespace for all but specified filetypes
 fun! RemoveTrailingWhitespace()
