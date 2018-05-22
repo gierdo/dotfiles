@@ -20,19 +20,21 @@ Plugin 'guns/xterm-color-table.vim'
 Plugin 'L9'
 
 " YouCompleteMe has to be installed after the first run of PluginInstall:
-" ~/.vim/bundle/YouCompleteMe/install.sh --clang-completer
+" python ~/.vim/bundle/YouCompleteMe/install.py --all
 Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_auto_trigger = 1
+let g:ycm_semantic_triggers = { 'c': [ 're!\w{2}' ] }
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_extra_conf_globlist = ['./*','~/.dotfiles/*','!~/*']
-let g:ycm_auto_trigger = 1
 let g:ycm_filetype_whitelist = { '*': 1 }
 let g:ycm_confirm_extra_conf = 1
 let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_max_num_candidates = 60
 let g:ycm_max_num_identifier_candidates = 20
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>>'
@@ -63,7 +65,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_delay = 1000
 " clang and g++ get includes wrong, so the linters are specified here
 let g:ale_linters = {
-      \   'cpp': ['clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
+      \   'cpp': ['clangcheck', 'clangtidy', 'cpplint', 'flawfinder'],
       \   'c': ['clangcheck', 'clangtidy', 'flawfinder'],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -88,7 +90,6 @@ let g:indent_guides_auto_colors = 0
 let g:indent_guides_exclude_filetypes = ['nerdtree']
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=237
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=235
-
 
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
@@ -251,6 +252,7 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 " Set rules for specified filetypes
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 autocmd FileType cmake setlocal commentstring=#\ %s
+autocmd FileType debsources setlocal commentstring=#\ %s
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
 autocmd FileType c setlocal cindent expandtab
