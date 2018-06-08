@@ -70,7 +70,7 @@ let g:ale_cache_executable_check_failures = 1
 let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
 let g:airline#extensions#ale#enabled = 1
 " save some battery
-let g:ale_lint_delay = 1000
+let g:ale_lint_delay = 500
 " clang and g++ get includes wrong, so the linters are specified here
 let g:ale_linters = {
       \   'cpp': ['clangcheck', 'clangtidy', 'cpplint', 'flawfinder'],
