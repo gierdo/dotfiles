@@ -70,7 +70,7 @@ let g:ale_cache_executable_check_failures = 1
 let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
 let g:airline#extensions#ale#enabled = 1
 " save some battery
-let g:ale_lint_delay = 500
+let g:ale_lint_delay = 1000
 " clang and g++ get includes wrong, so the linters are specified here
 let g:ale_linters = {
       \   'cpp': ['clangcheck', 'clangtidy', 'cpplint', 'flawfinder'],
@@ -113,7 +113,6 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-" toggle nerdtree with ctrl-n
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
@@ -143,14 +142,12 @@ endif
 
 Plugin 'avakhov/vim-yaml'
 
-Plugin 'rust-lang/rust.vim'
+Plugin 'elzr/vim-json'
 
 Plugin 'pangloss/vim-javascript.git'
-Plugin 'elzr/vim-json'
+
 Plugin 'leafgarland/typescript-vim.git'
 autocmd BufNewFile,BufFilePre,BufRead *.tsx set filetype=typescript
-
-Plugin 'idanarye/vim-vebugger'
 
 Plugin 'vim-scripts/indentpython.vim'
 
