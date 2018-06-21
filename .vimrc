@@ -73,8 +73,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_delay = 1000
 " clang and g++ get includes wrong, so the linters are specified here
 let g:ale_linters = {
-      \   'cpp': ['clangcheck', 'clangtidy', 'cpplint', 'flawfinder'],
-      \   'c': ['clangcheck', 'clangtidy', 'flawfinder'],
+      \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
+      \   'c': ['clangtidy', 'flawfinder'],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
