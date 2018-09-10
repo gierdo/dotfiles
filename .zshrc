@@ -69,6 +69,8 @@ plugins=(
   golang
   ng
   sudo
+  helm
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
