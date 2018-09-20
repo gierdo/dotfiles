@@ -77,6 +77,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# ZSH's glob matching messes with setting list-options in helm
+# e.g. --set ingress.hosts[0]=flerb.bar
+setopt +o nomatch
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
