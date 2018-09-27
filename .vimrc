@@ -156,6 +156,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
+let g:go_version_warning = 0
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
