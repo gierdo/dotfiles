@@ -29,7 +29,17 @@ let g:ycm_semantic_triggers = { 'c': [ 're!\w{2}' ] }
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_extra_conf_globlist = ['./*','~/.dotfiles/*','!~/*']
-let g:ycm_filetype_whitelist = { '*': 1 }
+let g:ycm_filetype_whitelist = {
+      \'c': 1,
+      \'cpp': 1,
+      \'python': 1,
+      \'objc': 1,
+      \'ts': 1,
+      \'js': 1,
+      \'go': 1,
+      \'rust': 1,
+      \'java': 1
+      \}
 let g:ycm_confirm_extra_conf = 1
 let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_max_num_candidates = 60
