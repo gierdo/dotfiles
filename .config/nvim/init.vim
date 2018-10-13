@@ -1,27 +1,22 @@
-" This vim setup uses vundle for vim plugin management.
-" Vundle installation:
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" Load vim-plug
+if has('nvim')
+  if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
+    execute '!curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  endif
+else
+  if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  endif
+endif
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" initialize plug
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'guns/xterm-color-table.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'vim-scripts/L9'
 
-Plugin 'guns/xterm-color-table.vim'
-
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-
-" YouCompleteMe has to be installed after the first run of PluginInstall:
-" python ~/.vim/bundle/YouCompleteMe/install.py --all
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --go-completer --rust-completer --java-completer'}
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
 " let g:ycm_auto_trigger = 1
@@ -55,20 +50,20 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 map <leader>g :YcmCompleter GoTo<CR>
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger = "<C-l>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-Plugin 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format'
 if executable('clang-format-7')
   let g:clang_format#command = 'clang-format-7'
 elseif executable('clang-format-6.0')
   let g:clang_format#command = 'clang-format-6.0'
 endif
 
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 if executable('clang-tidy-7')
   let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
 elseif executable('clang-tidy-6.0')
@@ -89,18 +84,18 @@ let g:ale_linters = {
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
-Plugin 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " The airline setup uses the powerline fonts, installed from here:
 " https://github.com/powerline/fonts
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='atomic'
 let g:airline_powerline_fonts = 1
 
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -109,27 +104,25 @@ let g:indent_guides_exclude_filetypes = ['nerdtree']
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=237
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=235
 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Plugin 'mileszs/ack.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+Plug 'mileszs/ack.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'godlygeek/tabular'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'Shougo/vimproc.vim'
+Plug 'tpope/vim-commentary'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup = 1
+" let g:nerdtree_tabs_open_on_console_startup = 1
 
-" Language or filetype specific plugins:
 
-Plugin 'vim-latex/vim-latex'
-
+Plug 'vim-latex/vim-latex'
 au BufEnter *.tex set autowrite
 let g:Tex_FoldedSections=""
 let g:Tex_FoldedEnvironments=""
@@ -150,41 +143,33 @@ if has("nvim")
   let g:vimtex_latexmk_progname = 'nvr'
 endif
 
-Plugin 'avakhov/vim-yaml'
+Plug 'avakhov/vim-yaml'
 
-Plugin 'elzr/vim-json'
+Plug 'elzr/vim-json'
 
-Plugin 'pangloss/vim-javascript.git'
+Plug 'vim-scripts/indentpython.vim'
 
-Plugin 'leafgarland/typescript-vim.git'
-autocmd BufNewFile,BufFilePre,BufRead *.tsx set filetype=typescript
+Plug 'ekalinin/Dockerfile.vim'
 
-Plugin 'vim-scripts/indentpython.vim'
-
-Plugin 'ekalinin/Dockerfile.vim'
-
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_version_warning = 0
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+" Put your non-Plug stuff after this line
+call plug#end()
 " Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PlugInstall [name ...] [#threads]	Install plugins
+" :PlugUpdate [name ...] [#threads]	Install or update plugins
+" :PlugClean[!]	Remove unused directories (bang version will clean without prompt)
+" :PlugUpgrade	Upgrade vim-plug itself
+" :PlugStatus	Check the status of plugins
+" :PlugDiff	Examine changes from the previous update and the pending changes
+" :PlugSnapshot[!] [output path]	Generate script for restoring the current snapshot of the plugins
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 " Basic Behaviour
+syntax on
 set wrap
 set number
 set cc=80
@@ -254,9 +239,6 @@ endfunction
 " Open Quickfix window at the bottom
 :autocmd FileType qf wincmd J
 
-" Auto filetype settings
-filetype plugin indent on
-syntax on
 
 " Set Tab indentation rules
 set ts=2 sts=2 sw=2 expandtab
