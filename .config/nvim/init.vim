@@ -63,26 +63,28 @@ elseif executable('clang-format-6.0')
   let g:clang_format#command = 'clang-format-6.0'
 endif
 
-Plug 'w0rp/ale'
-if executable('clang-tidy-7')
-  let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
-elseif executable('clang-tidy-6.0')
-  let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
+if has('nvim')
+  Plug 'w0rp/ale'
+  if executable('clang-tidy-7')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
+  elseif executable('clang-tidy-6.0')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
+  endif
+  " only search for linters on startup
+  let g:ale_cache_executable_check_failures = 1
+  " disable fuchsia checker, annoying as hell
+  let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
+  let g:airline#extensions#ale#enabled = 1
+  " save some battery
+  let g:ale_lint_delay = 1000
+  " clang and g++ get includes wrong, so the linters are specified here
+  let g:ale_linters = {
+        \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
+        \   'c': ['clangtidy', 'flawfinder'],
+        \}
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
 endif
-" only search for linters on startup
-let g:ale_cache_executable_check_failures = 1
-" disable fuchsia checker, annoying as hell
-let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
-let g:airline#extensions#ale#enabled = 1
-" save some battery
-let g:ale_lint_delay = 1000
-" clang and g++ get includes wrong, so the linters are specified here
-let g:ale_linters = {
-      \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
-      \   'c': ['clangtidy', 'flawfinder'],
-      \}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 Plug 'tpope/vim-surround'
 
