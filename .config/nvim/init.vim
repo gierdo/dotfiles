@@ -79,6 +79,8 @@ if has('nvim')
   Plug 'ncm2/ncm2-bufword'
   Plug 'ncm2/ncm2-tmux'
   Plug 'ncm2/ncm2-path'
+  Plug 'ncm2/ncm2-ultisnips'
+  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
   set shortmess+=c
 endif
 
@@ -88,9 +90,9 @@ Plug 'vim-scripts/L9'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger = "<C-l>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 Plug 'rhysd/vim-clang-format'
 if executable('clang-format-7')
