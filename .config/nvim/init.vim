@@ -12,43 +12,79 @@ endif
 " initialize plug
 call plug#begin('~/.vim/plugged')
 
+" START LSP-COMPLETION RELATED STUFF
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+map <leader>g :LspDefinition<CR>
+
+if executable('clangd-7')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd-7']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+  endif
+
+if executable('docker-langserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'docker-langserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+        \ 'whitelist': ['dockerfile'],
+        \ })
+endif
+
+if executable('pyls')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
+
+if executable('flow-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'flow-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx'],
+        \ })
+endif
+
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript'],
+        \ })
+endif
+" STOP LSP-COMPLETION RELATED STUFF
+
+if has('nvim')
+  Plug 'ncm2/ncm2'
+  Plug 'roxma/nvim-yarp'
+
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+
+  " IMPORTANTE: :help Ncm2PopupOpen for more information
+  set completeopt=noinsert,menuone,noselect
+
+  " NOTE: you need to install completion sources to get completions. Check
+  " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+  Plug 'ncm2/ncm2-vim-lsp'
+  Plug 'ncm2/ncm2-bufword'
+  Plug 'ncm2/ncm2-tmux'
+  Plug 'ncm2/ncm2-path'
+  set shortmess+=c
+endif
+
 Plug 'guns/xterm-color-table.vim'
 
 Plug 'vim-scripts/L9'
-
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --go-completer --rust-completer --java-completer'}
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_auto_trigger = 1
-let g:ycm_semantic_triggers = { 'c': [ 're!\w{2}' ] }
-let g:ycm_global_ycm_extra_conf = '~/.dotfiles/.ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_extra_conf_globlist = ['./*','~/.dotfiles/*','!~/*']
-let g:ycm_filetype_whitelist = {
-      \'c': 1,
-      \'cpp': 1,
-      \'python': 1,
-      \'objc': 1,
-      \'ts': 1,
-      \'js': 1,
-      \'go': 1,
-      \'rust': 1,
-      \'java': 1
-      \}
-let g:ycm_confirm_extra_conf = 1
-let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_max_num_candidates = 60
-let g:ycm_max_num_identifier_candidates = 20
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>>'
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-map <leader>g :YcmCompleter GoTo<CR>
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -121,7 +157,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
-" let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 1
 
 
 Plug 'vim-latex/vim-latex'
@@ -150,8 +186,6 @@ Plug 'avakhov/vim-yaml'
 Plug 'elzr/vim-json'
 
 Plug 'vim-scripts/indentpython.vim'
-
-Plug 'ekalinin/Dockerfile.vim'
 
 Plug 'fatih/vim-go'
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
@@ -240,7 +274,6 @@ endfunction
 
 " Open Quickfix window at the bottom
 :autocmd FileType qf wincmd J
-
 
 " Set Tab indentation rules
 set ts=2 sts=2 sw=2 expandtab
