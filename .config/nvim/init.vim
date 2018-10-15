@@ -128,8 +128,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" The airline setup uses the powerline fonts, installed from here:
-" https://github.com/powerline/fonts
+" The airline setup uses the powerline fonts, installed and configured as
+" terminal font from this repo's submodule at ./powerline-fonts
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='atomic'
