@@ -20,12 +20,12 @@ let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal 
 map <leader>g :LspDefinition<CR>
 
 if executable('clangd-7')
-    au User lsp_setup call lsp#register_server({
+  au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd-7']},
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ })
-  endif
+endif
 
 if executable('docker-langserver')
   au User lsp_setup call lsp#register_server({
