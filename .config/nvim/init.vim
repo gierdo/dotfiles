@@ -80,7 +80,10 @@ if has('nvim')
   Plug 'ncm2/ncm2-tmux'
   Plug 'ncm2/ncm2-path'
   Plug 'ncm2/ncm2-ultisnips'
-  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+  " Use <TAB> to select the popup menu:
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   set shortmess+=c
 endif
 
