@@ -64,14 +64,8 @@ endif
 " STOP LSP-COMPLETION RELATED STUFF
 
 if has('nvim')
-  Plug 'ncm2/ncm2'
   Plug 'roxma/nvim-yarp'
-
-  " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-
-  " IMPORTANTE: :help Ncm2PopupOpen for more information
-  set completeopt=noinsert,menuone,noselect
+  Plug 'ncm2/ncm2', { 'do': ':UpdateRemotePlugins' }
 
   " NOTE: you need to install completion sources to get completions. Check
   " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
@@ -81,11 +75,13 @@ if has('nvim')
   Plug 'ncm2/ncm2-path'
   Plug 'ncm2/ncm2-ultisnips'
 
-  " Use <TAB> to select the popup menu:
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  set completeopt=noinsert,menuone,noselect
   set shortmess+=c
 endif
+
+Plug 'ervandew/supertab'
 
 Plug 'guns/xterm-color-table.vim'
 
@@ -151,7 +147,10 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
+
 Plug 'kien/ctrlp.vim'
+let g:ctrlp_map = '<A-p>'
+
 Plug 'godlygeek/tabular'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'Shougo/vimproc.vim'
@@ -165,7 +164,7 @@ map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 
-Plug 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex', { 'for': 'latex' }
 au BufEnter *.tex set autowrite
 let g:Tex_FoldedSections=""
 let g:Tex_FoldedEnvironments=""
