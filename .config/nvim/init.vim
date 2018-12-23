@@ -19,6 +19,7 @@ let g:lsp_signs_enabled = 1         " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 map <leader>g :LspDefinition<CR>
 
+" sudo apt-get install clang-tools-7
 if executable('clangd-7')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
@@ -27,6 +28,7 @@ if executable('clangd-7')
         \ })
 endif
 
+" npm install -g dockerfile-language-server-nodejs
 if executable('docker-langserver')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'docker-langserver',
@@ -35,6 +37,7 @@ if executable('docker-langserver')
         \ })
 endif
 
+" pip install python-language-server
 if executable('pyls')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
@@ -44,6 +47,7 @@ if executable('pyls')
         \ })
 endif
 
+" npm install -g flow-language-server
 if executable('flow-language-server')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'flow-language-server',
@@ -53,6 +57,7 @@ if executable('flow-language-server')
         \ })
 endif
 
+" npm install -g typescript typescript-language-server
 if executable('typescript-language-server')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
@@ -61,6 +66,24 @@ if executable('typescript-language-server')
         \ 'whitelist': ['typescript'],
         \ })
 endif
+
+" go get -u github.com/sourcegraph/go-langserver
+if executable('go-langserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
+
+if executable('go-langserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
+
 " STOP LSP-COMPLETION RELATED STUFF
 
 if has('nvim')
