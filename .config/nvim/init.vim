@@ -26,6 +26,12 @@ if executable('clangd-7')
         \ 'cmd': {server_info->['clangd-7']},
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ })
+elseif executable('clangd-6')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd-6']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
 endif
 
 " npm install -g dockerfile-language-server-nodejs
