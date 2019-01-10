@@ -82,14 +82,6 @@ if executable('go-langserver')
         \ })
 endif
 
-if executable('go-langserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-        \ 'whitelist': ['go'],
-        \ })
-endif
-
 " STOP LSP-COMPLETION RELATED STUFF
 
 if has('nvim')
