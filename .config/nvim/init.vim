@@ -185,7 +185,7 @@ map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 
-Plug 'vim-latex/vim-latex', { 'for': 'latex' }
+Plug 'vim-latex/vim-latex'
 au BufEnter *.tex set autowrite
 let g:Tex_FoldedSections=""
 let g:Tex_FoldedEnvironments=""
@@ -194,9 +194,9 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $* && bibtex'
 let g:Tex_GotoError = 0
-let g:Tex_ViewRule_pdf = 'okular --unique 2>/dev/null'
+let g:Tex_ViewRule_pdf = 'zathura 2>/dev/null'
 function! SyncTexForward()
-  let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p 2>/dev/null &"
+  let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
   exec execstr
   redraw!
 endfunction
