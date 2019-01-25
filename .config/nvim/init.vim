@@ -169,11 +169,11 @@ nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
 
-Plug 'kien/ctrlp.vim'
-let g:ctrlp_map = '<A-p>'
+Plug 'wincent/command-t', {
+      \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
+      \ }
 
 Plug 'godlygeek/tabular'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
