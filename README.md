@@ -17,9 +17,8 @@ free to copy, suggest, do whatever you like with it.
 
 The core setup of my system also consists the following tools/files/fonts etc., this list is most likely not complete:
 
-* vim
-* vundle
+* neovim
+* plug
 * zsh
-* terminator
 * https://github.com/powerline/fonts.git
 * ctags
