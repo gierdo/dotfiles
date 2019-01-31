@@ -100,6 +100,7 @@ if has('nvim')
   autocmd BufEnter * call ncm2#enable_for_buffer()
   set completeopt=noinsert,menuone,noselect
   set shortmess+=c
+  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 endif
 
 Plug 'ervandew/supertab'
