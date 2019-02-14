@@ -12,96 +12,23 @@ endif
 " initialize plug
 call plug#begin('~/.vim/plugged')
 
+function SetupCoc()
+  call coc#util#install()
+  execute 'CocInstall coc-java'
+  execute 'CocInstall coc-css coc-json coc-html'
+  execute 'CocInstall coc-snippets'
+  execute 'CocInstall coc-yaml'
+  execute 'CocInstall coc-pyls'
+  execute 'CocInstall coc-tsserver'
+endfunction
+
 " START LSP-COMPLETION RELATED STUFF
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-map <leader>g :LspDefinition<CR>
-
-" sudo apt-get install clang-tools-7
-if executable('clangd-7')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd-7']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-elseif executable('clangd-6')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd-6']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-endif
-
-" npm install -g dockerfile-language-server-nodejs
-if executable('docker-langserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'docker-langserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
-        \ 'whitelist': ['dockerfile'],
-        \ })
-endif
-
-" pip install python-language-server
-if executable('pyls')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-        \ })
-endif
-
-" npm install -g flow-language-server
-if executable('flow-language-server')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'flow-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'flow-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx'],
-        \ })
-endif
-
-" npm install -g typescript typescript-language-server
-if executable('typescript-language-server')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript'],
-        \ })
-endif
-
-" go get -u github.com/sourcegraph/go-langserver
-if executable('go-langserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-        \ 'whitelist': ['go'],
-        \ })
-endif
+Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
+" " npm install -g dockerfile-language-server-nodejs
+" " pip install python-language-server
+" " go get -u github.com/sourcegraph/go-langserver
 
 " STOP LSP-COMPLETION RELATED STUFF
-
-if has('nvim')
-  Plug 'roxma/nvim-yarp'
-  Plug 'ncm2/ncm2', { 'do': ':UpdateRemotePlugins' }
-
-  " NOTE: you need to install completion sources to get completions. Check
-  " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
-  Plug 'ncm2/ncm2-vim-lsp'
-  Plug 'ncm2/ncm2-bufword'
-  Plug 'ncm2/ncm2-tmux'
-  Plug 'ncm2/ncm2-path'
-  Plug 'ncm2/ncm2-ultisnips'
-
-  " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  set completeopt=noinsert,menuone,noselect
-  set shortmess+=c
-  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-endif
 
 Plug 'ervandew/supertab'
 
@@ -109,11 +36,7 @@ Plug 'guns/xterm-color-table.vim'
 
 Plug 'vim-scripts/L9'
 
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
 
 Plug 'rhysd/vim-clang-format'
 if executable('clang-format-7')
