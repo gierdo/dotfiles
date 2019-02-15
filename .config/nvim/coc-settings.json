@@ -19,5 +19,8 @@
             "filetypes": ["dockerfile"],
             "args": ["--stdio"]
         }
-    }
+    },
+    "java.import.gradle.enabled": true,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.format.enabled": true
 }
