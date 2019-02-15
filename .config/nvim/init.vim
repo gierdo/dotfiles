@@ -82,9 +82,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -201,7 +198,6 @@ Plug 'wincent/command-t', {
       \ }
 
 Plug 'godlygeek/tabular'
-Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -246,6 +242,9 @@ Plug 'fatih/vim-go'
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_version_warning = 0
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'idanarye/vim-vebugger'
 
 " Put your non-Plug stuff after this line
 call plug#end()
