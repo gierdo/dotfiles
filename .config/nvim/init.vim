@@ -164,6 +164,8 @@ if has('nvim')
         \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
         \   'c': ['clangtidy', 'flawfinder'],
         \}
+  let g:ale_linters_explicit = 1
+
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
 endif
