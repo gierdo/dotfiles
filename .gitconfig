@@ -20,3 +20,6 @@
 	required = true
 [color]
 	ui = auto
+[user]
+	email = dominik.gierlach@gmail.com
+	name = Dominikus Gierlach
