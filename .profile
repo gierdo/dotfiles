@@ -34,5 +34,5 @@ PATH=$PATH:~/go/bin
 export GOPATH=~/go
 
 export ANDROID_HOME=~/.android-sdks
-export JAVA_HOME=$(dirname $(dirname $(readlink -f  /usr/bin/javac)))
+export JAVA_HOME=$(dirname $(dirname $(readlink /usr/bin/javac)))
 
