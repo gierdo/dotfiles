@@ -16,10 +16,6 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
-if [ -f "$HOME/.profile.local" ]; then
-  . "$HOME/.profile.local"
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
@@ -34,9 +30,16 @@ PATH=$PATH:~/go/bin
 export GOPATH=~/go
 
 export ANDROID_HOME=~/.android-sdks
-export JAVA_HOME=$(dirname $(dirname $(readlink /usr/bin/javac)))
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias pbcopy='xclip -i -f -selection primary | xclip -i -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
+
+  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
+else
+  export JAVA_HOME="$(/usr/libexec/java_home)"
+fi
+
+if [ -f "$HOME/.profile.local" ]; then
+  . "$HOME/.profile.local"
 fi
