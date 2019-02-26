@@ -36,3 +36,7 @@ export GOPATH=~/go
 export ANDROID_HOME=~/.android-sdks
 export JAVA_HOME=$(dirname $(dirname $(readlink /usr/bin/javac)))
 
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias pbcopy='xclip -i -f -selection primary | xclip -i -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
