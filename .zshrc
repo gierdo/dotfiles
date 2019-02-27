@@ -73,6 +73,7 @@ plugins=(
   sudo
   helm
   kubectl
+  fancy-ctrl-z
 )
 
 source $ZSH/oh-my-zsh.sh
