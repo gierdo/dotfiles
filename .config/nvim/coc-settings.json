@@ -1,4 +1,14 @@
 {
+    "java.import.gradle.enabled": true,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
+    "java.format.settings.profile": "Default",
+    "java.format.enabled": true,
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "yaml.validate": false,
+    "yaml.schemas": {
+        "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*"
+    },
     "languageserver": {
         "clangd": {
             "command": "clangd",
@@ -19,11 +29,5 @@
             "filetypes": ["dockerfile"],
             "args": ["--stdio"]
         }
-    },
-    "java.import.gradle.enabled": true,
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
-    "java.format.settings.profile": "Default",
-    "java.format.enabled": true,
-    "java.errors.incompleteClasspath.severity": "ignore"
+    }
 }
