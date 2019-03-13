@@ -235,6 +235,10 @@ Plug 'avakhov/vim-yaml'
 
 Plug 'elzr/vim-json'
 
+Plug 'vim-scripts/Tabmerge'
+
+Plug 'mkitt/tabline.vim'
+
 Plug 'vim-scripts/indentpython.vim'
 
 Plug 'vim-scripts/groovy.vim'

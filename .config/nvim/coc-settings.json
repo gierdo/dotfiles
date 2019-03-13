@@ -24,5 +24,6 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
     "java.format.settings.profile": "Default",
-    "java.format.enabled": true
+    "java.format.enabled": true,
+    "java.errors.incompleteClasspath.severity": "ignore"
 }
