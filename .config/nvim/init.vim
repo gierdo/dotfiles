@@ -24,11 +24,13 @@ endfunction
 
 " START LSP-COMPLETION RELATED STUFF
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
-" " npm install -g yarn
-" " npm install -g dockerfile-language-server-nodejs
-" " pip install python-language-server
-" " go get -u github.com/sourcegraph/go-langserver
-" " go get -u github.com/awslabs/goformation
+" Make sure to install the following dependencies:
+"
+" npm install -g yarn
+" npm install -g dockerfile-language-server-nodejs
+" pip install python-language-server
+" go get -u github.com/sourcegraph/go-langserver
+" go get -u github.com/awslabs/goformation
 
 " if hidden not set, TextEdit might fail.
 set hidden
@@ -130,6 +132,14 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Use <C-l> to trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> to select text for visual text of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> to jump to forward placeholder, which is default
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> to jump to backward placeholder, which is default
+let g:coc_snippet_prev = '<c-k>'
 
 " STOP LSP-COMPLETION RELATED STUFF
 
@@ -210,7 +220,6 @@ Plug 'jistr/vim-nerdtree-tabs'
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
-
 Plug 'vim-latex/vim-latex'
 au BufEnter *.tex set autowrite
 let g:Tex_FoldedSections=""
@@ -220,17 +229,17 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $* && bibtex'
 let g:Tex_GotoError = 0
-let g:Tex_ViewRule_pdf = 'zathura 2>/dev/null'
-function! SyncTexForward()
-  let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
-  exec execstr
-  redraw!
-endfunction
-nmap <Leader>f :call SyncTexForward()<CR>
-
+let g:Tex_ViewRule_pdf = 'evince 2>/dev/null'
 if has("nvim")
   let g:vimtex_latexmk_progname = 'nvr'
 endif
+
+Plug 'peder2tm/sved'
+function! SyncTexForward()
+  call SVED_Sync()
+endfunction
+nmap <silent> <Leader>f :call SyncTexForward()<CR>
+
 
 Plug 'avakhov/vim-yaml'
 
