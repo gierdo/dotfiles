@@ -174,6 +174,7 @@ if has('nvim')
   let g:ale_linters = {
         \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
         \   'c': ['clangtidy', 'flawfinder'],
+        \   'tex': ['chktex'],
         \}
   let g:ale_linters_explicit = 1
 
