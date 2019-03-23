@@ -16,7 +16,7 @@ function SetupCoc()
   call coc#util#install()
   execute 'CocInstall coc-java'
   execute 'CocInstall coc-css coc-json coc-html'
-  execute 'CocInstall coc-snippets'
+  execute 'CocInstall coc-ultisnips coc-snippets'
   execute 'CocInstall coc-yaml'
   execute 'CocInstall coc-pyls'
   execute 'CocInstall coc-tsserver'
@@ -147,6 +147,7 @@ Plug 'guns/xterm-color-table.vim'
 
 Plug 'vim-scripts/L9'
 
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'rhysd/vim-clang-format'
