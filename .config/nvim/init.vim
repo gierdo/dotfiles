@@ -14,6 +14,14 @@ call plug#begin('~/.vim/plugged')
 
 function SetupCoc()
   call coc#util#install()
+  execute '! npm install -g yarn rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp'
+  execute '! npm install -g dockerfile-language-server-nodejs'
+  execute '! npm install -g typescript typescript-language-server'
+  execute '! npm install -g yaml-language-server'
+  execute '! npm install -g vscode-languageserver'
+  execute '! pip install python-language-server'
+  execute '! go get -u github.com/sourcegraph/go-langserver'
+  execute '! go get -u github.com/awslabs/goformation'
   execute 'CocInstall coc-java'
   execute 'CocInstall coc-css coc-json coc-html'
   execute 'CocInstall coc-ultisnips coc-snippets'
@@ -24,14 +32,6 @@ endfunction
 
 " START LSP-COMPLETION RELATED STUFF
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
-" Make sure to install the following dependencies:
-"
-" npm install -g yarn
-" npm install -g dockerfile-language-server-nodejs
-" npm install -g typescript-language-server
-" pip install python-language-server
-" go get -u github.com/sourcegraph/go-langserver
-" go get -u github.com/awslabs/goformation
 
 " if hidden not set, TextEdit might fail.
 set hidden
