@@ -28,6 +28,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 "
 " npm install -g yarn
 " npm install -g dockerfile-language-server-nodejs
+" npm install -g typescript-language-server
 " pip install python-language-server
 " go get -u github.com/sourcegraph/go-langserver
 " go get -u github.com/awslabs/goformation
