@@ -28,6 +28,7 @@ function SetupCoc()
   execute 'CocInstall coc-yaml'
   execute 'CocInstall coc-pyls'
   execute 'CocInstall coc-tsserver'
+  execute 'CocInstall coc-tag'
 endfunction
 
 " START LSP-COMPLETION RELATED STUFF
