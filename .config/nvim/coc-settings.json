@@ -29,5 +29,8 @@
             "filetypes": ["dockerfile"],
             "args": ["--stdio"]
         }
-    }
+    },
+    "coc.source.buffer.enable": true,
+    "coc.source.buffer.priority": 1,
+    "coc.source.buffer.filetypes": null
 }
