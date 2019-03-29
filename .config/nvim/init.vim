@@ -15,10 +15,7 @@ call plug#begin('~/.vim/plugged')
 function SetupCoc()
   call coc#util#install()
   execute '! npm install -g yarn rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp'
-  execute '! npm install -g dockerfile-language-server-nodejs'
-  execute '! npm install -g typescript typescript-language-server'
-  execute '! npm install -g yaml-language-server'
-  execute '! npm install -g vscode-languageserver'
+  execute '! npm install -g vscode-languageserver yaml-language-server typescript typescript-language-server dockerfile-language-server-nodejs'
   execute '! pip install python-language-server'
   execute '! go get -u github.com/sourcegraph/go-langserver'
   execute '! go get -u github.com/awslabs/goformation'
@@ -153,18 +150,18 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'rhysd/vim-clang-format'
-if executable('clang-format-7')
+if executable('clang-format-8')
+  let g:clang_format#command = 'clang-format-8'
+elseif executable('clang-format-7')
   let g:clang_format#command = 'clang-format-7'
-elseif executable('clang-format-6.0')
-  let g:clang_format#command = 'clang-format-6.0'
 endif
 
 if has('nvim')
   Plug 'w0rp/ale'
-  if executable('clang-tidy-7')
+  if executable('clang-tidy-8')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-8'
+  elseif executable('clang-tidy-7')
     let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
-  elseif executable('clang-tidy-6.0')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-6.0'
   endif
   " only search for linters on startup
   let g:ale_cache_executable_check_failures = 1
