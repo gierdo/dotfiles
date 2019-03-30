@@ -150,18 +150,18 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'rhysd/vim-clang-format'
-if executable('clang-format-8')
+if executable('clang-format-9')
+  let g:clang_format#command = 'clang-format-9'
+elseif executable('clang-format-8')
   let g:clang_format#command = 'clang-format-8'
-elseif executable('clang-format-7')
-  let g:clang_format#command = 'clang-format-7'
 endif
 
 if has('nvim')
   Plug 'w0rp/ale'
-  if executable('clang-tidy-8')
+  if executable('clang-tidy-9')
+    let g:ale_cpp_clangtidy_executable = 'clang-tidy-9'
+  elseif executable('clang-tidy-8')
     let g:ale_cpp_clangtidy_executable = 'clang-tidy-8'
-  elseif executable('clang-tidy-7')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-7'
   endif
   " only search for linters on startup
   let g:ale_cache_executable_check_failures = 1
