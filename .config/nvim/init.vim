@@ -176,15 +176,6 @@ if has('nvim')
         \   'tex': ['chktex'],
         \}
   let g:ale_linters_explicit = 1
-	let g:ale_enabled = 0
-  let g:ale_pattern_options = {
-\   '.*\.c$': {'ale_enabled': 1},
-\   '.*\.cpp$': {'ale_enabled': 1},
-\   '.*\.h$': {'ale_enabled': 1},
-\   '.*\.hpp$': {'ale_enabled': 1},
-\   '.*\.tex$': {'ale_enabled': 1},
-\   '.*\.bib$': {'ale_enabled': 1},
-\}
 
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
