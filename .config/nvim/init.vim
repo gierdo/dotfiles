@@ -262,6 +262,9 @@ let g:go_version_warning = 0
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
 
+" plantuml syntax highlighting and preview
+Plug 'aklt/plantuml-syntax'
+
 " Put your non-Plug stuff after this line
 call plug#end()
 " Brief help
@@ -367,6 +370,9 @@ autocmd FileType json setlocal ts=4 sts=4 sw=4
 
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
+
+set exrc
+set secure
 
 " helper function to toggle hex mode
 function ToggleHex()
