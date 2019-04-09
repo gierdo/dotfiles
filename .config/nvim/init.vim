@@ -357,6 +357,8 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 
 " Set rules for specified filetypes
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
+au BufRead * if search('\M-*- C++ -*-', 'n', 1) | setlocal filetype=cpp | endif
+
 autocmd FileType cmake setlocal commentstring=#\ %s
 autocmd FileType debsources setlocal commentstring=#\ %s
 autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab autoindent
