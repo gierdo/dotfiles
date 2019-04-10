@@ -170,12 +170,18 @@ if has('nvim')
   " save some battery
   let g:ale_lint_delay = 1000
   " clang and g++ get includes wrong, so the linters are specified here
+  let g:ale_linters_explicit = 1
   let g:ale_linters = {
         \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
         \   'c': ['clangtidy', 'flawfinder'],
         \   'tex': ['chktex'],
+        \   'python': ['flake8','pylint'],
         \}
-  let g:ale_linters_explicit = 1
+  let g:ale_fixers = {
+        \   'cpp': ['uncrustify'],
+        \   'c': ['uncrustify'],
+        \   'python': ['autopep8', 'yapf'],
+        \}
 
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
