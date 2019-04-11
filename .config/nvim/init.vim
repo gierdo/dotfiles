@@ -18,6 +18,8 @@ function SetupCoc()
   execute '! pip install python-language-server'
   execute '! go get -u github.com/sourcegraph/go-langserver'
   execute '! go get -u github.com/awslabs/goformation'
+  execute '! go get -u golang.org/x/lint/golint'
+  execute '! go get -u golang.org/x/tools/cmd/goimports'
   execute 'CocInstall coc-java'
   execute 'CocInstall coc-css coc-json coc-html'
   execute 'CocInstall coc-ultisnips coc-snippets'
@@ -169,6 +171,7 @@ if has('nvim')
         \   'c': ['clangtidy', 'flawfinder'],
         \   'tex': ['chktex'],
         \   'python': ['flake8','pylint'],
+        \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
         \}
 
   let g:ale_fix_on_save = 1
@@ -180,6 +183,7 @@ if has('nvim')
         \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
         \}
   let g:ale_c_clangformat_options = '-style=google'
 
@@ -256,11 +260,6 @@ Plug 'vim-scripts/indentpython.vim'
 
 Plug 'vim-scripts/groovy.vim'
 au BufNewFile,BufRead *.gradle setf groovy
-
-Plug 'fatih/vim-go'
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_metalinter_autosave = 1
-let g:go_version_warning = 0
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
