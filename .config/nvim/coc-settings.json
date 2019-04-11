@@ -27,8 +27,7 @@
       "filetypes": ["go"],
       "initializationOptions": {
         "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": true,
-        "lintTool": "golint"
+        "diagnosticsEnabled": false
       }
     },
     "dockerfile": {
