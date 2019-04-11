@@ -14,7 +14,7 @@ call plug#begin('~/.vim/plugged')
 
 function SetupCoc()
   call coc#util#install()
-  execute '! npm install -g yarn rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver'
+  execute '! npm install -g yarn rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server'
   execute '! pip install python-language-server'
   execute '! go get -u github.com/sourcegraph/go-langserver'
   execute '! go get -u github.com/awslabs/goformation'
@@ -179,6 +179,7 @@ if has('nvim')
         \   'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'],
         \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
         \}
   let g:ale_c_clangformat_options = '-style=google'
 
