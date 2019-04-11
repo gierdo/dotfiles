@@ -1,36 +1,43 @@
 {
-    "java.import.gradle.enabled": true,
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
-    "java.format.settings.profile": "Default",
-    "java.format.enabled": true,
-    "java.errors.incompleteClasspath.severity": "ignore",
-    "yaml.validate": false,
-    "yaml.schemas": {
-        "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*"
+  "java.import.gradle.enabled": true,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
+  "java.format.settings.profile": "Default",
+  "java.format.enabled": true,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "yaml.validate": false,
+  "yaml.schemas": {
+    "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*",
+    "kubernetes": "/*.yaml"
+  },
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
-    "languageserver": {
-        "clangd": {
-            "command": "clangd",
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["c", "cpp", "objc", "objcpp"]
-        },
-        "golang": {
-            "command": "go-langserver",
-            "filetypes": ["go"],
-            "initializationOptions": {
-                "gocodeCompletionEnabled": true,
-                "diagnosticsEnabled": true,
-                "lintTool": "golint"
-            }
-        },
-        "dockerfile": {
-            "command": "docker-langserver",
-            "filetypes": ["dockerfile"],
-            "args": ["--stdio"]
-        }
+    "golang": {
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
     },
-    "coc.source.buffer.enable": true,
-    "coc.source.buffer.priority": 1,
-    "coc.source.buffer.filetypes": null
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  },
+  "coc.source.buffer.enable": true,
+  "coc.source.buffer.priority": 1,
+  "coc.source.buffer.filetypes": null
 }

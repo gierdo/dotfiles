@@ -148,13 +148,6 @@ Plug 'vim-scripts/L9'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'rhysd/vim-clang-format'
-if executable('clang-format-9')
-  let g:clang_format#command = 'clang-format-9'
-elseif executable('clang-format-8')
-  let g:clang_format#command = 'clang-format-8'
-endif
-
 if has('nvim')
   Plug 'w0rp/ale'
   if executable('clang-tidy-9')
@@ -177,11 +170,17 @@ if has('nvim')
         \   'tex': ['chktex'],
         \   'python': ['flake8','pylint'],
         \}
+
+  let g:ale_fix_on_save = 1
   let g:ale_fixers = {
-        \   'cpp': ['uncrustify'],
-        \   'c': ['uncrustify'],
-        \   'python': ['autopep8', 'yapf'],
+        \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \   'cpp': ['uncrustify', 'clang-format', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'c': ['uncrustify', 'clang-format', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \}
+  let g:ale_c_clangformat_options = '-style=google'
 
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -246,9 +245,6 @@ function! SyncTexForward()
 endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
 
-
-Plug 'avakhov/vim-yaml'
-
 Plug 'elzr/vim-json'
 
 Plug 'vim-scripts/Tabmerge'
@@ -312,17 +308,6 @@ autocmd ColorScheme * highlight DiffText    cterm=bold ctermfg=2 ctermbg=88
 autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
 colorscheme industry
 
-" Remove trailing whitespace for all but specified filetypes
-fun! RemoveTrailingWhitespace()
-  " Don't strip on these filetypes
-  if &ft =~ 'ruby\|perl'
-    return
-  endif
-  %s/\s\+$//e
-endfun
-
-autocmd BufWritePre * call RemoveTrailingWhitespace()
-
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
 
@@ -366,14 +351,18 @@ au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au BufRead * if search('\M-*- C++ -*-', 'n', 1) | setlocal filetype=cpp | endif
 
 autocmd FileType cmake setlocal commentstring=#\ %s
+
 autocmd FileType debsources setlocal commentstring=#\ %s
+
 autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab autoindent
+
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
+
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
+
 autocmd FileType c setlocal cindent expandtab
 autocmd FileType c,cpp setlocal commentstring=//\ %s
-autocmd FileType c,cpp,objc,ts,js,pb ClangFormatAutoEnable
-autocmd FileType c,cpp,objc,ts,js,pb let g:clang_format#code_style = 'google'
+
 autocmd FileType json setlocal ts=4 sts=4 sw=4
 
 " ex command for toggling hex mode - define mapping if desired
