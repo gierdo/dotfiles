@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 function SetupCoc()
   call coc#util#install()
   execute '! npm install -g yarn rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server'
-  execute '! pip install python-language-server'
+  execute '! pip3 install --user python-language-server'
   execute '! go get -u github.com/sourcegraph/go-langserver'
   execute '! go get -u github.com/awslabs/goformation'
   execute '! go get -u golang.org/x/lint/golint'
