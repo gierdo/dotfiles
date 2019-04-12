@@ -112,6 +112,9 @@ setopt +o nomatch
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+# Activate aws completion
+source aws_zsh_completer.sh
+
 alias vim='nvim'
 alias oldvim='\vim'
 
