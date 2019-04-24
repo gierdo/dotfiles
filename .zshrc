@@ -74,6 +74,7 @@ plugins=(
   helm
   kubectl
   fancy-ctrl-z
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh

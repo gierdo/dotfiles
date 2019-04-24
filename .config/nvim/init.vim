@@ -27,6 +27,7 @@ function SetupCoc()
   execute 'CocInstall coc-pyls'
   execute 'CocInstall coc-tsserver'
   execute 'CocInstall coc-tag'
+  execute 'CocInstall coc-vimtex'
 endfunction
 
 " START LSP-COMPLETION RELATED STUFF
@@ -230,19 +231,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
-Plug 'vim-latex/vim-latex'
-au BufEnter *.tex set autowrite
-let g:Tex_FoldedSections=""
-let g:Tex_FoldedEnvironments=""
-let g:Tex_FoldedMisc=""
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $* && bibtex'
-let g:Tex_GotoError = 0
-let g:Tex_ViewRule_pdf = 'evince 2>/dev/null'
-if has("nvim")
-  let g:vimtex_latexmk_progname = 'nvr'
-endif
+Plug 'lervag/vimtex'
 
 Plug 'peder2tm/sved'
 function! SyncTexForward()
