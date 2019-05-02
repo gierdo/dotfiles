@@ -8,7 +8,7 @@
   "yaml.validate": false,
   "yaml.schemas": {
     "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*",
-    "kubernetes": "/*.yaml"
+    "kubernetes": "/*"
   },
   "languageserver": {
     "clangd": {
@@ -20,11 +20,18 @@
         ".git/",
         ".hg/"
       ],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
+      "filetypes": [
+        "c",
+        "cpp",
+        "objc",
+        "objcpp"
+      ]
     },
     "golang": {
       "command": "go-langserver",
-      "filetypes": ["go"],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "gocodeCompletionEnabled": true,
         "diagnosticsEnabled": false
@@ -32,14 +39,24 @@
     },
     "dockerfile": {
       "command": "docker-langserver",
-      "filetypes": ["dockerfile"],
-      "args": ["--stdio"]
+      "filetypes": [
+        "dockerfile"
+      ],
+      "args": [
+        "--stdio"
+      ]
     },
     "bash": {
       "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
     }
   },
   "coc.source.buffer.enable": true,
