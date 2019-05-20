@@ -177,7 +177,7 @@ if has('nvim')
         \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
         \}
 
-  let g:ale_fix_on_save = 0
+  let g:ale_fix_on_save = 1
   let g:ale_fixers = {
         \   '*': ['remove_trailing_lines', 'trim_whitespace'],
         \   'cpp': ['uncrustify', 'clang-format', 'remove_trailing_lines', 'trim_whitespace'],
@@ -192,7 +192,7 @@ if has('nvim')
 
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
-  command Fix ALEFix
+  command Nofix let g:ale_fix_on_save = 0
 endif
 
 Plug 'tpope/vim-surround'
