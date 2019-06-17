@@ -260,6 +260,11 @@ Plug 'idanarye/vim-vebugger'
 " plantuml syntax highlighting and preview
 Plug 'aklt/plantuml-syntax'
 
+" Markdown etc. preview
+" Use :PrevimOpen to show the preview
+Plug 'previm/previm'
+let g:previm_open_cmd = 'firefox'
+
 " Put your non-Plug stuff after this line
 call plug#end()
 " Brief help
