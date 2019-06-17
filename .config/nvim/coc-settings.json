@@ -4,6 +4,8 @@
   "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
   "java.format.settings.profile": "Default",
   "java.format.enabled": true,
+  "java.format.onType.enabled": true,
+  "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
   "yaml.validate": false,
   "yaml.schemas": {
@@ -60,6 +62,5 @@
     }
   },
   "coc.source.buffer.enable": true,
-  "coc.source.buffer.priority": 1,
-  "coc.source.buffer.filetypes": null
+  "coc.source.buffer.priority": 1
 }
