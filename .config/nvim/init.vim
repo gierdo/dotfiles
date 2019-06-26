@@ -23,11 +23,15 @@ function SetupCoc()
   execute '! go get -u golang.org/x/lint/golint'
   execute '! go get -u golang.org/x/tools/cmd/goimports'
   execute 'CocInstall coc-java'
-  execute 'CocInstall coc-css coc-json coc-html'
-  execute 'CocInstall coc-ultisnips coc-snippets'
+  execute 'CocInstall coc-css'
+  execute 'CocInstall coc-json'
+  execute 'CocInstall coc-html'
+  execute 'CocInstall coc-ultisnips'
+  execute 'CocInstall coc-snippets'
   execute 'CocInstall coc-yaml'
   execute 'CocInstall coc-python'
   execute 'CocInstall coc-tsserver'
+  execute 'CocInstall coc-tslint-plugin'
   execute 'CocInstall coc-tag'
   execute 'CocInstall coc-vimtex'
 endfunction
@@ -253,6 +257,8 @@ Plug 'vim-scripts/indentpython.vim'
 
 Plug 'vim-scripts/groovy.vim'
 au BufNewFile,BufRead *.gradle setf groovy
+
+Plug 'leafgarland/typescript-vim'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
