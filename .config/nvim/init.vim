@@ -368,6 +368,8 @@ autocmd FileType c setlocal cindent expandtab
 autocmd FileType c,cpp setlocal commentstring=//\ %s
 
 autocmd FileType json setlocal ts=4 sts=4 sw=4
+autocmd FileType json syntax match Comment +\/\/.\+$+
+autocmd FileType json setlocal commentstring=\/\/\ %s
 
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
