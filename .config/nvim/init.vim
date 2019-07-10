@@ -172,7 +172,7 @@ if has('nvim')
   " save some battery
   let g:ale_lint_delay = 1000
   " clang and g++ get includes wrong, so the linters are specified here
-  let g:ale_linters_explicit = 1
+  let g:ale_linters_explicit = 0
   let g:ale_linters = {
         \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
         \   'c': ['clangtidy', 'flawfinder'],
