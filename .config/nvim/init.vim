@@ -34,6 +34,7 @@ function SetupCoc()
   execute 'CocInstall coc-tslint-plugin'
   execute 'CocInstall coc-tag'
   execute 'CocInstall coc-vimtex'
+  execute 'CocInstall coc-rls'
 endfunction
 
 " START LSP-COMPLETION RELATED STUFF
