@@ -25,6 +25,9 @@ PATH=$PATH:~/.scripts
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.npmpath/bin
 
+# Rust
+PATH=$PATH:~/.cargo/bin
+
 # go stuff
 PATH=$PATH:~/go/bin
 export GOPATH=~/go
@@ -40,3 +43,4 @@ fi
 if [ -f "$HOME/.profile.local" ]; then
   . "$HOME/.profile.local"
 fi
+
