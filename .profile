@@ -40,7 +40,10 @@ else
   export JAVA_HOME="$(/usr/libexec/java_home)"
 fi
 
+if [ -d "/usr/lib/ccache" ]; then
+  PATH="/usr/lib/ccache:$PATH"
+fi
+
 if [ -f "$HOME/.profile.local" ]; then
   . "$HOME/.profile.local"
 fi
-
