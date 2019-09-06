@@ -160,11 +160,6 @@ Plug 'honza/vim-snippets'
 
 if has('nvim')
   Plug 'w0rp/ale'
-  if executable('clang-tidy-9')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-9'
-  elseif executable('clang-tidy-8')
-    let g:ale_cpp_clangtidy_executable = 'clang-tidy-8'
-  endif
   " only search for linters on startup
   let g:ale_cache_executable_check_failures = 1
   " disable fuchsia checker, annoying as hell
