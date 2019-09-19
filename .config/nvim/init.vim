@@ -35,6 +35,7 @@ function SetupCoc()
   execute 'CocInstall coc-tag'
   execute 'CocInstall coc-vimtex'
   execute 'CocInstall coc-rls'
+  execute 'CocInstall coc-solargraph'
 endfunction
 
 " START LSP-COMPLETION RELATED STUFF

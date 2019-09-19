@@ -25,6 +25,8 @@ PATH=$PATH:~/.scripts
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.npmpath/bin
 
+PATH=$PATH:~/.gem/ruby/current/bin
+
 # Rust
 PATH=$PATH:~/.cargo/bin
 

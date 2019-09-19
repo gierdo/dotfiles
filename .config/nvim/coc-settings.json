@@ -63,5 +63,7 @@
   },
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
-  "coc.preferences.formatOnSaveFiletypes": ["rust","java"]
+  "coc.preferences.formatOnSaveFiletypes": ["rust","java"],
+  "solargraph.formatting": true,
+  "solargraph.autoformat": true
 }
