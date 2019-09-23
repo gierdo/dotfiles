@@ -8,6 +8,7 @@
 	nicelog = log --graph --decorate=full --all --oneline
 [diff]
 	tool = vimdiff
+	submodule = log
 [push]
 	default = simple
 [gui]
@@ -22,3 +23,5 @@
 	ui = auto
 [credential]
 	helper = store
+[status]
+	submoduleSummary = true
