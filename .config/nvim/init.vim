@@ -181,15 +181,14 @@ if has('nvim')
   let g:ale_fix_on_save = 1
   let g:ale_fixers = {
         \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-        \   'cpp': ['uncrustify', 'clang-format', 'remove_trailing_lines', 'trim_whitespace'],
-        \   'c': ['uncrustify', 'clang-format', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'cpp': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'c': ['uncrustify',  'remove_trailing_lines', 'trim_whitespace'],
         \   'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'],
         \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
         \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
         \}
-  let g:ale_c_clangformat_options = '-style=google'
 
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
