@@ -15,6 +15,7 @@
   "languageserver": {
     "clangd": {
       "command": "clangd",
+      "args": ["--background-index","--fallback-style=google"],
       "rootPatterns": [
         "compile_flags.txt",
         "compile_commands.json",
