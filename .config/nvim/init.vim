@@ -202,11 +202,14 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " The airline setup uses the powerline fonts, installed and configured as
-" terminal font from this repo's submodule at ./powerline-fonts
+" terminal font. Vim-devicons requires nerd-fonts, which also contain the
+" powerline symbols.
+" Some fonts are available from the fonts directory for installation.
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='atomic'
 let g:airline_powerline_fonts = 1
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup = 1
