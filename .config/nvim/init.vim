@@ -171,8 +171,8 @@ if has('nvim')
   " clang and g++ get includes wrong, so the linters are specified here
   let g:ale_linters_explicit = 0
   let g:ale_linters = {
-        \   'cpp': ['clangtidy', 'cpplint', 'flawfinder'],
-        \   'c': ['clangtidy', 'flawfinder'],
+        \   'cpp': ['clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
+        \   'c': ['clangtidy', 'cppcheck', 'flawfinder'],
         \   'tex': ['chktex'],
         \   'python': ['flake8','pylint'],
         \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
