@@ -180,14 +180,15 @@ if has('nvim')
   let g:ale_fix_on_save = 1
   let g:ale_fixers = {
         \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-        \   'cpp': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace'],
-        \   'c': ['uncrustify',  'remove_trailing_lines', 'trim_whitespace'],
+        \   'cpp': ['clang-format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace'],
+        \   'c': ['clang-format', 'uncrustify',  'remove_trailing_lines', 'trim_whitespace'],
         \   'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'],
         \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
         \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
         \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
         \}
+  " If an uncrustify config is available in the home directory, use it
   let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
   let g:ale_cpp_uncrustify_options = '-c ~/.uncrustify.cfg'
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
