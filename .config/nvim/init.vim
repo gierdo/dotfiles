@@ -43,7 +43,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 
 " if hidden not set, TextEdit might fail.
 set hidden
-
+"
 " Better display for messages
 set cmdheight=2
 
@@ -177,7 +177,6 @@ if has('nvim')
         \   'python': ['flake8','pylint'],
         \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
         \}
-
   let g:ale_fix_on_save = 1
   let g:ale_fixers = {
         \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -189,7 +188,8 @@ if has('nvim')
         \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
         \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
         \}
-
+  let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
+  let g:ale_cpp_uncrustify_options = '-c ~/.uncrustify.cfg'
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
   command Nofix let g:ale_fix_on_save = 0
@@ -197,6 +197,15 @@ if has('nvim')
 endif
 
 Plug 'tpope/vim-surround'
+
+Plug 'scrooloose/nerdcommenter'
+let g:NERDCustomDelimiters = {
+      \ 'c': { 'left': '/*','right': '*/' },
+      \ 'debsources': { 'left': '#'},
+      \ 'cmake': { 'left': '#'}
+      \}
+let g:NERDCompactSexyComs = 0
+let g:NERDSpaceDelims = 1
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
@@ -229,7 +238,6 @@ Plug 'wincent/command-t', {
       \ }
 
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
@@ -239,7 +247,6 @@ map <silent> <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 Plug 'lervag/vimtex'
-
 Plug 'peder2tm/sved'
 function! SyncTexForward()
   call SVED_Sync()
@@ -301,6 +308,9 @@ set smartcase
 " Auto Update files
 set autoread
 
+set exrc
+set secure
+
 " Color scheme settings, including color of extra whitespaces
 
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
@@ -353,28 +363,15 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au BufRead * if search('\M-*- C++ -*-', 'n', 1) | setlocal filetype=cpp | endif
 
-autocmd FileType cmake setlocal commentstring=#\ %s
-
-autocmd FileType debsources setlocal commentstring=#\ %s
-
 autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab autoindent
-
 autocmd FileType python setlocal ts=4 sts=4 sw=4 tw=79 expandtab autoindent
-
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en
-
 autocmd FileType c setlocal cindent expandtab
-autocmd FileType c,cpp setlocal commentstring=//\ %s
-
 autocmd FileType json setlocal ts=4 sts=4 sw=4
 autocmd FileType json syntax match Comment +\/\/.\+$+
-autocmd FileType json setlocal commentstring=\/\/\ %s
 
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
-
-set exrc
-set secure
 
 " helper function to toggle hex mode
 function ToggleHex()
