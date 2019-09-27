@@ -6,7 +6,7 @@
   prompt = true
 [alias]
   nicelog = log --graph --decorate=full --all --oneline
-  do-recursive = "!sh -c \"git $@ && git submodule foreach --recursive 'git $@ ||:'\" -"
+  do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
 [diff]
   tool = vimdiff
   submodule = log
