@@ -9,7 +9,7 @@
   do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
 [diff]
   tool = vimdiff
-  submodule = log
+  submodule = diff
 [push]
   default = current
 [gui]
