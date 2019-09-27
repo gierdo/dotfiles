@@ -1,27 +1,28 @@
 [include]
-	path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 [mergetool]
-	prompt = true
+  prompt = true
 [alias]
-	nicelog = log --graph --decorate=full --all --oneline
+  nicelog = log --graph --decorate=full --all --oneline
+  do-recursive = "!sh -c \"git $@ && git submodule foreach --recursive 'git $@ ||:'\" -"
 [diff]
-	tool = vimdiff
-	submodule = log
+  tool = vimdiff
+  submodule = log
 [push]
-	default = current
+  default = current
 [gui]
-	fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
-	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+  fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+  fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [color]
-	ui = auto
+  ui = auto
 [credential]
-	helper = store
+  helper = store
 [status]
-	submoduleSummary = true
+  submoduleSummary = true
