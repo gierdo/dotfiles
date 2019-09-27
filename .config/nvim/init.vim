@@ -205,6 +205,7 @@ let g:NERDCustomDelimiters = {
       \ 'debsources': { 'left': '#'},
       \ 'cmake': { 'left': '#'}
       \}
+let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 0
 let g:NERDSpaceDelims = 1
 
