@@ -26,3 +26,5 @@
   helper = store
 [status]
   submoduleSummary = true
+[core]
+	excludesfile = ~/.gitignore_global
