@@ -64,6 +64,7 @@ ZSH_THEME="bureau"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  git-extras
   aws
   cp
   adb
