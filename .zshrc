@@ -75,7 +75,6 @@ plugins=(
   helm
   kubectl
   fancy-ctrl-z
-  virtualenv
   rust
 )
 
@@ -119,7 +118,9 @@ setopt printexitvalue
 source aws_zsh_completer.sh
 
 alias vim='nvim'
+alias vimdiff='nvim -d'
 alias oldvim='\vim'
+alias oldvimdiff='\vimdiff'
 
 # Funny fun:
 alias fucking='sudo '
