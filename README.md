@@ -25,3 +25,13 @@ The core setup of my system also consists the following tools/files/fonts etc., 
 * plug
 * zsh
 * ctags
+
+# Git credential store
+
+```
+sudo apt-get install libsecret-1-dev
+cp -r /usr/share/doc/git/contrib/credential/libsecret ./
+cd libsecret
+make
+sudo cp git-credential-libsecret /usr/local/bin
+```
