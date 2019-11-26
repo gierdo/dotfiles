@@ -23,8 +23,8 @@
 [color]
   ui = auto
 [credential]
-  helper = store
+  helper = libsecret
 [status]
   submoduleSummary = true
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
