@@ -205,7 +205,6 @@ if has('nvim')
         \}
   " If an uncrustify config is available in the home directory, use it
   let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
-  let g:ale_cpp_uncrustify_options = '-c ~/.uncrustify.cfg'
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
   command Nofix let g:ale_fix_on_save = 0
