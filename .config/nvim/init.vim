@@ -275,6 +275,8 @@ Plug 'vim-scripts/Tabmerge'
 
 Plug 'mkitt/tabline.vim'
 
+Plug 'jeetsukumaran/vim-buffergator'
+
 Plug 'vim-scripts/indentpython.vim'
 
 Plug 'vim-scripts/groovy.vim'
