@@ -3,7 +3,8 @@
 [merge]
   tool = vimdiff
 [mergetool]
-  prompt = true
+  prompt = false
+  path = nvim
 [alias]
   nicelog = log --graph --decorate=full --all --oneline
   do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
@@ -28,3 +29,5 @@
   submoduleSummary = true
 [core]
   excludesfile = ~/.gitignore_global
+[difftool]
+  path = nvim
