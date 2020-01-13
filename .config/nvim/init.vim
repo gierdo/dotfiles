@@ -252,6 +252,7 @@ Plug 'mileszs/ack.vim'
 Plug 'wincent/command-t', {
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
+nmap <silent> <C-p> :CommandT<CR>
 
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
