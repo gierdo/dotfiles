@@ -11,7 +11,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bureau"
+# ZSH_THEME="powerlevel9k"
+source  ~/.dotfiles/themes/powerlevel9k/powerlevel9k.zsh-theme
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -82,10 +83,18 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# Powerlevel9k customization
+
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv nodeenv rbenv aws background_jobs time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+
 # ZSH's glob matching messes with setting list-options in helm
 # e.g. --set ingress.hosts[0]=flerb.bar
 setopt +o nomatch
-setopt printexitvalue
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
