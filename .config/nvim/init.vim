@@ -296,6 +296,9 @@ Plug 'aklt/plantuml-syntax'
 Plug 'previm/previm'
 let g:previm_open_cmd = 'firefox'
 
+" Themes
+Plug 'altercation/vim-colors-solarized'
+
 " Put your non-Plug stuff after this line
 call plug#end()
 " Brief help
@@ -307,6 +310,14 @@ call plug#end()
 " :PlugDiff	Examine changes from the previous update and the pending changes
 " :PlugSnapshot[!] [output path]	Generate script for restoring the current snapshot of the plugins
 "
+
+" Color scheme settings, including color of extra whitespaces
+
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
+autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
+
+" set termguicolors
+colorscheme solarized
 
 " Basic Behaviour
 syntax on
@@ -330,11 +341,6 @@ set autoread
 set exrc
 set secure
 
-" Color scheme settings, including color of extra whitespaces
-
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
-autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
-colorscheme industry
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
