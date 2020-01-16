@@ -133,5 +133,3 @@ alias oldvimdiff='\vimdiff'
 
 # Funny fun:
 alias fucking='sudo '
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
