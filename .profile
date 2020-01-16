@@ -17,14 +17,16 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+if [ -d "$HOME/bin" ]; then
   PATH="$HOME/bin:$PATH"
 fi
 PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
+
 PATH=$PATH:~/.scripts
 PATH=$PATH:~/.local/bin
+PATH=$PATH:~/.yarn/bin
+PATH=$PATH:~/.config/yarn/global/node_modules/.bin
 PATH=$PATH:~/.npmpath/bin
-
 PATH=$PATH:~/.gem/ruby/current/bin
 
 # Rust
