@@ -44,6 +44,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 

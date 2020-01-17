@@ -95,10 +95,6 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 # ZSH's glob matching messes with setting list-options in helm
 # e.g. --set ingress.hosts[0]=flerb.bar
 setopt +o nomatch
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -107,23 +103,7 @@ setopt +o nomatch
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-
-# Activate aws completion
 source aws_zsh_completer.sh
 
 alias vim='nvim'
