@@ -3,14 +3,12 @@
 " powerline symbols.
 " Some fonts are available from the fonts directory for installation.
 
+
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
 autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=240
 
-if has('nvim')
-  colorscheme solarized
-else
-  colorscheme default
-endif
+colorscheme solarized
+set background=dark
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
