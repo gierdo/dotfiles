@@ -18,4 +18,5 @@ endfunction
 :autocmd FileType qf wincmd J
 
 map <silent> <C-n> :NERDTreeTabsToggle<CR>
+map <silent> <A-n> :NERDTreeFind<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
