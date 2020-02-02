@@ -77,6 +77,7 @@ plugins=(
   kubectl
   fancy-ctrl-z
   rust
+  virtualenvwrapper
 )
 
 source $ZSH/oh-my-zsh.sh
