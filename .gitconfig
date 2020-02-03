@@ -1,5 +1,3 @@
-[include]
-  path = ~/.gitconfig.local
 [merge]
   tool = vimdiff
 [mergetool]
@@ -31,3 +29,5 @@
   excludesfile = ~/.gitignore_global
 [difftool]
   path = nvim
+[include]
+  path = ~/.gitconfig.local
