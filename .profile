@@ -28,11 +28,9 @@ PATH=$PATH:~/.yarn/bin
 PATH=$PATH:~/.config/yarn/global/node_modules/.bin
 PATH=$PATH:~/.npmpath/bin
 PATH=$PATH:~/.gem/ruby/current/bin
-
-# Rust
 PATH=$PATH:~/.cargo/bin
+PATH=$PATH:~/.luarocks/bin
 
-# go stuff
 PATH=$PATH:~/go/bin
 export GOPATH=~/go
 
