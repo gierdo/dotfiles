@@ -135,7 +135,9 @@ if has('nvim')
     execute '! go get -u github.com/awslabs/goformation'
     execute '! go get -u golang.org/x/lint/golint'
     execute '! go get -u golang.org/x/tools/cmd/goimports'
+    execute '! luarocks install --server=http://luarocks.org/dev lua-lsp --local'
 
+    execute 'CocInstall coc-lua'
     execute 'CocInstall coc-java'
     execute 'CocInstall coc-css'
     execute 'CocInstall coc-json'
