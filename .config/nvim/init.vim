@@ -79,6 +79,9 @@ Plug 'aklt/plantuml-syntax'
 Plug 'previm/previm'
 let g:previm_open_cmd = 'firefox'
 
+Plug 'editorconfig/editorconfig-vim'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 " Themes
 Plug 'altercation/vim-colors-solarized'
 
