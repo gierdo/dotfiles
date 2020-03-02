@@ -114,3 +114,4 @@ alias oldvimdiff='\vimdiff'
 
 # Funny fun:
 alias fucking='sudo '
+eval $(thefuck --alias)
