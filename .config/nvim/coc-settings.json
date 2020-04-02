@@ -5,7 +5,7 @@
   "java.configuration.maven.userSettings": "~/.m2/settings.xml",
   "java.codeGeneration.useBlocks": true,
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.format.settings.url": "~/.java-format.xml",
+  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
   "java.format.enabled": true,
   "java.format.onType.enabled": true,
   "java.format.comments.enabled": true,
