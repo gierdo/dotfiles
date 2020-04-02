@@ -1,5 +1,9 @@
 {
   "java.import.gradle.enabled": true,
+  "java.import.maven.enabled": true,
+  "java.maven.downloadSources": true,
+  "java.configuration.maven.userSettings": "~/.m2/settings.xml",
+  "java.codeGeneration.useBlocks": true,
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.format.settings.url": "~/.dotfiles/.config/nvim/java_codestyle.xml",
   "java.format.settings.profile": "Default",
