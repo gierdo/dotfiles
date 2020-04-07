@@ -2,8 +2,8 @@ if has('nvim')
   " only search for linters on startup
   let g:ale_cache_executable_check_failures = 1
   " disable fuchsia checker, annoying as hell
-  let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*"]
-  let g:ale_c_clangtidy_checks = ["*", "-fuchsia*"]
+  let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type"]
+  let g:ale_c_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type" ]
   let g:airline#extensions#ale#enabled = 1
   " save some battery
   let g:ale_lint_delay = 1000
