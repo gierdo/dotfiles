@@ -49,6 +49,9 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
+" Do not jump to the fist entry
+cnoreabbrev Ack Ack!
+
 Plug 'wincent/command-t', {
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
