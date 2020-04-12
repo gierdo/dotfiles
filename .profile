@@ -22,14 +22,14 @@ if [ -d "$HOME/bin" ]; then
 fi
 PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 
-PATH=$PATH:~/.scripts
-PATH=$PATH:~/.local/bin
-PATH=$PATH:~/.yarn/bin
-PATH=$PATH:~/.config/yarn/global/node_modules/.bin
-PATH=$PATH:~/.npmpath/bin
-PATH=$PATH:~/.gem/ruby/current/bin
-PATH=$PATH:~/.cargo/bin
-PATH=$PATH:~/.luarocks/bin
+PATH="$HOME/.scripts:$PATH"
+PATH="$HOME/.yarn/bin:$PATH"
+PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+PATH="$HOME/.npmpath/bin:$PATH"
+PATH="$HOME/.gem/ruby/current/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+PATH="$HOME/.luarocks/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
 
 PATH=$PATH:~/go/bin
 export GOPATH=~/go
