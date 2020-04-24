@@ -1,7 +1,7 @@
 [merge]
   tool = vimdiff
 [mergetool]
-  prompt = false
+  prompt = true
   path = nvim
 [alias]
   nicelog = log --graph --decorate=full --all --oneline
