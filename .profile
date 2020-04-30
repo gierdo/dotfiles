@@ -47,5 +47,5 @@ if [ -d "/usr/lib/ccache" ]; then
 fi
 
 if [ -f "$HOME/.profile.local" ]; then
-  . "$HOME/.profile.local"
+  source "$HOME/.profile.local"
 fi
