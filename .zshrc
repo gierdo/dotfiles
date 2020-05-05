@@ -116,3 +116,7 @@ alias oldvimdiff='\vimdiff'
 # Funny fun:
 alias fucking='sudo '
 eval $(thefuck --alias)
+
+if [ -f "$HOME/.zshrc.local" ]; then
+  source "$HOME/.zshrc.local"
+fi
