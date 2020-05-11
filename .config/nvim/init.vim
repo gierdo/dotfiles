@@ -49,6 +49,9 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 " Do not jump to the fist entry
 cnoreabbrev Ack Ack!
 
