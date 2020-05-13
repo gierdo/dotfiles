@@ -72,6 +72,7 @@ function! SyncTexForward()
 endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
 
+Plug 'dylon/vim-antlr'
 Plug 'jamessan/vim-gnupg'
 Plug 'elzr/vim-json'
 Plug 'vim-scripts/Tabmerge'
