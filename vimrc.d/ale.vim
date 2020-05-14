@@ -15,6 +15,7 @@ if has('nvim')
         \   'tex': ['chktex'],
         \   'python': ['flake8','pylint'],
         \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
+        \   'java': [''],
         \}
   let g:ale_fix_on_save = 1
   let g:ale_fixers = {
