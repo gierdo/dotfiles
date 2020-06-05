@@ -81,7 +81,7 @@ editor_filesize_threshold=64M
 editor_stop_format_chars=-+*\\,.;:&>
 mcview_eof=
 ignore_ftp_chattr_errors=true
-skin=modarcon16-defbg
+skin=modarcon16
 
 safe_overwrite=false
 
@@ -95,13 +95,13 @@ menubar_visible=true
 free_space=true
 horizontal_split=false
 vertical_equal=true
-left_panel_size=88
+left_panel_size=127
 horizontal_equal=true
 top_panel_size=1
 
 [Misc]
 timeformat_recent=%d. %b %H:%M
-timeformat_old=%d. %b %Y 
+timeformat_old=%d. %b %Y
 ftp_proxy_host=gate
 ftpfs_password=anonymous@
 display_codepage=UTF-8
