@@ -11,6 +11,7 @@
   "java.format.onType.enabled": true,
   "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
+  "java.jdt.ls.vmargs": "-noverify -Xmx2G -XX:+UseG1GC -XX:+UseStringDeduplication",
   "yaml.validate": false,
   "yaml.schemas": {
     "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*",
@@ -52,6 +53,8 @@
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnSaveFiletypes": ["rust", "java"],
+  "coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.useQuickfixForLocations": true,
   "solargraph.formatting": true,
   "solargraph.definitions": true,
   "solargraph.references": true,
