@@ -12,9 +12,10 @@
   "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.jdt.ls.vmargs": "-noverify -Xmx2G -XX:+UseG1GC -XX:+UseStringDeduplication",
+  "yaml.completion": true,
   "yaml.validate": false,
   "yaml.schemas": {
-    "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*",
+    "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*.template.*",
     "kubernetes": "/*"
   },
   "languageserver": {
