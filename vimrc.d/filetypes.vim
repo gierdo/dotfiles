@@ -14,3 +14,5 @@ autocmd FileType md setlocal spell spelllang=en_gb,de_de
 autocmd FileType c setlocal cindent expandtab
 autocmd FileType json setlocal ts=4 sts=4 sw=4
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/**,node_modules/**,.git/*,svn/*,.ctags
