@@ -50,7 +50,7 @@ nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --hidden'
 endif
 " Do not jump to the fist entry
 cnoreabbrev Ack Ack!
@@ -59,6 +59,8 @@ Plug 'wincent/command-t', {
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
 nmap <silent> <C-p> :CommandT<CR>
+let g:CommandTScanDotDirectories = 1
+let gCommandTAlwaysShowDotFiles = 1
 
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
