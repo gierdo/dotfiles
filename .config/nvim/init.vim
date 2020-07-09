@@ -86,8 +86,13 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
 Plug 'aklt/plantuml-syntax'
+
 Plug 'previm/previm'
-let g:previm_open_cmd = 'firefox'
+if executable('chromium-browser')
+  let g:previm_open_cmd = 'chromium-browser'
+else
+  let g:previm_open_cmd = 'firefox'
+endif
 
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
