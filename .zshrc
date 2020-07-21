@@ -108,11 +108,6 @@ setopt +o nomatch
 
 source aws_zsh_completer.sh
 
-alias vim='nvim'
-alias vimdiff='nvim -d'
-alias oldvim='\vim'
-alias oldvimdiff='\vimdiff'
-
 alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 
 # Funny fun:

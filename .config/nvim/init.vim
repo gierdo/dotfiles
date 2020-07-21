@@ -19,12 +19,10 @@ endif
 "
 call plug#begin('~/.vim/plugged')
 
-if has('nvim')
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-  Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
-  Plug 'w0rp/ale'
-endif
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
+Plug 'w0rp/ale'
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
@@ -48,12 +46,15 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+Plug 'tpope/vim-dispatch'
 Plug 'mileszs/ack.vim'
 if executable('ag')
   let g:ackprg = 'ag --vimgrep --hidden'
 endif
+let g:ack_use_dispatch = 1
 " Do not jump to the fist entry
 cnoreabbrev Ack Ack!
+cnoreabbrev ack Ack!
 
 Plug 'wincent/command-t', {
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
