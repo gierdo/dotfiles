@@ -28,6 +28,7 @@ let g:ale_fixers = {
       \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
       \   'rust': ['rustfmt', 'remove_trailing_lines', 'trim_whitespace'],
       \   'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'typescript': ['prettier', 'tslint', 'remove_trailing_lines', 'trim_whitespace'],
       \}
 " If an uncrustify config is available in the home directory, use it
 let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
