@@ -46,12 +46,14 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Plug 'tpope/vim-dispatch'
 Plug 'mileszs/ack.vim'
 if executable('ag')
   let g:ackprg = 'ag --vimgrep --hidden'
 endif
-let g:ack_use_dispatch = 1
+if !has('nvim')
+  Plug 'tpope/vim-dispatch'
+  let g:ack_use_dispatch = 1
+endif
 " Do not jump to the fist entry
 cnoreabbrev Ack Ack!
 cnoreabbrev ack Ack!
