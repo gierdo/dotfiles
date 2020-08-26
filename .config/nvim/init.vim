@@ -80,6 +80,7 @@ function! SyncTexForward()
   call SVED_Sync()
 endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
+let g:tex_flavor = 'latex'
 
 Plug 'dylon/vim-antlr'
 Plug 'jamessan/vim-gnupg'
