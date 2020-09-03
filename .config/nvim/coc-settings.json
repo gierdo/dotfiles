@@ -11,7 +11,7 @@
   "java.format.onType.enabled": true,
   "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
-  "java.jdt.ls.vmargs": "-noverify -Xmx2G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
+  "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
   "yaml.completion": true,
   "yaml.validate": false,
   "yaml.schemas": {
