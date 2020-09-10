@@ -75,6 +75,7 @@
   "coc.preferences.formatOnSaveFiletypes": ["rust", "java"],
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.maxFileSize": "100MB",
   "solargraph.formatting": true,
   "solargraph.definitions": true,
   "solargraph.references": true,
