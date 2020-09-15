@@ -44,6 +44,9 @@ fi
 
 if [ -d "/usr/lib/ccache" ]; then
   PATH="/usr/lib/ccache:$PATH"
+  if [ -d "/usr/lib/distcc" ]; then
+    export CCACHE_PREFIX="distcc"
+  fi
 fi
 
 if [ -f "$HOME/.profile.local" ]; then
