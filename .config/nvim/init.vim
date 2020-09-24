@@ -67,7 +67,7 @@ Plug 'wincent/command-t', {
       \ }
 nmap <silent> <C-p> :CommandT<CR>
 let g:CommandTScanDotDirectories = 1
-let g:CommandTAlwaysShowDotFiles = 1
+let g:CommandTAlwaysShowDotFiles = 0
 let g:CommandTMaxFiles = 200000
 
 Plug 'godlygeek/tabular'
