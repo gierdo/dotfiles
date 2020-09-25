@@ -1,6 +1,6 @@
 --no-ignore
 --hidden
+--smart-case
 
 --glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst}/*
-
---smart-case
+--glob=!tags
