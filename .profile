@@ -52,3 +52,5 @@ fi
 if [ -f "$HOME/.profile.local" ]; then
   source "$HOME/.profile.local"
 fi
+
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc

@@ -51,7 +51,9 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 Plug 'mileszs/ack.vim'
-if executable('ag')
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep --no-heading'
+elseif executable('ag')
   let g:ackprg = 'ag --vimgrep --hidden'
 endif
 if !has('nvim')
