@@ -1,3 +1,4 @@
+--no-ignore
 --hidden
 
 --glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst}/*
