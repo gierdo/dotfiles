@@ -53,4 +53,13 @@ if [ -f "$HOME/.profile.local" ]; then
   source "$HOME/.profile.local"
 fi
 
+if command -v virtualenvwrapper.sh &> /dev/null; then
+  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+  export WORKON_HOME=$HOME/.virtualenvs/
+  export PROJECT_HOME=$HOME/workspace
+  export PIP_VIRTUALENV_BASE=$WORKON_HOME
+  source $(which virtualenvwrapper.sh)
+fi
+
+
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
