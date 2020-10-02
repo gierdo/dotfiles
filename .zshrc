@@ -78,6 +78,7 @@ plugins=(
   fancy-ctrl-z
   rust
   virtualenvwrapper
+  pipenv
   mvn
 )
 
