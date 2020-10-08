@@ -40,6 +40,8 @@ let g:NERDCustomDelimiters = {
 let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 0
 let g:NERDSpaceDelims = 1
+let g:NERDTreeMapOpenVSplit = "<C-v>"
+let g:NERDTreeMapOpenSplit = "<C-s>"
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-airline/vim-airline'
@@ -71,6 +73,8 @@ nmap <silent> <C-p> :CommandT<CR>
 let g:CommandTScanDotDirectories = 1
 let g:CommandTAlwaysShowDotFiles = 0
 let g:CommandTMaxFiles = 200000
+let g:CommandTAcceptSelectionVSplitMap = "<C-v>"
+let g:CommandTAcceptSelectionSplitMap = "<C-s>"
 
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
