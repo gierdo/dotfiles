@@ -79,8 +79,11 @@ let g:CommandTAcceptSelectionSplitMap = "<C-s>"
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'justinmk/vim-gtfo'
+
 Plug 'lervag/vimtex'
 Plug 'peder2tm/sved'
 function! SyncTexForward()
