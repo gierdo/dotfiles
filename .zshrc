@@ -107,6 +107,7 @@ setopt +o nomatch
 # fi
 
 
+source "$HOME/.dotfiles/asdf/completions/asdf.bash"
 source aws_zsh_completer.sh
 
 alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'

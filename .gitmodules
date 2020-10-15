@@ -1,3 +1,6 @@
 [submodule "themes/powerlevel9k"]
 	path = themes/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
+[submodule "asdf"]
+	path = asdf
+	url = https://github.com/asdf-vm/asdf.git
