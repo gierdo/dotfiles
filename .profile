@@ -61,5 +61,7 @@ if command -v virtualenvwrapper.sh &> /dev/null; then
   source $(which virtualenvwrapper.sh)
 fi
 
-
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+source $HOME/.dotfiles/asdf/asdf.sh
+
