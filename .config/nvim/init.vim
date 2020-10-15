@@ -98,11 +98,13 @@ Plug 'elzr/vim-json'
 Plug 'vim-scripts/Tabmerge'
 Plug 'mkitt/tabline.vim'
 Plug 'jeetsukumaran/vim-buffergator'
-Plug 'vim-scripts/indentpython.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'aklt/plantuml-syntax'
+
+Plug 'vim-scripts/indentpython.vim'
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
 
 Plug 'previm/previm'
 if executable('chromium-browser')
