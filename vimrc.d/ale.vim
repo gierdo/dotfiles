@@ -12,7 +12,7 @@ let g:ale_linters = {
       \   'cpp': ['clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
       \   'c': ['clangtidy', 'cppcheck', 'flawfinder'],
       \   'tex': ['chktex'],
-      \   'python': ['flake8','pylint'],
+      \   'python': ['pylint'],
       \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
       \   'java': [''],
       \}
@@ -21,7 +21,7 @@ let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'cpp': ['clang-format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace'],
       \   'c': ['clang-format', 'uncrustify',  'remove_trailing_lines', 'trim_whitespace'],
-      \   'python': ['autopep8', 'yapf', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'python': ['remove_trailing_lines', 'trim_whitespace'],
       \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
       \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
       \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
@@ -30,6 +30,7 @@ let g:ale_fixers = {
       \   'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
       \   'typescript': ['prettier', 'tslint', 'remove_trailing_lines', 'trim_whitespace'],
       \}
+let g:ale_python_pylint_options = '--rcfile ~/.dotfiles/google-styleguide/python/pylintrc'
 " If an uncrustify config is available in the home directory, use it
 let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
