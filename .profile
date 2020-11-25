@@ -58,6 +58,7 @@ if command -v virtualenvwrapper.sh &> /dev/null; then
   export WORKON_HOME=$HOME/.virtualenvs/
   export PROJECT_HOME=$HOME/workspace
   export PIP_VIRTUALENV_BASE=$WORKON_HOME
+  export PIPENV_IGNORE_VIRTUALENVS=1
   source $(which virtualenvwrapper.sh)
 fi
 
