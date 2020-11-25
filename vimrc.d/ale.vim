@@ -1,8 +1,5 @@
 " only search for linters on startup
 let g:ale_cache_executable_check_failures = 1
-" disable fuchsia checker, annoying as hell
-let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type", "-llvmlibc-*"]
-let g:ale_c_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type" , "-llvmlibc-*"]
 let g:airline#extensions#ale#enabled = 1
 " save some battery
 let g:ale_lint_delay = 1000
@@ -30,7 +27,11 @@ let g:ale_fixers = {
       \   'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
       \   'typescript': ['prettier', 'tslint', 'remove_trailing_lines', 'trim_whitespace'],
       \}
-let g:ale_python_pylint_options = '--rcfile ~/.dotfiles/google-styleguide/python/pylintrc'
+
+" disable fuchsia checker, annoying as hell
+let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type", "-llvmlibc-*"]
+let g:ale_c_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type" , "-llvmlibc-*"]
+let g:ale_python_pylint_options = "--rcfile ~/.dotfiles/google-styleguide/python/pylintrc --indent-string='    '"
 " If an uncrustify config is available in the home directory, use it
 let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
