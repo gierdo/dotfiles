@@ -42,6 +42,10 @@
     "--style",
     "{based_on_style: google, indent_width: 4}"
   ],
+  "python.linting.pylintEnabled": false,
+  "python.linting.pylintArgs": [
+    "--rcfile ~/.dotfiles/google-styleguide/python/pylintrc --indent-string='    '"
+  ],
   "languageserver": {
     "clangd": {
       "command": "clangd",
