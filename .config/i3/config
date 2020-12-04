@@ -209,3 +209,8 @@ client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background           #2f343f
+
+# Multi Monitor
+# Moving workspaces between screens
+bindsym $mod+Alt+Right move workspace to output right
+bindsym $mod+Alt+Left move workspace to output left
