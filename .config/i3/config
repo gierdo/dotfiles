@@ -11,7 +11,7 @@ floating_modifier $mod
 #autostart
 exec --no-startup-id hsetroot -center ~/.wallpaper.png
 exec --no-startup-id xsettingsd &
-exec --no-startup-id compton -b
+# exec --no-startup-id compton -b
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
