@@ -20,15 +20,17 @@ titlebar_padding 2
 set $mod Mod4
 set $alt Mod1
 
+# preffered terminal emulator
+set $term foot
+
+# start a terminal
+bindsym $mod+Return exec $term
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 #autostart
 exec --no-startup-id xsettingsd &
-
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
 
 # start dmenu (a program launcher)
 bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'SauceCodePro Sans:size=8'"
