@@ -46,13 +46,13 @@ workspace 20 output $output-secondary $output-terniary
 # preffered terminal emulator
 set $term foot
 
-#############################################
-# From here on it's generic
-
 # Remove titlebar
 font pango: SauceCodePro Sans 0
 titlebar_border_thickness 2
 titlebar_padding 2
+
+#############################################
+# From here on it's generic
 
 # set modifier
 set $mod Mod4
