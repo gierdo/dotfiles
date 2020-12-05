@@ -11,13 +11,10 @@ bindsym $mod+Shift+r restart
 # preffered terminal emulator
 set $term gnome-terminal
 
+font pango: SauceCodePro Sans 8
+
 #############################################
 # From here on it's generic
-
-# Remove titlebar
-font pango: SauceCodePro Sans 0
-titlebar_border_thickness 2
-titlebar_padding 2
 
 # set modifier
 set $mod Mod4
