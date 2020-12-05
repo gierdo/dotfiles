@@ -1,12 +1,19 @@
-# This is i3-specific
+# This is sway-specific
 set $mod Mod4
-set $Locker i3lock -i ~/.wallpaper.png && sleep 1
+set $Locker swaylock -i ~/.wallpaper.png && sleep 1
 
-exec --no-startup-id hsetroot -center ~/.wallpaper.png
-exec --no-startup-id nm-applet &
-exec --no-startup-id i3-autodisplay
+output "*" bg ~/.wallpaper.png fill
 
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r reload
+
+input * {
+    xkb_layout "de"
+}
+
+input * {
+    tap enabled
+    natural_scroll enabled
+}
 
 #############################################
 # From here on it's generic
