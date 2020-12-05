@@ -115,6 +115,18 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+# secondary monitors
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+set $ws20 "20"
+
 # switch to workspace
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
@@ -129,6 +141,17 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
+bindsym $mod+Alt+1 workspace number $ws11
+bindsym $mod+Alt+2 workspace number $ws12
+bindsym $mod+Alt+3 workspace number $ws13
+bindsym $mod+Alt+4 workspace number $ws14
+bindsym $mod+Alt+5 workspace number $ws15
+bindsym $mod+Alt+6 workspace number $ws16
+bindsym $mod+Alt+7 workspace number $ws17
+bindsym $mod+Alt+8 workspace number $ws18
+bindsym $mod+Alt+9 workspace number $ws19
+bindsym $mod+Alt+0 workspace number $ws20
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -142,6 +165,17 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+$alt+Control+Right move container to workspace next
 bindsym $mod+$alt+Control+Left move container to workspace prev
+
+bindsym $mod+Alt+Shift+1 move container to workspace number $ws11
+bindsym $mod+Alt+Shift+2 move container to workspace number $ws12
+bindsym $mod+Alt+Shift+3 move container to workspace number $ws13
+bindsym $mod+Alt+Shift+4 move container to workspace number $ws14
+bindsym $mod+Alt+Shift+5 move container to workspace number $ws15
+bindsym $mod+Alt+Shift+6 move container to workspace number $ws16
+bindsym $mod+Alt+Shift+7 move container to workspace number $ws17
+bindsym $mod+Alt+Shift+8 move container to workspace number $ws18
+bindsym $mod+Alt+Shift+9 move container to workspace number $ws19
+bindsym $mod+Alt+Shift+0 move container to workspace number $ws20
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -194,15 +228,9 @@ bar {
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 4
-assign [class=URxvt] 1
-assign [class=Firefox|Chromium] 2
-assign [class=Thunar|File-roller|Nautilus] 3
-assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
-assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
+# assign [class=Firefox|Chromium] 2
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class=URxvt|Firefox|Chromium|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
-for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
 
 # colour of border, background, text, indicator, and child_border
 client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
