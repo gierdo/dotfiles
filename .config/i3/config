@@ -11,11 +11,15 @@ bindsym $mod+Shift+r restart
 #############################################
 # From here on it's generic
 
+# Remove titlebar
+font pango: SauceCodePro Sans 0
+titlebar_border_thickness 2
+titlebar_padding 2
+
 # set modifier
 set $mod Mod4
 set $alt Mod1
 
-font pango: SauceCodePro Sans 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
