@@ -8,6 +8,9 @@ exec --no-startup-id i3-autodisplay
 
 bindsym $mod+Shift+r restart
 
+# preffered terminal emulator
+set $term gnome-terminal
+
 #############################################
 # From here on it's generic
 
@@ -19,9 +22,6 @@ titlebar_padding 2
 # set modifier
 set $mod Mod4
 set $alt Mod1
-
-# preffered terminal emulator
-set $term foot
 
 # start a terminal
 bindsym $mod+Return exec $term

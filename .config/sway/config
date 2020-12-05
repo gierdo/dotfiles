@@ -43,6 +43,9 @@ workspace 18 output $output-secondary $output-terniary
 workspace 19 output $output-secondary $output-terniary
 workspace 20 output $output-secondary $output-terniary
 
+# preffered terminal emulator
+set $term foot
+
 #############################################
 # From here on it's generic
 
@@ -54,9 +57,6 @@ titlebar_padding 2
 # set modifier
 set $mod Mod4
 set $alt Mod1
-
-# preffered terminal emulator
-set $term foot
 
 # start a terminal
 bindsym $mod+Return exec $term
