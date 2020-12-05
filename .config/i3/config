@@ -47,8 +47,8 @@ mode "$mode_system" {
 bindsym $mod+p mode "$mode_system"
 
 #change volume
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec amixer set Master toggle
 
 # music control
