@@ -205,26 +205,25 @@ for_window [class=".*"] border pixel 4
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class=URxvt|Firefox|Chromium|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
 
-# colour of border, background, text, indicator, and child_border
-client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
-client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.background           #2f343f
+# Color Class               Border      BG         FG
+client.focused             #002b36   #002b36    #586e75
+client.focused_inactive    #333333   #333333    #586e75
+client.unfocused           #333333   #333333    #93a1a1
+client.urgent              #FF0000   #FF0000    #FF0000
 
 # panel
 bar {
-        colors {
-        background #2f343f
-        statusline #2f343f
-        separator #4b5262
+  font pango: SauceCodePro Sans 8
+    colors {
+      background #0D3244
+      statusline #002b36
+      separator  #93a1a1
 
         # colour of border, background, and text
-        focused_workspace       #2f343f #bf616a #d8dee8
-        active_workspace        #2f343f #2f343f #d8dee8
-        inactive_workspace      #2f343f #2f343f #d8dee8
-        urgent_workspace        #2f343f #ebcb8b #2f343f
+      focused_workspace #0D3244 #0D3244 #93a1a1
+      active_workspace  #444444 #444444 #93a1a1
+      inactive_workspace #0D3244 #0D3244 #888888
+      urgent_workspace  #2f343a #900000 #93a1a1
     }
         status_command i3status
 }
