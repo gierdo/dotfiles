@@ -11,6 +11,7 @@ floating_modifier $mod
 #autostart
 exec --no-startup-id hsetroot -center ~/.wallpaper.png
 exec --no-startup-id xsettingsd &
+exec --no-startup-id nm-applet &
 exec --no-startup-id i3-autodisplay
 
 # start a terminal
@@ -22,7 +23,9 @@ bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun 
 
 # common apps keybinds
 bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
-bindsym $mod+Shift+w exec firefox
+bindsym $mod+Ctrl+f exec firefox
+bindsym $mod+Ctrl+c exec chromium
+bindsym $mod+Ctrl+p exec evolution
 
 # Lock, shutdown etc.
 set $Locker i3lock -i ~/.wallpaper.png && sleep 1
@@ -153,29 +156,30 @@ bindsym $mod+Alt+9 workspace number $ws19
 bindsym $mod+Alt+0 workspace number $ws20
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1; workspace 1
+bindsym $mod+Shift+2 move container to workspace number $ws2; workspace 2
+bindsym $mod+Shift+3 move container to workspace number $ws3; workspace 3
+bindsym $mod+Shift+4 move container to workspace number $ws4; workspace 4
+bindsym $mod+Shift+5 move container to workspace number $ws5; workspace 5
+bindsym $mod+Shift+6 move container to workspace number $ws6; workspace 6
+bindsym $mod+Shift+7 move container to workspace number $ws7; workspace 7
+bindsym $mod+Shift+8 move container to workspace number $ws8; workspace 8
+bindsym $mod+Shift+9 move container to workspace number $ws9; workspace 9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace 10
+
 bindsym $mod+$alt+Control+Right move container to workspace next
 bindsym $mod+$alt+Control+Left move container to workspace prev
 
-bindsym $mod+Alt+Shift+1 move container to workspace number $ws11
-bindsym $mod+Alt+Shift+2 move container to workspace number $ws12
-bindsym $mod+Alt+Shift+3 move container to workspace number $ws13
-bindsym $mod+Alt+Shift+4 move container to workspace number $ws14
-bindsym $mod+Alt+Shift+5 move container to workspace number $ws15
-bindsym $mod+Alt+Shift+6 move container to workspace number $ws16
-bindsym $mod+Alt+Shift+7 move container to workspace number $ws17
-bindsym $mod+Alt+Shift+8 move container to workspace number $ws18
-bindsym $mod+Alt+Shift+9 move container to workspace number $ws19
-bindsym $mod+Alt+Shift+0 move container to workspace number $ws20
+bindsym $mod+Alt+Shift+1 move container to workspace number $ws11; workspace 11
+bindsym $mod+Alt+Shift+2 move container to workspace number $ws12; workspace 12
+bindsym $mod+Alt+Shift+3 move container to workspace number $ws13; workspace 13
+bindsym $mod+Alt+Shift+4 move container to workspace number $ws14; workspace 14
+bindsym $mod+Alt+Shift+5 move container to workspace number $ws15; workspace 15
+bindsym $mod+Alt+Shift+6 move container to workspace number $ws16; workspace 16
+bindsym $mod+Alt+Shift+7 move container to workspace number $ws17; workspace 17
+bindsym $mod+Alt+Shift+8 move container to workspace number $ws18; workspace 18
+bindsym $mod+Alt+Shift+9 move container to workspace number $ws19; workspace 19
+bindsym $mod+Alt+Shift+0 move container to workspace number $ws20; workspace 20
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -210,21 +214,10 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# panel
-bar {
-        colors {
-        background #2f343f
-        statusline #2f343f
-        separator #4b5262
-
-        # colour of border, background, and text
-        focused_workspace       #2f343f #bf616a #d8dee8
-        active_workspace        #2f343f #2f343f #d8dee8
-        inactive_workspace      #2f343f #2f343f #d8dee8
-        urgent_workspacei       #2f343f #ebcb8b #2f343f
-    }
-        status_command i3status
-}
+# Multi Monitor
+# Moving workspaces between screens
+bindsym $mod+Alt+Right move workspace to output right
+bindsym $mod+Alt+Left move workspace to output left
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 4
@@ -240,7 +233,18 @@ client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background           #2f343f
 
-# Multi Monitor
-# Moving workspaces between screens
-bindsym $mod+Alt+Right move workspace to output right
-bindsym $mod+Alt+Left move workspace to output left
+# panel
+bar {
+        colors {
+        background #2f343f
+        statusline #2f343f
+        separator #4b5262
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
+    }
+        status_command i3status
+}
