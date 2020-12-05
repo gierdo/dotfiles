@@ -6,19 +6,20 @@ output "*" bg ~/.wallpaper.png fill
 
 bindsym $mod+Shift+r reload
 
-input * {
+input type:keyboard {
     xkb_layout "de"
 }
 
-input * {
+input type:touchpad {
     tap enabled
     natural_scroll enabled
+    dwt enabled
+    pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
 }
 
 set $output-primary eDP-1
 set $output-secondary HDMI-A-0
 set $output-terniary DisplayPort-0
-
 
 workspace 1 output $output-primary
 workspace 2 output $output-primary
@@ -42,7 +43,7 @@ workspace 18 output $output-secondary $output-terniary
 workspace 19 output $output-secondary $output-terniary
 workspace 20 output $output-secondary $output-terniary
 
-
+hide_edge_borders --i3 smart_no_gaps
 #############################################
 # From here on it's generic
 
