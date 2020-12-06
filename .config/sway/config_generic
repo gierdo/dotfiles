@@ -188,7 +188,7 @@ bindsym $mod+Alt+Left move workspace to output left
 for_window [class=".*"] border pixel 4
 # assign [class=Firefox|Chromium] 2
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
-for_window [class=URxvt|Firefox|Chromium|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+for_window [class=Firefox|Chromium|Evince|Soffice|libreoffice*|Gimp*|Inkscape|Vlc|Lxappearance] focus
 
 # Color Class               Border      BG         FG
 client.focused             #002b36   #002b36    #586e75
