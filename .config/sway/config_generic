@@ -100,16 +100,16 @@ workspace 8 output $output-primary
 workspace 9 output $output-primary
 workspace 10 output $output-primary
 
-workspace 11 output $output-secondary $output-terniary
-workspace 12 output $output-secondary $output-terniary
-workspace 13 output $output-secondary $output-terniary
-workspace 14 output $output-secondary $output-terniary
-workspace 15 output $output-secondary $output-terniary
-workspace 16 output $output-secondary $output-terniary
-workspace 17 output $output-secondary $output-terniary
-workspace 18 output $output-secondary $output-terniary
-workspace 19 output $output-secondary $output-terniary
-workspace 20 output $output-secondary $output-terniary
+workspace 11 output $output-secondary $output-tertiary
+workspace 12 output $output-secondary $output-tertiary
+workspace 13 output $output-secondary $output-tertiary
+workspace 14 output $output-secondary $output-tertiary
+workspace 15 output $output-secondary $output-tertiary
+workspace 16 output $output-secondary $output-tertiary
+workspace 17 output $output-secondary $output-tertiary
+workspace 18 output $output-secondary $output-tertiary
+workspace 19 output $output-secondary $output-tertiary
+workspace 20 output $output-secondary $output-tertiary
 
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
