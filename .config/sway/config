@@ -19,7 +19,7 @@ input type:touchpad {
 
 set $output-primary eDP-1
 set $output-secondary HDMI-A-0
-set $output-terniary DisplayPort-0
+set $output-tertiary DisplayPort-0
 
 # preffered terminal emulator
 set $term foot
