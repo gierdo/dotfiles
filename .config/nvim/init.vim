@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
+Plug 'beeender/Comrade'
 Plug 'w0rp/ale'
 
 if has('nvim')
