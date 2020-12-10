@@ -41,7 +41,7 @@ bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun 
 bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
 bindsym $mod+Ctrl+f exec firefox
 bindsym $mod+Ctrl+c exec GDK_BACKEND=x11 chromium
-bindsym $mod+Ctrl+p exec evolution
+bindsym $mod+Ctrl+p exec GDK_BACKEND=x11 evolution
 
 # Lock, shutdown etc.
 bindsym $mod+l exec --no-startup-id $Locker, mode "default"
@@ -225,7 +225,7 @@ for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucon
 for_window [class=Firefox|Chromium|Evince|Soffice|libreoffice*|Gimp*|Inkscape|Vlc|Lxappearance] focus
 
 # Color Class               Border      BG         FG
-client.focused             #002b36   #002b36    #586e75
+client.focused             #586e75   #002b36    #586e75
 client.focused_inactive    #333333   #333333    #586e75
 client.unfocused           #333333   #333333    #93a1a1
 client.urgent              #FF0000   #FF0000    #FF0000
