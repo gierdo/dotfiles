@@ -136,7 +136,6 @@ function SetupCoc()
   execute '! luarocks install --server=http://luarocks.org/dev lua-lsp --local'
 
   execute 'CocInstall coc-lua'
-  execute 'CocInstall coc-java'
   execute 'CocInstall coc-css'
   execute 'CocInstall coc-json'
   execute 'CocInstall coc-html'
