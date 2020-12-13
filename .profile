@@ -53,7 +53,9 @@ if [ -f "$HOME/.profile.local" ]; then
   source "$HOME/.profile.local"
 fi
 
-if command -v virtualenvwrapper.sh &> /dev/null; then
+source "$HOME/.dotfiles/asdf/asdf.sh"
+
+if command -v virtualenvwrapper.sh &>/dev/null; then
   export VIRTUALENVWRAPPER_PYTHON=$(which python3)
   export WORKON_HOME=$HOME/.virtualenvs/
   export PROJECT_HOME=$HOME/workspace
@@ -63,6 +65,3 @@ if command -v virtualenvwrapper.sh &> /dev/null; then
 fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
-
-source $HOME/.dotfiles/asdf/asdf.sh
-
