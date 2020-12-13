@@ -49,10 +49,6 @@ if [ -d "/usr/lib/ccache" ]; then
   fi
 fi
 
-if [ -f "$HOME/.profile.local" ]; then
-  source "$HOME/.profile.local"
-fi
-
 source "$HOME/.dotfiles/asdf/asdf.sh"
 
 if command -v virtualenvwrapper.sh &>/dev/null; then
@@ -65,3 +61,7 @@ if command -v virtualenvwrapper.sh &>/dev/null; then
 fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+if [ -f "$HOME/.profile.local" ]; then
+  source "$HOME/.profile.local"
+fi
