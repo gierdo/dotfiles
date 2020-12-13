@@ -52,7 +52,7 @@ fi
 source "$HOME/.dotfiles/asdf/asdf.sh"
 
 if command -v virtualenvwrapper.sh &>/dev/null; then
-  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+  export VIRTUALENVWRAPPER_PYTHON=$(which python)
   export WORKON_HOME=$HOME/.virtualenvs/
   export PROJECT_HOME=$HOME/workspace
   export PIP_VIRTUALENV_BASE=$WORKON_HOME
