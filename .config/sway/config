@@ -38,3 +38,6 @@ exec mako
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
 include ~/.dotfiles/.config/sway/config_generic
+
+# include local config, if it exists
+include ~/.sway.local
