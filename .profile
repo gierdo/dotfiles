@@ -49,19 +49,27 @@ if [ -d "/usr/lib/ccache" ]; then
   fi
 fi
 
-source "$HOME/.dotfiles/asdf/asdf.sh"
+if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
+  . "$HOME/.dotfiles/asdf/asdf.sh"
+fi
+
+GUIX_PROFILE="$HOME/.guix-profile"
+if [ -d "$GUIX_PROFILE" ]; then
+  export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
+  . "$GUIX_PROFILE/etc/profile"
+fi
 
 if command -v virtualenvwrapper.sh &>/dev/null; then
-  export VIRTUALENVWRAPPER_PYTHON=$(which python)
+  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
   export WORKON_HOME=$HOME/.virtualenvs/
   export PROJECT_HOME=$HOME/workspace
   export PIP_VIRTUALENV_BASE=$WORKON_HOME
   export PIPENV_IGNORE_VIRTUALENVS=1
-  source $(which virtualenvwrapper.sh)
+  . $(which virtualenvwrapper.sh)
 fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 if [ -f "$HOME/.profile.local" ]; then
-  source "$HOME/.profile.local"
+  . "$HOME/.profile.local"
 fi
