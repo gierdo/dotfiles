@@ -53,6 +53,14 @@ if [ -d "$GUIX_PROFILE" ]; then
   . "$GUIX_PROFILE/etc/profile"
 fi
 
+SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
+if [ -d "$SSL_CERT_DIR_" ]; then
+  export SSL_CERT_DIR="$SSL_CERT_DIR_"
+  export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+  export GIT_SSL_CAINFO="$SSL_CERT_FILE"
+  export CURL_CA_BUNDLE="$SSL_CERT_FILE"
+fi
+
 if command -v virtualenvwrapper.sh &>/dev/null; then
   export VIRTUALENVWRAPPER_PYTHON=$(which python3)
   export WORKON_HOME=$HOME/.virtualenvs/
