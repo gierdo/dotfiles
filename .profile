@@ -49,7 +49,6 @@ fi
 
 GUIX_PROFILE="$HOME/.guix-profile"
 if [ -d "$GUIX_PROFILE" ]; then
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$GUIX_PROFILE/lib
   export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
   . "$GUIX_PROFILE/etc/profile"
 fi
