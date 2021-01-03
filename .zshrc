@@ -116,6 +116,10 @@ alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name |
 alias fucking='sudo '
 eval $(thefuck --alias)
 
+if [ -d "$HOME/.guix-profile" ]; then
+  alias weechat='workon weechat && LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$HOME/.guix-profile/lib weechat && deactivate'
+fi
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
