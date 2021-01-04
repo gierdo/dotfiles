@@ -49,17 +49,27 @@ fi
 
 GUIX_PROFILE="$HOME/.guix-profile"
 if [ -d "$GUIX_PROFILE" ]; then
+  SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
+  if [ -d "$SSL_CERT_DIR_" ]; then
+    export SSL_CERT_DIR="$SSL_CERT_DIR_"
+    export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+    export GIT_SSL_CAINFO="$SSL_CERT_FILE"
+    export CURL_CA_BUNDLE="$SSL_CERT_FILE"
+  fi
+
   export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
   . "$GUIX_PROFILE/etc/profile"
 fi
 
-SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
-if [ -d "$SSL_CERT_DIR_" ]; then
-  export SSL_CERT_DIR="$SSL_CERT_DIR_"
-  export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
-  export GIT_SSL_CAINFO="$SSL_CERT_FILE"
-  export CURL_CA_BUNDLE="$SSL_CERT_FILE"
-fi
+GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
+for i in $GUIX_EXTRA_PROFILES/*; do
+  profile=$i/$(basename "$i")
+  if [ -f "$profile"/etc/profile ]; then
+    GUIX_PROFILE="$profile"
+    . "$GUIX_PROFILE"/etc/profile
+  fi
+  unset profile
+done
 
 if command -v virtualenvwrapper.sh &>/dev/null; then
   export VIRTUALENVWRAPPER_PYTHON=$(which python3)
@@ -71,6 +81,8 @@ if command -v virtualenvwrapper.sh &>/dev/null; then
 fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+export EDITOR=vim
 
 if [ -f "$HOME/.profile.local" ]; then
   . "$HOME/.profile.local"
