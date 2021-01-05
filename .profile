@@ -43,10 +43,6 @@ if [ -d "/usr/lib/ccache" ]; then
   fi
 fi
 
-if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
-  . "$HOME/.dotfiles/asdf/asdf.sh"
-fi
-
 GUIX_PROFILE="$HOME/.guix-profile"
 if [ -d "$GUIX_PROFILE" ]; then
   SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
@@ -71,13 +67,18 @@ for i in $GUIX_EXTRA_PROFILES/*; do
   unset profile
 done
 
-if command -v virtualenvwrapper.sh &>/dev/null; then
-  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-  export WORKON_HOME=$HOME/.virtualenvs/
-  export PROJECT_HOME=$HOME/workspace
-  export PIP_VIRTUALENV_BASE=$WORKON_HOME
-  export PIPENV_IGNORE_VIRTUALENVS=1
-  . $(which virtualenvwrapper.sh)
+if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
+  . "$HOME/.dotfiles/asdf/asdf.sh"
+fi
+
+if [ -d "$HOME/.pyenv" ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+
+  if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenv" ]; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
 fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
