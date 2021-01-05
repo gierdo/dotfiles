@@ -77,7 +77,6 @@ plugins=(
   kubectl
   fancy-ctrl-z
   rust
-  virtualenvwrapper
   pipenv
   mvn
 )
@@ -107,8 +106,12 @@ setopt +o nomatch
 # fi
 
 
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 source "$HOME/.dotfiles/asdf/completions/asdf.bash"
-source aws_zsh_completer.sh
+# source aws_zsh_completer.sh
 
 alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 
@@ -117,7 +120,7 @@ alias fucking='sudo '
 eval $(thefuck --alias)
 
 if [ -d "$HOME/.guix-profile" ]; then
-  alias weechat='workon weechat && LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$HOME/.guix-profile/lib weechat && deactivate'
+  alias weechat='workon weechat && LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$HOME/.guix-extra-profiles/weechat/lib weechat && deactivate'
 fi
 
 if [ -f "$HOME/.zshrc.local" ]; then
