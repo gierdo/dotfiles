@@ -2,6 +2,7 @@
     '("neovim"
      "foot"
      "tmux"
+     "xclip"
      "nss-certs"
      "fontconfig"
      "glibc-locales"
