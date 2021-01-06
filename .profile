@@ -71,12 +71,15 @@ if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
   . "$HOME/.dotfiles/asdf/asdf.sh"
 fi
 
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
+if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
+  export PYENV_ROOT="$HOME/.dotfiles/pyenv"
   PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
 
-  if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenv" ]; then
+  pyenv_virtualenv_plugin_root="$HOME/.dotfiles/pyenv-plugins/pyenv-virtualenv"
+  if [ -d "$pyenv_virtualenv_plugin_root" ]; then
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    PATH="$pyenv_virtualenv_plugin_root/bin:$PATH"
     eval "$(pyenv virtualenv-init -)"
   fi
 fi

@@ -1,4 +1,5 @@
 (specifications->manifest
-    '("libolm"
-     "weechat"
-     "openssl"))
+  '("libolm"
+    "python"
+    "weechat"
+    "openssl"))

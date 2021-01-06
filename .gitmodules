@@ -4,3 +4,9 @@
 [submodule "asdf"]
 	path = asdf
 	url = https://github.com/asdf-vm/asdf.git
+[submodule "pyenv"]
+	path = pyenv
+	url = https://github.com/pyenv/pyenv.git
+[submodule "pyenv-plugins/pyenv-virtualenv"]
+	path = pyenv-plugins/pyenv-virtualenv
+	url = https://github.com/pyenv/pyenv-virtualenv.git
