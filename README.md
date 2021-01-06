@@ -13,6 +13,22 @@ The repository can be cloned locally, relevant configuration files can be replac
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
 
+# Guix
+
+I am slowly reordering my setup to be able to bootstrap it with guix.
+The shell/vim setup already is defined in a guix manifest:
+
+```
+sudo apt-get install nscd
+wget https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh
+chmod +x guix-install.sh
+sudo ./guix-install.sh
+.
+.
+.
+guix package -m ~/.dotfiles/guix-manifests/default-profile.scm
+```
+
 # Fonts
 
 The "fonts" directory contains fonts from https://github.com/ryanoasis/nerd-fonts
