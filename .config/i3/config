@@ -9,7 +9,7 @@ exec --no-startup-id i3-autodisplay
 bindsym $mod+Shift+r restart
 
 # preffered terminal emulator
-set $term gnome-terminal
+set $term alacritty
 
 font pango: SauceCodePro Sans 8
 

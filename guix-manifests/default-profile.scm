@@ -1,6 +1,7 @@
 (specifications->manifest
     '("neovim"
      "foot"
+     "alacritty"
      "tmux"
      "xclip"
      "nss-certs"
