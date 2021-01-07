@@ -43,8 +43,8 @@ if [ -d "/usr/lib/ccache" ]; then
   fi
 fi
 
-GUIX_PROFILE="$HOME/.guix-profile"
-if [ -d "$GUIX_PROFILE" ]; then
+if command -v guix 1>/dev/null 2>&1; then
+  GUIX_PROFILE="$HOME/.guix-profile"
   SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
   if [ -d "$SSL_CERT_DIR_" ]; then
     export SSL_CERT_DIR="$SSL_CERT_DIR_"
@@ -55,17 +55,17 @@ if [ -d "$GUIX_PROFILE" ]; then
 
   export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
   . "$GUIX_PROFILE/etc/profile"
-fi
 
-GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
-for i in $GUIX_EXTRA_PROFILES/*; do
-  profile=$i/$(basename "$i")
-  if [ -f "$profile"/etc/profile ]; then
-    GUIX_PROFILE="$profile"
-    . "$GUIX_PROFILE"/etc/profile
-  fi
-  unset profile
-done
+  GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
+  for i in $GUIX_EXTRA_PROFILES/*; do
+    profile=$i/$(basename "$i")
+    if [ -f "$profile"/etc/profile ]; then
+      GUIX_PROFILE="$profile"
+      . "$GUIX_PROFILE"/etc/profile
+    fi
+    unset profile
+  done
+fi
 
 if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
   . "$HOME/.dotfiles/asdf/asdf.sh"
