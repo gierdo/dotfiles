@@ -44,7 +44,6 @@ let g:NERDTreeMapOpenVSplit = "<C-v>"
 let g:NERDTreeMapOpenSplit = "<C-s>"
 
 Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-airline/vim-airline'
