@@ -120,6 +120,12 @@ alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name |
 alias fucking='sudo '
 eval $(thefuck --alias)
 
+if command -v podman 1>/dev/null 2>&1; then
+  alias docker='podman'
+fi
+
+alias browsh='docker run --rm -it browsh/browsh'
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
