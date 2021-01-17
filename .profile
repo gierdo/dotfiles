@@ -88,6 +88,25 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 export EDITOR=vim
 
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+# sway is installed, simply assuming sway as session for now
+if command -v sway 1>/dev/null 2>&1; then
+  export XDG_CURRENT_DESKTOP=sway
+  export QT_QPA_PLATFORM=wayland-egl
+  export GDK_BACKEND=wayland
+  export MOZ_ENABLE_WAYLAND=1
+  # Fix idea on wayland
+  export _JAVA_AWT_WM_NONREPARENTING=1
+fi
+
+# tbsm is installed, simply assuming tbsm as dm for now
+if command -v tbsm 1>/dev/null 2>&1; then
+  if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
+    exec tbsm
+  fi
+fi
+
 if [ -f "$HOME/.profile.local" ]; then
   . "$HOME/.profile.local"
 fi

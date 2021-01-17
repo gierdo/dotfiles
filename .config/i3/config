@@ -20,6 +20,9 @@ set $output-tertiary DP-1-2
 #############################################
 # From here on it's generic
 
+exec systemctl --user import-environment
+exec gnome-keyring-daemon --components=ssh\,secrets\,pkcs11 --replace
+
 # set modifier
 set $mod Mod4
 set $alt Mod1
