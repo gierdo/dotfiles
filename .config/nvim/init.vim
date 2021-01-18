@@ -104,6 +104,7 @@ Plug 'vim-scripts/groovy.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'aklt/plantuml-syntax'
+Plug 'HiPhish/guile.vim'
 
 Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }

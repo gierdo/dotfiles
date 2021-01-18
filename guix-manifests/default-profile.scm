@@ -4,6 +4,7 @@
      "alacritty"
      "tmux"
      "xclip"
+     "guile"
      "nss-certs"
      "fontconfig"
      "glibc-locales"
