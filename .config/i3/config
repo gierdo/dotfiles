@@ -1,6 +1,8 @@
 # This is i3-specific
 set $mod Mod4
+
 set $Locker i3lock-fancy && sleep 1
+exec --no-startup-id xautolock -time 6 -locker $Locker
 
 exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
 exec --no-startup-id nm-applet &

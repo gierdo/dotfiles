@@ -28,7 +28,7 @@ colors:
     white:   '0xfdf6e3'
 
 font:
-  size: 10
+  size: 9
 
 shell:
   program: tmux
