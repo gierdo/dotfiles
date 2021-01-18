@@ -2,7 +2,7 @@
 set $mod Mod4
 set $Locker i3lock-fancy && sleep 1
 
-exec --no-startup-id hsetroot -fill ~/.wallpaper.png
+exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
 exec --no-startup-id nm-applet &
 exec --no-startup-id i3-autodisplay
 
