@@ -5,7 +5,6 @@ set $Locker i3lock-fancy && sleep 1
 exec --no-startup-id xautolock -time 6 -locker $Locker
 
 exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
-exec --no-startup-id nm-applet &
 exec --no-startup-id i3-autodisplay
 
 bindsym $mod+Shift+r restart
