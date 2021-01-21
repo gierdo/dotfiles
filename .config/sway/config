@@ -3,10 +3,6 @@ set $mod Mod4
 
 set $Locker swaylock -i ~/.wallpaper.png -s fill && sleep 1
 
-exec swayidle -w \
-    timeout 600 $Locker \
-    before-sleep $Locker
-
 output "*" bg ~/.wallpaper.png fill
 
 bindsym $mod+Shift+r reload
