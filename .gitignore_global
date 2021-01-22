@@ -1,3 +1,4 @@
+.nvimlog
 .clangd
 compile_commands.json
 tags
