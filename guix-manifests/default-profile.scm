@@ -7,4 +7,4 @@
      "nss-certs"
      "fontconfig"
      "glibc-locales"
-     "zsh"))
+     "fish"))

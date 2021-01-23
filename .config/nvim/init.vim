@@ -1,3 +1,8 @@
+" fish is not POSIX compliant, which may break vim features
+if &shell =~# 'fish$'
+    set shell=bash
+endif
+
 if has('nvim')
   if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
     execute '!curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
