@@ -1,6 +1,5 @@
 (specifications->manifest
-    '("neovim"
-     "foot"
+    '("foot"
      "alacritty"
      "tmux"
      "xclip"
