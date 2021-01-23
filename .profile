@@ -21,7 +21,6 @@ PATH="$HOME/.yarn/bin:$PATH"
 PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 PATH="$HOME/.npmpath/bin:$PATH"
 PATH="$HOME/.gem/ruby/current/bin:$PATH"
-PATH="$HOME/.cargo/bin:$PATH"
 PATH="$HOME/.luarocks/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 
@@ -105,6 +104,10 @@ if command -v tbsm 1>/dev/null 2>&1; then
   if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
     exec tbsm
   fi
+fi
+
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
 fi
 
 if [ -f "$HOME/.profile.local" ]; then
