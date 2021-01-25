@@ -1,11 +1,15 @@
 set -gx SHELL fish
 
 if type -q pyenv
-  source (pyenv init - | source)
+  pyenv init - | source
 end
 
 if type -q thefuck
   thefuck --alias | source
+end
+
+if type -q gh
+  gh completion -s fish | source
 end
 
 if test -f "$HOME/.dotfiles/asdf/completions/asdf.fish"
