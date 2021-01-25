@@ -7,4 +7,5 @@
      "nss-certs"
      "fontconfig"
      "glibc-locales"
+     "neovim"
      "fish"))
