@@ -7,6 +7,8 @@ set $mod Mod4
 # waylock can be installed with cargo install waylock --locked, needs libpam-dev
 set $Locker waylock --init-color 0x002b36 --input-color 0x2aa198
 
+set $ScreenshotGrabber grim
+
 output "*" bg ~/.wallpaper.png fill
 
 bindsym $mod+Shift+r reload
