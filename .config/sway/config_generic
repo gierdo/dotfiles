@@ -16,7 +16,7 @@ bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'SauceCodePro S
 bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'SauceCodePro Sans 10'
 
 # common apps keybinds
-bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
+bindsym Print exec $ScreenshotGrabber
 bindsym $mod+Ctrl+f exec firefox
 bindsym $mod+Ctrl+c exec GDK_BACKEND=x11 chromium
 bindsym $mod+Ctrl+p exec thunderbird

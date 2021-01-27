@@ -4,5 +4,6 @@
      "swayidle"
      "swaybg"
      "waybar"
+     "grim"
      "mako"
      "rofi"))
