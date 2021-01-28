@@ -8,9 +8,6 @@ let g:ale_linters_explicit = 0
 let g:ale_linters = {
       \   'cpp': ['clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
       \   'c': ['clangtidy', 'cppcheck', 'flawfinder'],
-      \   'tex': ['chktex'],
-      \   'python': ['pylint'],
-      \   'go': ['go build', 'gofmt', 'golint', 'go vet'],
       \   'java': [''],
       \}
 let g:ale_fix_on_save = 1
