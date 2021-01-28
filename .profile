@@ -94,7 +94,12 @@ if command -v sway 1>/dev/null 2>&1; then
   export XDG_CURRENT_DESKTOP=sway
   export QT_QPA_PLATFORM=wayland-egl
   export GDK_BACKEND=wayland
+  export CLUTTER_BACKEND=wayland
+  export XDG_SESSION_TYPE=wayland
+  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+  export SDL_VIDEODRIVER=wayland
   export MOZ_ENABLE_WAYLAND=1
+  export MOZ_WEBRENDER=1
   # Fix idea on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
 fi
