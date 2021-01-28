@@ -111,6 +111,10 @@ if command -v tbsm 1>/dev/null 2>&1; then
   fi
 fi
 
+if command -v keychain 1>/dev/null 2>&1; then
+  eval $(keychain -q --eval id_rsa)
+fi
+
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
