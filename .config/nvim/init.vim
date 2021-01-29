@@ -59,29 +59,8 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Plug 'mileszs/ack.vim'
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep --no-heading'
-elseif executable('ag')
-  let g:ackprg = 'ag --vimgrep --hidden'
-endif
-if !has('nvim')
-  Plug 'tpope/vim-dispatch'
-  let g:ack_use_dispatch = 1
-endif
-" Do not jump to the fist entry
-cnoreabbrev Ack Ack!
-cnoreabbrev ack Ack!
-
-Plug 'wincent/command-t', {
-      \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-      \ }
-nmap <silent> <C-p> :CommandT<CR>
-let g:CommandTScanDotDirectories = 1
-let g:CommandTAlwaysShowDotFiles = 0
-let g:CommandTMaxFiles = 200000
-let g:CommandTAcceptSelectionVSplitMap = "<C-v>"
-let g:CommandTAcceptSelectionSplitMap = "<C-s>"
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
