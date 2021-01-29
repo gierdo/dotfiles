@@ -1,6 +1,7 @@
 (specifications->manifest
     '("foot"
      "alacritty"
+     "ranger"
      "tmux"
      "xclip"
      "guile"
