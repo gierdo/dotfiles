@@ -83,8 +83,6 @@ if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
   fi
 fi
 
-export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
-
 export EDITOR=vim
 
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -102,6 +100,11 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_WEBRENDER=1
   # Fix idea on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
+fi
+
+if command -v rg 1>/dev/null 2>&1; then
+  export RIPGREP_CONFIG_PATH=$HOME/.dotfiles/.ripgreprc
+  export FZF_DEFAULT_COMMAND='rg --files'
 fi
 
 # tbsm is installed, simply assuming tbsm as dm for now

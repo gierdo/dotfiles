@@ -7,5 +7,7 @@
      "nss-certs"
      "fontconfig"
      "glibc-locales"
+     "ripgrep"
+     "go-github-com-junegunn-fzf"
      "neovim"
      "fish"))
