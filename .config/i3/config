@@ -51,14 +51,13 @@ bindsym $mod+Ctrl+p exec thunderbird
 # Lock, shutdown etc.
 bindsym $mod+l exec --no-startup-id $Locker, mode "default"
 
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (s) shutdown, (h) hibernate, (r) reboot, (Shift+s) suspend
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym h exec --no-startup-id $Locker & systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym Shift+s exec --no-startup-id $Locker & systemctl suspend, mode "default"
 
 # back to normal: Enter or Escape
     bindsym Return mode "default"
