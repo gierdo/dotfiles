@@ -89,16 +89,17 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 # sway is installed, simply assuming sway as session for now
 if command -v sway 1>/dev/null 2>&1; then
+  # setting gdk_backend manually causes trouble
+  # export GDK_BACKEND=wayland
   export XDG_CURRENT_DESKTOP=sway
   export QT_QPA_PLATFORM=wayland-egl
-  export GDK_BACKEND=wayland
+  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
   export CLUTTER_BACKEND=wayland
   export XDG_SESSION_TYPE=wayland
-  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
   export SDL_VIDEODRIVER=wayland
   export MOZ_ENABLE_WAYLAND=1
   export MOZ_WEBRENDER=1
-  # Fix idea on wayland
+  # Fix Java AWT applications on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
 fi
 
