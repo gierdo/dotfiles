@@ -44,7 +44,7 @@
         ".git/",
         ".hg/"
       ],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
+      "filetypes": ["c", "cpp", "cc", "c++", "objc", "objcpp"]
     },
     "golang": {
       "command": "go-langserver",
