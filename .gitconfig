@@ -29,6 +29,8 @@
   excludesfile = ~/.gitignore_global
 [difftool]
   path = nvim
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [include]
   path = ~/.gitconfig.local
 [pull]
