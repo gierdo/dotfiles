@@ -4,9 +4,6 @@ set -gx SHELL fish
 pyenv init - | source
 source "$HOME/.dotfiles/asdf/completions/asdf.fish"
 source "$HOME/.guix-profile/src/github.com/junegunn/fzf/shell/key-bindings.fish"
-alias vim=nvim
-
-
 if type -q thefuck
   thefuck --alias | source
 end
@@ -18,6 +15,10 @@ end
 if type -q kubectl
   alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 end
+
+alias docker=podman
+alias vim=nvim
+alias browsh='docker run --rm -it browsh/browsh'
 
 if test -f "$HOME/.config.fish.local"
   source "$HOME/.config.fish.local"
