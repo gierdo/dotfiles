@@ -1,5 +1,11 @@
 set -gx SHELL fish
 
+if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
+
+fundle plugin 'evanlucas/fish-kubectl-completions'
+
+fundle init
+
 # These dependencies are defined in the guix profile and dotfiles, we can assume they are present
 pyenv init - | source
 source "$HOME/.dotfiles/asdf/completions/asdf.fish"
