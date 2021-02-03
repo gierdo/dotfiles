@@ -16,7 +16,10 @@ if type -q kubectl
   alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 end
 
-alias docker=podman
+if type -q podman
+  alias docker=podman
+end
+
 alias vim=nvim
 alias browsh='docker run --rm -it browsh/browsh'
 
