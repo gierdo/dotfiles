@@ -1,0 +1,28 @@
+#!/bin/bash
+ 
+IF=$1
+STATUS=$2
+ 
+if [ "$IF" == "tun0" ]
+then
+    case "$2" in
+        up)
+        logger -s "VPN Script up triggered"
+        ipv6 off
+        ;;
+        down)
+        logger -s "VPN Script down triggered"
+        ipv6 on
+        ;;
+#        pre-up)
+#        logger -s "VPN Script pre-up triggered"
+#        command3
+#        ;;
+#        post-down)
+#        logger -s "VPN Script post-down triggered"
+#        command4
+#        ;;
+        *)
+        ;;
+    esac
+fi
