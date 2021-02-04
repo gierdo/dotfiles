@@ -121,3 +121,4 @@ alias fucking='sudo '
 
 alias gitlog='git log --graph --decorate=full --all --oneline'
 
+export SHELL=$(which bash)
