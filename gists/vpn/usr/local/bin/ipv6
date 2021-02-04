@@ -1,0 +1,69 @@
+#!/usr/bin/bash
+
+# declare variables to colorize output
+red='\033[0;31m'
+green='\033[0;32m'
+reset_color='\033[0m'
+
+# output information for how to use script
+# I named this script ipv6, but feel free to change its name!
+print_help() {
+  echo -e "Usage:
+  ipv6
+  ipv6 [-s | --save] on
+  ipv6 [-s | --save] off"
+}
+
+# print whether ipv6 was enabled / disabled by reading current config
+print_ipv6_status(){
+  # determine whether ipv6 is enabled / disabled
+  ipv6_is_off=$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6)
+  if [[ "$ipv6_is_off" -eq 1 ]]; then
+    echo -e "ipv6 is ${red}disabled${reset_color}"
+  else
+    echo -e "ipv6 is ${green}enabled${reset_color}"
+  fi
+}
+
+# if -s or --save is passed as first argument to script,
+#   this config will be saved and systemctl will load this new config
+# this regex checks if first argument is '-s' or '--save'
+if [[ "$1" =~ ^-s$|^--save$ ]]; then
+  if [[ "$2" = "off" ]]; then
+    disabled=1
+  elif [[ "$2" = "on" ]]; then
+    disabled=0
+  else
+    echo -e "${red}invalid command${reset_color}"
+    print_help
+    exit 1
+  fi
+  # store net.ipv6* variable config to sysctl.d to be applied during subsequent boots
+  # WARNING: this currently overwrites anything in /etc/sysctl.d/ipv6.conf
+  echo -e "net.ipv6.conf.all.disable_ipv6 = ${disabled}
+net.ipv6.conf.default.disable_ipv6 = ${disabled}
+net.ipv6.conf.lo.disable_ipv6 = ${disabled}" > /etc/sysctl.d/ipv6.conf
+  # load newly added config from file, pipe output of command to /dev/null
+  sysctl --load /etc/sysctl.d/ipv6.conf > /dev/null
+  # custom output about status of ipv6
+  print_ipv6_status
+else
+  if [[ "$1" = "off" ]]; then
+    disabled=1
+  elif [[ "$1" = "on" ]]; then
+    disabled=0
+  elif [[ -z "$1" ]]; then
+    print_ipv6_status
+    exit
+  else
+    echo -e "${red}invalid command${reset_color}"
+    print_help
+    exit 1
+  fi
+  # manually write config at run time, pipe output of command to /dev/null
+  sysctl -w net.ipv6.conf.all.disable_ipv6=${disabled} \
+         -w net.ipv6.conf.default.disable_ipv6=${disabled} \
+         -w net.ipv6.conf.lo.disable_ipv6=${disabled} > /dev/null
+  # custom output about status of ipv6
+  print_ipv6_status
+fi
