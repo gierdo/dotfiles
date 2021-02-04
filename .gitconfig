@@ -1,5 +1,5 @@
 [merge]
-  tool = vimdiff
+  tool = vimdiff-merge
 [mergetool]
   prompt = true
   path = nvim
@@ -29,8 +29,10 @@
   excludesfile = ~/.gitignore_global
 [difftool]
   path = nvim
-[mergetool "vimdiff"]
+[mergetool "vimdiff-merge"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE
 [include]
   path = ~/.gitconfig.local
 [pull]
