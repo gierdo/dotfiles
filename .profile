@@ -101,6 +101,9 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_WEBRENDER=1
   # Fix Java AWT applications on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
+
+  # Android studio breaks on sway if the shipped jdk is used for the UI
+  export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
 fi
 
 if command -v rg 1>/dev/null 2>&1; then
