@@ -1,6 +1,4 @@
 # This is i3-specific
-set $mod Mod4
-
 set $Locker i3lock-fancy && sleep 1
 
 set $ScreenshotGrabber scrot
@@ -19,11 +17,11 @@ set $output-primary eDP-1-1
 set $output-secondary DP-1-1
 set $output-tertiary DP-1-2
 
-#############################################
-# From here on it's generic
-
 exec systemctl --user import-environment
 exec gnome-keyring-daemon --components=ssh\,secrets\,pkcs11 --replace
+
+#############################################
+# From here on it's generic
 
 # set modifier
 set $mod Mod4
