@@ -5,6 +5,11 @@ nnoremap <silent> <A-p> :Rg<CR>
 " Search in tags with strg + alt + p
 nnoremap <silent> <C-A-p> :Tags<CR>
 
+if has("nvim")
+  au! TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+  au! FileType fzf tunmap <buffer> <Esc>
+endif
+
 let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ctags'
 
