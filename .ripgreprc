@@ -2,5 +2,11 @@
 --hidden
 --smart-case
 
---glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst}/*
---glob=!tags
+# exclude specific directories
+--glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,cache,clangd}/*
+
+# exclude specific filetypes
+--glob=!**/*.{o,so,jar,ser}
+
+# exclude specific files
+--glob=!**/{tags}
