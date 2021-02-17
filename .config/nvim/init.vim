@@ -29,10 +29,6 @@ Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
-if has('nvim')
-  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-endif
-
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
 Plug 'tpope/vim-surround'
