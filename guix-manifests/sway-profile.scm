@@ -3,6 +3,7 @@
      "swayidle"
      "swaybg"
      "waybar"
+     "i3status"
      "grim"
      "mako"
      "rofi"))
