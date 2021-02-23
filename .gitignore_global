@@ -1,4 +1,12 @@
+.vim
 .nvimlog
 .clangd
+.cache
+.project
+.settings
+.classpath
+.metals
+.factorypath
+node_modules
 compile_commands.json
 tags
