@@ -88,6 +88,7 @@ Plug 'HiPhish/guile.vim'
 
 Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
+Plug 'goerz/jupytext.vim', { 'do': 'pip install --upgrade jupytext' }
 
 Plug 'previm/previm'
 if executable('chromium-browser')
