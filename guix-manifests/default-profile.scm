@@ -11,4 +11,5 @@
      "ripgrep"
      "go-github-com-junegunn-fzf"
      "neovim"
+     "qutebrowser"
      "fish"))
