@@ -17,9 +17,6 @@ set $output-primary eDP-1-1
 set $output-secondary DP-1-1
 set $output-tertiary DP-1-2
 
-exec systemctl --user import-environment
-exec gnome-keyring-daemon --components=ssh\,secrets\,pkcs11 --replace
-
 #############################################
 # From here on it's generic
 
@@ -35,6 +32,8 @@ floating_modifier $mod
 
 #autostart
 exec --no-startup-id xsettingsd &
+exec systemctl --user import-environment
+exec gnome-keyring-daemon --components=ssh\,secrets\,pkcs11 --replace
 
 # start dmenu (a program launcher)
 bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'SauceCodePro Sans:size=8'"
