@@ -10,6 +10,7 @@
      "glibc-locales"
      "ripgrep"
      "go-github-com-junegunn-fzf"
+     "fd"
      "neovim"
      "qutebrowser"
      "fish"))
