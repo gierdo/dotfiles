@@ -142,7 +142,7 @@ function SetupCoc()
   execute 'CocInstall coc-ultisnips'
   execute 'CocInstall coc-snippets'
   execute 'CocInstall coc-yaml'
-  execute 'CocInstall coc-python'
+  execute 'CocInstall coc-pyright'
   execute 'CocInstall coc-tsserver'
   execute 'CocInstall coc-tslint-plugin'
   execute 'CocInstall coc-tag'
