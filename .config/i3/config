@@ -1,5 +1,5 @@
 # This is i3-specific
-set $Locker i3lock -c 002b36 && sleep 1
+set $Locker i3lock -c 002b36 && xset dpms force off && sleep 1
 
 set $ScreenshotGrabber scrot
 
