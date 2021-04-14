@@ -97,6 +97,8 @@ else
   let g:previm_open_cmd = 'firefox'
 endif
 
+Plug 'hashivim/vim-terraform'
+
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
