@@ -177,4 +177,5 @@ function SetupCoc()
   execute 'CocInstall coc-vimtex'
   execute 'CocInstall coc-rls'
   execute 'CocInstall coc-solargraph'
+  execute 'CocInstall coc-markdownlint'
 endfunction
