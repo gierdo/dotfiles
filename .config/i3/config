@@ -3,7 +3,6 @@ set $Locker "i3lock -c 002b36 && xset dpms force off && sleep 1"
 
 set $ScreenshotGrabber scrot
 
-exec --no-startup-id i3-autodisplay
 exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
 
 bindsym $mod+Shift+r restart
