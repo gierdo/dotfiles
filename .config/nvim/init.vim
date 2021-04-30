@@ -91,10 +91,11 @@ Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
 Plug 'goerz/jupytext.vim', { 'do': 'pip install --upgrade jupytext' }
 
 Plug 'previm/previm'
-if executable('chromium-browser')
-  let g:previm_open_cmd = 'chromium-browser'
-else
+if executable('firefox')
   let g:previm_open_cmd = 'firefox'
+else
+  " Chromium may be installed as snap on ubuntu, so use it only as fallback
+  let g:previm_open_cmd = 'chromium-browser'
 endif
 
 Plug 'hashivim/vim-terraform'
