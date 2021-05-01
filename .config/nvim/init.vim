@@ -1,7 +1,5 @@
-" fish is not POSIX compliant, which may break vim features
-if &shell =~# 'fish$'
-    set shell=bash
-endif
+" Vim and vundle require a posix compliant shell
+set shell=sh
 
 if has('nvim')
   if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
