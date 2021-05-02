@@ -8,10 +8,8 @@ fundle plugin 'sentriz/fish-pipenv'
 
 fundle init
 
-# These dependencies are defined in the guix profile and dotfiles, we can assume they are present
 pyenv init - | source
 source "$HOME/.dotfiles/asdf/completions/asdf.fish"
-source "$HOME/.guix-profile/src/github.com/junegunn/fzf/shell/key-bindings.fish"
 if type -q thefuck
   thefuck --alias | source
 end
