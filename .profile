@@ -44,26 +44,32 @@ fi
 
 if command -v guix 1>/dev/null 2>&1; then
   GUIX_PROFILE="$HOME/.guix-profile"
-  SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
-  if [ -d "$SSL_CERT_DIR_" ]; then
-    export SSL_CERT_DIR="$SSL_CERT_DIR_"
-    export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
-    export GIT_SSL_CAINFO="$SSL_CERT_FILE"
-    export CURL_CA_BUNDLE="$SSL_CERT_FILE"
+  if [ -d "$GUIX_PROFILE" ]; then
+    SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
+    if [ -d "$SSL_CERT_DIR_" ]; then
+      export SSL_CERT_DIR="$SSL_CERT_DIR_"
+      export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+      export GIT_SSL_CAINFO="$SSL_CERT_FILE"
+      export CURL_CA_BUNDLE="$SSL_CERT_FILE"
+    fi
+
+    export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
+    if [ -f "$GUIX_PROFILE"/etc/profile ]; then
+      . "$GUIX_PROFILE/etc/profile"
+    fi
   fi
 
-  export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
-  . "$GUIX_PROFILE/etc/profile"
-
   GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
-  for i in $GUIX_EXTRA_PROFILES/*; do
-    profile=$i/$(basename "$i")
-    if [ -f "$profile"/etc/profile ]; then
-      GUIX_PROFILE="$profile"
-      . "$GUIX_PROFILE"/etc/profile
-    fi
-    unset profile
-  done
+  if [ -d "$GUIX_EXTRA_PROFILES" ]; then
+    for i in $GUIX_EXTRA_PROFILES/*; do
+      profile=$i/$(basename "$i")
+      if [ -f "$profile"/etc/profile ]; then
+        GUIX_PROFILE="$profile"
+        . "$GUIX_PROFILE"/etc/profile
+      fi
+      unset profile
+    done
+  fi
 fi
 
 if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
