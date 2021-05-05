@@ -1,16 +1,5 @@
 (specifications->manifest
-    '("foot"
-     "alacritty"
-     "ranger"
-     "tmux"
-     "xclip"
-     "guile"
+    '("alacritty"
      "nss-certs"
      "fontconfig"
-     "glibc-locales"
-     "ripgrep"
-     "go-github-com-junegunn-fzf"
-     "fd"
-     "neovim"
-     "qutebrowser"
-     "fish"))
+     "glibc-locales"))
