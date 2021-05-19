@@ -53,7 +53,7 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'godlygeek/tabular'
