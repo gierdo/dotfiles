@@ -114,7 +114,9 @@ fi
 
 if command -v rg 1>/dev/null 2>&1; then
   export RIPGREP_CONFIG_PATH=$HOME/.dotfiles/.ripgreprc
-  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden .'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND='fd --type d --hidden .'
 fi
 
 # tbsm is installed, simply assuming tbsm as dm for now
