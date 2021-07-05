@@ -5,6 +5,8 @@ set $ScreenshotGrabber scrot
 
 exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
 
+exec --no-startup-id xss-lock -- $Locker
+
 bindsym $mod+Shift+r restart
 
 # preffered terminal emulator
