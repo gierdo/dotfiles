@@ -1,0 +1,7 @@
+# Dump the UIKit view hierarchy
+command regex rd 's/[[:space:]]*$/po [[[UIApplication sharedApplication] keyWindow] recursiveDescription]/' 's/.+$/po [%1 recursiveDescription]/'
+
+# Try not to step into uninteresting library code. Needs some work.
+settings set target.process.thread.step-avoid-regexp ^(std::(!function)|boost::shared_ptr)
+
+command script import ~/.local/lib/python3.8/site-packages/voltron/entry.py
