@@ -12,17 +12,17 @@ let g:ale_linters = {
       \}
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'cpp': ['clang-format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'c': ['clang-format', 'uncrustify',  'remove_trailing_lines', 'trim_whitespace'],
-      \   'python': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'json': ['fixjson', 'jq', 'prettier', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'yaml': ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'go': ['goimports', 'gofmt', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'rust': ['rustfmt', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'typescript': ['prettier', 'tslint', 'remove_trailing_lines', 'trim_whitespace'],
+      \   '*': ['trim_whitespace'],
+      \   'cpp': ['clang-format', 'uncrustify', 'trim_whitespace'],
+      \   'c': ['clang-format', 'uncrustify',  'trim_whitespace'],
+      \   'python': ['trim_whitespace'],
+      \   'json': ['fixjson', 'jq', 'prettier', 'trim_whitespace'],
+      \   'yaml': ['prettier', 'trim_whitespace'],
+      \   'sh': ['shfmt', 'trim_whitespace'],
+      \   'go': ['goimports', 'gofmt', 'trim_whitespace'],
+      \   'rust': ['rustfmt', 'trim_whitespace'],
+      \   'ruby': ['rubocop', 'trim_whitespace'],
+      \   'typescript': ['prettier', 'tslint', 'trim_whitespace'],
       \}
 
 " disable fuchsia checker, annoying as hell
