@@ -86,6 +86,7 @@ if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     PATH="$pyenv_virtualenv_plugin_root/bin:$PATH"
     eval "$(pyenv virtualenv-init -)"
+    eval "$(pyenv init --path)"
   fi
 fi
 
