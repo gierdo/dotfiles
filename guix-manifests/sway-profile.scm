@@ -1,5 +1,6 @@
 (specifications->manifest
   '("sway"
+    "foot"
     "kanshi"
     "swayidle"
     "swaybg"
@@ -7,4 +8,5 @@
     "i3status"
     "grim"
     "mako"
-    "rofi"))
+    "rofi"
+    "ungoogled-chromium-wayland"))
