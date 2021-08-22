@@ -1,4 +1,4 @@
-set -gx SHELL (which fish)
+set -gx SHELL (command -v fish)
 
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 
