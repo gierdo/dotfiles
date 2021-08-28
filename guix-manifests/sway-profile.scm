@@ -8,5 +8,4 @@
     "i3status"
     "grim"
     "mako"
-    "rofi"
-    "ungoogled-chromium-wayland"))
+    "rofi"))
