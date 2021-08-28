@@ -88,6 +88,8 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
 Plug 'goerz/jupytext.vim', { 'do': 'pip install --upgrade jupytext' }
 
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 Plug 'previm/previm'
 if executable('firefox')
   let g:previm_open_cmd = 'firefox'
