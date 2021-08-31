@@ -7,7 +7,7 @@
 # Providing, for example, bash-specific commands will result
 # in X server crash.
 
-if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
   eval "$(dbus-launch --sh-syntax --exit-with-session)"
 fi
 
