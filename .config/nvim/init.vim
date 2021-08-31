@@ -91,11 +91,10 @@ Plug 'goerz/jupytext.vim', { 'do': 'pip install --upgrade jupytext' }
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 Plug 'previm/previm'
-if executable('firefox')
-  let g:previm_open_cmd = 'firefox'
+if executable('x-www-browser')
+  let g:previm_open_cmd = 'x-www-browser'
 else
-  " Chromium may be installed as snap on ubuntu, so use it only as fallback
-  let g:previm_open_cmd = 'chromium-browser'
+  let g:previm_open_cmd = 'firefox'
 endif
 
 Plug 'hashivim/vim-terraform'
