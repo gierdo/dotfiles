@@ -4,6 +4,8 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <A-p> :Rg<CR>
 " Search in tags with strg + alt + p
 nnoremap <silent> <C-A-p> :Tags<CR>
+" Search in open buffers with strg + l
+nnoremap <silent> <C-l> :Lines<CR>
 
 let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ctags'
@@ -21,6 +23,8 @@ function! s:build_quickfix_list(lines)
   copen
   cc
 endfunction
+
+let g:fzf_buffers_jump = 1
 
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
