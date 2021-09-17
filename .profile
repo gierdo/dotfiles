@@ -66,6 +66,10 @@ if command -v guix 1>/dev/null 2>&1; then
       if [ -f "$profile"/etc/profile ]; then
         GUIX_PROFILE="$profile"
         . "$GUIX_PROFILE"/etc/profile
+
+        if [ -d "$GUIX_PROFILE/share" ]; then
+          export XDG_DATA_DIRS="$GUIX_PROFILE/share/":$XDG_DATA_DIRS
+        fi
       fi
       unset profile
     done
