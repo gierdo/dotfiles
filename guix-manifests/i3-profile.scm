@@ -1,6 +1,5 @@
 (specifications->manifest
   '("i3-wm"
-    "ungoogled-chromium"
     "i3status"
     "xwallpaper"
     "rofi"

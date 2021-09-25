@@ -1,7 +1,6 @@
 (specifications->manifest
   '("sway"
     "foot"
-    "ungoogled-chromium-wayland"
     "kanshi"
     "swayidle"
     "swaybg"
