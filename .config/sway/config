@@ -24,6 +24,10 @@ input type:touchpad {
     pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
 }
 
+input type:pointer {
+    natural_scroll enabled
+}
+
 set $output-primary eDP-1
 set $output-secondary HDMI-A-0
 set $output-tertiary DisplayPort-0
