@@ -13,8 +13,8 @@ let g:ale_linters = {
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
       \   '*': ['trim_whitespace'],
-      \   'cpp': ['clang-format', 'uncrustify', 'trim_whitespace'],
-      \   'c': ['clang-format', 'uncrustify',  'trim_whitespace'],
+      \   'cpp': ['uncrustify', 'trim_whitespace'],
+      \   'c': ['uncrustify', 'trim_whitespace'],
       \   'python': ['trim_whitespace'],
       \   'json': ['fixjson', 'jq', 'prettier', 'trim_whitespace'],
       \   'yaml': ['prettier', 'trim_whitespace'],
