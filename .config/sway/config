@@ -33,7 +33,7 @@ set $output-secondary HDMI-A-0 DP-1
 set $output-tertiary DisplayPort-0
 
 # preffered terminal emulator
-set $term foot
+set $term alacritty
 
 # Remove titlebar
 font pango: SauceCodePro Sans 0
