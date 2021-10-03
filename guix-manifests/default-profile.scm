@@ -12,4 +12,5 @@
     "fontconfig"
     "plantuml"
     "xsettingsd"
+    "font-nerd-fonts"
     "glibc-locales"))
