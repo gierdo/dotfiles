@@ -178,4 +178,6 @@ function SetupCoc()
   execute 'CocInstall coc-rls'
   execute 'CocInstall coc-solargraph'
   execute 'CocInstall coc-markdownlint'
+  execute 'CocInstall coc-cmake'
+  execute 'CocInstall coc-cl'
 endfunction

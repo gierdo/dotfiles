@@ -4,7 +4,6 @@
     "kanshi"
     "swayidle"
     "swaybg"
-    "rust-waylock"
     "waybar"
     "i3status"
     "grim"
