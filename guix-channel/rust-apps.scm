@@ -4,6 +4,8 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (guix download)
+  #:use-module (gnu system pam)
+  #:use-module (gnu packages linux)
   #:use-module (gnu packages rust)
   #:use-module (gnu packages crates-io)
   #:use-module (gnu packages crates-graphics))
@@ -311,6 +313,8 @@
         (sha256
           (base32 "14bqjiq8f1a0ifs4v9v4drhjp5mhk0zx96xnfvg5zmc7ki10x20a"))))
     (build-system cargo-build-system)
+    (inputs
+       `(("linux-pam" ,linux-pam)))
     (arguments
       `(#:cargo-inputs
         (("rust-clap" ,rust-clap-2)
@@ -326,3 +330,4 @@
     (description
       "This package provides a simple screenlocker for wayland compositors.")
     (license license:expat)))
+
