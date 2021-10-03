@@ -6,6 +6,8 @@
   #:use-module (guix download)
   #:use-module (gnu system pam)
   #:use-module (gnu packages linux)
+  #:use-module (gnu packages freedesktop)
+  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages rust)
   #:use-module (gnu packages crates-io)
   #:use-module (gnu packages crates-graphics))
@@ -314,7 +316,9 @@
           (base32 "14bqjiq8f1a0ifs4v9v4drhjp5mhk0zx96xnfvg5zmc7ki10x20a"))))
     (build-system cargo-build-system)
     (inputs
-       `(("linux-pam" ,linux-pam)))
+       `(("linux-pam" ,linux-pam)
+         ("libxkbcommon" ,libxkbcommon)
+         ("wayland" ,wayland)))
     (arguments
       `(#:cargo-inputs
         (("rust-clap" ,rust-clap-2)
