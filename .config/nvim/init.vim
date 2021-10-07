@@ -53,6 +53,10 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+" Auto indentation
+Plug 'vim-scripts/yaifa.vim'
+let yaifa_max_lines = 4096
+
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
