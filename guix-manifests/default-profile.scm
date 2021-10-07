@@ -5,6 +5,7 @@
     "ripgrep"
     "tmux"
     "fish"
+    "bat"
     "go-github-com-junegunn-fzf"
     "fd"
     "neovim"
