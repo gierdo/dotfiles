@@ -4,6 +4,7 @@
     "ranger"
     "ripgrep"
     "tmux"
+    "fish"
     "go-github-com-junegunn-fzf"
     "fd"
     "neovim"
