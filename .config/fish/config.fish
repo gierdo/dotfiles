@@ -24,6 +24,7 @@ end
 
 if type -q podman
   alias docker=podman
+  podman completion fish | source
 end
 
 alias vim=nvim
