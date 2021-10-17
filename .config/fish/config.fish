@@ -28,7 +28,6 @@ if type -q podman
 end
 
 alias vim=nvim
-alias browsh='docker run --rm -it browsh/browsh'
 
 if test -f "$HOME/.config.fish.local"
   source "$HOME/.config.fish.local"
