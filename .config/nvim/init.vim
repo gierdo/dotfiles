@@ -30,6 +30,7 @@ Plug 'w0rp/ale'
 " Debugger
 Plug 'puremourning/vimspector'
 let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools' ]
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
