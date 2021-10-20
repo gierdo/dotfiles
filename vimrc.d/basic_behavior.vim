@@ -36,3 +36,15 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 
 " Us vertical splits for diffs per default
 set diffopt+=vertical
+
+if !has('nvim')
+" Alt key in all terminals
+  let c='a'
+  while c <= 'z'
+    exec "set <A-".c.">=\e".c
+    exec "imap \e".c." <A-".c.">"
+    let c = nr2char(1+char2nr(c))
+  endw
+
+  set timeout ttimeoutlen=50
+endif
