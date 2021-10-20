@@ -27,6 +27,10 @@ Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
+" Debugger
+Plug 'puremourning/vimspector'
+let g:vimspector_enable_mappings = 'HUMAN'
+
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
 Plug 'tpope/vim-surround'

@@ -27,8 +27,6 @@ if type -q podman
   podman completion fish | source
 end
 
-alias vim=nvim
-
 if test -f "$HOME/.config.fish.local"
   source "$HOME/.config.fish.local"
 end
