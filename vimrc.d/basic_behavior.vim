@@ -47,4 +47,6 @@ if !has('nvim')
   endw
 
   set timeout ttimeoutlen=50
+
+  set backspace=indent,eol,start  " more powerful backspacing
 endif
