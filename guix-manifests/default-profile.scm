@@ -10,7 +10,6 @@
     "fd"
     "vim-full"
     "vim-paredit"
-    "vim-slime"
     "vim-scheme"
     "vim-guix-vim"
     "neovim"
