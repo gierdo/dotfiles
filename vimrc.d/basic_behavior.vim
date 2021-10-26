@@ -13,6 +13,10 @@ set wildmenu
 " Searching
 set ignorecase
 set smartcase
+" highlight search
+set hls
+" incremental search (while typing)
+set is
 
 set autoread
 set exrc
