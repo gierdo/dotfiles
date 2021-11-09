@@ -24,19 +24,7 @@
     "!Split",
     "!Join sequence"
   ],
-  "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": [
-    "--style",
-    "{based_on_style: google, indent_width: 4}"
-  ],
-  "python.terminal.activateEnvironment": true,
-  "python.venvFolders": [
-    ".virtualenvs",
-    ".local/share/virtualenvs",
-    "envs",
-    ".pyenv",
-    ".direnv"
-  ],
+  "python.formatting.provider": "black",
   "python.venvPath": "~/.virtualenvs",
   "python.linting.pylintEnabled": false,
   "python.linting.pylintArgs": [
