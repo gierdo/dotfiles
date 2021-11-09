@@ -3,6 +3,7 @@ set -gx SHELL (command -v fish)
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 
 fundle plugin 'evanlucas/fish-kubectl-completions'
+fundle plugin 'sentriz/fish-pipenv'
 fundle plugin 'PatrickF1/fzf.fish'
 
 fundle init
