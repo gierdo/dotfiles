@@ -8,7 +8,7 @@ au BufNewFile,BufRead *.template.y*ml set filetype=cloudformation.yaml
 au BufNewFile,BufRead *.template.json set filetype=cloudformation.json
 
 autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab autoindent
-autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab autoindent
+autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab autoindent cc=120
 autocmd FileType tex setlocal ts=4 sts=4 sw=4 spell spelllang=en_gb,de_de
 autocmd FileType md setlocal spell spelllang=en_gb,de_de
 autocmd FileType c setlocal cindent expandtab
