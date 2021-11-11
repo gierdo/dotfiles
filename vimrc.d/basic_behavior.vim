@@ -42,7 +42,7 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 set diffopt+=vertical
 
 if !has('nvim')
-" Alt key in all terminals
+  " Alt key in all terminals
   let c='a'
   while c <= 'z'
     exec "set <A-".c.">=\e".c
@@ -52,5 +52,13 @@ if !has('nvim')
 
   set timeout ttimeoutlen=50
 
-  set backspace=indent,eol,start  " more powerful backspacing
+  " more powerful backspacing
+  set backspace=indent,eol,start
+
+  " Fix the mouse behaviour in vim for splits/vsplits
+  if has("mouse_sgr")
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  end
 endif
