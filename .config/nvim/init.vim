@@ -92,6 +92,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'aklt/plantuml-syntax'
 Plug 'HiPhish/guile.vim'
+Plug 'kovisoft/slimv', {'rtp': 'vim/'}
+let g:slimv_swank_cmd = '! tmux new-window -d -n REPL-SBCL "sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp"'
 
 Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
