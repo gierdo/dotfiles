@@ -179,4 +179,5 @@ function SetupCoc()
   execute 'CocInstall coc-solargraph'
   execute 'CocInstall coc-markdownlint'
   execute 'CocInstall coc-cl'
+  execute 'CocInstall coc-java'
 endfunction
