@@ -9,7 +9,7 @@
     "go-github-com-junegunn-fzf"
     "fd"
     "vim-full"
-    "vim-paredit"
+    "clisp"
     "vim-scheme"
     "vim-guix-vim"
     "neovim"
