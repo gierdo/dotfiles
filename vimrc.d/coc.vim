@@ -166,6 +166,7 @@ function SetupCoc()
   execute '! luarocks install --server=http://luarocks.org/dev lua-lsp --local'
 
   execute 'CocInstall coc-lua'
+  execute 'CocInstall coc-java'
   execute 'CocInstall coc-css'
   execute 'CocInstall coc-json'
   execute 'CocInstall coc-ultisnips'
@@ -179,5 +180,4 @@ function SetupCoc()
   execute 'CocInstall coc-solargraph'
   execute 'CocInstall coc-markdownlint'
   execute 'CocInstall coc-cl'
-  execute 'CocInstall coc-java'
 endfunction
