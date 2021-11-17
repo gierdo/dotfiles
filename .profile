@@ -94,7 +94,7 @@ if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
   fi
 fi
 
-export EDITOR=nvim
+export EDITOR=vim
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 
