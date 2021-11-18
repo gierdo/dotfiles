@@ -95,7 +95,12 @@ Plug 'vim-scripts/groovy.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'aklt/plantuml-syntax'
+
+" guile/lisp
 Plug 'HiPhish/guile.vim'
+Plug 'Olical/conjure'
+let g:conjure#filetype#scheme = "conjure.client.guile.socket"
+let g:conjure#client#guile#socket#pipename = ".guile-repl.socket"
 
 Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }

@@ -17,4 +17,6 @@
     "plantuml"
     "xsettingsd"
     "font-nerd-fonts"
-    "glibc-locales"))
+    "glibc-locales"
+    "clojure"
+    "guile"))
