@@ -28,9 +28,13 @@ Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
 " Debugger
-Plug 'puremourning/vimspector'
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools' ]
+if has('nvim')
+  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+else
+  Plug 'puremourning/vimspector'
+  let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+  let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools' ]
+endif
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
@@ -92,8 +96,6 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'aklt/plantuml-syntax'
 Plug 'HiPhish/guile.vim'
-Plug 'kovisoft/slimv', {'rtp': 'vim/'}
-let g:slimv_swank_cmd = '! tmux new-window -d -n REPL-SBCL "sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp"'
 
 Plug 'vim-scripts/indentpython.vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }

@@ -10,8 +10,6 @@
     "fd"
     "vim-full"
     "clisp"
-    "vim-scheme"
-    "vim-guix-vim"
     "neovim"
     "qutebrowser"
     "xclip"
