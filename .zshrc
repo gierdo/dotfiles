@@ -6,13 +6,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.dotfiles/oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="powerlevel9k"
-source  ~/.dotfiles/themes/powerlevel9k/powerlevel9k.zsh-theme
+source  ~/.dotfiles/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -87,12 +87,16 @@ source $ZSH/oh-my-zsh.sh
 
 # Powerlevel9k customization
 
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv nodeenv rbenv aws background_jobs time)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 # ZSH's glob matching messes with setting list-options in helm
 # e.g. --set ingress.hosts[0]=flerb.bar
@@ -124,8 +128,13 @@ if command -v podman 1>/dev/null 2>&1; then
   alias docker='podman'
 fi
 
+if command -v nvim 1>/dev/null 2>&1; then
+  alias vim='nvim'
+fi
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

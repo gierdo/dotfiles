@@ -4,7 +4,7 @@
     "ranger"
     "ripgrep"
     "tmux"
-    "fish"
+    "zsh"
     "bat"
     "go-github-com-junegunn-fzf"
     "fd"
