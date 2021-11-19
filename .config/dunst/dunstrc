@@ -10,7 +10,7 @@ horizontal_padding = 24
 frame_width = 2
 sort = no
 idle_threshold = 120
-font = Noto Sans 8
+font = Noto Sans 12
 line_height = 4
 markup = full
 format = "<b>%s</b>\n%b"
@@ -24,7 +24,7 @@ show_indicators = no
 icon_position = off
 sticky_history = yes
 history_length = 20
-browser = /usr/bin/firefox -new-tab
+browser = firefox -new-tab
 always_run_script = true
 title = Dunst
 class = Dunst
@@ -38,12 +38,12 @@ context = ctrl+shift+period
 [urgency_low]
 background = "#2f343f"
 foreground = "#d8dee8"
-timeout = 2
+timeout = 5
 
 [urgency_normal]
 background = "#2f343f"
 foreground = "#d8dee8"
-timeout = 4
+timeout = 10
 
 [urgency_critical]
 background = "#2f343f"
