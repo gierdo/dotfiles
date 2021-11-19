@@ -71,6 +71,7 @@ plugins=(
   adb
   docker
   golang
+  gh
   ng
   sudo
   helm
