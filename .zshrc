@@ -126,6 +126,10 @@ if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
 fi
 
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 if command -v podman 1>/dev/null 2>&1; then
   alias docker='podman'
 fi

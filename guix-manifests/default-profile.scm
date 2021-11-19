@@ -2,6 +2,7 @@
   '("alacritty"
     "nss-certs"
     "ranger"
+    "direnv"
     "ripgrep"
     "tmux"
     "zsh"
