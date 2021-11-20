@@ -90,6 +90,9 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
+fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
+
+autoload -U compinit && compinit
 
 # Powerlevel9k customization
 
