@@ -90,11 +90,13 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
+source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 autoload -U compinit && compinit
 
-# Powerlevel9k customization
+# Powerlevel10k customization
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
