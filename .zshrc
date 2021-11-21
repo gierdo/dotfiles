@@ -94,6 +94,8 @@ source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
+fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
+
 autoload -U compinit && compinit
 
 # Powerlevel10k customization
