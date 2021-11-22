@@ -6,6 +6,8 @@
     "ripgrep"
     "tmux"
     "zsh"
+    "git"
+    "git-lfs"
     "bat"
     "go-github-com-junegunn-fzf"
     "fd"
