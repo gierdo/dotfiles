@@ -96,6 +96,8 @@ fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
 
+export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
+
 autoload -U compinit && compinit
 
 # Powerlevel10k customization

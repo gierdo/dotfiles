@@ -25,3 +25,6 @@
 [submodule "workspace/guix"]
 	path = workspace/guix
 	url = https://git.savannah.gnu.org/git/guix.git
+[submodule "zsh-plugins/git-fuzzy"]
+	path = zsh-plugins/git-fuzzy
+	url = https://github.com/bigH/git-fuzzy.git
