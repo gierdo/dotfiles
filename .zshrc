@@ -64,13 +64,16 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  git-extras
-  aws
-  cp
   adb
+  aws
+  asdf
+  cargo
+  cp
+  colored-man-pages
   docker
   golang
+  git
+  git-extras
   gh
   ng
   sudo
@@ -78,6 +81,7 @@ plugins=(
   kubectl
   fancy-ctrl-z
   rust
+  pyenv
   pipenv
   mvn
 )
@@ -116,11 +120,6 @@ setopt +o nomatch
 # else
 #   export EDITOR='nvim'
 # fi
-
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
 
 if [ -f "$HOME/.dotfiles/asdf/completions/asdf.bash" ]; then
   source "$HOME/.dotfiles/asdf/completions/asdf.bash"
