@@ -107,9 +107,16 @@ if command -v sway 1>/dev/null 2>&1; then
   export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
   export CLUTTER_BACKEND=wayland
   export XDG_SESSION_TYPE=wayland
+  export XDG_SESSION_DESKTOP=sway
+  export XDG_CURRENT_DESKTOP=sway
+  export DESKTOP_SESSION=sway
+
+  export LIBSEAT_BACKEND=logind
+
   export SDL_VIDEODRIVER=wayland
   export MOZ_ENABLE_WAYLAND=1
   export MOZ_WEBRENDER=1
+
   # Fix Java AWT applications on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
 
