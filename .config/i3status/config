@@ -36,13 +36,13 @@ disk "/home" {
 }
 
 ethernet eth0 {
-        format_up = "<span background='#88c0d0'>  %ip </span>"
-        format_down = "<span background='#88c0d0'>  Disconnected </span>"
+        format_up = "<span background='#88c0d0'> 🖧 %ip </span>"
+        format_down = "<span background='#88c0d0'> eth0 disconnected </span>"
 }
 
 wireless wlan0 {
-        format_up = "<span background='#b48ead'>  %essid </span>"
-        format_down = "<span background='#b48ead'> 睊Disconnected </span>"
+        format_up = "<span background='#b48ead'> 📶 %essid </span>"
+        format_down = "<span background='#b48ead'> wifi disconnected </span>"
 }
 
 volume master {
