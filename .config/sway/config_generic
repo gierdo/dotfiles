@@ -14,8 +14,8 @@ exec systemctl --user import-environment
 exec gnome-keyring-daemon --components=secrets\,pkcs11 --replace
 
 # start dmenu (a program launcher)
-bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'SauceCodePro Sans:size=8'"
-bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'SauceCodePro Sans 10'
+bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Ubuntu Nerd Font:size=8'"
+bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Ubuntu Nerd Font 10'
 
 # common apps keybinds
 bindsym Print exec $ScreenshotGrabber
@@ -214,7 +214,7 @@ client.urgent              #FF0000   #FF0000    #FF0000
 
 # panel
 bar {
-  font pango: SauceCodePro Sans 10
+  font pango: Ubuntu Nerd Font 11
     colors {
       background #0D3244
       statusline #002b36

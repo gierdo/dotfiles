@@ -36,7 +36,7 @@ set $output-tertiary DisplayPort-0
 set $term alacritty
 
 # Remove titlebar
-font pango: SauceCodePro Sans 0
+font pango: Ubuntu Nerd Font 0
 titlebar_border_thickness 2
 titlebar_padding 2
 
