@@ -1,6 +1,5 @@
 (specifications->manifest
   '("sway"
-    "foot"
     "kanshi"
     "swayidle"
     "swaybg"
