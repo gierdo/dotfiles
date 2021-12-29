@@ -4,6 +4,7 @@
     "ranger"
     "direnv"
     "ripgrep"
+    "openssh"
     "tmux"
     "zsh"
     "git"
