@@ -67,7 +67,6 @@ plugins=(
   adb
   aws
   asdf
-  cargo
   cp
   colored-man-pages
   docker
