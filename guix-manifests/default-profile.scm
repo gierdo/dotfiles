@@ -22,5 +22,6 @@
     "xsettingsd"
     "font-nerd-fonts"
     "glibc-locales"
+    "glibc-utf8-locales"
     "clojure"
     "guile"))
