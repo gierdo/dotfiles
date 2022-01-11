@@ -1,0 +1,14 @@
+#!/bin/bash
+
+ldac=`pactl list | grep Active | grep ldac`
+card=`pactl list | grep "Name: bluez_card." | cut -d ' ' -f 2`
+
+if [ -n "$ldac" ]; then
+    echo "Switching $card to msbc..."
+    pactl set-card-profile $card headset-head-unit-msbc
+    echo "...done"
+else
+    echo "Switching $card to ldac..."
+    pactl set-card-profile $card a2dp-sink-ldac
+    echo "...done"
+fi

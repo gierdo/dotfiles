@@ -16,6 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
+PATH="$HOME/.dotfiles/.local/bin:$PATH"
 PATH="$HOME/.scripts:$PATH"
 PATH="$HOME/.yarn/bin:$PATH"
 PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
