@@ -99,32 +99,6 @@ export EDITOR=nvim
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 
-# sway is installed, simply assuming sway as session for now
-if command -v sway 1>/dev/null 2>&1; then
-  # setting gdk_backend and qt_qpa_platform manually causes trouble
-  # export GDK_BACKEND=wayland
-  # export QT_QPA_PLATFORM=wayland
-  export XDG_CURRENT_DESKTOP=sway
-  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-  export CLUTTER_BACKEND=wayland
-  export XDG_SESSION_TYPE=wayland
-  export XDG_SESSION_DESKTOP=sway
-  export XDG_CURRENT_DESKTOP=sway
-  export DESKTOP_SESSION=sway
-
-  export LIBSEAT_BACKEND=logind
-
-  export SDL_VIDEODRIVER=wayland
-  export MOZ_ENABLE_WAYLAND=1
-  export MOZ_WEBRENDER=1
-
-  # Fix Java AWT applications on wayland
-  export _JAVA_AWT_WM_NONREPARENTING=1
-
-  # Android studio breaks on sway if the shipped jdk is used for the UI
-  export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
-fi
-
 if command -v rg 1>/dev/null 2>&1; then
   export RIPGREP_CONFIG_PATH=$HOME/.dotfiles/.ripgreprc
   export FZF_DEFAULT_COMMAND='fd --type f --hidden .'
@@ -149,4 +123,33 @@ fi
 
 if [ -f "$HOME/.profile.local" ]; then
   . "$HOME/.profile.local"
+fi
+
+# sway is installed, simply assuming sway as session for now
+if command -v sway 1>/dev/null 2>&1; then
+  # setting gdk_backend and qt_qpa_platform manually causes trouble
+  # export GDK_BACKEND=wayland
+  # export QT_QPA_PLATFORM=wayland
+  export XDG_CURRENT_DESKTOP=sway
+  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+  export CLUTTER_BACKEND=wayland
+  export XDG_SESSION_TYPE=wayland
+  export XDG_SESSION_DESKTOP=sway
+  export XDG_CURRENT_DESKTOP=sway
+  export DESKTOP_SESSION=sway
+
+  export LIBSEAT_BACKEND=logind
+
+  export SDL_VIDEODRIVER=wayland
+  export MOZ_ENABLE_WAYLAND=1
+  export MOZ_WEBRENDER=1
+
+  # Fix Java AWT applications on wayland
+  export _JAVA_AWT_WM_NONREPARENTING=1
+
+  # Android studio breaks on sway if the shipped jdk is used for the UI
+  export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
+
+  # Autostart sway on tty1
+  [ "$(tty)" = "/dev/tty1" ] && exec sway
 fi
