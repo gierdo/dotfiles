@@ -151,5 +151,10 @@ if command -v sway 1>/dev/null 2>&1; then
   export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
 
   # Autostart sway on tty1
-  [ "$(tty)" = "/dev/tty1" ] && exec sway
+  if [ "$(tty)" = "/dev/tty1" ]; then
+    exec sway
+  fi
+else
+  # Autostart x session (i3) on tty1
+  [ "$(tty)" = "/dev/tty1" ] && exec startx
 fi

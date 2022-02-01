@@ -48,6 +48,12 @@ for_window [app_id=blueman-manager] floating enable
 # Start notification daemon
 exec mako
 
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# For some reason, dbus does not start the xdg-desktop-portal service, although it should
+exec systemctl --user start xdg-desktop-portal.service
+
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
 include ~/.dotfiles/.config/sway/config_generic
@@ -55,6 +61,3 @@ include ~/.dotfiles/.config/sway/config_generic
 # include local config, if it exists
 include ~/.sway.local
 
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
