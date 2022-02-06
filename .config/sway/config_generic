@@ -19,8 +19,7 @@ bindsym $mod+d exec $menu
 bindsym Print exec $ScreenshotGrabber
 bindsym $mod+Ctrl+f exec firefox
 bindsym $mod+Ctrl+q exec qutebrowser
-bindsym $mod+Ctrl+c exec google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=VaapiVideoDecoder
-
+bindsym $mod+Ctrl+c exec google-chrome --enable-features=VaapiVideoDecoder
 bindsym $mod+Ctrl+b exec x-www-browser
 bindsym $mod+Ctrl+p exec thunderbird
 
