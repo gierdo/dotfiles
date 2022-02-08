@@ -7,7 +7,7 @@ set $mod Mod4
 # waylock can be installed with cargo install waylock --locked, needs libpam-dev
 set $Locker waylock --init-color 0x002b36 --input-color 0x2aa198
 
-set $menu rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Ubuntu 10' -monitor 0
+set $menu rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Ubuntu 10'
 
 set $ScreenshotGrabber grim
 
@@ -52,7 +52,7 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # For some reason, dbus does not start the xdg-desktop-portal service, although it should
-exec systemctl --user start xdg-desktop-portal.service
+exec systemctl --user start xdg-desktop-portal-wlr.service
 
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.

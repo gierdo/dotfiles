@@ -3,7 +3,7 @@ set $Locker "i3lock -c 002b36 && xset s off -dpms && sleep 1"
 
 set $ScreenshotGrabber scrot
 
-set $menu rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Ubuntu 10' -monitor 0
+set $menu rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Ubuntu 10'
 
 exec --no-startup-id xwallpaper --stretch ~/.wallpaper.png
 
