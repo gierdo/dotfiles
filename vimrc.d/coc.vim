@@ -157,7 +157,7 @@ function SetupCoc()
   execute '! npm install -g --update yarn'
   execute '! yarn install --frozen-lockfile'
   execute '! npm install -g --update rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server prettier shellcheck'
-  execute '! pip3 install --user --upgrade python-language-server[all] pylint black pytype'
+  execute '! pip3 install --user --upgrade python-language-server[all] pylint black pytype mypy pyright'
   execute '! gem install --update solargraph'
   execute '! go get -u github.com/sourcegraph/go-langserver'
   execute '! go get -u github.com/awslabs/goformation'
