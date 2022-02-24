@@ -6,5 +6,4 @@
     "waybar"
     "i3status"
     "grim"
-    "mako"
     "rofi"))

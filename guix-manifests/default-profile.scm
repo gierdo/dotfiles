@@ -20,6 +20,7 @@
     "fontconfig"
     "plantuml"
     "xsettingsd"
+    "dunst"
     "font-nerd-fonts"
     "glibc-locales"
     "glibc-utf8-locales"

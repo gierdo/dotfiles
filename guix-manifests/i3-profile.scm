@@ -2,7 +2,6 @@
   '("i3-wm"
     "i3status"
     "xwallpaper"
-    "dunst"
     "rofi"
     "autorandr"))
 
