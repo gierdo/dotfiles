@@ -46,7 +46,7 @@ titlebar_padding 2
 for_window [app_id=blueman-manager] floating enable
 
 # Start notification daemon
-exec mako
+exec dunst
 
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
