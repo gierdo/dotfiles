@@ -39,6 +39,10 @@ The core setup of my system also consists the following tools/files/fonts etc., 
 * zsh
 * ctags
 
+## Upstream i3status-rust
+
+https://github.com/greshake/i3status-rust/blob/master/doc/dev.md
+
 ## Git credential store
 
 ```
