@@ -5,6 +5,6 @@
     "swayidle"
     "swaybg"
     "waybar"
-    "i3status"
+    "i3status-rust"
     "grim"
     "rofi"))
