@@ -1,16 +1,6 @@
 theme = "solarized-dark"
 icons = "awesome"
 
-# [[block]]
-# block = "disk_space"
-# path = "/home/"
-# alias = "/home/"
-# info_type = "available"
-# unit = "GB"
-# interval = 20
-# warning = 20.0
-# alert = 10.0
-
 [[block]]
 block = "memory"
 display_type = "memory"
