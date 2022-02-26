@@ -249,5 +249,5 @@ bar {
       inactive_workspace #0D3244 #0D3244 #888888
       urgent_workspace  #2f343a #900000 #93a1a1
     }
-        status_command i3status
+        status_command i3status-rs
 }
