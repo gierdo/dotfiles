@@ -1,6 +1,5 @@
 (specifications->manifest
-  '("alacritty"
-    "nss-certs"
+  '("nss-certs"
     "ranger"
     "direnv"
     "ripgrep"

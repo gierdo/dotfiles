@@ -35,7 +35,7 @@ set $output-secondary HDMI-A-0 DP-1
 set $output-tertiary DisplayPort-0
 
 # preffered terminal emulator
-set $term alacritty
+set $term foot
 
 # Remove titlebar
 font pango: Ubuntu Nerd Font 0
