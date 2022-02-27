@@ -20,7 +20,7 @@ format = "{1m}"
 block = "sound"
 
 [[block]]
-if_command = "systemctl is-active NetworkManager"
+# if_command = "systemctl is-active NetworkManager"
 block = "networkmanager"
 on_click = "xterm -e nmtui"
 interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
