@@ -22,6 +22,6 @@
     "dunst"
     "font-nerd-fonts"
     "glibc-locales"
-    "glibc-utf8-locales"
+    "glibc-utf8-locales-2.29"
     "clojure"
     "guile"))
