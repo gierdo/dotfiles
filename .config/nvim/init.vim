@@ -70,6 +70,8 @@ Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'godlygeek/tabular'
+Plug 'dhruvasagar/vim-table-mode'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
