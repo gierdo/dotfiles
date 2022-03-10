@@ -77,7 +77,6 @@ plugins=(
   ng
   sudo
   helm
-  kubectl
   fancy-ctrl-z
   rust
   pyenv
