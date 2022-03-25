@@ -28,3 +28,6 @@
 [submodule "zsh-plugins/git-fuzzy"]
 	path = zsh-plugins/git-fuzzy
 	url = https://github.com/bigH/git-fuzzy.git
+[submodule "zsh-plugins/nix-zsh-completions"]
+	path = zsh-plugins/nix-zsh-completions
+	url = https://github.com/spwhitt/nix-zsh-completions.git
