@@ -1,7 +1,6 @@
 [global]
 monitor = 0
 follow = mouse
-geometry = "250x50-24+24"
 indicate_hidden = yes
 shrink = no
 separator_height = 0
@@ -28,12 +27,6 @@ browser = firefox -new-tab
 always_run_script = true
 title = Dunst
 class = Dunst
-
-[shortcuts]
-close = ctrl+space
-close_all = ctrl+shift+space
-history = ctrl+grave
-context = ctrl+shift+period
 
 [urgency_low]
 background = "#2f343f"
