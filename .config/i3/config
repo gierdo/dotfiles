@@ -220,8 +220,8 @@ bindsym $mod+r mode "resize"
 
 # Multi Monitor
 # Moving workspaces between screens
-bindsym $mod+Alt+Right move workspace to output right
-bindsym $mod+Alt+Left move workspace to output left
+bindsym $mod+$alt+Right move workspace to output right
+bindsym $mod+$alt+Left move workspace to output left
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 4
