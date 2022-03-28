@@ -88,6 +88,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+SHARE_HISTORY="true"
+
 # Manually installed plugins
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
