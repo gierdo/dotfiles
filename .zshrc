@@ -65,23 +65,24 @@ DISABLE_AUTO_UPDATE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   adb
-  aws
   asdf
-  cp
+  aws
   colored-man-pages
+  cp
   docker
-  golang
+  fancy-ctrl-z
+  gh
   git
   git-extras
-  gh
-  ng
-  sudo
+  golang
   helm
-  fancy-ctrl-z
-  rust
-  pyenv
-  pipenv
   mvn
+  ng
+  pipenv
+  poetry
+  pyenv
+  rust
+  sudo
 )
 
 source $ZSH/oh-my-zsh.sh
