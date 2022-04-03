@@ -45,12 +45,12 @@ titlebar_padding 2
 # Rules for wayland native windows
 for_window [app_id=blueman-manager] floating enable
 
-# Start notification daemon
-exec dunst
-
 exec systemctl --user import-environment XDG_CURRENT_DESKTOP DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Start notification daemon
+exec dunst
 
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
