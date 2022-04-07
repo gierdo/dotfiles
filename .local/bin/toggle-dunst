@@ -1,9 +1,7 @@
 #!/bin/bash
 
 if [[ $(dunstctl is-paused) == false ]]; then
-
-  echo "dunst is enabled here"
-  dunstify "Disabling dunst"
+  dunstify "Disabling dunst notifications"
   sleep 2
   dunstctl close-all
 fi
@@ -11,7 +9,5 @@ fi
 dunstctl set-paused toggle
 
 if [[ $(dunstctl is-paused) == false ]]; then
-
-  echo "dunst is enabled there"
-  dunstify "Enabling dunst"
+  dunstify "Enabling dunst notifications"
 fi
