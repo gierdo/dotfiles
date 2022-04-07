@@ -53,6 +53,8 @@ let g:NERDTreeMapOpenSplit = "<C-s>"
 
 Plug 'luochen1990/rainbow'
 
+Plug 'powerman/vim-plugin-AnsiEsc'
+
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
