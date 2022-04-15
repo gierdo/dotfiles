@@ -23,8 +23,7 @@ block = "sound"
 # if_command = "systemctl is-active NetworkManager"
 block = "networkmanager"
 on_click = "xterm -e nmtui"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-interface_name_include = []
+interface_name_include = ["eth.*", "wlan.*"]
 
 [[block]]
 block = "battery"
