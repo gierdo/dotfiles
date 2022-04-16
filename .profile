@@ -177,7 +177,7 @@ if command -v sway 1>/dev/null 2>&1; then
 
   # Autostart sway on tty1
   if [ "$(tty)" = "/dev/tty1" ]; then
-    if lshw -C display | grep -qi "vendor.*nvidia"; then
+    if lshw -C display 2>/dev/null | grep -qi "vendor.*nvidia"; then
       exec sway --my-next-gpu-wont-be-nvidia
     else
       exec sway
