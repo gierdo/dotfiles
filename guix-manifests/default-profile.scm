@@ -24,4 +24,5 @@
     "glibc-locales"
     "glibc-utf8-locales-2.29"
     "clojure"
+    "i3status-rust"
     "guile"))
