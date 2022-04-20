@@ -152,9 +152,9 @@ fi
 
 # sway is installed, simply assuming sway as session for now
 if command -v sway 1>/dev/null 2>&1; then
-  # setting gdk_backend and qt_qpa_platform manually causes trouble
-  # export GDK_BACKEND=wayland
-  # export QT_QPA_PLATFORM=wayland
+  # setting gdk_backend and qt_qpa_platform manually may cause trouble
+  export GDK_BACKEND=wayland
+  export QT_QPA_PLATFORM=wayland
   export XDG_CURRENT_DESKTOP=sway
   export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
   export CLUTTER_BACKEND=wayland
