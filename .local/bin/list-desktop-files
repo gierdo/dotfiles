@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for p in ${XDG_DATA_DIRS//:/ }; do
+  find "$p/applications" -name '*.desktop'
+done
