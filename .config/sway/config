@@ -50,7 +50,9 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # Start notification daemon
-exec dunst
+exec_always pkill dunst; exec dunst
+
+exec_always pkill kanshi; exec kanshi
 
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
