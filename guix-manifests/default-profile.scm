@@ -14,7 +14,6 @@
     "vim-full"
     "clisp"
     "neovim"
-    "qutebrowser"
     "xclip"
     "fontconfig"
     "plantuml"

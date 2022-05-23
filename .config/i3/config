@@ -44,7 +44,6 @@ bindsym $mod+d exec $menu
 # common apps keybinds
 bindsym Print exec $ScreenshotGrabber
 bindsym $mod+Ctrl+f exec firefox
-bindsym $mod+Ctrl+q exec qutebrowser
 bindsym $mod+Ctrl+c exec google-chrome
 bindsym $mod+Ctrl+b exec x-www-browser
 bindsym $mod+Ctrl+p exec thunderbird
