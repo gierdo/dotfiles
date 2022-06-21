@@ -48,6 +48,7 @@ let g:NERDCustomDelimiters = {
 let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 0
 let g:NERDSpaceDelims = 1
+let g:NERDTreeMapOpenInTab = "<C-t>"
 let g:NERDTreeMapOpenVSplit = "<C-v>"
 let g:NERDTreeMapOpenSplit = "<C-s>"
 
