@@ -44,8 +44,8 @@ augroup SpellUnderline
     \   guisp=Red
   augroup END
 
-colorscheme solarized
 set background=dark
+colorscheme solarized
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/

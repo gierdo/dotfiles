@@ -132,3 +132,6 @@ call plug#end()
 for vimrc in split(glob('~/.dotfiles/vimrc.d/*.vim'), "\n")
   exe 'source ' . vimrc
 endfor
+
+" This is overriden if put in the coc config
+hi link CocFloating ALEErrorSign
