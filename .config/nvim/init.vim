@@ -64,6 +64,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
+" markdown-tagbar integration, requires php
+Plug 'lvht/tagbar-markdown'
 
 " Auto indentation
 Plug 'vim-scripts/yaifa.vim'
