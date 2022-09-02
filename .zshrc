@@ -130,6 +130,10 @@ if [ -f "$HOME/.dotfiles/asdf/completions/asdf.bash" ]; then
   source "$HOME/.dotfiles/asdf/completions/asdf.bash"
 fi
 
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
+  source "$HOME/.asdf/plugins/java/set-java-home.zsh"
+fi
+
 alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 
 # Funny fun:
