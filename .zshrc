@@ -167,8 +167,6 @@ if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
 
-export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
-
 if [ -d "$HOME/.vim/plugged/fzf/bin" ]; then
   export PATH="$HOME/.vim/plugged/fzf/bin:$PATH"
 fi
