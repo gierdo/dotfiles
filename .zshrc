@@ -105,6 +105,8 @@ source ~/.dotfiles/zsh-plugins/nix-zsh-completions/nix.plugin.zsh
 
 fpath=(~/.dotfiles/zsh-plugins/nix-zsh-completions $fpath)
 
+fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
+
 export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
 
 autoload -U compinit && compinit
