@@ -95,6 +95,8 @@ SHARE_HISTORY="true"
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
+source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
+
 source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)

@@ -31,3 +31,6 @@
 [submodule "zsh-plugins/nix-zsh-completions"]
 	path = zsh-plugins/nix-zsh-completions
 	url = https://github.com/spwhitt/nix-zsh-completions.git
+[submodule "zsh-plugins/zsh-autoswitch-virtualenv"]
+	path = zsh-plugins/zsh-autoswitch-virtualenv
+	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
