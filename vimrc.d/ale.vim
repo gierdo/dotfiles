@@ -33,6 +33,8 @@ let g:ale_python_pylint_options = "--rcfile ~/.dotfiles/google-styleguide/python
 let g:ale_python_flake8_options = '--max-line-length=120'
 " If an uncrustify config is available in the home directory, use it
 let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
+" Indent with 2 spaces
+let g:ale_sh_shfmt_options = '-i 2'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 command Nofix let g:ale_fix_on_save = 0
