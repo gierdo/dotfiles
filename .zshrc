@@ -79,6 +79,7 @@ plugins=(
   mvn
   ng
   pipenv
+  virtualenv
   poetry
   pyenv
   rust
