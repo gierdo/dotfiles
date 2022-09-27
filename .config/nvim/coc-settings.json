@@ -38,26 +38,18 @@
     "!Join sequence"
   ],
   "diagnostic-languageserver.formatFiletypes": {
-    "python": [
-      "black"
-    ]
+    "python": ["black"]
   },
   "diagnostic-languageserver.formatters": {
     "black": {
       "command": "black",
-      "args": [
-        "-q",
-        "-"
-      ]
+      "args": ["-q", "-"]
     }
   },
   "languageserver": {
     "clangd": {
       "command": "clangd",
-      "args": [
-        "--background-index",
-        "--fallback-style=google"
-      ],
+      "args": ["--background-index", "--fallback-style=google"],
       "rootPatterns": [
         "compile_flags.txt",
         "compile_commands.json",
@@ -65,56 +57,33 @@
         ".git/",
         ".hg/"
       ],
-      "filetypes": [
-        "c",
-        "cpp",
-        "cc",
-        "c++",
-        "objc",
-        "objcpp"
-      ]
+      "filetypes": ["c", "cpp", "cc", "c++", "objc", "objcpp"]
     },
     "golang": {
-      "command": "go-langserver",
-      "filetypes": [
-        "go"
-      ],
+      "command": "gopls",
+      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
       "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": false
+        "usePlaceholders": true
       }
     },
     "dockerfile": {
       "command": "docker-langserver",
-      "filetypes": [
-        "dockerfile"
-      ],
-      "args": [
-        "--stdio"
-      ]
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
     },
     "bash": {
       "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh"
-      ],
-      "ignoredRootPaths": [
-        "~"
-      ]
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     }
   },
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnTypeFiletypes": [
-    "python"
-  ],
-  "coc.preferences.formatOnSaveFiletypes": [
-    "*"
-  ],
+  "coc.preferences.formatOnTypeFiletypes": ["python"],
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.maxFileSize": "100MB",
