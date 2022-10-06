@@ -86,8 +86,6 @@ plugins=(
   sudo
 )
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 SHARE_HISTORY="true"
@@ -112,7 +110,7 @@ fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
 export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
 
-autoload -U compinit && compinit
+source $ZSH/oh-my-zsh.sh
 
 # Powerlevel10k customization
 
