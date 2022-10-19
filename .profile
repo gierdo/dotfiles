@@ -36,15 +36,6 @@ else
   export JAVA_HOME="$(/usr/libexec/java_home)"
 fi
 
-if [ -d "/usr/lib/ccache" ]; then
-  PATH="/usr/lib/ccache:$PATH"
-  if [ -x "$(command -v homcc)" ]; then
-    export CCACHE_PREFIX="homcc"
-  elif [ -d "/usr/lib/distcc" ]; then
-    export CCACHE_PREFIX="distcc"
-  fi
-fi
-
 if command -v guix 1>/dev/null 2>&1; then
   GUIX_PROFILE="$HOME/.guix-profile"
   if [ -d "$GUIX_PROFILE" ]; then
