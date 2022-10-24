@@ -3,9 +3,9 @@
 " powerline symbols.
 " Some fonts are available from the fonts directory for installation.
 
-
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
 autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=0
+autocmd ColorScheme * hi CocMenuSel ctermbg=239 guibg=#13354A
 
 " Force to use underline for spell check results
 augroup SpellUnderline
