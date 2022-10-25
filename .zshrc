@@ -108,6 +108,8 @@ fpath=(~/.dotfiles/zsh-plugins/nix-zsh-completions $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
+fpath=(~/.zfunc $fpath)
+
 export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
