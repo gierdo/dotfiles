@@ -161,6 +161,7 @@ function SetupCoc()
   execute '! go install golang.org/x/lint/golint@latest'
   execute '! go install golang.org/x/tools/cmd/goimports@latest'
   execute '! go install github.com/hashicorp/terraform-ls@latest'
+  execute '! go install github.com/terraform-linters/tflint@latest'
   execute '! luarocks install --server=http://luarocks.org/dev lua-lsp --local'
 
   execute 'CocInstall coc-css'
