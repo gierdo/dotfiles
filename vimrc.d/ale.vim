@@ -9,6 +9,8 @@ let g:ale_linters = {
       \   'cpp': ['clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
       \   'python': ['mypy', 'pylint', 'flake8'],
       \   'c': ['clangtidy', 'cppcheck', 'flawfinder'],
+      \   'yaml': ['yamllint'],
+      \   'cloudformation.yaml': ['cloudformation', 'yamllint'],
       \   'java': [''],
       \}
 let g:ale_fix_on_save = 1

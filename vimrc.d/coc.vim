@@ -155,7 +155,7 @@ function SetupCoc()
   execute '! npm install -g --update yarn'
   execute '! yarn install --frozen-lockfile'
   execute '! npm install -g --update rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server prettier shellcheck'
-  execute '! pip3 install --user --upgrade pylint black pytype mypy jedi-language-server'
+  execute '! pip3 install --user --upgrade pylint black pytype mypy jedi-language-server cfn-lint'
   execute '! gem install --update solargraph'
   execute '! go install golang.org/x/tools/gopls@latest'
   execute '! go install golang.org/x/lint/golint@latest'
@@ -179,4 +179,5 @@ function SetupCoc()
   execute 'CocInstall coc-ultisnips'
   execute 'CocInstall coc-vimtex'
   execute 'CocInstall coc-yaml'
+  execute 'CocInstall coc-cfn-lint'
 endfunction

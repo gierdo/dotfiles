@@ -13,10 +13,11 @@
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
   "yaml.completion": true,
-  "yaml.validate": false,
+  "yaml.validate": true,
+  "yaml.schemaStore.enable": true,
   "yaml.schemas": {
-    "~/go/src/github.com/awslabs/goformation/schema/cloudformation.schema.json": "/*.template.*",
-    "kubernetes": "/*"
+    "cloudformation": "*.template.y*ml",
+    "kubernetes": "*.y*ml"
   },
   "yaml.customTags": [
     "!Ref",
