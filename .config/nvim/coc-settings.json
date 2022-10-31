@@ -17,10 +17,9 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
   "yaml.schemas": {
-    "cloudformation": "*.template.y*ml",
     "kustomization": [
-      "kustomization.y*ml",
-      "*.patch.y*ml"
+      "**/kustomization.y*ml",
+      "**/*.patch.y*ml"
     ]
   },
   "yaml.customTags": [
