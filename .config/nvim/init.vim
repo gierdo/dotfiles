@@ -59,7 +59,13 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
+
+if has('nvim')
+  Plug 'nvim-tree/nvim-web-devicons'
+else
+  Plug 'ryanoasis/vim-devicons'
+endif
+
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'majutsushi/tagbar'
