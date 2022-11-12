@@ -4,8 +4,8 @@ set $mod Mod4
 # swaylock has serious issues with leaking screen content and crashing, leading to unlocking
 # set $Locker swaylock -i ~/.wallpaper.png -s fill && sleep 1
 
-# waylock can be installed with cargo install waylock --locked, needs libpam-dev
-set $Locker waylock --init-color 0x002b36 --input-color 0x2aa198
+# physlock can be installed with apt-get install physlock
+set $Locker physlock
 
 set $menu rofi -show drun
 

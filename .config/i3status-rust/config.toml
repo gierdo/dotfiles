@@ -27,13 +27,11 @@ interface_name_include = ["eth.*", "wlan.*"]
 
 [[block]]
 block = "battery"
-allow_missing = true
 hide_missing = true
 device = "/sys/class/power_supply/BAT1"
 
 [[block]]
 block = "battery"
-allow_missing = true
 hide_missing = true
 device = "/sys/class/power_supply/BAT0"
 
