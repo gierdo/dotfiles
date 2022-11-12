@@ -10,7 +10,7 @@ floating_modifier $mod
 
 #autostart
 exec --no-startup-id xsettingsd &
-exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11 --start)
+exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start)
 
 # start menu
 bindsym $mod+d exec $menu
