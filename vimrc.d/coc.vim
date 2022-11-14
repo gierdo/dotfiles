@@ -164,11 +164,15 @@ function SetupCoc()
   execute '! go install github.com/terraform-linters/tflint@latest'
   execute '! luarocks install --server=http://luarocks.org/dev lua-lsp --local'
 
+  execute 'CocInstall coc-cfn-lint'
+  execute 'CocInstall coc-css'
   execute 'CocInstall coc-css'
   execute 'CocInstall coc-diagnostic'
+  execute 'CocInstall coc-html'
   execute 'CocInstall coc-java'
   execute 'CocInstall coc-jedi'
   execute 'CocInstall coc-json'
+  execute 'CocInstall coc-lists'
   execute 'CocInstall coc-lua'
   execute 'CocInstall coc-markdownlint'
   execute 'CocInstall coc-rls'
@@ -178,6 +182,6 @@ function SetupCoc()
   execute 'CocInstall coc-tsserver'
   execute 'CocInstall coc-ultisnips'
   execute 'CocInstall coc-vimtex'
+  execute 'CocInstall coc-xml'
   execute 'CocInstall coc-yaml'
-  execute 'CocInstall coc-cfn-lint'
 endfunction
