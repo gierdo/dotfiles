@@ -175,7 +175,7 @@ function SetupCoc()
   execute 'CocInstall coc-lists'
   execute 'CocInstall coc-lua'
   execute 'CocInstall coc-markdownlint'
-  execute 'CocInstall coc-rls'
+  execute 'CocInstall coc-rust-analyzer'
   execute 'CocInstall coc-snippets'
   execute 'CocInstall coc-solargraph'
   execute 'CocInstall coc-tag'
