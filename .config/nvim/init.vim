@@ -27,6 +27,9 @@ Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
+" Shared library for lua plugins
+Plug 'nvim-lua/plenary.nvim'
+
 " Debugger
 if has('nvim')
   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
@@ -78,9 +81,7 @@ Plug 'vim-scripts/yaifa.vim'
 let yaifa_max_lines = 4096
 
 Plug 'junegunn/fzf', { 'do': './install --all' }
-" Plug 'junegunn/fzf.vm'
 
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
 Plug 'godlygeek/tabular'
