@@ -78,7 +78,10 @@ Plug 'vim-scripts/yaifa.vim'
 let yaifa_max_lines = 4096
 
 Plug 'junegunn/fzf', { 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vm'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
 Plug 'godlygeek/tabular'
 Plug 'dhruvasagar/vim-table-mode'
