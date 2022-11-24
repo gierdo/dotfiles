@@ -35,6 +35,7 @@ require('telescope').setup{
 }
 EOF
 
+nnoremap <C-A-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <A-p> <cmd>Telescope live_grep<cr>
 nnoremap <C-A-b> <cmd>Telescope buffers<cr>
