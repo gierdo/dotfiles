@@ -1,36 +1,61 @@
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 lua << EOF
+local actions = require('telescope.actions')
+local action_state = require("telescope.actions.state")
+
+local custom_actions = {}
+
+function custom_actions.fzf_multi_select(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local num_selections = table.getn(picker:get_multi_selection())
+
+    if num_selections > 1 then
+        -- actions.file_edit throws - context of picker seems to change
+        --actions.file_edit(prompt_bufnr)
+        actions.send_selected_to_qflist(prompt_bufnr)
+        actions.open_qflist()
+    else
+        actions.file_edit(prompt_bufnr)
+    end
+end
+
 require('telescope').setup{
-  defaults = {
-    -- Default configuration for telescope goes here:
-    -- config_key = value,
-    mappings = {
-      i = {
-        -- map actions.which_key to <C-h> (default: <C-/>)
-        -- actions.which_key shows the mappings for your picker,
-        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-t>"] = require('telescope.actions').file_tab,
-        ["<C-v>"] = require('telescope.actions').file_vsplit,
-        ["<C-s>"] = require('telescope.actions').file_split
+defaults = {
+  -- Default configuration for telescope goes here:
+  -- config_key = value,
+  mappings = {
+    i = {
+      ["<C-t>"] = actions.file_tab,
+      ["<C-v>"] = actions.file_vsplit,
+      ["<C-s>"] = actions.file_split,
+      ["<esc>"] = actions.close,
+      ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+      ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+      ["<cr>"] = custom_actions.fzf_multi_select
+      },
+    n = {
+      ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+      ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+      ["<cr>"] = custom_actions.fzf_multi_select
       }
     }
   },
-  pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
+pickers = {
+  -- Default configuration for builtin pickers goes here:
+  -- picker_name = {
+  --   picker_config_key = value,
+  --   ...
+  -- }
+  -- Now the picker_config_key will be applied every time you call this
+  -- builtin picker
   },
-  extensions = {
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+extensions = {
+  -- Your extension configuration goes here:
+  -- extension_name = {
+  --   extension_config_key = value,
+  -- }
+  -- please take a look at the readme of the extension you want to configure
   }
 }
 EOF
