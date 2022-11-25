@@ -25,8 +25,10 @@ PATH="$HOME/.gem/ruby/current/bin:$PATH"
 PATH="$HOME/.luarocks/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 
+# set up go as needed. GOPRIVATE is set up together with .gitconfig
 PATH=$PATH:~/go/bin
 export GOPATH=~/go
+export GOPRIVATE=github.com
 
 export ANDROID_HOME=~/.android-sdks
 
