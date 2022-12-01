@@ -104,7 +104,7 @@ endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
 let g:tex_flavor = 'latex'
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': 'make install' }
 
 Plug 'dylon/vim-antlr'
 Plug 'jamessan/vim-gnupg'
