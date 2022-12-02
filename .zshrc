@@ -150,6 +150,9 @@ else
   pip install thefuck
 fi
 
+alias :q='exit'
+alias :wq='exit'
+
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 else
