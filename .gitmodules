@@ -1,36 +1,48 @@
 [submodule "asdf"]
 	path = asdf
 	url = https://github.com/asdf-vm/asdf.git
+	branch = master
 [submodule "pyenv"]
 	path = pyenv
 	url = https://github.com/pyenv/pyenv.git
+	branch = master
 [submodule "pyenv-plugins/pyenv-virtualenv"]
 	path = pyenv-plugins/pyenv-virtualenv
 	url = https://github.com/pyenv/pyenv-virtualenv.git
+	branch = master
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+	branch = master
 [submodule "themes/powerlevel10k"]
 	path = themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+	branch = master
 [submodule "zsh-plugins/fzf-tab"]
 	path = zsh-plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+	branch = master
 [submodule "zsh-plugins/zsh-completions"]
 	path = zsh-plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+	branch = master
 [submodule "zsh-plugins/zsh-syntax-highlighting"]
 	path = zsh-plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	branch = master
 [submodule "workspace/guix"]
 	path = workspace/guix
 	url = https://git.savannah.gnu.org/git/guix.git
+	branch = master
 [submodule "zsh-plugins/git-fuzzy"]
 	path = zsh-plugins/git-fuzzy
 	url = https://github.com/bigH/git-fuzzy.git
+	branch = master
 [submodule "zsh-plugins/nix-zsh-completions"]
 	path = zsh-plugins/nix-zsh-completions
 	url = https://github.com/spwhitt/nix-zsh-completions.git
+	branch = master
 [submodule "zsh-plugins/zsh-autoswitch-virtualenv"]
 	path = zsh-plugins/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
+	branch = master
