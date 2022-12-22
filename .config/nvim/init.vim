@@ -65,9 +65,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 if has('nvim')
   Plug 'nvim-tree/nvim-web-devicons'
-else
-  Plug 'ryanoasis/vim-devicons'
 endif
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jsfaint/gen_tags.vim'
