@@ -7,22 +7,32 @@
 # A simple command for demonstration purposes follows.
 # -----------------------------------------------------------------------------
 
-from __future__ import (absolute_import, division, print_function)
+from __future__ import absolute_import, division, print_function
 
 # You can import any python module as needed.
 import os
+import sys
+import re
+
+from pathlib import Path
+
+# Allow adding plugins from the dotfiles directory
+sys.path.append(str(Path.home()) + "/.dotfiles/ranger/plugins")
 
 # You always need to import ranger.api.commands here to get the Command class:
 from ranger.api.commands import Command
 
 
-import re
+from ranger_udisk_menu.mounter import mount
+
+
 class ag(Command):
     """:ag 'regex'
     Looks for a string in all marked paths or current dir
     """
-    editor = os.getenv('EDITOR') or 'vim'
-    acmd = 'ag --smart-case --group --color --hidden'  # --search-zip
+
+    editor = os.getenv("EDITOR") or "vim"
+    acmd = "ag --smart-case --group --color --hidden"  # --search-zip
     qarg = re.compile(r"""^(".*"|'.*')$""")
     patterns = []
     # THINK:USE: set_clipboard on each direct ':ag' search? So I could find in vim easily
@@ -40,7 +50,7 @@ class ag(Command):
     def _arg(self, i=1):
         if self.rest(i):
             ag.patterns.append(self.rest(i))
-        return ag.patterns[-1] if ag.patterns else ''
+        return ag.patterns[-1] if ag.patterns else ""
 
     def _quot(self, patt):
         return patt if ag.qarg.match(patt) else shell_quote(patt)
@@ -48,60 +58,62 @@ class ag(Command):
     def _bare(self, patt):
         return patt[1:-1] if ag.qarg.match(patt) else patt
 
-    def _aug_vim(self, iarg, comm='Ag'):
-        if self.arg(iarg) == '-Q':
+    def _aug_vim(self, iarg, comm="Ag"):
+        if self.arg(iarg) == "-Q":
             self.shift()
-            comm = 'sil AgSet def.e.literal 1|' + comm
+            comm = "sil AgSet def.e.literal 1|" + comm
         # patt = self._quot(self._arg(iarg))
         patt = self._arg(iarg)  # No need to quote in new ag.vim
         # FIXME:(add support)  'AgPaths' + self._sel()
-        cmd = ' '.join([comm, patt])
-        cmdl = [ag.editor, '-c', cmd, '-c', 'only']
-        return (cmdl, '')
+        cmd = " ".join([comm, patt])
+        cmdl = [ag.editor, "-c", cmd, "-c", "only"]
+        return (cmdl, "")
 
     def _aug_sh(self, iarg, flags=[]):
         cmdl = ag.acmd.split() + flags
         if iarg == 1:
             import shlex
+
             cmdl += shlex.split(self.rest(iarg))
         else:
             # NOTE: only allowed switches
             opt = self.arg(iarg)
-            while opt in ['-Q', '-w']:
+            while opt in ["-Q", "-w"]:
                 self.shift()
                 cmdl.append(opt)
                 opt = self.arg(iarg)
             # TODO: save -Q/-w into ag.patterns =NEED rewrite plugin to join _aug*()
             patt = self._bare(self._arg(iarg))  # THINK? use shlex.split() also/instead
             cmdl.append(patt)
-        if '-g' not in flags:
+        if "-g" not in flags:
             cmdl += self._sel()
-        return (cmdl, '-p')
+        return (cmdl, "-p")
 
     def _choose(self):
-        if self.arg(1) == '-v':
-            return self._aug_vim(2, 'Ag')
-        elif self.arg(1) == '-g':
-            return self._aug_vim(2, 'sil AgView grp|Ag')
-        elif self.arg(1) == '-l':
-            return self._aug_sh(2, ['--files-with-matches', '--count'])
-        elif self.arg(1) == '-p':  # paths
-            return self._aug_sh(2, ['-g'])
-        elif self.arg(1) == '-f':
+        if self.arg(1) == "-v":
+            return self._aug_vim(2, "Ag")
+        elif self.arg(1) == "-g":
+            return self._aug_vim(2, "sil AgView grp|Ag")
+        elif self.arg(1) == "-l":
+            return self._aug_sh(2, ["--files-with-matches", "--count"])
+        elif self.arg(1) == "-p":  # paths
+            return self._aug_sh(2, ["-g"])
+        elif self.arg(1) == "-f":
             return self._aug_sh(2)
-        elif self.arg(1) == '-r':
-            return self._aug_sh(2, ['--files-with-matches'])
+        elif self.arg(1) == "-r":
+            return self._aug_sh(2, ["--files-with-matches"])
         else:
             return self._aug_sh(1)
 
     def _catch(self, cmd):
         from subprocess import check_output, CalledProcessError
+
         try:
             out = check_output(cmd)
         except CalledProcessError:
             return None
         else:
-            return out[:-1].decode('utf-8').splitlines()
+            return out[:-1].decode("utf-8").splitlines()
 
     # DEV
     # NOTE: regex becomes very big for big dirs
@@ -122,7 +134,7 @@ class ag(Command):
         cmd, flags = self._choose()
         # self.fm.notify(cmd)
         # TODO:ENH: cmd may be [..] -- no need to shell_escape
-        if self.arg(1) != '-r':
+        if self.arg(1) != "-r":
             self.fm.execute_command(cmd, flags=flags)
         else:
             self._filter(self._catch(cmd))
@@ -132,9 +144,9 @@ class ag(Command):
         #   <= EXPL: aliases expanded before parsing cmdline
         cmd = self.arg(0)
         flg = self.arg(1)
-        if flg[0] == '-' and flg[1] in 'flvgprw':
-            cmd += ' ' + flg
-        return ['{} {}'.format(cmd, p) for p in reversed(ag.patterns)]
+        if flg[0] == "-" and flg[1] in "flvgprw":
+            cmd += " " + flg
+        return ["{} {}".format(cmd, p) for p in reversed(ag.patterns)]
 
 
 class fzf_select(Command):
@@ -147,21 +159,25 @@ class fzf_select(Command):
 
     See: https://github.com/junegunn/fzf
     """
+
     def execute(self):
         import subprocess
         import os.path
+
         if self.quantifier:
             # match only directories
-            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -type d -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
         else:
             # match files and directories
-            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
-        fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
+        fzf = self.fm.execute_command(
+            command, universal_newlines=True, stdout=subprocess.PIPE
+        )
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:
-            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            fzf_file = os.path.abspath(stdout.rstrip("\n"))
             if os.path.isdir(fzf_file):
                 self.fm.cd(fzf_file)
             else:

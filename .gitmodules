@@ -46,3 +46,6 @@
 	path = zsh-plugins/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
 	branch = master
+[submodule "ranger/plugins/ranger_udisk_menu"]
+	path = ranger/plugins/ranger_udisk_menu
+	url = https://github.com/SL-RU/ranger_udisk_menu.git
