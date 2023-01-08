@@ -146,8 +146,6 @@ alias fucking='sudo '
 
 if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
-else
-  pip install thefuck
 fi
 
 alias :q='exit'
@@ -155,8 +153,6 @@ alias :wq='exit'
 
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-else
-  pip install pipenv
 fi
 
 if command -v direnv 1>/dev/null 2>&1; then
