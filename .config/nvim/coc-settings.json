@@ -143,5 +143,7 @@
   "solargraph.formatting": true,
   "solargraph.definitions": true,
   "solargraph.references": true,
-  "solargraph.autoformat": true
+  "solargraph.autoformat": true,
+  "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.telemetry.enable": false
 }

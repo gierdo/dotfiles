@@ -173,7 +173,7 @@ function SetupCoc()
   execute 'CocInstall coc-jedi'
   execute 'CocInstall coc-json'
   execute 'CocInstall coc-lists'
-  execute 'CocInstall coc-lua'
+  execute 'CocInstall coc-sumneko-lua'
   execute 'CocInstall coc-markdownlint'
   execute 'CocInstall coc-rust-analyzer'
   execute 'CocInstall coc-snippets'
