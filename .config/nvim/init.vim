@@ -83,6 +83,8 @@ Plug 'junegunn/fzf', { 'do': './install --all' }
 
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
 Plug 'godlygeek/tabular'
 Plug 'dhruvasagar/vim-table-mode'
 
