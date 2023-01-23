@@ -3,7 +3,7 @@
 --smart-case
 
 # exclude specific directories
---glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,cache,clangd}/*
+--glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,*cache,clangd}/*
 
 # exclude specific filetypes
 --glob=!**/*.{o,so,jar,ser}
