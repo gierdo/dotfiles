@@ -1,8 +1,7 @@
 --recurse=yes
 --fields=+l
 --tag-relative=yes
---exclude=.git
---exclude=.hg
+--exclude=.*
 --exclude=log
 --exclude=tmp
 --exclude=node_modules/*
