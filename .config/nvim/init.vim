@@ -27,6 +27,9 @@ Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
+" Scary! Needs $OPENAI_API_KEY and curl
+Plug 'aduros/ai.vim'
+
 " Shared library for lua plugins
 Plug 'nvim-lua/plenary.nvim'
 
