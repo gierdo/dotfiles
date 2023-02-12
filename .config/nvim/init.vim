@@ -29,6 +29,7 @@ Plug 'w0rp/ale'
 
 " Scary! Needs $OPENAI_API_KEY and curl
 Plug 'aduros/ai.vim'
+let g:ai_timeout=30
 
 " Shared library for lua plugins
 Plug 'nvim-lua/plenary.nvim'
