@@ -1,12 +1,12 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.dotfiles/oh-my-zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.dotfiles/oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -101,10 +101,6 @@ source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
-
-source ~/.dotfiles/zsh-plugins/nix-zsh-completions/nix.plugin.zsh
-
-fpath=(~/.dotfiles/zsh-plugins/nix-zsh-completions $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
