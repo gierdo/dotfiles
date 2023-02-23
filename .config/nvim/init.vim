@@ -24,7 +24,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', {'do': { -> SetupCoc()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> SetupCoc()}}
 Plug 'w0rp/ale'
 
 " Scary! Needs $OPENAI_API_KEY and curl
