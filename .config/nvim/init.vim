@@ -74,7 +74,7 @@ Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jsfaint/gen_tags.vim'
-Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 nmap <F8> :TagbarToggle<CR>
 " markdown-tagbar integration, requires php
 Plug 'lvht/tagbar-markdown'
@@ -109,7 +109,7 @@ endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
 let g:tex_flavor = 'latex'
 
-Plug 'fatih/vim-go', { 'do': 'make install' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'dylon/vim-antlr'
 Plug 'jamessan/vim-gnupg'
