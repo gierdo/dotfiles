@@ -20,7 +20,6 @@ PATH="$HOME/.dotfiles/.local/bin:$PATH"
 PATH="$HOME/.scripts:$PATH"
 PATH="$HOME/.yarn/bin:$PATH"
 PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-PATH="$HOME/.npmpath/bin:$PATH"
 PATH="$HOME/.gem/ruby/current/bin:$PATH"
 PATH="$HOME/.luarocks/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
@@ -31,6 +30,10 @@ export GOPATH=~/go
 export GOPRIVATE=github.com
 
 export ANDROID_HOME=~/.android-sdks
+
+# Set up node environment
+PATH="$HOME/.npmpath/bin:$PATH"
+export NODE_PATH="$HOME/.npmpath/lib/node_modules"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
