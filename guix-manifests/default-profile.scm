@@ -3,7 +3,6 @@
     "ranger"
     "direnv"
     "ripgrep"
-    "foot"
     "tmux"
     "zsh"
     "bat"
