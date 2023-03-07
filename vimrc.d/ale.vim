@@ -13,19 +13,20 @@ let g:ale_linters = {
       \   'cloudformation.yaml': ['cloudformation', 'yamllint'],
       \   'java': [''],
       \}
+
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
       \   '*': ['trim_whitespace'],
       \   'cpp': ['trim_whitespace'],
       \   'c': ['trim_whitespace'],
       \   'python': ['trim_whitespace'],
-      \   'json': ['fixjson', 'jq', 'prettier', 'trim_whitespace'],
-      \   'yaml': ['prettier', 'trim_whitespace'],
+      \   'json': ['fixjson', 'jq', 'trim_whitespace'],
+      \   'yaml': ['trim_whitespace'],
       \   'sh': ['shfmt', 'trim_whitespace'],
       \   'go': ['goimports', 'gofmt', 'trim_whitespace'],
       \   'rust': ['rustfmt', 'trim_whitespace'],
       \   'ruby': ['rubocop', 'trim_whitespace'],
-      \   'typescript': ['prettier', 'tslint', 'trim_whitespace'],
+      \   'typescript': ['tslint', 'trim_whitespace'],
       \}
 
 " disable fuchsia checker, annoying as hell
