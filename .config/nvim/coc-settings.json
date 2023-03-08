@@ -11,13 +11,16 @@
   "java.format.onType.enabled": true,
   "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
-  "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
+  "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication",
   "yaml.completion": true,
   "yaml.validate": true,
   "yaml.schemaStore.enable": true,
   "yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
   "yaml.schemas": {
-    "kustomization": ["**/kustomization.y*ml", "**/*.patch.y*ml"]
+    "kustomization": [
+      "**/kustomization.y*ml",
+      "**/*.patch.y*ml"
+    ]
   },
   "yaml.customTags": [
     "!Ref",
@@ -39,18 +42,26 @@
     "!Join sequence"
   ],
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["black"]
+    "python": [
+      "black"
+    ]
   },
   "diagnostic-languageserver.formatters": {
     "black": {
       "command": "black",
-      "args": ["-q", "-"]
+      "args": [
+        "-q",
+        "-"
+      ]
     }
   },
   "languageserver": {
     "clangd": {
       "command": "clangd",
-      "args": ["--background-index", "--fallback-style=google"],
+      "args": [
+        "--background-index",
+        "--fallback-style=google"
+      ],
       "rootPatterns": [
         "compile_flags.txt",
         "compile_commands.json",
@@ -58,26 +69,52 @@
         ".git/",
         ".hg/"
       ],
-      "filetypes": ["c", "cpp", "cc", "c++", "objc", "objcpp"]
+      "filetypes": [
+        "c",
+        "cpp",
+        "cc",
+        "c++",
+        "objc",
+        "objcpp"
+      ]
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
+      "rootPatterns": [
+        "go.work",
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "usePlaceholders": true
       }
     },
     "bash": {
       "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
     },
     "terraform": {
       "command": "terraform-ls",
-      "args": ["serve"],
-      "filetypes": ["terraform", "tf"],
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
       "initializationOptions": {},
       "settings": {}
     }
