@@ -151,8 +151,8 @@ let g:coc_snippet_prev = '<c-k>'
 
 
 function SetupCoc()
-  call coc#util#install()
   execute '! npm install -g --update yarn'
+  execute '! yarn install --frozen-lockfile'
   execute '! npm install -g --update neovim rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server prettier shellcheck'
   execute '! pip3 install --user --upgrade pylint black pytype mypy jedi-language-server cfn-lint'
   execute '! go install golang.org/x/tools/gopls@latest'
@@ -160,21 +160,4 @@ function SetupCoc()
   execute '! go install golang.org/x/tools/cmd/goimports@latest'
   execute '! go install github.com/hashicorp/terraform-ls@latest'
   execute '! go install github.com/terraform-linters/tflint@latest'
-
-  execute 'CocInstall coc-cfn-lint'
-  execute 'CocInstall coc-css'
-  execute 'CocInstall coc-diagnostic'
-  execute 'CocInstall coc-docker'
-  execute 'CocInstall coc-html'
-  execute 'CocInstall coc-java'
-  execute 'CocInstall coc-jedi'
-  execute 'CocInstall coc-json'
-  execute 'CocInstall coc-lists'
-  execute 'CocInstall coc-markdownlint'
-  execute 'CocInstall coc-prettier'
-  execute 'CocInstall coc-tsserver'
-  execute 'CocInstall coc-snippets'
-  execute 'CocInstall coc-vimtex'
-  execute 'CocInstall coc-xml'
-  execute 'CocInstall coc-yaml'
 endfunction

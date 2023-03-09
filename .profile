@@ -34,6 +34,8 @@ export ANDROID_HOME=~/.android-sdks
 # Set up node environment
 PATH="$HOME/.npmpath/bin:$PATH"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
+# Fix for   reason: 'unsupported',code: 'ERR_OSSL_EVP_UNSUPPORTED'
+export NODE_OPTIONS=--openssl-legacy-provider
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"

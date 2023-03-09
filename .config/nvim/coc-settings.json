@@ -122,11 +122,11 @@
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnSave": true,
   "[python]": {
     "coc.preferences.formatOnType": true
   },
-  "coc.preferences.formatOnSave": true,
-  "[yaml]": {
+  "[yaml][json]": {
     "coc.preferences.formatOnSave": false
   },
   "coc.preferences.formatOnSaveTimeout": 500,
