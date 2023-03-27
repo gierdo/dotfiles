@@ -96,6 +96,8 @@ source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.p
 
 source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
+
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
@@ -104,7 +106,7 @@ fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
 fpath=(~/.zfunc $fpath)
 
-export PATH="$HOME/.dotfiles/zsh-plugins/git-fuzzy/bin:$PATH"
+export PATH="$HOME/.dotfiles/zsh-plugins/forgit/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
