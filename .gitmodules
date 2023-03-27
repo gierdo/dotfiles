@@ -34,10 +34,6 @@
 	path = workspace/guix
 	url = https://git.savannah.gnu.org/git/guix.git
 	branch = master
-[submodule "zsh-plugins/git-fuzzy"]
-	path = zsh-plugins/git-fuzzy
-	url = https://github.com/bigH/git-fuzzy.git
-	branch = master
 [submodule "zsh-plugins/zsh-autoswitch-virtualenv"]
 	path = zsh-plugins/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
