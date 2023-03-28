@@ -41,6 +41,7 @@
 [submodule "ranger/plugins/ranger_udisk_menu"]
 	path = ranger/plugins/ranger_udisk_menu
 	url = https://github.com/SL-RU/ranger_udisk_menu.git
+	branch = master
 [submodule "zsh-plugins/forgit"]
 	path = zsh-plugins/forgit
 	url = https://github.com/wfxr/forgit.git
