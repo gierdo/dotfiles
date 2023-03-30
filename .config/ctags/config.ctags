@@ -1,4 +1,5 @@
 --recurse=yes
+--links=no
 --fields=+l
 --tag-relative=yes
 --exclude=.*
@@ -8,6 +9,10 @@
 --exclude=db/*
 --exclude=log/*
 
+--exclude=*.css
+--exclude=*.html
+--exclude=*.json
+--exclude=*.cmake
 
 --langdef=latex
 --langmap=latex:.tex
