@@ -80,11 +80,10 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'jsfaint/gen_tags.vim'
-Plug 'preservim/tagbar'
-nmap <F8> :TagbarToggle<CR>
-" markdown-tagbar integration, requires php
-Plug 'lvht/tagbar-markdown'
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'liuchengxu/vista.vim'
+nmap <silent> <F8> :Vista!!<CR>
 
 " Auto indentation
 Plug 'vim-scripts/yaifa.vim'
