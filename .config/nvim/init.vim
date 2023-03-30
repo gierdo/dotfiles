@@ -1,14 +1,8 @@
 " Vim and vundle require a posix compliant shell
 set shell=sh
 
-if has('nvim')
-  if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
-    execute '!curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-  endif
-else
-  if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-  endif
+if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
+  execute '!curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
 " Brief help
@@ -53,14 +47,10 @@ let g:ai_timeout=30
 " Shared library for lua plugins
 Plug 'nvim-lua/plenary.nvim'
 
+Plug 'folke/todo-comments.nvim'
+
 " Debugger
-if has('nvim')
-  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-else
-  Plug 'puremourning/vimspector'
-  let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-  let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools' ]
-endif
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
@@ -86,9 +76,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-if has('nvim')
-  Plug 'nvim-tree/nvim-web-devicons'
-endif
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'

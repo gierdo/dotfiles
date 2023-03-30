@@ -121,3 +121,12 @@ let g:rainbow_conf = {
 \		'nerdtree': 0,
 \	}
 \}
+
+" Todo plugin config, set up in lua
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
