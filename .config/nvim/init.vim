@@ -15,6 +15,8 @@ endif
 " :PlugSnapshot[!] [output path]	Generate script for restoring the current snapshot of the plugins
 "
 call plug#begin('~/.vim/plugged')
+" Shared library for lua plugins
+Plug 'nvim-lua/plenary.nvim'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -43,9 +45,6 @@ Plug 'w0rp/ale'
 " Scary! Needs $OPENAI_API_KEY and curl
 Plug 'aduros/ai.vim'
 let g:ai_timeout=30
-
-" Shared library for lua plugins
-Plug 'nvim-lua/plenary.nvim'
 
 Plug 'folke/todo-comments.nvim'
 
@@ -81,7 +80,7 @@ Plug 'ryanoasis/vim-devicons'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'soramugi/auto-ctags.vim'
 Plug 'liuchengxu/vista.vim'
 nmap <silent> <F8> :Vista!!<CR>
 
@@ -92,8 +91,9 @@ let yaifa_max_lines = 4096
 Plug 'junegunn/fzf', { 'do': './install --all' }
 
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'fannheyward/telescope-coc.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
 
 Plug 'godlygeek/tabular'
 Plug 'dhruvasagar/vim-table-mode'

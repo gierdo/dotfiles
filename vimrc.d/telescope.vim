@@ -6,6 +6,10 @@ local action_state = require("telescope.actions.state")
 
 local custom_actions = {}
 
+require('telescope').load_extension('coc')
+require('telescope').load_extension('gh')
+require('telescope').load_extension('fzf')
+
 function custom_actions.fzf_multi_select(prompt_bufnr)
     local picker = action_state.get_current_picker(prompt_bufnr)
     local num_selections = table.getn(picker:get_multi_selection())
@@ -58,7 +62,6 @@ extensions = {
   -- please take a look at the readme of the extension you want to configure
   }
 }
-require('telescope').load_extension('fzf')
 EOF
 
 " fuzzy-find in current buffer
