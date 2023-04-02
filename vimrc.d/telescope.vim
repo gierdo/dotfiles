@@ -1,5 +1,6 @@
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
+
 lua << EOF
 local actions = require('telescope.actions')
 local action_state = require("telescope.actions.state")
@@ -9,6 +10,11 @@ local custom_actions = {}
 require('telescope').load_extension('coc')
 require('telescope').load_extension('gh')
 require('telescope').load_extension('fzf')
+
+local builtin = require('telescope.builtin')
+local coc_builtin = require('telescope').extensions.coc
+
+builtin.coc = coc_builtin.coc
 
 function custom_actions.fzf_multi_select(prompt_bufnr)
     local picker = action_state.get_current_picker(prompt_bufnr)
