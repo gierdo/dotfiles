@@ -78,7 +78,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'preservim/vim-indent-guides'
 
 Plug 'soramugi/auto-ctags.vim'
 Plug 'liuchengxu/vista.vim'
