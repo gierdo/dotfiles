@@ -1,0 +1,38 @@
+! -*- conf -*-
+
+xterm*faceName: UbuntuMono Nerd Font
+xterm*faceSize: 12
+
+! Shell
+xterm*termName: xterm-256color
+xterm*loginShell: false
+
+! Scrollback lines
+! xterm*saveLines: 1000 (Default value is 1024)
+
+! Cursor color and style
+xterm*cursorColor: #002b36
+xterm*cursorColor2: #93a1a1
+! xterm*cursorBlink: false (Default)
+
+! Colors
+xterm*background: #002b36
+xterm*foreground: #839496
+! Color palette
+xterm*color0: #073642
+xterm*color1: #dc322f
+xterm*color2: #859900
+xterm*color3: #b58900
+xterm*color4: #268bd2
+xterm*color5: #d33682
+xterm*color6: #2aa198
+xterm*color7: #eee8d5
+xterm*color8: #002b36
+xterm*color9: #cb4b16
+xterm*color10: #586e75
+xterm*color11: #657b83
+xterm*color12: #839496
+xterm*color13: #6c71c4
+xterm*color14: #93a1a1
+xterm*color15: #fdf6e3
+
