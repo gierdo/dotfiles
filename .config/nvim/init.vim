@@ -45,6 +45,12 @@ Plug 'w0rp/ale'
 " Scary! Needs $OPENAI_API_KEY and curl
 Plug 'aduros/ai.vim'
 let g:ai_timeout=30
+" Don't remap <CTRL-A>, we still want to be able to increment numbers
+let g:ai_no_mappings=1
+" Use <Alt-A> instead
+nnoremap <A-a> :AI<Space>
+vnoremap <A-a> :AI<Space>
+inoremap <A-a> <Esc>:AI<CR>a
 
 Plug 'folke/todo-comments.nvim'
 
