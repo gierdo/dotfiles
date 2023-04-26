@@ -11,7 +11,7 @@ set $menu rofi -show drun
 
 set $ScreenshotGrabber grim
 
-output "*" bg ~/.wallpaper.png fill
+output "*" bg ~/.dotfiles/themes/wallpaper.png fill
 
 bindsym $mod+Shift+r reload
 
