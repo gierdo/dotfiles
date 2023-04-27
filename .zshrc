@@ -68,10 +68,12 @@ plugins=(
   aws
   colored-man-pages
   cp
+  dirhistory
   docker
   fancy-ctrl-z
   gh
   git
+  git-escape-magic
   git-extras
   golang
   helm
