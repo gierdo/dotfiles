@@ -7,6 +7,13 @@ set $mod Mod4
 # physlock can be installed with apt-get install physlock
 set $Locker physlock
 
+exec swayidle -w \
+    timeout 3600 'physlock'
+
+# Inhibit locking if windows are in fullscreen
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
 set $menu rofi -show drun
 
 set $ScreenshotGrabber grim

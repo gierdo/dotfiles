@@ -211,16 +211,16 @@ client.urgent              #FF0000   #FF0000    #FF0000
 # panel
 bar {
   font pango: Ubuntu Nerd Font 11
-    colors {
-      background #0D3244
-      statusline #002b36
-      separator  #93a1a1
+  colors {
+    background #0D3244
+    statusline #002b36
+    separator  #93a1a1
 
-        # colour of border, background, and text
-      focused_workspace #0D3244 #0D3244 #93a1a1
-      active_workspace  #444444 #444444 #93a1a1
-      inactive_workspace #0D3244 #0D3244 #888888
-      urgent_workspace  #2f343a #900000 #93a1a1
-    }
-        status_command i3status-rs --never-pause
+    # colour of border, background, and text
+    focused_workspace #0D3244 #0D3244 #93a1a1
+    active_workspace  #444444 #444444 #93a1a1
+    inactive_workspace #0D3244 #0D3244 #888888
+    urgent_workspace  #2f343a #900000 #93a1a1
+  }
+  status_command i3status-rs --never-pause
 }

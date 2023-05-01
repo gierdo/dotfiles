@@ -47,8 +47,19 @@ block = "battery"
 missing_format = ""
 
 [[block]]
-block = "notify"
+block = "toggle"
+icon_on = "bell-slash"
+icon_off = "bell"
 format = "$icon"
+# The toggling script has to override the command_on/off actions with
+# block.click to work propperly for the deactivation
+command_state = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
+command_on = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
+command_off = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
+interval = 1
+[[block.click]]
+button = "left"
+cmd = "~/.dotfiles/.local/bin/toggle-presentation-mode"
 [block.theme_overrides]
 idle_bg = { link = "warning_bg" }
 idle_fg = { link = "warning_fg" }
