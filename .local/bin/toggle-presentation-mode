@@ -37,9 +37,8 @@ function update_presentation_mode_status() {
 
 function enable_swayidle() {
   if [ "$SWAYIDLE_STATUS" != true ]; then
-    swayidle -w \
-      timeout 600 'physlock' &
-          dunstify "Enabled swayidle"
+    enable-autolock
+    dunstify "Enabled swayidle"
   fi
   update_presentation_mode_status
 }
