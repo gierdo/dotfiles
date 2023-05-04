@@ -47,6 +47,22 @@ block = "battery"
 missing_format = ""
 
 [[block]]
+block = "disk_space"
+path = "/"
+info_type = "used"
+format = "/ $icon $percentage"
+format_alt = "/ $icon $free available"
+interval = 20
+
+[[block]]
+block = "disk_space"
+path = "~"
+info_type = "used"
+format = "home $icon $percentage"
+format_alt = "/ $icon $free available"
+interval = 20
+
+[[block]]
 block = "toggle"
 icon_on = "bell-slash"
 icon_off = "bell"
