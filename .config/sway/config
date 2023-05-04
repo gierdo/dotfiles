@@ -45,7 +45,7 @@ set $output-tertiary DisplayPort-0
 set $term foot
 
 # Remove titlebar
-font pango: Ubuntu Nerd Font 0
+for_window [class=".*"] titlebar hide
 titlebar_border_thickness 2
 titlebar_padding 2
 
