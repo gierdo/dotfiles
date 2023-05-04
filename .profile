@@ -172,6 +172,8 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_ENABLE_WAYLAND=1
   export MOZ_WEBRENDER=1
 
+  export GTK_THEME=Adapta-Nokto-Eta:dark
+
   # Fix Java AWT applications on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
 
