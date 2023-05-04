@@ -38,8 +38,8 @@ input type:pointer {
 }
 
 set $output-primary eDP-1
-set $output-secondary HDMI-A-0 DP-1 DP-2 DP-3
-set $output-tertiary DisplayPort-0
+set $output-secondary HDMI-A-0 DP-1 DP-3
+set $output-tertiary DisplayPort-0 DP-2
 
 # preffered terminal emulator
 set $term foot

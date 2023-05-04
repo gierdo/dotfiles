@@ -89,27 +89,29 @@ bindsym $mod+Shift+space focus mode_toggle
 
 # workspace config
 
-workspace 1 output $output-primary
-workspace 2 output $output-primary
-workspace 3 output $output-primary
-workspace 4 output $output-primary
-workspace 5 output $output-primary
-workspace 6 output $output-primary
-workspace 7 output $output-primary
-workspace 8 output $output-primary
-workspace 9 output $output-primary
+# the last output is picked if detected
+workspace 1 output $output-primary $output-tertiary
+workspace 2 output $output-primary $output-tertiary
+workspace 3 output $output-primary $output-tertiary
+workspace 4 output $output-primary $output-tertiary
+workspace 5 output $output-primary $output-tertiary
+workspace 6 output $output-primary $output-tertiary
+workspace 7 output $output-primary $output-tertiary
+workspace 8 output $output-primary $output-tertiary
+workspace 9 output $output-primary $output-tertiary
+# Always map 0 to the internal laptop display
 workspace 10 output $output-primary
 
-workspace 11 output $output-secondary $output-tertiary
-workspace 12 output $output-secondary $output-tertiary
-workspace 13 output $output-secondary $output-tertiary
-workspace 14 output $output-secondary $output-tertiary
-workspace 15 output $output-secondary $output-tertiary
-workspace 16 output $output-secondary $output-tertiary
-workspace 17 output $output-secondary $output-tertiary
-workspace 18 output $output-secondary $output-tertiary
-workspace 19 output $output-secondary $output-tertiary
-workspace 20 output $output-secondary $output-tertiary
+workspace 11 output $output-secondary
+workspace 12 output $output-secondary
+workspace 13 output $output-secondary
+workspace 14 output $output-secondary
+workspace 15 output $output-secondary
+workspace 16 output $output-secondary
+workspace 17 output $output-secondary
+workspace 18 output $output-secondary
+workspace 19 output $output-secondary
+workspace 20 output $output-secondary
 
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
