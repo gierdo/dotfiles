@@ -59,7 +59,7 @@ block = "disk_space"
 path = "~"
 info_type = "used"
 format = "home $icon $percentage"
-format_alt = "/ $icon $free available"
+format_alt = "home $icon $free available"
 interval = 20
 
 [[block]]
