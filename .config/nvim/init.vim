@@ -59,7 +59,12 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
+
+" Work with parentheses
 Plug 'tpope/vim-surround'
+
+" Autoclose parentheses etc.
+Plug 'vim-scripts/delimitMate.vim'
 Plug 'scrooloose/nerdcommenter'
 let g:NERDCustomDelimiters = {
       \ 'c': { 'left': '/*','right': '*/' },
