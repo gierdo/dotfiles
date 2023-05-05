@@ -50,17 +50,21 @@ missing_format = ""
 block = "disk_space"
 path = "/"
 info_type = "used"
+warning = 80.0
+alert = 95.0
 format = "/ $icon $percentage"
 format_alt = "/ $icon $free available"
-interval = 20
+interval = 10
 
 [[block]]
 block = "disk_space"
 path = "~"
 info_type = "used"
+warning = 80.0
+alert = 95.0
 format = "home $icon $percentage"
 format_alt = "home $icon $free available"
-interval = 20
+interval = 10
 
 [[block]]
 block = "toggle"
