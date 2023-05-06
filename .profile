@@ -174,6 +174,10 @@ if command -v sway 1>/dev/null 2>&1; then
 
   export GTK_THEME=Adapta-Nokto-Eta:dark
 
+
+  # Assume gnome-keyring is set up
+  export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
+
   # Fix Java AWT applications on wayland
   export _JAVA_AWT_WM_NONREPARENTING=1
 
