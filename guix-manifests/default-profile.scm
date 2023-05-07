@@ -16,4 +16,5 @@
     "glibc-locales"
     "font-nerd-fonts"
     "btop"
+    "rofi-wayland"
     "i3status-rust"))
