@@ -6,4 +6,4 @@
     "swaybg"
     "waybar"
     "grim"
-    "rofi"))
+    "rofi-wayland"))
