@@ -90,15 +90,15 @@ bindsym $mod+Shift+space focus mode_toggle
 # workspace config
 
 # the last output is picked if detected
-workspace 1 output $output-primary $output-tertiary
-workspace 2 output $output-primary $output-tertiary
-workspace 3 output $output-primary $output-tertiary
-workspace 4 output $output-primary $output-tertiary
-workspace 5 output $output-primary $output-tertiary
-workspace 6 output $output-primary $output-tertiary
-workspace 7 output $output-primary $output-tertiary
-workspace 8 output $output-primary $output-tertiary
-workspace 9 output $output-primary $output-tertiary
+workspace 1 output $output-tertiary $output-primary
+workspace 2 output $output-tertiary $output-primary
+workspace 3 output $output-tertiary $output-primary
+workspace 4 output $output-tertiary $output-primary
+workspace 5 output $output-tertiary $output-primary
+workspace 6 output $output-tertiary $output-primary
+workspace 7 output $output-tertiary $output-primary
+workspace 8 output $output-tertiary $output-primary
+workspace 9 output $output-tertiary $output-primary
 # Always map 0 to the internal laptop display
 workspace 10 output $output-primary
 
