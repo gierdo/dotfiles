@@ -38,6 +38,7 @@ cmd = "xterm -e nmtui"
 [[block]]
 block = "net"
 device = "wlan.*"
+missing_format = ""
 [[block.click]]
 button = "left"
 cmd = "xterm -e nmtui"
