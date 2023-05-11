@@ -129,7 +129,7 @@
   "[python]": {
     "coc.preferences.formatOnType": true
   },
-  "[yaml][json]": {
+  "[yaml][json][kotlin]": {
     "coc.preferences.formatOnSave": false
   },
   "coc.preferences.formatOnSaveTimeout": 500,

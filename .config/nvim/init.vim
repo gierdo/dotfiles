@@ -39,6 +39,7 @@ Plug 'iamcco/coc-diagnostic', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'joenye/coc-cfn-lint', {'do': 'yarn install --pure-lockfile'}
+Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
 
 Plug 'w0rp/ale'
 
@@ -125,6 +126,8 @@ function! SyncTexForward()
 endfunction
 nmap <silent> <Leader>f :call SyncTexForward()<CR>
 let g:tex_flavor = 'latex'
+
+Plug 'udalov/kotlin-vim'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 

@@ -27,8 +27,10 @@ let g:ale_fixers = {
       \   'rust': ['rustfmt', 'trim_whitespace'],
       \   'ruby': ['rubocop', 'trim_whitespace'],
       \   'typescript': ['tslint', 'trim_whitespace'],
+      \   'kotlin': ['ktlint', 'trim_whitespace'],
       \}
 
+let g:ale_kotlin_ktlint_options = "--log-level=error --disabled_rules=trailing-comma-on-declaration-site"
 " disable fuchsia checker, annoying as hell
 let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type", "-llvmlibc-*"]
 let g:ale_c_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type" , "-llvmlibc-*"]
