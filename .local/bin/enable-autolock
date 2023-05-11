@@ -1,4 +1,4 @@
 #!/bin/bash
 
 killall -q swayidle
-swayidle -w timeout 600 'waylock --init-color 0x002b36 --input-color 0x2aa198' &
+swayidle -w timeout 600 'swaylock' &

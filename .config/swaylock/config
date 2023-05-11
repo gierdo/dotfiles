@@ -1,0 +1,13 @@
+daemonize
+ignore-empty-password
+image=~/.dotfiles/themes/wallpaper.png
+indicator-caps-lock
+scaling=fill
+color=2aa198
+ring-color=002b36
+inside-color=002b36
+line-color=002b36
+key-hl-color=2aa198
+caps-lock-key-hl-color=2aa198
+inside-ver-color=2aa198
+ring-ver-color=2aa198
