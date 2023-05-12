@@ -1,6 +1,5 @@
 " Nerdtree magic
 autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
-autocmd BufWinEnter * call PreventBuffersInNERDTree()
 
 function! PreventBuffersInNERDTree()
   if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
@@ -13,6 +12,8 @@ function! PreventBuffersInNERDTree()
     exe 'NERDTreeFocusToggle'
   endif
 endfunction
+
+autocmd BufWinEnter * call PreventBuffersInNERDTree()
 
 " Open Quickfix window at the bottom
 :autocmd FileType qf wincmd J
