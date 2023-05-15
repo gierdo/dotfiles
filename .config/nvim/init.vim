@@ -75,6 +75,12 @@ let g:NERDCustomDelimiters = {
 let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 0
 let g:NERDSpaceDelims = 1
+
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'justinmk/vim-gtfo'
+
 let g:NERDTreeMapOpenInTab = "<C-t>"
 let g:NERDTreeMapOpenVSplit = "<C-v>"
 let g:NERDTreeMapOpenSplit = "<C-s>"
@@ -114,10 +120,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'justinmk/vim-gtfo'
 
 Plug 'lervag/vimtex'
 Plug 'peder2tm/sved'
