@@ -23,25 +23,28 @@
     "kustomization": [
       "**/kustomization.y*ml",
       "**/*.patch.y*ml"
+    ],
+    "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+      "**/*.template.y*ml",
+      "**/*-template.y*ml"
     ]
   },
   "yaml.customTags": [
-    "!Ref",
-    "!GetAtt",
-    "!fn",
-    "!And",
-    "!If",
+    "!And scalar",
+    "!If scalar",
     "!Not",
-    "!Equals",
-    "!Or",
-    "!FindInMap sequence",
+    "!Equals scalar",
+    "!Or scalar",
+    "!FindInMap scalar",
     "!Base64",
     "!Cidr",
+    "!Ref",
     "!Sub",
+    "!GetAtt sequence",
     "!GetAZs",
-    "!ImportValue",
-    "!Select",
-    "!Split",
+    "!ImportValue sequence",
+    "!Select sequence",
+    "!Split sequence",
     "!Join sequence"
   ],
   "diagnostic-languageserver.formatFiletypes": {

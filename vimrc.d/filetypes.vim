@@ -4,8 +4,6 @@ au BufNewFile,BufRead * if search('\M-*- C++ -*-', 'n', 1) | setlocal filetype=c
 au BufNewFile,BufRead *.gradle set filetype=groovy
 au BufNewFile,BufRead *.g set filetype=antlr3
 au BufNewFile,BufRead *.g4 set filetype=antlr4
-au BufNewFile,BufRead *.template.y*ml set filetype=cloudformation.yaml
-au BufNewFile,BufRead *.template.json set filetype=cloudformation.json
 
 autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab autoindent
 autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab autoindent cc=120
