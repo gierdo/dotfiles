@@ -73,32 +73,8 @@ if command -v guix 1>/dev/null 2>&1; then
         . "$GUIX_PROFILE"/etc/profile
 
         if [ -d "$GUIX_PROFILE/share" ]; then
-          export XDG_DATA_DIRS="$GUIX_PROFILE/share/":$XDG_DATA_DIRS
-        fi
-      fi
-      unset profile
-    done
-  fi
-fi
-
-if command -v nix 1>/dev/null 2>&1; then
-  NIX_PROFILE="$HOME/.nix-profile"
-  if [ -d "$NIX_PROFILE" ]; then
-    export XDG_CONFIG_DIRS="$NIX_PROFILE/etc/":$XDG_DATA_DIRS
-    export XDG_DATA_DIRS="$NIX_PROFILE/share/":$XDG_DATA_DIRS
-  fi
-
-  NIX_EXTRA_PROFILES=$HOME/.nix-extra-profiles
-  if [ -d "$NIX_EXTRA_PROFILES" ]; then
-    for i in $NIX_EXTRA_PROFILES/*; do
-      profile=$i/$(basename "$i")
-      if [ -f "$profile"/etc/profile.d/nix.sh ]; then
-        NIX_PROFILE="$profile"
-        . "$NIX_PROFILE"/etc/profile.d/nix.sh
-
-        if [ -d "$NIX_PROFILE/share" ]; then
-          export XDG_CONFIG_DIRS="$NIX_PROFILE/etc/":$XDG_DATA_DIRS
-          export XDG_DATA_DIRS="$NIX_PROFILE/share/":$XDG_DATA_DIRS
+          export XDG_DATA_DIRS="$GUIX_PROFILE/share/:$XDG_DATA_DIRS"
+          export XDG_CONFIG_DIRS="$GUIX_PROFILE/etc/:$XDG_CONFIG_DIRS"
         fi
       fi
       unset profile
