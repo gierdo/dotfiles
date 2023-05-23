@@ -19,6 +19,7 @@
 [diff]
   tool = vimdiff
   submodule = diff
+  colorMoved = default
 [push]
   default = current
 [gui]
@@ -37,6 +38,7 @@
   submoduleSummary = true
 [core]
   excludesfile = ~/.gitignore_global
+  pager = delta
 [include]
   path = ~/.gitconfig.local
 [pull]
@@ -45,3 +47,10 @@
   defaultBranch = main
 [url "git@github.com:"]
   insteadOf = https://github.com/
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true
