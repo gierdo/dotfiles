@@ -100,6 +100,8 @@ source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 
 source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
 
+fpath=(/usr/share/zsh/vendor-completions $fpath)
+
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
