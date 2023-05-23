@@ -1,6 +1,7 @@
 (specifications->manifest
   '("nss-certs"
     "ranger"
+    "dragon-drop"
     "direnv"
     "ripgrep"
     "tmux"
