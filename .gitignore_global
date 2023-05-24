@@ -1,4 +1,5 @@
 .tool-versions
+.python-version
 .envrc
 .vim
 .nvimlog
