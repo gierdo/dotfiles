@@ -7,7 +7,7 @@ let g:ale_lint_delay = 1000
 let g:ale_linters_explicit = 0
 let g:ale_linters = {
       \   'cpp': ['clangtidy', 'cppcheck', 'cpplint', 'flawfinder'],
-      \   'python': ['mypy', 'pylint', 'flake8'],
+      \   'python': ['mypy', 'pylint', 'flake8', 'bandit'],
       \   'c': ['clangtidy', 'cppcheck', 'flawfinder'],
       \   'yaml': ['yamllint'],
       \   'cloudformation.yaml': ['cloudformation', 'yamllint'],
@@ -19,7 +19,7 @@ let g:ale_fixers = {
       \   '*': ['trim_whitespace'],
       \   'cpp': ['trim_whitespace'],
       \   'c': ['trim_whitespace'],
-      \   'python': ['trim_whitespace'],
+      \   'python': ['trim_whitespace', 'isort'],
       \   'json': ['fixjson', 'jq', 'trim_whitespace'],
       \   'yaml': ['trim_whitespace'],
       \   'sh': ['shfmt', 'trim_whitespace'],
