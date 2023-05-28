@@ -1,0 +1,33 @@
+#!/bin/bash
+
+TMP_UNPACKED="tmp-unpacked-package"
+
+if [ -d "$TMP_UNPACKED" ]; then rm -Rf "$TMP_UNPACKED"; fi
+
+KERNEL_PACKAGE=$(find ./ -name "linux-image-*_amd64.deb" | sort -r | head -n1)
+
+SIGNING_KEY="linux/certs/signing_key.pem"
+
+if [ ! -f "$SIGNING_KEY" ]
+then
+    echo "No signing key found. Please create $SIGNING_KEY"
+    exit 1
+fi
+
+if [ ! -f "$KERNEL_PACKAGE" ]
+then
+    echo "There appears to be no kernel package here."
+    exit 1
+else
+  echo "Trying to sign the kernel package $KERNEL_PACKAGE"
+fi
+
+dpkg-deb --raw-extract "$KERNEL_PACKAGE" "$TMP_UNPACKED"
+
+KERNEL_IMAGE=$(find "$TMP_UNPACKED/boot" -name "vmlinuz*")
+
+sbsign --key linux/certs/signing_key.pem --cert linux/certs/signing_key.pem --output "$KERNEL_IMAGE" "$KERNEL_IMAGE"
+
+dpkg-deb -b "$TMP_UNPACKED" "$KERNEL_PACKAGE"
+
+if [ -d "$TMP_UNPACKED" ]; then rm -Rf "$TMP_UNPACKED"; fi
