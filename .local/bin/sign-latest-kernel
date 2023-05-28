@@ -22,11 +22,19 @@ else
   echo "Trying to sign the kernel package $KERNEL_PACKAGE"
 fi
 
+if [ -f "$KERNEL_PACKAGE.unsigned" ]
+then
+    echo "You appear to already have signed the kernel. There is a package $KERNEL_PACKAGE.unsigned"
+    exit 1
+fi
+
 dpkg-deb --raw-extract "$KERNEL_PACKAGE" "$TMP_UNPACKED"
 
 KERNEL_IMAGE=$(find "$TMP_UNPACKED/boot" -name "vmlinuz*")
 
 sbsign --key linux/certs/signing_key.pem --cert linux/certs/signing_key.pem --output "$KERNEL_IMAGE" "$KERNEL_IMAGE"
+
+mv "$KERNEL_PACKAGE" "$KERNEL_PACKAGE.unsigned"
 
 dpkg-deb -b "$TMP_UNPACKED" "$KERNEL_PACKAGE"
 
