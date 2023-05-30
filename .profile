@@ -88,6 +88,7 @@ fi
 
 if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
   export PYENV_ROOT="$HOME/.dotfiles/pyenv"
+  export PYTHON_CONFIGURE_OPTS="--enable-shared"
   PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
 
@@ -119,7 +120,7 @@ if command -v tbsm 1>/dev/null 2>&1; then
 fi
 
 if command -v keychain 1>/dev/null 2>&1; then
-  eval $(keychain -q --eval id_rsa)
+  eval "$(keychain -q --eval id_rsa)"
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
