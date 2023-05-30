@@ -4,7 +4,7 @@ TMP_UNPACKED="tmp-unpacked-package"
 
 if [ -d "$TMP_UNPACKED" ]; then rm -Rf "$TMP_UNPACKED"; fi
 
-KERNEL_PACKAGE=$(find ./ -name "linux-image-*_amd64.deb" | sort -r | head -n1)
+KERNEL_PACKAGE=$(find ./ -name "linux-image-*_amd64.deb" ! -name "*dbg*.deb" | sort -r | head -n1)
 
 SIGNING_KEY="linux/certs/signing_key.pem"
 
