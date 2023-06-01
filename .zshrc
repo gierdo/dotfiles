@@ -110,6 +110,9 @@ fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
 fpath=(~/.zfunc $fpath)
 
+# Allow completing of sbin entries for sudo
+zstyle ':completion:*:sudo::' environ PATH="/sbin:/usr/sbin:$PATH"
+
 export PATH="$HOME/.dotfiles/zsh-plugins/forgit/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
