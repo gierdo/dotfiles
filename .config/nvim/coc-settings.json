@@ -47,6 +47,7 @@
     "!Split sequence",
     "!Join sequence"
   ],
+  "pyright.disableDiagnostics": false,
   "diagnostic-languageserver.formatFiletypes": {
     "python": [
       "black"

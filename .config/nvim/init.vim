@@ -38,6 +38,7 @@ Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-diagnostic', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'joenye/coc-cfn-lint', {'do': 'yarn install --pure-lockfile'}
 Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
 
