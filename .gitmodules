@@ -46,3 +46,7 @@
 	path = zsh-plugins/forgit
 	url = https://github.com/wfxr/forgit.git
 	branch = master
+[submodule ".config/ranger/plugins/ranger_devicons"]
+	path = .config/ranger/plugins/ranger_devicons
+	url = https://github.com/alexanderjeurissen/ranger_devicons
+	branch = main
