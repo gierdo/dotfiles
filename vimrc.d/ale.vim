@@ -34,7 +34,6 @@ let g:ale_kotlin_ktlint_options = "--log-level=error --disabled_rules=trailing-c
 " disable fuchsia checker, annoying as hell
 let g:ale_cpp_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type", "-llvmlibc-*"]
 let g:ale_c_clangtidy_checks = ["*", "-fuchsia*", "-modernize-use-trailing-return-type" , "-llvmlibc-*"]
-let g:ale_python_pylint_options = "--rcfile ~/.dotfiles/google-styleguide/python/pylintrc --indent-string='    ' --max-line-length=120 --disable=C0114 --disable=C0115 --disable=W1203"
 let g:ale_python_flake8_options = '--max-line-length=120'
 " If an uncrustify config is available in the home directory, use it
 let g:ale_c_uncrustify_options = '-c ~/.uncrustify.cfg'
