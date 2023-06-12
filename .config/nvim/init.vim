@@ -148,6 +148,8 @@ Plug 'aklt/plantuml-syntax'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make clean && make install' }
 Plug 'goerz/jupytext.vim', { 'do': 'pip install --upgrade jupytext' }
 
+Plug 'jxnblk/vim-mdx-js'
+
 Plug 'previm/previm'
 if executable('x-www-browser')
   let g:previm_open_cmd = 'x-www-browser'
