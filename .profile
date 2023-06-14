@@ -37,10 +37,10 @@ export NODE_PATH="$HOME/.npmpath/lib/node_modules"
 # Fix for   reason: 'unsupported',code: 'ERR_OSSL_EVP_UNSUPPORTED'
 export NODE_OPTIONS=--openssl-legacy-provider
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
+  . "$HOME/.asdf/plugins/java/set-java-home.bash"
 else
-  export JAVA_HOME="$(/usr/libexec/java_home)"
+  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
 fi
 
 if [ -d "/usr/lib/ccache" ]; then
