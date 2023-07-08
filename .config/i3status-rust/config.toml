@@ -18,11 +18,6 @@ idle_fg = { link = "info_fg" }
 [[block]]
 block = "cpu"
 interval = 5
-
-[[block]]
-block = "load"
-interval = 5
-format = "$icon $1m.eng(w:4)%"
 [block.theme_overrides]
 idle_bg = { link = "info_bg" }
 idle_fg = { link = "info_fg" }
