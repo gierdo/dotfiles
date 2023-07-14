@@ -26,7 +26,7 @@ let g:ale_fixers = {
       \   'go': ['goimports', 'gofmt', 'trim_whitespace'],
       \   'rust': ['rustfmt', 'trim_whitespace'],
       \   'ruby': ['rubocop', 'trim_whitespace'],
-      \   'typescript': ['tslint', 'trim_whitespace'],
+      \   'typescript': ['eslint', 'trim_whitespace'],
       \   'kotlin': ['ktlint', 'trim_whitespace'],
       \}
 

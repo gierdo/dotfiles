@@ -170,6 +170,10 @@ if command -v nvim 1>/dev/null 2>&1; then
   alias vim='nvim'
 fi
 
+if command -v aws 1>/dev/null 2>&1; then
+  export AWS_CLI_AUTO_PROMPT=on-partial
+fi
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
