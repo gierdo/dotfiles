@@ -1,14 +1,32 @@
 #!/bin/bash
 
-ldac=`pactl list | grep Active | grep ldac`
-card=`pactl list | grep "Name: bluez_card." | cut -d ' ' -f 2`
+function list_bt_audio() {
+  pactl list cards | awk -v RS='' '/bluez/'
+}
 
-if [ -n "$ldac" ]; then
-    echo "Switching $card to msbc..."
-    pactl set-card-profile $card headset-head-unit-msbc
-    echo "...done"
+HQ_CODEC=""
+
+list_bt_audio | awk -v RS='' '/Profiles/' | grep -q "ldac"
+if [ $? -eq 0 ]; then
+  HQ_CODEC="ldac"
 else
-    echo "Switching $card to ldac..."
-    pactl set-card-profile $card a2dp-sink-ldac
-    echo "...done"
+  list_bt_audio | awk -v RS='' '/Profiles/' | grep -q "a2dp-sink-sbc_xq"
+  if [ $? -eq 0 ]; then
+    HQ_CODEC="a2dp-sink-sbc_xq"
+  else
+    HQ_CODEC="a2dp-sink-sbc"
+  fi
+fi
+
+HQ_ACTIVE=$(list_bt_audio | grep "Active Profile" | grep "${HQ_CODEC}")
+CARD=$(list_bt_audio | grep "Name: bluez_card." | cut -d ' ' -f 2)
+
+if [ -n "$HQ_ACTIVE" ]; then
+  echo "Switching $CARD to msbc..."
+  pactl set-card-profile "${CARD}" headset-head-unit-msbc
+  echo "...done"
+else
+  echo "Switching $CARD to hq codec ${HQ_CODEC}..."
+  pactl set-card-profile "${CARD}" a2dp-sink-sbc_xq
+  echo "...done"
 fi
