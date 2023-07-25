@@ -36,17 +36,10 @@
   helper = libsecret
 [status]
   submoduleSummary = true
-[core]
-  excludesfile = ~/.gitignore_global
-  pager = delta
-[include]
-  path = ~/.gitconfig.local
 [pull]
   rebase = true
 [init]
   defaultBranch = main
-[url "git@github.com:"]
-  insteadOf = https://github.com/
 [interactive]
   diffFilter = delta --color-only
 [delta]
@@ -55,3 +48,10 @@
   side-by-side = true
   line-numbers = true
   true-color = always
+[core]
+  excludesfile = ~/.gitignore_global
+  pager = delta
+[include]
+  path = ~/.gitconfig.local
+[includeIf "gitdir:~/.dotfiles"]
+  path = ~/.dotfiles/.gitconfig.github
