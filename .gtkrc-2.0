@@ -1,6 +1,6 @@
 include "/home/dominik/.gtkrc-2.0.mine"
-gtk-theme-name="Adapta-Nokto-Eta"
-gtk-icon-theme-name="Papirus"
+gtk-theme-name="Solarized-Dark-Cyan-GTK"
+gtk-icon-theme-name="Papirus-Dark"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="Adwaita"
 gtk-cursor-theme-size=0

@@ -149,7 +149,7 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_ENABLE_WAYLAND=1
   export MOZ_WEBRENDER=1
 
-  export GTK_THEME=Adapta-Nokto-Eta:dark
+  export GTK_THEME=Solarized-Dark-Cyan-GTK
 
 
   # Assume gnome-keyring is set up
