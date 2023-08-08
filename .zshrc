@@ -104,6 +104,8 @@ fpath=(/usr/share/zsh/vendor-completions $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
+fpath=(~/.dotfiles/zsh-plugins/forgit/completions $fpath)
+
 fpath=(~/.dotfiles/workspace/guix/etc/completion/zsh $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
