@@ -1,9 +1,0 @@
-(specifications->manifest
-  '("sway"
-    "kanshi"
-    "foot"
-    "swayidle"
-    "swaybg"
-    "waybar"
-    "grim"
-    "rofi-wayland"))
