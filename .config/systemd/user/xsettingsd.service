@@ -1,0 +1,11 @@
+[Unit]
+Description=xsettingsd - provides settings to X11 applications
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '${HOME}/.guix-profile/bin/xsettingsd'
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

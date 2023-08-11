@@ -1,0 +1,12 @@
+[Unit]
+Description=Dynamic output configuration for Wayland compositors
+Documentation=https://sr.ht/~emersion/kanshi
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '${HOME}/.guix-profile/bin/kanshi'
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

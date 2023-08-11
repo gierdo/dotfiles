@@ -8,20 +8,7 @@ bindsym $mod+Return exec $term
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-#autostart
-exec --no-startup-id xsettingsd &
 exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start)
-
-
-# Install and activate solarized dark gtk theme
-exec ~/.dotfiles/gists/install-solarized-theme.sh
-
-exec_always {
-    gsettings set org.gnome.desktop.interface gtk-theme 'Solarized-Dark-Cyan-GTK'
-    gsettings set org.gnome.desktop.interface icon-theme 'Solarized-Cyan-gtk-theme-iconpack'
-    gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-    gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'
-}
 
 # start menu
 bindsym $mod+d exec $menu

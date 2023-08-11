@@ -1,0 +1,12 @@
+[Unit]
+Description=dunst - A customizable and lightweight notification-daemon
+Documentation=https://github.com/dunst-project/dunst
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '${HOME}/.guix-profile/bin/dunst'
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

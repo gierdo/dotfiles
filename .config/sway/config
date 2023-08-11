@@ -52,14 +52,11 @@ titlebar_padding 2
 # Rules for wayland native windows
 for_window [app_id=blueman-manager] floating enable
 
-exec systemctl --user import-environment XDG_CURRENT_DESKTOP DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# Include dystem-scoped drop-in configs
+include /etc/sway/config.d/*
 
-# Start notification daemon
-exec_always pkill dunst; exec dunst
-
-exec_always pkill kanshi; exec kanshi
+# Start systemd sway session to start defined systemd user units
+exec_always systemctl --user start sway-session.target
 
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
