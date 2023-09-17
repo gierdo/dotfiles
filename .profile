@@ -112,6 +112,33 @@ if command -v rg 1>/dev/null 2>&1; then
   export FZF_ALT_C_COMMAND='fd --type d --hidden .'
 fi
 
+# Theming, look and feel of newt apps, e.g. nmtui, whiptail scripts
+export NEWT_COLORS='
+    root=white,black
+    border=black,lightgray
+    window=lightgray,lightgray
+    shadow=black,gray
+    title=black,lightgray
+    button=black,cyan
+    actbutton=white,cyan
+    compactbutton=black,lightgray
+    checkbox=black,lightgray
+    actcheckbox=lightgray,cyan
+    entry=black,lightgray
+    disentry=gray,lightgray
+    label=black,lightgray
+    listbox=black,lightgray
+    actlistbox=black,cyan
+    sellistbox=lightgray,black
+    actsellistbox=lightgray,black
+    textbox=black,lightgray
+    acttextbox=black,cyan
+    emptyscale=,gray
+    fullscale=,cyan
+    helpline=white,black
+    roottext=lightgrey,black
+'
+
 # tbsm is installed, simply assuming tbsm as dm for now
 if command -v tbsm 1>/dev/null 2>&1; then
   if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
@@ -150,7 +177,6 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_WEBRENDER=1
 
   export GTK_THEME=Solarized-Dark-Cyan-GTK
-
 
   # Assume gnome-keyring is set up
   export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
