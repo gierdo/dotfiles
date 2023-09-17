@@ -66,7 +66,7 @@ if command -v guix 1>/dev/null 2>&1; then
 
   GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
   if [ -d "$GUIX_EXTRA_PROFILES" ]; then
-    for i in $GUIX_EXTRA_PROFILES/*; do
+    for i in "$GUIX_EXTRA_PROFILES"/*; do
       profile=$i/$(basename "$i")
       if [ -f "$profile"/etc/profile ]; then
         GUIX_PROFILE="$profile"
@@ -106,7 +106,7 @@ export EDITOR=nvim
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 if command -v rg 1>/dev/null 2>&1; then
-  export RIPGREP_CONFIG_PATH=$HOME/.dotfiles/.ripgreprc
+  export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/.ripgreprc"
   export FZF_DEFAULT_COMMAND='fd --type f --hidden .'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND='fd --type d --hidden .'
