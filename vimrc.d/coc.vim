@@ -153,13 +153,4 @@ let g:coc_snippet_prev = '<c-k>'
 
 function SetupCoc()
   execute '! yarn install --frozen-lockfile'
-  execute '! npm install -g --update yarn'
-  execute '! npm install -g --update neovim rimraf copy-concurrently libcipm esparse normalize-package-data js-yaml mkdirp init-package-json http-signature lstat which cross-spawn libnpmpublish node-gyp dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-languageserver bash-language-server prettier shellcheck'
-  execute '! pip3 install --user --upgrade pylint pyright black jedi-language-server bandit cfn-lint'
-  execute '! go install mvdan.cc/sh/v3/cmd/shfmt@latest'
-  execute '! go install golang.org/x/tools/gopls@latest'
-  execute '! go install golang.org/x/lint/golint@latest'
-  execute '! go install golang.org/x/tools/cmd/goimports@latest'
-  execute '! go install github.com/hashicorp/terraform-ls@latest'
-  execute '! go install github.com/terraform-linters/tflint@latest'
 endfunction

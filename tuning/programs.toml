@@ -17,10 +17,63 @@ argv = ["install", "--path", ".", "--locked"]
 
 [[jobs]]
 type = "installergo"
-name = "Install latest go dependencies"
+name = "Install go dependencies"
 packages = [
   "mvdan.cc/sh/v3/cmd/shfmt",
   "gitlab.com/gitlab-org/cli/cmd/glab",
+  "mvdan.cc/sh/v3/cmd/shfmt",
+  "golang.org/x/tools/gopls",
+  "golang.org/x/lint/golint",
+  "golang.org/x/tools/cmd/goimports",
 ]
 state = "latest"
+
+
+[[jobs]]
+name = "install npm dependencies"
+type = "installernpm"
+packages = [
+  "yarn",
+  "neovim",
+  "rimraf",
+  "copy",
+  "concurrently",
+  "libcipm",
+  "esparse",
+  "normalize-package-data",
+  "js-yaml",
+  "mkdirp",
+  "init-package-json",
+  "http-signature",
+  "lstat",
+  "which",
+  "cross-spawn",
+  "libnpmpublish",
+  "node-gyp",
+  "dockerfile-language-server-nodejs",
+  "typescript",
+  "typescript-language-server",
+  "yaml-language-server",
+  "vscode-languageserver",
+  "bash-language-server",
+  "prettier",
+  "shellcheck"
+]
+
+
+[[jobs]]
+name = "install python dependencies"
+type = "command"
+command = "pip3"
+argv = [
+  "install",
+  "--user",
+  "--upgrade",
+  "pylint",
+  "pyright",
+  "black",
+  "jedi-language-server",
+  "bandit",
+  "cfn-lint"
+]
 
