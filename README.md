@@ -13,6 +13,18 @@ The repository can be cloned locally, relevant configuration files can be replac
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
 
+# Orchestration: tuning
+
+The dotfiles configuration is set up with `tuning`.
+
+Assuming that rust is set up, `cargo` being available, and the dotfiles
+respository is cloned (recursively) to `~/.dotfiles`
+
+```
+$ cargo install tuning
+$ tuning
+```
+
 # Guix
 
 I am defining a bunch of stuff with guix to make it system independent.

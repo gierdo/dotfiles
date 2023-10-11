@@ -1,0 +1,26 @@
+[[jobs]]
+name = "i3status-rust: repository"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/workspace/other/i3status-rust"
+repo = "https://github.com/greshake/i3status-rust.git"
+
+
+[[jobs]]
+name = "i3status-rust: install"
+needs = ["i3status-rust: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/i3status-rust"
+command = "cargo"
+argv = ["install", "--path", ".", "--locked"]
+
+
+[[jobs]]
+type = "installergo"
+name = "Install latest go dependencies"
+packages = [
+  "mvdan.cc/sh/v3/cmd/shfmt",
+  "gitlab.com/gitlab-org/cli/cmd/glab",
+]
+state = "latest"
+
