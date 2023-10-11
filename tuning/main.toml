@@ -4,10 +4,3 @@ src = "./config.toml"
 [[includes]]
 src = "./programs.toml"
 
-[[jobs]]
-name = "dotfiles"
-type = "git"
-dest = "{{ home_dir }}/.dotfiles"
-repo = "https://github.com/gierdo/dotfiles.git"
-clone = false
-force = true
