@@ -15,7 +15,7 @@ free to copy, suggest, do whatever you like with it.
 
 # Guix
 
-I am slowly reordering my setup to be able to bootstrap it with guix.
+I am defining a bunch of stuff with guix to make it system independent.
 The shell/vim setup already is defined in a guix manifest, with fonts and other
 stuff in a custom guix channel (see `.config/guix/channels.scm`.
 

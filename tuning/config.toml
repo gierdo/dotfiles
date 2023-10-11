@@ -1,0 +1,448 @@
+## Everything in ~/\.config/
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/alacritty/alacritty.yml"
+path = "{{ home_dir }}/.config/alacritty/alacritty.yml"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/btop/btop.conf"
+path = "{{ home_dir }}/.config/btop/btop.conf"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/containers/registries.conf"
+path = "{{ home_dir }}/.config/containers/registries.conf"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/ctags/config.conf"
+path = "{{ home_dir }}/.config/ctags/config.conf"
+
+[[jobs]]
+
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/dunst/dunstrc"
+path = "{{ home_dir }}/.config/dunst/dunstrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/fd/ignore"
+path = "{{ home_dir }}/.config/fd/ignore"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/fontconfig/fonts.conf"
+path = "{{ home_dir }}/.config/fontconfig/fonts.conf"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/foot/foot.ini"
+path = "{{ home_dir }}/.config/foot/foot.ini"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/guix/channels.scm"
+path = "{{ home_dir }}/.config/guix/channels.scm"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/i3status-rust/config.toml"
+path = "{{ home_dir }}/.config/i3status-rust/config.toml"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/nvim/init.vim"
+path = "{{ home_dir }}/.config/nvim/init.vim"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/nvim/coc-settings.json"
+path = "{{ home_dir }}/.config/nvim/coc-settings.json"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/ranger/rc.conf"
+path = "{{ home_dir }}/.config/ranger/rc.conf"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/ranger/commands.py"
+path = "{{ home_dir }}/.config/ranger/commands.py"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/ranger/plugins/"
+path = "{{ home_dir }}/.config/ranger/plugins/"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/rofi/config.rasi"
+path = "{{ home_dir }}/.config/rofi/config.rasi"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/sway/config"
+path = "{{ home_dir }}/.config/sway/config"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/swaylock/config"
+path = "{{ home_dir }}/.config/swaylock/config"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/configure-theme.service"
+path = "{{ home_dir }}/.config/systemd/user/configure-theme.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/dunst.service"
+path = "{{ home_dir }}/.config/systemd/user/dunst.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/kanshi.service"
+path = "{{ home_dir }}/.config/systemd/user/kanshi.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "/dev/null"
+path = "{{ home_dir }}/.config/systemd/user/pipewire-session-manager.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "/dev/null"
+path = "{{ home_dir }}/.config/systemd/user/pulseausio.service.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/sway-session.target"
+path = "{{ home_dir }}/.config/systemd/user/sway-session.target"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/sway-session.target.wants/"
+path = "{{ home_dir }}/.config/systemd/user/sway-session.target.wants/"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/xsettingsd.service"
+path = "{{ home_dir }}/.config/systemd/user/xsettingsd.service"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/tmuxinator/lldb.yml"
+path = "{{ home_dir }}/.config/tmuxinator/lldb.yml"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/xdg-desktop-portal-wlr/config"
+path = "{{ home_dir }}/.config/xdg-desktop-portal-wlr/config"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/electron-flags.conf"
+path = "{{ home_dir }}/.config/electron-flags.conf"
+
+
+## Random configuration in ~/\..*/
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.voltron/config"
+path = "{{ home_dir }}/.voltron/config"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.aws/cli/alias"
+path = "{{ home_dir }}/.aws/cli/alias"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gnupg/gpg-agent.conf"
+path = "{{ home_dir }}/.gnupg/gpg-agent.conf"
+
+
+## Everything in ~/
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.ackrc"
+path = "{{ home_dir }}/.ackrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.agignore"
+path = "{{ home_dir }}/.agignore"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.bashrc"
+path = "{{ home_dir }}/.bashrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.clang-format"
+path = "{{ home_dir }}/.clang-format"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gdbinit"
+path = "{{ home_dir }}/.gdbinit"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gemrc"
+path = "{{ home_dir }}/.gemrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gitconfig"
+path = "{{ home_dir }}/.gitconfig"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gitignore_global"
+path = "{{ home_dir }}/.gitignore_global"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.gtkrc-2.0"
+path = "{{ home_dir }}/.gtkrc-2.0"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.java-format.xml"
+path = "{{ home_dir }}/.java-format.xml"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.lldbinit"
+path = "{{ home_dir }}/.lldbinit"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.npmrc"
+path = "{{ home_dir }}/.npmrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.p10k.zsh"
+path = "{{ home_dir }}/.p10k.zsh"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.profile"
+path = "{{ home_dir }}/.profile"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.pylintrc"
+path = "{{ home_dir }}/.pylintrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.ripgreprc"
+path = "{{ home_dir }}/.ripgreprc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.tmux.conf"
+path = "{{ home_dir }}/.tmux.conf"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.vimrc"
+path = "{{ home_dir }}/.vimrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.Xdefaults"
+path = "{{ home_dir }}/.Xdefaults"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.xinitrc"
+path = "{{ home_dir }}/.xinitrc"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.xprofile"
+path = "{{ home_dir }}/.xprofile"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.xsettingsd"
+path = "{{ home_dir }}/.xsettingsd"
+
+[[jobs]]
+needs = ["dotfiles"]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.zshrc"
+path = "{{ home_dir }}/.zshrc"
