@@ -11,6 +11,13 @@ path = "{{ home_dir }}/.config/alacritty/alacritty.yml"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/atuin/config.toml"
+path = "{{ home_dir }}/.config/atuin/config.toml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/btop/btop.conf"
 path = "{{ home_dir }}/.config/btop/btop.conf"
 

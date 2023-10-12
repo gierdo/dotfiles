@@ -83,6 +83,16 @@ argv = [
 
 
 [[jobs]]
+name = "install rust dependencies"
+type = "installercargo"
+crates = [
+  "atuin",
+  "cargo-updater",
+  "git-delta"
+]
+
+
+[[jobs]]
 name = "install aws cli v2"
 type = "command"
 command = "bash"
