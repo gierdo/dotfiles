@@ -87,8 +87,9 @@ name = "install rust dependencies"
 type = "installercargo"
 crates = [
   "atuin",
-  "cargo-updater",
-  "git-delta"
+  "git-delta",
+  "ripgrep",
+  "fd-find",
 ]
 
 
