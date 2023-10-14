@@ -59,6 +59,7 @@ packages = [
   "prettier",
   "shellcheck"
 ]
+state = "present"
 
 
 [[jobs]]
@@ -91,6 +92,7 @@ crates = [
   "ripgrep",
   "fd-find",
 ]
+state = "present"
 
 
 [[jobs]]
