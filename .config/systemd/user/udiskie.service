@@ -1,0 +1,11 @@
+[Unit]
+Description=udiskie - automatically mount external drives
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/udiskie
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
