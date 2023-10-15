@@ -14,8 +14,6 @@ from ranger.core.loader import CommandLoader
 # Allow adding plugins from the dotfiles directory
 sys.path.append(str(Path.home()) + "/.dotfiles/.config/ranger/plugins")
 
-from ranger_udisk_menu.mounter import mount
-
 # You always need to import ranger.api.commands here to get the Command class:
 
 
