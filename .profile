@@ -139,6 +139,9 @@ export NEWT_COLORS='
     roottext=lightgrey,black
 '
 
+# make (linux) menuconfig less bright
+export MENUCONFIG_COLOR=blackbg
+
 # tbsm is installed, simply assuming tbsm as dm for now
 if command -v tbsm 1>/dev/null 2>&1; then
   if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
