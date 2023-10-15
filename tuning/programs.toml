@@ -1,4 +1,11 @@
 [[jobs]]
+name = "install tpm"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/.tmux/plugins/tpm"
+repo = "https://github.com/tmux-plugins/tpm"
+
+[[jobs]]
 name = "i3status-rust: repository"
 type = "git"
 clone = true
