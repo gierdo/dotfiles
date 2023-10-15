@@ -54,9 +54,9 @@ include /etc/sway/config.d/*
 # Start systemd sway session to start defined systemd user units
 exec_always systemctl --user start sway-session.target
 
-# i3 doesn't seem to support including configs, so the synchronization of the
-# generic configuration has to be done manually.
 include ~/.dotfiles/.config/sway/config_generic
+
+include ~/.dotfiles/.config/sway/keybindings
 
 # environment-specific worspace configuration
 include ~/.config/sway/workspace_config
