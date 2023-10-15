@@ -37,10 +37,6 @@ input type:pointer {
     natural_scroll enabled
 }
 
-set $output-primary eDP-1
-set $output-secondary HDMI-A-0 DP-1 DP-3
-set $output-tertiary DisplayPort-0 DP-2
-
 # preffered terminal emulator
 set $term foot
 
@@ -61,6 +57,9 @@ exec_always systemctl --user start sway-session.target
 # i3 doesn't seem to support including configs, so the synchronization of the
 # generic configuration has to be done manually.
 include ~/.dotfiles/.config/sway/config_generic
+
+# environment-specific worspace configuration
+include ~/.config/sway/workspace_config
 
 # include local config, if it exists
 include ~/.sway.local

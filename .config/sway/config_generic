@@ -84,32 +84,6 @@ bindsym $mod+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+Shift+space focus mode_toggle
 
-# workspace config
-
-# the last output is picked if detected
-workspace 1 output $output-tertiary $output-primary
-workspace 2 output $output-tertiary $output-primary
-workspace 3 output $output-tertiary $output-primary
-workspace 4 output $output-tertiary $output-primary
-workspace 5 output $output-tertiary $output-primary
-workspace 6 output $output-tertiary $output-primary
-workspace 7 output $output-tertiary $output-primary
-workspace 8 output $output-tertiary $output-primary
-workspace 9 output $output-tertiary $output-primary
-# Always map 0 to the internal laptop display
-workspace 10 output $output-primary
-
-workspace 11 output $output-secondary
-workspace 12 output $output-secondary
-workspace 13 output $output-secondary
-workspace 14 output $output-secondary
-workspace 15 output $output-secondary
-workspace 16 output $output-secondary
-workspace 17 output $output-secondary
-workspace 18 output $output-secondary
-workspace 19 output $output-secondary
-workspace 20 output $output-secondary
-
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
 bindsym $mod+1 workspace number 1
