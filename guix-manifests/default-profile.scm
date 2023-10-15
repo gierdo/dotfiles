@@ -24,5 +24,6 @@
     "tmux"
     "waybar"
     "xclip"
+    "wl-clipboard"
     "xsettingsd"
     "zsh"))
