@@ -5,13 +5,13 @@ clone = true
 dest = "{{ home_dir }}/.tmux/plugins/tpm"
 repo = "https://github.com/tmux-plugins/tpm"
 
+
 [[jobs]]
 name = "i3status-rust: repository"
 type = "git"
 clone = true
 dest = "{{ home_dir }}/workspace/other/i3status-rust"
 repo = "https://github.com/greshake/i3status-rust.git"
-
 
 [[jobs]]
 name = "i3status-rust: install"
@@ -20,6 +20,33 @@ type = "command"
 chdir = "{{ home_dir }}/workspace/other/i3status-rust"
 command = "cargo"
 argv = ["install", "--path", ".", "--locked"]
+
+
+[[jobs]]
+name = "dragon: repository"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/workspace/other/dragon"
+repo = "https://github.com/mwh/dragon.git"
+
+[[jobs]]
+name = "dragon: install"
+needs = ["dragon: repository"]
+type = "bash"
+chdir = "{{ home_dir }}/workspace/other/i3status-rust"
+command = "bash"
+argv = [
+  "-c",
+  'make && make install'
+]
+
+
+[[jobs]]
+name = "rofi-wayland: repository"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/workspace/other/rofi"
+repo = "https://github.com/lbonn/rofi.git"
 
 
 [[jobs]]
@@ -110,6 +137,3 @@ argv = [
   "-c",
   'mkdir -p ~/Downloads/awscli && cd ~/Downloads/awscli && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install -i ~/.local/aws-cli -b ~/.local/bin --update && cd && rm -rf ~/Downloads/awscli'
 ]
-
-
-
