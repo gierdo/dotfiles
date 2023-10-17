@@ -23,3 +23,8 @@ else
   tar -xvzf Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz
   rm Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz
 fi
+
+gsettings set org.gnome.desktop.interface gtk-theme 'Solarized-Dark-Cyan-GTK'
+gsettings set org.gnome.desktop.interface icon-theme 'Solarized-Cyan-gtk-theme-iconpack'
+gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'
