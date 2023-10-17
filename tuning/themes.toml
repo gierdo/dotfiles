@@ -1,0 +1,33 @@
+[[jobs]]
+name = "nerd-fonts: repository"
+type = "git"
+depth = 1
+clone = true
+dest = "{{ home_dir }}/workspace/other/nerd-fonts"
+repo = "https://github.com/ryanoasis/nerd-fonts.git"
+
+[[jobs]]
+name = "nerd-fonts: install"
+needs = ["nerd-fonts: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/nerd-fonts"
+command = "bash"
+argv = [
+  "-c",
+  './install.sh'
+]
+
+
+# [[jobs]]
+# name = "set-up gtk theme"
+# type = "command"
+# chdir = "{{ home_dir }}"
+# command = "bash"
+# argv = [
+#   "-c",
+#   "${HOME}/.dotfiles/gists/install-solarized-theme.sh \
+#     && gsettings set org.gnome.desktop.interface gtk-theme 'Solarized-Dark-Cyan-GTK' \
+#     && gsettings set org.gnome.desktop.interface icon-theme 'Solarized-Cyan-gtk-theme-iconpack' \
+#     && gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita' \
+#     && gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'"
+# ]

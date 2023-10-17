@@ -32,8 +32,8 @@ repo = "https://github.com/mwh/dragon.git"
 [[jobs]]
 name = "dragon: install"
 needs = ["dragon: repository"]
-type = "bash"
-chdir = "{{ home_dir }}/workspace/other/i3status-rust"
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/dragon"
 command = "bash"
 argv = [
   "-c",
@@ -137,3 +137,4 @@ argv = [
   "-c",
   'mkdir -p ~/Downloads/awscli && cd ~/Downloads/awscli && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install -i ~/.local/aws-cli -b ~/.local/bin --update && cd && rm -rf ~/Downloads/awscli'
 ]
+when = "{{ not has_executable(exe='aws') }}"
