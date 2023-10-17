@@ -54,10 +54,7 @@ nnoremap <A-a> :AI<Space>
 vnoremap <A-a> :AI<Space>
 inoremap <A-a> <Esc>:AI<CR>a
 
-Plug 'folke/todo-comments.nvim'
-
-" Debugger
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
