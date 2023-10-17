@@ -28,6 +28,7 @@ type = "git"
 clone = true
 dest = "{{ home_dir }}/workspace/other/dragon"
 repo = "https://github.com/mwh/dragon.git"
+when = "{{ not has_executable(exe='guix') }}"
 
 [[jobs]]
 name = "dragon: install"
@@ -39,6 +40,7 @@ argv = [
   "-c",
   'make && make install'
 ]
+when = "{{ not has_executable(exe='guix') }}"
 
 
 [[jobs]]
@@ -47,6 +49,19 @@ type = "git"
 clone = true
 dest = "{{ home_dir }}/workspace/other/rofi"
 repo = "https://github.com/lbonn/rofi.git"
+when = "{{ not has_executable(exe='guix') }}"
+
+[[jobs]]
+name = "rofi-wayland: install"
+needs = ["rofi-wayland: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/rofi"
+command = "bash"
+argv = [
+  "-c",
+  'meson setup build --prefix ${HOME}/.local && cd build && ninja install'
+]
+when = "{{ not has_executable(exe='rofi') }}"
 
 
 [[jobs]]

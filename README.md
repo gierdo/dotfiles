@@ -27,7 +27,9 @@ $ tuning
 
 # Guix
 
-I am defining a bunch of stuff with guix to make it system independent.
+Guix can be used to set up the system, but it makes things quite bloated and
+takes a longer time to start up. It is very handy for bootstrapping, though.
+
 The shell/vim setup already is defined in a guix manifest, with fonts and other
 stuff in a custom guix channel (see `.config/guix/channels.scm`.
 
