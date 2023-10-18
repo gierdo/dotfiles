@@ -44,17 +44,23 @@ Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
 
 Plug 'w0rp/ale'
 
-" Scary! Needs $OPENAI_API_KEY and curl
-Plug 'aduros/ai.vim'
-let g:ai_timeout=30
-" Don't remap <CTRL-A>, we still want to be able to increment numbers
-let g:ai_no_mappings=1
-" Use <Alt-A> instead
-nnoremap <A-a> :AI<Space>
-vnoremap <A-a> :AI<Space>
-inoremap <A-a> <Esc>:AI<CR>a
+if v:lua.vim.version().minor > 6
+  " Scary! Needs $OPENAI_API_KEY and curl
+  Plug 'aduros/ai.vim'
+  let g:ai_timeout=30
+  " Don't remap <CTRL-A>, we still want to be able to increment numbers
+  let g:ai_no_mappings=1
+  " Use <Alt-A> instead
+  nnoremap <A-a> :AI<Space>
+  vnoremap <A-a> :AI<Space>
+  inoremap <A-a> <Esc>:AI<CR>a
+endif
 
-Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
+if v:lua.vim.version().minor < 8
+  Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
+else
+  Plug 'folke/todo-comments.nvim'
+endif
 
 Plug 'guns/xterm-color-table.vim'
 Plug 'vim-scripts/L9'
@@ -106,7 +112,12 @@ let yaifa_max_lines = 4096
 
 Plug 'junegunn/fzf', { 'do': './install --all' }
 
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+if v:lua.vim.version().minor > 6
+  Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+else
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': 'nvim-0.6' }
+endif
+
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-github.nvim'
@@ -117,7 +128,9 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+if v:lua.vim.version().minor > 6
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
 
 Plug 'lervag/vimtex'
 Plug 'peder2tm/sved'
