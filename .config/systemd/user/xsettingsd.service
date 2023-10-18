@@ -4,7 +4,7 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '${HOME}/.guix-profile/bin/xsettingsd'
+ExecStart=/bin/bash -c 'xsettingsd'
 Restart=on-failure
 
 [Install]

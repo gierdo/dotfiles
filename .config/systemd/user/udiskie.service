@@ -4,7 +4,7 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/udiskie
+ExecStart=/bin/bash -c 'udiskie'
 Restart=on-failure
 
 [Install]

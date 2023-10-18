@@ -5,7 +5,7 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '${HOME}/.guix-profile/bin/dunst'
+ExecStart=/bin/bash -c 'dunst'
 Restart=on-failure
 
 [Install]
