@@ -15,11 +15,13 @@ src = "{{ home_dir }}/.dotfiles/.config/atuin/config.toml"
 path = "{{ home_dir }}/.config/atuin/config.toml"
 
 [[jobs]]
-type = "file"
-state= "link"
-force = true
-src = "{{ home_dir }}/.dotfiles/.config/btop/btop.conf"
-path = "{{ home_dir }}/.config/btop/btop.conf"
+type = "command"
+chdir = "{{ home_dir }}/.dotfiles/.config/btop"
+command = "bash"
+argv = [
+  "-c",
+  'mkdir -p ~/.config/btop && cp btop.conf ~/.config/btop'
+]
 
 [[jobs]]
 type = "file"
