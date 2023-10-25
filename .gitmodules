@@ -30,10 +30,6 @@
 	path = zsh-plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 	branch = master
-[submodule "workspace/guix"]
-	path = workspace/guix
-	url = https://git.savannah.gnu.org/git/guix.git
-	branch = master
 [submodule "zsh-plugins/zsh-autoswitch-virtualenv"]
 	path = zsh-plugins/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
