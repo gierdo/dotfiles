@@ -69,13 +69,6 @@ path = "{{ home_dir }}/.config/foot/foot.ini"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/guix/channels.scm"
-path = "{{ home_dir }}/.config/guix/channels.scm"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
 src = "{{ home_dir }}/.dotfiles/.config/i3status-rust/config.toml"
 path = "{{ home_dir }}/.config/i3status-rust/config.toml"
 

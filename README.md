@@ -25,25 +25,6 @@ $ cargo install tuning
 $ tuning
 ```
 
-# Guix
-
-Guix can be used to set up the system, but it makes things quite bloated and
-takes a longer time to start up. It is very handy for bootstrapping, though.
-
-The shell/vim setup already is defined in a guix manifest, with fonts and other
-stuff in a custom guix channel (see `.config/guix/channels.scm`.
-
-```text
-sudo apt-get install nscd
-wget https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh
-chmod +x guix-install.sh
-sudo ./guix-install.sh
-.
-.
-.
-guix package -m ~/.dotfiles/guix-manifests/default-profile.scm
-```
-
 # Other stuff
 
 The core setup of my system also consists the following tools/files/fonts etc., this list is most likely not complete:
