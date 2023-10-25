@@ -18,6 +18,9 @@ call plug#begin('~/.vim/plugged')
 " Shared library for lua plugins
 Plug 'nvim-lua/plenary.nvim'
 
+" shared UI library
+Plug 'MunifTanjim/nui.nvim'
+
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -45,14 +48,7 @@ Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
 Plug 'w0rp/ale'
 
 " Scary! Needs $OPENAI_API_KEY and curl
-Plug 'aduros/ai.vim'
-let g:ai_timeout=30
-" Don't remap <CTRL-A>, we still want to be able to increment numbers
-let g:ai_no_mappings=1
-" Use <Alt-A> instead
-nnoremap <A-a> :AI<Space>
-vnoremap <A-a> :AI<Space>
-inoremap <A-a> <Esc>:AI<CR>a
+Plug 'Bryley/neoai.nvim'
 
 if v:lua.vim.version().major == 0 && v:lua.vim.version().minor < 8
   Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
