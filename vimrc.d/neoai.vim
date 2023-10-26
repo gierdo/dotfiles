@@ -1,11 +1,7 @@
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
-
 lua << EOF
 require("neoai").setup({
-    -- Below are the default options, feel free to override what you would like changed
     ui = {
-        output_popup_text = "NeoAI",
+        output_popup_text = "AI",
         input_popup_text = "Prompt",
         width = 30, -- As percentage eg. 30%
         output_popup_height = 80, -- As percentage eg. 80%
@@ -88,10 +84,8 @@ require("neoai").setup({
 })
 EOF
 
-
 nnoremap <A-a> :NeoAI<CR>
 vnoremap <A-a> :NeoAIContext<CR>
 vnoremap <A-i> :NeoAIInjectContext<Space>
 nnoremap <A-i> :NeoAIInject<Space>
 inoremap <A-a> <Esc>:NeoAIInject<Space>
-
