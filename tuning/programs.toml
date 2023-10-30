@@ -128,6 +128,7 @@ argv = [
   "bandit",
   "cfn-lint"
 ]
+state = "present"
 
 
 [[jobs]]
@@ -148,6 +149,32 @@ type = "command"
 command = "bash"
 argv = [
   "-c",
-  'mkdir -p ~/Downloads/awscli && cd ~/Downloads/awscli && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install -i ~/.local/aws-cli -b ~/.local/bin --update && cd && rm -rf ~/Downloads/awscli'
+  '''\
+  mkdir -p ~/Downloads/awscli \
+  && cd ~/Downloads/awscli \
+  && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+  && unzip awscliv2.zip \
+  && ./aws/install -i ~/.local/aws-cli -b ~/.local/bin --update \
+  && cd \
+  && rm -rf ~/Downloads/awscli \
+  '''
 ]
 when = "{{ not has_executable(exe='aws') }}"
+
+
+[[jobs]]
+name = "install git credential helper"
+type = "command"
+command = "bash"
+argv = [
+  "-c",
+  '''\
+  mkdir -p ~/workspace/other/libsecret \
+  && cd ~/workspace/other/libsecret \
+  && cp -r /usr/share/doc/git/contrib/credential/libsecret/* ./ \
+  && make \
+  && mkdir -p ~/.local/bin \
+  && cp git-credential-libsecret ~/.local/bin \
+  '''
+]
+when = "{{ not has_executable(exe='git-credential-libsecret') }}"
