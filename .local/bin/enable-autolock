@@ -1,4 +1,0 @@
-#!/bin/bash
-
-killall -q swayidle
-swayidle -w timeout 600 'swaylock' &

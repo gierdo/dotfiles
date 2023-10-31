@@ -7,9 +7,6 @@ set $mod Mod4
 # waylock can be installed with cargo install waylock --locked, needs libpam-dev
 set $Locker swaylock
 
-# autolock activation and configuration is in .local/bin/enable-autolock
-exec enable-autolock
-
 # Inhibit locking if windows are in fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen

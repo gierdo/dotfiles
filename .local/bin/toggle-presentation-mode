@@ -33,6 +33,14 @@ while getopts s-: arg; do
 done
 shift $((OPTIND - 1)) # remove parsed options and args from $@ list
 
+function enable_autolock() {
+  systemctl --user start swayidle
+}
+
+function disable_autolock() {
+  systemctl --user stop swayidle
+}
+
 function update_presentation_mode_status() {
   SWAYIDLE_STATUS=$([ $(pgrep -x swayidle) ] && echo "true" || echo "false")
   DUNST_STATUS=$([ "$(dunstctl is-paused)" == true ] && echo "false" || echo "true")
@@ -42,7 +50,7 @@ function update_presentation_mode_status() {
 
 function enable_swayidle() {
   if [ "$SWAYIDLE_STATUS" != true ]; then
-    enable-autolock
+    enable_autolock
     dunstify "Enabled swayidle"
   fi
   update_presentation_mode_status
@@ -50,7 +58,7 @@ function enable_swayidle() {
 
 function disable_swayidle() {
   if [ "$SWAYIDLE_STATUS" == true ]; then
-    killall swayidle
+    disable_autolock
     dunstify "Disabled swayidle"
   fi
   update_presentation_mode_status
@@ -95,4 +103,3 @@ else
   disable_dunst
   exit 0
 fi
-

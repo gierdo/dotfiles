@@ -153,6 +153,13 @@ path = "{{ home_dir }}/.config/systemd/user/udiskie.service"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/swayidle.service"
+path = "{{ home_dir }}/.config/systemd/user/swayidle.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "/dev/null"
 path = "{{ home_dir }}/.config/systemd/user/pipewire-session-manager.service"
 

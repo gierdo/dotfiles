@@ -1,0 +1,12 @@
+[Unit]
+Description=swayidle - lock your screen on idling
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/killall swayidle
+ExecStart=/bin/bash -c 'PATH=~/.local/bin:$PATH swayidle -w timeout 600 "swaylock"'
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
