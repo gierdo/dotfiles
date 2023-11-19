@@ -68,6 +68,7 @@ name = "Install go dependencies"
 packages = [
   "mvdan.cc/sh/v3/cmd/shfmt",
   "gitlab.com/gitlab-org/cli/cmd/glab",
+  "github.com/Gelio/go-global-update",
   "mvdan.cc/sh/v3/cmd/shfmt",
   "golang.org/x/tools/gopls",
   "golang.org/x/lint/golint",
@@ -136,6 +137,7 @@ name = "install rust dependencies"
 type = "installercargo"
 crates = [
   "atuin",
+  "updater",
   "git-delta",
   "ripgrep",
   "fd-find",
