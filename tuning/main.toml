@@ -5,4 +5,4 @@ src = "./config.toml"
 src = "./programs.toml"
 
 [[includes]]
-src = "./themes.toml"
+src = "./resources.toml"

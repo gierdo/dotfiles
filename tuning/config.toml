@@ -27,6 +27,13 @@ argv = [
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/containers/systemd/llama.container"
+path = "{{ home_dir }}/.config/containers/systemd/llama.container"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/containers/registries.conf"
 path = "{{ home_dir }}/.config/containers/registries.conf"
 

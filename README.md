@@ -32,17 +32,7 @@ The server is started automatically, using systemd and podman.
 
 It expects the [13B codellama instruct
 model](https://huggingface.co/TheBloke/CodeLlama-13B-Instruct-GGUF) at
-`~/.cache/llama/models/codellama-13B-instruct.gguf`
-
-## Git credential store
-
-```
-sudo apt-get install libsecret-1-dev
-cp -r /usr/share/doc/git/contrib/credential/libsecret ./
-cd libsecret
-make
-sudo cp git-credential-libsecret /usr/local/bin
-```
+`~/.cache/llama/models/codellama-13b-instruct.Q4_K_M.gguf`
 
 ## grub
 
