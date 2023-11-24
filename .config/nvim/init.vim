@@ -48,7 +48,7 @@ Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
 Plug 'w0rp/ale'
 
 " Scary! Needs $OPENAI_API_KEY and curl
-Plug 'Bryley/neoai.nvim'
+Plug 'gierdo/neoai.nvim', { 'branch': 'local-llama' }
 
 if v:lua.vim.version().major == 0 && v:lua.vim.version().minor < 8
   Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }

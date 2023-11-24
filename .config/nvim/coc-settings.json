@@ -139,5 +139,6 @@
   "coc.preferences.formatOnSaveTimeout": 500,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.useQuickfixForLocations": true,
-  "coc.preferences.maxFileSize": "100MB"
+  "coc.preferences.maxFileSize": "100MB",
+  "snippets.ultisnips.pythonPrompt": false
 }

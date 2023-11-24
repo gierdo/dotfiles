@@ -25,6 +25,15 @@ $ cargo install tuning
 $ tuning
 ```
 
+## llama - local coding assistant
+
+The vim setup uses neoai and a local llama-cpp server.
+The server is started automatically, using systemd and podman.
+
+It expects the [13B codellama instruct
+model](https://huggingface.co/TheBloke/CodeLlama-13B-Instruct-GGUF) at
+`~/.cache/llama/models/codellama-13B-instruct.gguf`
+
 ## Git credential store
 
 ```

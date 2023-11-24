@@ -1,0 +1,11 @@
+[Unit]
+Description=Local llama.cpp api server
+
+[Container]
+Image=ghcr.io/abetlen/llama-cpp-python:latest
+Volume=${HOME}/.cache/llama/models:/models
+PublishPort=8081:8000
+Environment=MODEL=/models/codellama-13B-instruct.gguf
+
+[Install]
+WantedBy=multi-user.target default.target

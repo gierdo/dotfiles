@@ -3,14 +3,14 @@ require("neoai").setup({
     ui = {
         output_popup_text = "AI",
         input_popup_text = "Prompt",
-        width = 30, -- As percentage eg. 30%
+        width = 45, -- As percentage eg. 45%
         output_popup_height = 80, -- As percentage eg. 80%
         submit = "<Enter>", -- Key binding to submit the prompt
     },
     models = {
         {
-            name = "openai",
-            model = "gpt-3.5-turbo",
+            name = "llamacpp",
+            model = "",
             params = nil,
         },
     },
@@ -84,8 +84,12 @@ require("neoai").setup({
 })
 EOF
 
-nnoremap <A-a> :NeoAI<CR>
-vnoremap <A-a> :NeoAIContext<CR>
-vnoremap <A-i> :NeoAIInjectContext<Space>
-nnoremap <A-i> :NeoAIInject<Space>
-inoremap <A-a> <Esc>:NeoAIInject<Space>
+function StartLlama()
+    !systemctl --user start llama
+endfunction
+
+nnoremap <A-a> :execute StartLlama() \| NeoAI <CR>
+vnoremap <A-a> :execute StartLlama() \| NeoAIContext<CR>
+vnoremap <A-i> :execute StartLlama() \| NeoAIInjectContext<Space>
+nnoremap <A-i> :execute StartLlama() \| NeoAIInject<Space>
+inoremap <A-a> <Esc>:execute StartLlama() \| NeoAIInject<Space>
