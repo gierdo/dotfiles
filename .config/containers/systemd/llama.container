@@ -2,10 +2,8 @@
 Description=Local llama.cpp api server
 
 [Container]
-Image=ghcr.io/abetlen/llama-cpp-python:latest
+Image=ghcr.io/gierdo/dotfiles/llama-cpp-python-server:0.2.19
 Volume=${HOME}/.local/lib/llama/models:/models
 PublishPort=8081:8000
 Environment=MODEL=/models/codellama-13b-instruct.Q4_K_M.gguf
 
-[Install]
-WantedBy=multi-user.target default.target

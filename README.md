@@ -1,9 +1,11 @@
-# Content
+# My dotfiles
+
+## Content
 
 This repo contains a collection of dotfiles and other related files that pose
 the core of my system setup.
 
-# Purpose
+## Purpose
 
 The main purpose of this repo is portability and backup of my own
 configuration.
@@ -13,7 +15,13 @@ The repository can be cloned locally, relevant configuration files can be replac
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
 
-# Orchestration: tuning
+## Container images
+
+The Repository and related ghcr.io namespace contains container images that are
+used by services defined in this repository.
+See [here](container-images).
+
+## Orchestration: tuning
 
 The dotfiles configuration is set up with `tuning`.
 
