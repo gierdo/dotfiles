@@ -36,7 +36,7 @@ require("neoai").setup({
         ["select_down"] = "<C-j>",
     },
     open_ai = {
-        url = "http://localhost:8081/v1/chat/completions",
+        url = "http://localhost:9741/v1/chat/completions",
         display_name = "llama.cpp",
         api_key = {
             env = "OPENAI_API_KEY",

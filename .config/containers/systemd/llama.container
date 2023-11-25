@@ -4,6 +4,6 @@ Description=Local llama.cpp api server
 [Container]
 Image=ghcr.io/gierdo/dotfiles/llama-cpp-python-server:0.2.19
 Volume=${HOME}/.local/lib/llama/models:/models
-PublishPort=8081:8000
+PublishPort=9741:8000
 Environment=MODEL=/models/codellama-13b-instruct.Q4_K_M.gguf
 
