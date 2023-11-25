@@ -9,8 +9,8 @@ require("neoai").setup({
     },
     models = {
         {
-            name = "llamacpp",
-            model = "",
+            name = "openai",
+            model = "codellama",
             params = nil,
         },
     },
@@ -36,6 +36,8 @@ require("neoai").setup({
         ["select_down"] = "<C-j>",
     },
     open_ai = {
+        url = "http://localhost:8081/v1/chat/completions",
+        display_name = "llama.cpp",
         api_key = {
             env = "OPENAI_API_KEY",
             value = nil,
