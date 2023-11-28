@@ -15,6 +15,7 @@
   "java.format.comments.enabled": true,
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication",
+  "sumneko-lua.enableNvimLuaDev": true,
   "yaml.completion": true,
   "yaml.validate": true,
   "yaml.schemaStore.enable": true,

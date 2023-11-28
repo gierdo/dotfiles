@@ -44,6 +44,7 @@ Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'joenye/coc-cfn-lint', {'do': 'yarn install --pure-lockfile'}
 Plug 'weirongxu/coc-kotlin', {'do': 'yarn install --pure-lockfile'}
+Plug 'xiyaowong/coc-sumneko-lua', {'do': 'yarn install --pure-lockfile'}
 
 Plug 'w0rp/ale'
 
