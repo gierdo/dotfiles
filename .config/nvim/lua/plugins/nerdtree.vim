@@ -1,4 +1,5 @@
 " Nerdtree magic
+
 autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
 
 function! PreventBuffersInNERDTree()

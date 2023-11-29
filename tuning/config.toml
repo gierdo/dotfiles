@@ -83,8 +83,15 @@ path = "{{ home_dir }}/.config/i3status-rust/config.toml"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/nvim/init.vim"
-path = "{{ home_dir }}/.config/nvim/init.vim"
+src = "{{ home_dir }}/.dotfiles/.config/nvim/init.lua"
+path = "{{ home_dir }}/.config/nvim/init.lua"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/nvim/lua/"
+path = "{{ home_dir }}/.config/nvim/lua"
 
 [[jobs]]
 type = "file"
