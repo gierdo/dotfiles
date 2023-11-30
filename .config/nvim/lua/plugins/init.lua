@@ -4,7 +4,7 @@ return {
 	{
 		'altercation/vim-colors-solarized',
 		config = function()
-			vim.cmd("colorscheme solarized")
+			utils.load_local_vimscript("plugins/theme.vim")
 		end,
 		lazy = false,
 		priority = 1000
@@ -30,7 +30,7 @@ return {
 	'honza/vim-snippets',
 	{
 		'w0rp/ale',
-		config = function()
+		init = function()
 			utils.load_local_vimscript("plugins/ale.vim")
 		end
 	},
@@ -43,7 +43,16 @@ return {
 	'luochen1990/rainbow',
 	'powerman/vim-plugin-AnsiEsc',
 	'vim-scripts/DoxygenToolkit.vim',
-	'vim-airline/vim-airline',
+	{
+		'vim-airline/vim-airline',
+		dependencies = {
+			'vim-airline/vim-airline-themes'
+		},
+		init = function()
+			vim.g.airline_theme = 'atomic'
+			vim.g.airline_powerline_fonts = 1
+		end
+	},
 	'vim-airline/vim-airline-themes',
 	'preservim/vim-indent-guides',
 	'soramugi/auto-ctags.vim',
@@ -71,7 +80,7 @@ return {
 	'lervag/vimtex',
 	{
 		'peder2tm/sved',
-		config = function()
+		init = function()
 			utils.load_local_vimscript("plugins/tex.vim")
 		end
 	},
@@ -100,13 +109,13 @@ return {
 	'jxnblk/vim-mdx-js',
 	{
 		'previm/previm',
-		config = function()
+		init = function()
 			utils.load_local_vimscript("plugins/previm.vim")
 		end
 	},
 	{
 		'editorconfig/editorconfig-vim',
-		config = function()
+		init = function()
 			vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 		end
 	},

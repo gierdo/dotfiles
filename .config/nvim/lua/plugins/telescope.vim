@@ -1,4 +1,3 @@
-
 " fuzzy-find in current buffer
 nnoremap <A-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
 " fuzzy-find in all files, slow and expensive

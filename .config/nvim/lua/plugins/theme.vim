@@ -1,11 +1,9 @@
-" The airline setup uses the powerline fonts, installed and configured as
-" terminal font. Vim-devicons requires nerd-fonts, which also contain the
-" powerline symbols.
-" Some fonts are available from the fonts directory for installation.
+set background=dark
+colorscheme solarized
 
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
-autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=0
-autocmd ColorScheme * hi CocMenuSel ctermbg=239 guibg=#13354A
+autocmd VimEnter,ColorScheme * hi! ColorColumn cterm=bold ctermfg=255 ctermbg=0
+autocmd VimEnter,ColorScheme * hi! link CocFloating CocHintFloat
+autocmd VimEnter,ColorScheme * hi! CocMenuSel ctermbg=239 guibg=#13354A
 
 " Force to use underline for spell check results
 augroup SpellUnderline
@@ -44,13 +42,10 @@ augroup SpellUnderline
     \   guisp=Red
   augroup END
 
-set background=dark
-
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
 
-let g:airline_theme='atomic'
-let g:airline_powerline_fonts = 1
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
