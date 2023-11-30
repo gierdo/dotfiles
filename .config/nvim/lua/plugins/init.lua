@@ -9,6 +9,7 @@ return {
 		lazy = false,
 		priority = 1000
 	},
+	'nvim-lua/plenary.nvim', -- lua base library
 	{
 		'scrooloose/nerdcommenter',
 		config = function()
@@ -24,8 +25,6 @@ return {
 			]]
 		end
 	},
-	'nvim-lua/plenary.nvim',
-	'MunifTanjim/nui.nvim',
 	'SirVer/ultisnips',
 	{
 		'RaafatTurki/hex.nvim',
