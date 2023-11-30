@@ -174,8 +174,8 @@ if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
 
-if [ -d "$HOME/.vim/plugged/fzf/bin" ]; then
-  export PATH="$HOME/.vim/plugged/fzf/bin:$PATH"
+if [ -d "$HOME/.local/share/nvim/lazy/fzf/bin" ]; then
+  export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
 fi
 
 if [ -f "$HOME/.fzf.zsh" ]; then
