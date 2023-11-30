@@ -27,6 +27,12 @@ return {
 	'nvim-lua/plenary.nvim',
 	'MunifTanjim/nui.nvim',
 	'SirVer/ultisnips',
+	{
+		'RaafatTurki/hex.nvim',
+		config = function()
+			require('hex').setup()
+		end
+	},
 	'honza/vim-snippets',
 	{
 		'w0rp/ale',
