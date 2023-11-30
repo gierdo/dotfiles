@@ -45,7 +45,6 @@ augroup SpellUnderline
   augroup END
 
 set background=dark
-colorscheme solarized
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
@@ -122,11 +121,3 @@ let g:rainbow_conf = {
 \	}
 \}
 
-" Todo plugin config, set up in lua
-lua << EOF
-  require("todo-comments").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF

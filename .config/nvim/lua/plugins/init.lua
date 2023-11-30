@@ -3,6 +3,9 @@ local utils = require('utils')
 return {
 	{
 		'altercation/vim-colors-solarized',
+		config = function()
+			vim.cmd("colorscheme solarized")
+		end,
 		lazy = false,
 		priority = 1000
 	},

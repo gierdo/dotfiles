@@ -14,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
+require("config_d")
 local lazy = require("lazy")
 lazy.setup("plugins")
-
-require("config_d")
