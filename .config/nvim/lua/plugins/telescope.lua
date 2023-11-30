@@ -3,6 +3,14 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		branch = '0.1.x',
+		init = function()
+			vim.keymap.set('n', '<A-l>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
+			vim.keymap.set('n', '<C-A-l>', '<cmd>Telescope grep_string search=""<cr>')
+			vim.keymap.set('n', '<A-p>', '<cmd>Telescope live_grep<cr>')
+			vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>')
+			vim.keymap.set('n', '<C-A-b>', '<cmd>Telescope buffers<cr>')
+			vim.keymap.set('n', '<C-A-p>', '<cmd>Telescope tags<cr>')
+		end,
 		config = function()
 			local actions = require('telescope.actions')
 			local action_state = require("telescope.actions.state")
@@ -73,8 +81,12 @@ return {
 					-- please take a look at the readme of the extension you want to configure
 				}
 			}
-			utils.load_local_vimscript("plugins/telescope.vim")
-		end
+		end,
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'fannheyward/telescope-coc.nvim',
+			'nvim-telescope/telescope-github.nvim',
+		}
 	},
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	'fannheyward/telescope-coc.nvim',
