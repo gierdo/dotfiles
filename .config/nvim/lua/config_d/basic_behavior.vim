@@ -42,3 +42,7 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 set diffopt+=vertical
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
+autocmd ColorScheme * highlight ColorColumn cterm=bold ctermfg=255 ctermbg=0
+autocmd ColorScheme * hi CocMenuSel ctermbg=239 guibg=#13354A
