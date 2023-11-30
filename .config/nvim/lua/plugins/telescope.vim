@@ -1,4 +1,3 @@
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 " fuzzy-find in current buffer
 nnoremap <A-l> <cmd>Telescope current_buffer_fuzzy_find<cr>

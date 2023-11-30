@@ -40,3 +40,5 @@ map <leader>8 :set ts=8 sts=8 sw=8 expandtab <CR>
 
 " Us vertical splits for diffs per default
 set diffopt+=vertical
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
