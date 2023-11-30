@@ -82,11 +82,10 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate'
 	},
-	'lervag/vimtex',
 	{
-		'peder2tm/sved',
+		'lervag/vimtex',
 		init = function()
-			utils.load_local_vimscript("plugins/tex.vim")
+			vim.g.tex_flavor = 'latex'
 		end
 	},
 	'udalov/kotlin-vim',
@@ -115,7 +114,13 @@ return {
 	{
 		'previm/previm',
 		init = function()
-			utils.load_local_vimscript("plugins/previm.vim")
+			-- If x-www-browser is not set, assume firefox
+			local x_browser = 'x-www-browser'
+			if vim.fn.executable(x_browser) == 1 then
+				vim.g.previm_open_cmd = x_browser
+			else
+				vim.g.previm_open_cmd = 'firefox'
+			end
 		end
 	},
 	{
