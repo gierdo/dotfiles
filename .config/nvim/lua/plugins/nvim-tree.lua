@@ -17,7 +17,6 @@ local function my_on_attach(bufnr)
 	vim.keymap.del('n', '<C-x>', opts('Open: Horizontal Split'))
 	vim.keymap.set('n', '<C-s>', api.node.open.horizontal, opts('Open: Horizontal Split'))
 	vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
-	vim.keymap.set("n", "<CR>", api.node.open.tab_drop, opts("Tab drop"))
 end
 
 local function tab_win_closed(winnr)
