@@ -219,6 +219,9 @@ return {
       keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
       -- Resume latest coc list
       keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
+
+      -- Tag Navigation, relying on ctags
+      keyset("n", "<F3>", "g<C-]>", opts)
     end
   },
 }
