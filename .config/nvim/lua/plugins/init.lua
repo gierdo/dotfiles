@@ -64,7 +64,6 @@ return {
 	'dhruvasagar/vim-table-mode',
 	'airblade/vim-gitgutter',
 	'tpope/vim-fugitive',
-
 	'kevinhwang91/nvim-bqf',
 	{
 		'nvim-treesitter/nvim-treesitter',

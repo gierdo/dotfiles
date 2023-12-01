@@ -27,6 +27,12 @@ vim.opt.clipboard = "unnamedplus"
 -- Use vertical splits for diffs per default
 vim.opt.diffopt = vim.opt.diffopt + "vertical"
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  command = "wincmd J",
+  desc = "Open quickfix window in full width at the bottom"
+})
+
 
 vim.opt.ts = 2
 vim.opt.sts = 2
