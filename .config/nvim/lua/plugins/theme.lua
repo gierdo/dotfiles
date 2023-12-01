@@ -1,3 +1,5 @@
+local function configure_theme()
+  vim.cmd [[
 set background=dark
 colorscheme solarized
 
@@ -115,4 +117,15 @@ let g:rainbow_conf = {
 \		'nerdtree': 0,
 \	}
 \}
+]]
+end
 
+
+return {
+  {
+    'altercation/vim-colors-solarized',
+    config = configure_theme,
+    lazy = false,
+    priority = 1000
+  },
+}

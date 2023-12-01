@@ -1,14 +1,6 @@
 local utils = require('utils')
 
 return {
-	{
-		'altercation/vim-colors-solarized',
-		config = function()
-			utils.load_local_vimscript("plugins/theme.vim")
-		end,
-		lazy = false,
-		priority = 1000
-	},
 	'nvim-lua/plenary.nvim', -- lua base library
 	{
 		'scrooloose/nerdcommenter',
@@ -33,12 +25,6 @@ return {
 		end
 	},
 	'honza/vim-snippets',
-	{
-		'w0rp/ale',
-		init = function()
-			utils.load_local_vimscript("plugins/ale.vim")
-		end
-	},
 	'folke/todo-comments.nvim',
 	'guns/xterm-color-table.vim',
 	'vim-scripts/L9',

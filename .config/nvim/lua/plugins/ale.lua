@@ -1,3 +1,5 @@
+local function configure_ale()
+      vim.cmd [[
 " only search for linters on startup
 let g:ale_cache_executable_check_failures = 1
 let g:airline#extensions#ale#enabled = 1
@@ -43,3 +45,12 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 command Nofix let g:ale_fix_on_save = 0
 command Yesfix let g:ale_fix_on_save = 1
+]]
+end
+
+return {
+      {
+            'w0rp/ale',
+            init = configure_ale
+      },
+}
