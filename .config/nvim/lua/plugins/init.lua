@@ -31,7 +31,6 @@ return {
 	'tpope/vim-surround',
 	'vim-scripts/delimitMate.vim',
 	'justinmk/vim-gtfo',
-	'luochen1990/rainbow',
 	'powerman/vim-plugin-AnsiEsc',
 	'vim-scripts/DoxygenToolkit.vim',
 	{
