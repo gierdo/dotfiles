@@ -1,6 +1,0 @@
-;; This is also a Guix channel.
-
-(channel
-  (version 0)
-  (directory "guix-channel")
-  (url "https://github.com/gierdo/dotfiles.git")) ;the primary URL

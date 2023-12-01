@@ -16,8 +16,9 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
+export EDITOR=nvim
+
 PATH="$HOME/.dotfiles/.local/bin:$PATH"
-PATH="$HOME/.scripts:$PATH"
 PATH="$HOME/.yarn/bin:$PATH"
 PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 PATH="$HOME/.gem/ruby/current/bin:$PATH"
@@ -29,61 +30,25 @@ PATH=$PATH:~/go/bin
 export GOPATH=~/go
 export GOPRIVATE=github.com
 
-export ANDROID_HOME=~/.android-sdks
-
 # Set up node environment
 PATH="$HOME/.npmpath/bin:$PATH"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
 # Fix for   reason: 'unsupported',code: 'ERR_OSSL_EVP_UNSUPPORTED'
 export NODE_OPTIONS=--openssl-legacy-provider
 
-if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
-  . "$HOME/.asdf/plugins/java/set-java-home.bash"
-else
-  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
-fi
-
 if [ -d "/usr/lib/ccache" ]; then
   PATH="/usr/lib/ccache:$PATH"
 fi
 
-if command -v guix 1>/dev/null 2>&1; then
-  GUIX_PROFILE="$HOME/.guix-profile"
-  if [ -d "$GUIX_PROFILE" ]; then
-    SSL_CERT_DIR_="$GUIX_PROFILE/etc/ssl/certs"
-    if [ -d "$SSL_CERT_DIR_" ]; then
-      export SSL_CERT_DIR="$SSL_CERT_DIR_"
-      export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
-      export GIT_SSL_CAINFO="$SSL_CERT_FILE"
-      export CURL_CA_BUNDLE="$SSL_CERT_FILE"
-    fi
-
-    export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
-    if [ -f "$GUIX_PROFILE"/etc/profile ]; then
-      . "$GUIX_PROFILE/etc/profile"
-    fi
-  fi
-
-  GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
-  if [ -d "$GUIX_EXTRA_PROFILES" ]; then
-    for i in "$GUIX_EXTRA_PROFILES"/*; do
-      profile=$i/$(basename "$i")
-      if [ -f "$profile"/etc/profile ]; then
-        GUIX_PROFILE="$profile"
-        . "$GUIX_PROFILE"/etc/profile
-
-        if [ -d "$GUIX_PROFILE/share" ]; then
-          export XDG_DATA_DIRS="$GUIX_PROFILE/share/:$XDG_DATA_DIRS"
-          export XDG_CONFIG_DIRS="$GUIX_PROFILE/etc/:$XDG_CONFIG_DIRS"
-        fi
-      fi
-      unset profile
-    done
-  fi
-fi
-
 if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
   . "$HOME/.dotfiles/asdf/asdf.sh"
+fi
+
+export ANDROID_HOME=~/.android-sdks
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
+  . "$HOME/.asdf/plugins/java/set-java-home.bash"
+else
+  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
 fi
 
 if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
@@ -100,8 +65,6 @@ if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
     eval "$(pyenv init --path)"
   fi
 fi
-
-export EDITOR=nvim
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 
@@ -141,13 +104,6 @@ export NEWT_COLORS='
 
 # make (linux) menuconfig less bright
 export MENUCONFIG_COLOR=blackbg
-
-# tbsm is installed, simply assuming tbsm as dm for now
-if command -v tbsm 1>/dev/null 2>&1; then
-  if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
-    exec tbsm
-  fi
-fi
 
 if command -v keychain 1>/dev/null 2>&1; then
   eval "$(keychain -q --eval id_rsa)"
