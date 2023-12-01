@@ -4,11 +4,49 @@ local function startLlama()
     os.execute('systemctl --user start llama')
 end
 
+local keymap_opts = { noremap = true, silent = true }
+
 return {
     {
         'gierdo/neoai.nvim',
         branch = 'local-llama',
+        keys = {
+            {
+                mode = "n",
+                '<A-a>',
+                function()
+                    vim.cmd("NeoAI")
+                end,
+                keymap_opts
+            },
+            {
+                mode = "n",
+                '<A-i>',
+                function()
+                    vim.cmd('NeoAIInject<Space>')
+                end,
+                keymap_opts
+            },
+
+            {
+                mode = "v",
+                '<A-a>',
+                function()
+                    vim.cmd('NeoAIContext')
+                end,
+                keymap_opts
+            },
+            {
+                mode = "v",
+                '<A-i>',
+                function()
+                    vim.cmd('NeoAIInjectContext<Space>')
+                end,
+                keymap_opts
+            }
+        },
         config = function()
+            startLlama()
             require("neoai").setup({
                 ui = {
                     output_popup_text = "AI",
@@ -94,25 +132,6 @@ return {
                     --        },
                 },
             })
-
-            local keymap_opts = { noremap = true, silent = true }
-            vim.keymap.set('n', '<A-a>', function()
-                startLlama()
-                vim.cmd("NeoAI")
-            end, keymap_opts)
-            vim.keymap.set('n', '<A-i>', function()
-                startLlama()
-                vim.cmd('NeoAIInject<Space>')
-            end, keymap_opts)
-
-            vim.keymap.set('v', '<A-a>', function()
-                startLlama()
-                vim.cmd('NeoAIContext')
-            end, keymap_opts)
-            vim.keymap.set('v', '<A-i>', function()
-                startLlama()
-                vim.cmd('NeoAIInjectContext<Space>')
-            end, keymap_opts)
         end,
         dependencies = {
             'MunifTanjim/nui.nvim',

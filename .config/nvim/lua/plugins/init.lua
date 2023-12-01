@@ -65,10 +65,6 @@ return {
 	'tpope/vim-fugitive',
 	'kevinhwang91/nvim-bqf',
 	{
-		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate'
-	},
-	{
 		'lervag/vimtex',
 		init = function()
 			vim.g.tex_flavor = 'latex'
