@@ -376,13 +376,6 @@ path = "{{ home_dir }}/.tmux.conf"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.vimrc"
-path = "{{ home_dir }}/.vimrc"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
 src = "{{ home_dir }}/.dotfiles/.Xdefaults"
 path = "{{ home_dir }}/.Xdefaults"
 
