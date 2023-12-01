@@ -44,7 +44,7 @@ augroup SpellUnderline
 
 " Show trailing whitespace and spaces before a tab:
 match ExtraWhitespace /\s\+$\| \+\ze\t/
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
+autocmd VimEnter,ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen
 
 
 let g:indent_guides_enable_on_vim_startup = 1
