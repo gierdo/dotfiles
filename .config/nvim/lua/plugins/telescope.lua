@@ -48,7 +48,7 @@ return {
 						i = {
 							["<C-t>"] = actions.file_tab,
 							["<C-v>"] = actions.file_vsplit,
-							["<C-s>"] = actions.file_split,
+							["<C-x>"] = actions.file_split,
 							["<esc>"] = actions.close,
 							["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 							["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
