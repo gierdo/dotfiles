@@ -102,6 +102,5 @@ return {
 			vim.keymap.set('n', '<A-n>', '<cmd>NvimTreeFindFile<cr>')
 		end
 	},
-	'ryanoasis/vim-devicons',
 	'nvim-tree/nvim-web-devicons',
 }
