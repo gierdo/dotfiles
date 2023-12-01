@@ -60,8 +60,7 @@ local function open_nvim_tree(data)
 	if not real_file and not no_name then
 		return
 	end
-	-- open the tree, find the file but don't focus it
-	api.tree.toggle({ focus = false, find_file = true, })
+	api.tree.toggle({ focus = false, find_file = false, })
 end
 
 return {
@@ -82,7 +81,7 @@ return {
 				{
 					on_attach = my_on_attach,
 					update_focused_file = {
-						enable = true,
+						enable = false,
 					},
 					filters = {
 						dotfiles = true,
@@ -100,6 +99,7 @@ return {
 			})
 			vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 			vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<cr>')
+			vim.keymap.set('n', '<A-n>', '<cmd>NvimTreeFindFile<cr>')
 		end
 	},
 	'ryanoasis/vim-devicons',
