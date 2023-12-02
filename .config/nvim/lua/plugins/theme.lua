@@ -44,7 +44,7 @@ return {
         colors = {},
         theme = 'default', -- or 'neosolarized' or 'neo' for short
       })
-      vim.cmd.colorscheme 'solarized'
+      vim.cmd.colorscheme('solarized')
     end
   },
   {
