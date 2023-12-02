@@ -30,13 +30,10 @@ return {
         printf_statements = {},
         print_var_statements = {},
       })
-      -- load refactoring Telescope extension
-      require("telescope").load_extension("refactoring")
-
       vim.keymap.set(
         { "n", "x" },
         "<leader>rr",
-        function() require('telescope').extensions.refactoring.refactors() end
+        function() require('refactoring').select_refactor() end
       )
     end,
   },
