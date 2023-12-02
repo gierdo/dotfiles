@@ -25,14 +25,21 @@ return {
 		end
 	},
 	'honza/vim-snippets',
-	'folke/todo-comments.nvim',
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
+	},
 	'guns/xterm-color-table.vim',
 	'vim-scripts/L9',
 	'tpope/vim-surround',
 	'vim-scripts/delimitMate.vim',
 	'justinmk/vim-gtfo',
 	'powerman/vim-plugin-AnsiEsc',
-	'vim-scripts/DoxygenToolkit.vim',
 	{
 		'vim-airline/vim-airline',
 		dependencies = {
@@ -81,17 +88,11 @@ return {
 	'mkitt/tabline.vim',
 	'jeetsukumaran/vim-buffergator',
 	'vim-scripts/groovy.vim',
-	'leafgarland/typescript-vim',
 	{
 		'Shougo/vimproc.vim',
 		build = 'make'
 	},
 	'aklt/plantuml-syntax',
-	{
-		'heavenshell/vim-pydocstring',
-		build = 'make clean && make install'
-	},
-	'jxnblk/vim-mdx-js',
 	{
 		'previm/previm',
 		init = function()
