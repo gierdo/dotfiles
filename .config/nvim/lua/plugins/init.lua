@@ -70,7 +70,6 @@ return {
 			vim.g.tex_flavor = 'latex'
 		end
 	},
-	'udalov/kotlin-vim',
 	{
 		'fatih/vim-go',
 		build = ':GoUpdateBinaries'
