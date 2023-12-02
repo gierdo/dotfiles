@@ -1,15 +1,14 @@
-local utils = require("utils")
-
--- Use <C-j> to jump to forward placeholder, which is default
-vim.g.coc_snippet_next = '<c-j>'
--- Use <C-k> to jump to backward placeholder, which is default
-vim.g.coc_snippet_prev = '<c-k>'
-
 return {
   {
     'neoclide/coc.nvim',
     branch = 'master',
     build = 'yarn install --frozen-lockfile',
+    init = function()
+      -- Use <C-j> to jump to forward placeholder, which is default
+      vim.g.coc_snippet_next = '<c-j>'
+      -- Use <C-k> to jump to backward placeholder, which is default
+      vim.g.coc_snippet_prev = '<c-k>'
+    end,
     config = function()
       vim.g.coc_global_extensions = {
         'coc-css',
