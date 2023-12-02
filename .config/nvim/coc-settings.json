@@ -49,9 +49,75 @@
     "!Join sequence"
   ],
   "pyright.disableDiagnostics": false,
+  "diagnostic-languageserver.filetypes": {
+    "cpp": [
+      "clangtidy",
+      "cppcheck",
+      "cpplint",
+      "flawfinder"
+    ],
+    "python": [
+      "mypy",
+      "pylint",
+      "flake8",
+      "bandit"
+    ],
+    "c": [
+      "clangtidy",
+      "cppcheck",
+      "flawfinder"
+    ],
+    "yaml": [
+      "yamllint"
+    ],
+    "cloudformation.yaml": [
+      "cloudformation",
+      "yamllint"
+    ],
+    "java": [],
+    "vim": "vint",
+    "email": "languagetool",
+    "markdown": [
+      "write-good",
+      "markdownlint"
+    ],
+    "sh": "shellcheck",
+    "cmake": [
+      "cmake-lint",
+      "cmakelint"
+    ],
+    "systemd": "systemd-analyze"
+  },
   "diagnostic-languageserver.formatFiletypes": {
     "python": [
-      "black"
+      "black",
+      "isort"
+    ],
+    "lua": "lua-format",
+    "sh": "shfmt",
+    "cmake": "cmake-format",
+    "cpp": [],
+    "c": [],
+    "json": [
+      "fixjson",
+      "jq"
+    ],
+    "yaml": [],
+    "go": [
+      "goimports",
+      "gofmt"
+    ],
+    "rust": [
+      "rustfmt"
+    ],
+    "ruby": [
+      "rubocop"
+    ],
+    "typescript": [
+      "eslint"
+    ],
+    "kotlin": [
+      "ktlint"
     ]
   },
   "diagnostic-languageserver.formatters": {
