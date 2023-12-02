@@ -40,18 +40,6 @@ return {
 	'vim-scripts/delimitMate.vim',
 	'justinmk/vim-gtfo',
 	'powerman/vim-plugin-AnsiEsc',
-	{
-		'vim-airline/vim-airline',
-		dependencies = {
-			'vim-airline/vim-airline-themes'
-		},
-		init = function()
-			vim.g.airline_theme = 'atomic'
-			vim.g.airline_powerline_fonts = 1
-		end
-	},
-	'vim-airline/vim-airline-themes',
-	'preservim/vim-indent-guides',
 	'soramugi/auto-ctags.vim',
 	{
 		'liuchengxu/vista.vim',
