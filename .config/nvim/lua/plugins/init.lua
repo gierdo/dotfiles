@@ -17,6 +17,10 @@ return {
 			]]
 		end
 	},
+	{
+		"cappyzawa/trim.nvim",
+		opts = {}
+	},
 	'SirVer/ultisnips',
 	{
 		'RaafatTurki/hex.nvim',

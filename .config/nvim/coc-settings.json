@@ -74,7 +74,6 @@
       "cloudformation",
       "yamllint"
     ],
-    "java": [],
     "vim": "vint",
     "email": "languagetool",
     "markdown": [
@@ -93,16 +92,11 @@
       "black",
       "isort"
     ],
-    "lua": "lua-format",
     "sh": "shfmt",
-    "cmake": "cmake-format",
-    "cpp": [],
-    "c": [],
     "json": [
       "fixjson",
       "jq"
     ],
-    "yaml": [],
     "go": [
       "goimports",
       "gofmt"
@@ -206,6 +200,6 @@
   "coc.preferences.formatOnSaveTimeout": 500,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.useQuickfixForLocations": true,
-  "coc.preferences.maxFileSize": "100MB",
+  "coc.preferences.maxFileSize": "50MB",
   "snippets.ultisnips.pythonPrompt": false
 }
