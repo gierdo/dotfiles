@@ -21,10 +21,7 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
   "yaml.schemas": {
-    "kustomization": [
-      "**/kustomization.y*ml",
-      "**/*.patch.y*ml"
-    ],
+    "kustomization": ["**/kustomization.y*ml", "**/*.patch.y*ml"],
     "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
       "**/*.template.y*ml",
       "**/*-template.y*ml"
@@ -50,86 +47,39 @@
   ],
   "pyright.disableDiagnostics": false,
   "diagnostic-languageserver.filetypes": {
-    "cpp": [
-      "clangtidy",
-      "cppcheck",
-      "cpplint",
-      "flawfinder"
-    ],
-    "python": [
-      "mypy",
-      "pylint",
-      "flake8",
-      "bandit"
-    ],
-    "c": [
-      "clangtidy",
-      "cppcheck",
-      "flawfinder"
-    ],
-    "yaml": [
-      "yamllint"
-    ],
-    "cloudformation.yaml": [
-      "cloudformation",
-      "yamllint"
-    ],
+    "cpp": ["clangtidy", "cppcheck", "cpplint", "flawfinder"],
+    "python": ["mypy", "pylint", "flake8", "bandit"],
+    "c": ["clangtidy", "cppcheck", "flawfinder"],
+    "yaml": ["yamllint"],
+    "cloudformation.yaml": ["cloudformation", "yamllint"],
     "vim": "vint",
     "email": "languagetool",
-    "markdown": [
-      "write-good",
-      "markdownlint"
-    ],
+    "markdown": ["write-good", "markdownlint"],
     "sh": "shellcheck",
-    "cmake": [
-      "cmake-lint",
-      "cmakelint"
-    ],
+    "cmake": ["cmake-lint", "cmakelint"],
     "systemd": "systemd-analyze"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": [
-      "black",
-      "isort"
-    ],
+    "python": ["black", "isort"],
     "sh": "shfmt",
-    "json": [
-      "fixjson",
-      "jq"
-    ],
-    "go": [
-      "goimports",
-      "gofmt"
-    ],
-    "rust": [
-      "rustfmt"
-    ],
-    "ruby": [
-      "rubocop"
-    ],
-    "typescript": [
-      "eslint"
-    ],
-    "kotlin": [
-      "ktlint"
-    ]
+    "json": ["fixjson", "jq"],
+    "go": ["goimports", "gofmt"],
+    "rust": ["rustfmt"],
+    "ruby": ["rubocop"],
+    "typescript": ["eslint"],
+    "kotlin": ["ktlint"],
+    "yaml": ["yamlfmt"]
   },
   "diagnostic-languageserver.formatters": {
     "black": {
       "command": "black",
-      "args": [
-        "-q",
-        "-"
-      ]
+      "args": ["-q", "-"]
     }
   },
   "languageserver": {
     "clangd": {
       "command": "clangd",
-      "args": [
-        "--background-index",
-        "--fallback-style=google"
-      ],
+      "args": ["--background-index", "--fallback-style=google"],
       "rootPatterns": [
         "compile_flags.txt",
         "compile_commands.json",
@@ -137,64 +87,38 @@
         ".git/",
         ".hg/"
       ],
-      "filetypes": [
-        "c",
-        "cpp",
-        "cc",
-        "c++",
-        "objc",
-        "objcpp"
-      ]
+      "filetypes": ["c", "cpp", "cc", "c++", "objc", "objcpp"]
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": [
-        "go.work",
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ],
+      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true
       }
     },
     "bash": {
       "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh"
-      ],
-      "ignoredRootPaths": [
-        "~"
-      ]
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     },
     "terraform": {
       "command": "terraform-ls",
-      "args": [
-        "serve"
-      ],
-      "filetypes": [
-        "terraform",
-        "tf"
-      ],
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
       "initializationOptions": {},
       "settings": {}
     }
   },
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
-  "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
-  "[python]": {
-    "coc.preferences.formatOnType": true
+  "[yaml]": {
+    "coc.preferences.formatOnType": false
   },
-  "[yaml][json][kotlin]": {
+  "[kotlin]": {
     "coc.preferences.formatOnSave": false
   },
   "coc.preferences.formatOnSaveTimeout": 500,

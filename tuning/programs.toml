@@ -66,6 +66,7 @@ when = "{{ not has_executable(exe='rofi') }}"
 type = "installergo"
 name = "Install go dependencies"
 packages = [
+  "github.com/google/yamlfmt/cmd/yamlfmt",
   "mvdan.cc/sh/v3/cmd/shfmt",
   "gitlab.com/gitlab-org/cli/cmd/glab",
   "github.com/Gelio/go-global-update",
@@ -81,31 +82,32 @@ state = "latest"
 name = "install npm dependencies"
 type = "installernpm"
 packages = [
-  "yarn",
-  "neovim",
-  "rimraf",
-  "copy",
+  "bash-language-server",
   "concurrently",
-  "libcipm",
-  "esparse",
-  "normalize-package-data",
-  "js-yaml",
-  "mkdirp",
-  "init-package-json",
-  "http-signature",
-  "lstat",
-  "which",
+  "copy",
   "cross-spawn",
-  "libnpmpublish",
-  "node-gyp",
   "dockerfile-language-server-nodejs",
+  "esparse",
+  "fixjson",
+  "http-signature",
+  "init-package-json",
+  "js-yaml",
+  "libcipm",
+  "libnpmpublish",
+  "lstat",
+  "mkdirp",
+  "neovim",
+  "node-gyp",
+  "normalize-package-data",
+  "prettier",
+  "rimraf",
+  "shellcheck",
   "typescript",
   "typescript-language-server",
-  "yaml-language-server",
   "vscode-languageserver",
-  "bash-language-server",
-  "prettier",
-  "shellcheck"
+  "which",
+  "yaml-language-server",
+  "yarn",
 ]
 state = "present"
 
