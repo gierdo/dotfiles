@@ -76,41 +76,7 @@
       "args": ["-q", "-"]
     }
   },
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "args": ["--background-index", "--fallback-style=google"],
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": ["c", "cpp", "cc", "c++", "objc", "objcpp"]
-    },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "usePlaceholders": true
-      }
-    },
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    },
-    "terraform": {
-      "command": "terraform-ls",
-      "args": ["serve"],
-      "filetypes": ["terraform", "tf"],
-      "initializationOptions": {},
-      "settings": {}
-    }
-  },
+  "clangd.arguments": ["--background-index", "--fallback-style=google"],
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnType": true,
