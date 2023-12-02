@@ -1,67 +1,100 @@
-local function configure_theme()
-  vim.o.background = 'dark' -- or 'light'
-  require('solarized').setup({
-    transparent = false,    -- enable transparent background
-    styles = {
-      comments = {},
-      functions = {},
-      variables = {},
-      numbers = {},
-      constants = {},
-      parameters = {},
-      keywords = {},
-      types = {},
-    },
-    enables = {
-      bufferline = true,
-      cmp = true,
-      diagnostic = true,
-      dashboard = true,
-      editor = true,
-      gitsign = true,
-      hop = true,
-      indentblankline = true,
-      lsp = true,
-      lspsaga = true,
-      navic = true,
-      neogit = true,
-      neotree = true,
-      notify = true,
-      semantic = true,
-      syntax = true,
-      telescope = true,
-      tree = true,
-      treesitter = true,
-      whichkey = true,
-      mini = true,
-    },
-    highlights = {},
-    colors = {},
-    theme = 'default', -- or 'neosolarized' or 'neo' for short
-  })
-  vim.cmd.colorscheme 'solarized'
-end
-
 return {
   {
     'maxmx03/solarized.nvim',
     lazy = false,
     priority = 1000,
-    config = configure_theme
-  },
-  {
-    lazy = false,
-    priority = 1000,
-    'vim-airline/vim-airline',
-    dependencies = {
-      'vim-airline/vim-airline-themes'
-    },
-    init = function()
-      vim.g.airline_theme = 'atomic'
-      vim.g.airline_powerline_fonts = 1
+    config = function()
+      vim.o.background = 'dark' -- or 'light'
+      require('solarized').setup({
+        transparent = false,    -- enable transparent background
+        styles = {
+          comments = {},
+          functions = {},
+          variables = {},
+          numbers = {},
+          constants = {},
+          parameters = {},
+          keywords = {},
+          types = {},
+        },
+        enables = {
+          bufferline = true,
+          cmp = true,
+          diagnostic = true,
+          dashboard = true,
+          editor = true,
+          gitsign = true,
+          hop = true,
+          indentblankline = true,
+          lsp = true,
+          lspsaga = true,
+          navic = true,
+          neogit = true,
+          neotree = true,
+          notify = true,
+          semantic = true,
+          syntax = true,
+          telescope = true,
+          tree = true,
+          treesitter = true,
+          whichkey = true,
+          mini = true,
+        },
+        highlights = {},
+        colors = {},
+        theme = 'default', -- or 'neosolarized' or 'neo' for short
+      })
+      vim.cmd.colorscheme 'solarized'
     end
   },
-  'vim-airline/vim-airline-themes',
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', opt = true }
+    },
+    config = function()
+      require('lualine').setup {
+        options = {
+          icons_enabled = true,
+          theme = 'auto',
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
+          disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+          },
+          ignore_focus = {},
+          always_divide_middle = true,
+          globalstatus = false,
+          refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+          }
+        },
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_c = { 'filename' },
+          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' }
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { 'filename' },
+          lualine_x = { 'location' },
+          lualine_y = {},
+          lualine_z = {}
+        },
+        tabline = {},
+        winbar = {},
+        inactive_winbar = {},
+        extensions = {}
+      }
+    end
+  },
   {
     'preservim/vim-indent-guides',
     init = function()
