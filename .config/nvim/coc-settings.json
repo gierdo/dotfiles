@@ -70,12 +70,6 @@
     "kotlin": ["ktlint"],
     "yaml": ["yamlfmt"]
   },
-  "diagnostic-languageserver.formatters": {
-    "black": {
-      "command": "black",
-      "args": ["-q", "-"]
-    }
-  },
   "clangd.arguments": ["--background-index", "--fallback-style=google"],
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,

@@ -127,6 +127,7 @@ argv = [
   "pyright",
   "pynvim",
   "black",
+  "autopep8",
   "jedi-language-server",
   "bandit",
   "cfn-lint"
