@@ -21,13 +21,13 @@ return {
 		"cappyzawa/trim.nvim",
 		opts = {}
 	},
-	'SirVer/ultisnips',
 	{
 		'RaafatTurki/hex.nvim',
 		config = function()
 			require('hex').setup()
 		end
 	},
+	'SirVer/ultisnips',
 	'honza/vim-snippets',
 	{
 		"folke/todo-comments.nvim",
