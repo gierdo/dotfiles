@@ -126,6 +126,7 @@ argv = [
   "flake8",
   "pyright",
   "pynvim",
+  "debugpy",
   "black",
   "autopep8",
   "jedi-language-server",

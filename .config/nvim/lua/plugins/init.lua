@@ -57,7 +57,6 @@ return {
 			vim.g.yaifa_max_lines = 4096
 		end
 	},
-	{ 'junegunn/fzf', build = './install --all' },
 	'godlygeek/tabular',
 	'dhruvasagar/vim-table-mode',
 	'airblade/vim-gitgutter',
@@ -102,5 +101,12 @@ return {
 		init = function()
 			vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 		end
+	},
+	{
+		'https://codeberg.org/esensar/nvim-dev-container',
+		config = function()
+			require("devcontainer").setup {}
+		end,
+		dependencies = 'nvim-treesitter/nvim-treesitter'
 	},
 }
