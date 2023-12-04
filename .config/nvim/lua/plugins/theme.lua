@@ -105,4 +105,7 @@ return {
       vim.g.indent_guides_auto_colors = 1
     end
   },
+  'mkitt/tabline.vim',
+  'jeetsukumaran/vim-buffergator',
+
 }

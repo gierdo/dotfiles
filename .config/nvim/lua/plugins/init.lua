@@ -38,8 +38,6 @@ return {
 			-- refer to the configuration section below
 		}
 	},
-	'guns/xterm-color-table.vim',
-	'vim-scripts/L9',
 	'tpope/vim-surround',
 	'vim-scripts/delimitMate.vim',
 	'justinmk/vim-gtfo',
@@ -74,15 +72,6 @@ return {
 	},
 	'dylon/vim-antlr',
 	'jamessan/vim-gnupg',
-	'elzr/vim-json',
-	'vim-scripts/Tabmerge',
-	'mkitt/tabline.vim',
-	'jeetsukumaran/vim-buffergator',
-	'vim-scripts/groovy.vim',
-	{
-		'Shougo/vimproc.vim',
-		build = 'make'
-	},
 	'aklt/plantuml-syntax',
 	{
 		'previm/previm',
@@ -108,5 +97,12 @@ return {
 			require("devcontainer").setup {}
 		end,
 		dependencies = 'nvim-treesitter/nvim-treesitter'
+	},
+	-- Auto Indentation
+	{
+		'vim-scripts/yaifa.vim',
+		config = function()
+			vim.g.yaifa_max_lines = 4096
+		end
 	},
 }
