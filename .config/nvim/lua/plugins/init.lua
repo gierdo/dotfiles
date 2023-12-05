@@ -42,7 +42,17 @@ return {
 	'vim-scripts/delimitMate.vim',
 	'justinmk/vim-gtfo',
 	'powerman/vim-plugin-AnsiEsc',
-	'soramugi/auto-ctags.vim',
+	{
+		"JMarkin/gentags.lua",
+		cond = vim.fn.executable("ctags") == 1,
+		config = function()
+			require("gentags").setup({})
+		end,
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
 	{
 		'liuchengxu/vista.vim',
 		config = function()
