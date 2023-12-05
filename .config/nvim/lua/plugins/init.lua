@@ -80,12 +80,6 @@ return {
 		end
 	},
 	{
-		'editorconfig/editorconfig-vim',
-		init = function()
-			vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
-		end
-	},
-	{
 		'https://codeberg.org/esensar/nvim-dev-container',
 		config = function()
 			require("devcontainer").setup {}
