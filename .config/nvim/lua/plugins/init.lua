@@ -49,12 +49,6 @@ return {
 			vim.cmd("nmap <silent> <F8> :Vista!!<CR>")
 		end
 	},
-	{
-		'vim-scripts/yaifa.vim',
-		config = function()
-			vim.g.yaifa_max_lines = 4096
-		end
-	},
 	'godlygeek/tabular',
 	'dhruvasagar/vim-table-mode',
 	'airblade/vim-gitgutter',
@@ -98,11 +92,10 @@ return {
 		end,
 		dependencies = 'nvim-treesitter/nvim-treesitter'
 	},
-	-- Auto Indentation
 	{
-		'vim-scripts/yaifa.vim',
+		'nmac427/guess-indent.nvim',
 		config = function()
-			vim.g.yaifa_max_lines = 4096
-		end
+			require('guess-indent').setup {}
+		end,
 	},
 }
