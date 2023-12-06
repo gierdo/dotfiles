@@ -96,13 +96,22 @@ return {
     end
   },
   {
-    'preservim/vim-indent-guides',
-    init = function()
-      vim.g.indent_guides_enable_on_vim_startup = 1
-      vim.g.indent_guides_start_level = 2
-      vim.g.indent_guides_guide_size = 1
-      vim.g.indent_guides_exclude_filetypes = { 'nerdtree', 'help' }
-      vim.g.indent_guides_auto_colors = 1
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+    config = function()
+      local highlight = {
+        "Whitespace",
+        "CursorColumn",
+      }
+      require("ibl").setup {
+        indent = { highlight = highlight, char = "" },
+        whitespace = {
+          highlight = highlight,
+          remove_blankline_trail = false,
+        },
+        scope = { enabled = false },
+      }
     end
   },
   'mkitt/tabline.vim',
