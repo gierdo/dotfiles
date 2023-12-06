@@ -39,7 +39,30 @@ return {
 		}
 	},
 	'tpope/vim-surround',
-	'vim-scripts/delimitMate.vim',
+	{
+		'windwp/nvim-autopairs',
+		config = function()
+			local npairs = require("nvim-autopairs")
+			local Rule = require('nvim-autopairs.rule')
+
+			npairs.setup({
+				check_ts = true,
+			})
+
+			local ts_conds = require('nvim-autopairs.ts-conds')
+
+			-- press % => %% only while inside a comment or string
+			npairs.add_rules({
+				Rule("%", "%", "lua")
+						:with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
+				Rule("$", "$", "lua")
+						:with_pair(ts_conds.is_not_ts_node({ 'function' }))
+			})
+		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		}
+	},
 	'justinmk/vim-gtfo',
 	'powerman/vim-plugin-AnsiEsc',
 	{
@@ -74,7 +97,6 @@ return {
 		'fatih/vim-go',
 		build = ':GoUpdateBinaries'
 	},
-	'dylon/vim-antlr',
 	'jamessan/vim-gnupg',
 	'aklt/plantuml-syntax',
 	{
