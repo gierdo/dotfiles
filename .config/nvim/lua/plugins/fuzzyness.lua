@@ -114,6 +114,9 @@ return {
 					find_files = {
 						hidden = true,
 					},
+					lsp_references = {
+
+					},
 				},
 				extensions = {
 					-- Your extension configuration goes here:
@@ -128,6 +131,7 @@ return {
 			'nvim-lua/plenary.nvim',
 			'fannheyward/telescope-coc.nvim',
 			'nvim-telescope/telescope-github.nvim',
+			'nvim-telescope/telescope-fzf-native.nvim',
 			'junegunn/fzf'
 		}
 	},
