@@ -45,12 +45,9 @@ vim.cmd("autocmd VimResized * wincmd =")
 vim.cmd("let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'")
 vim.cmd.set("wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/**,node_modules/**,.git/*,svn/*,.ctags")
 
-vim.api.nvim_create_user_command("FormatJSON", "%!python -m json.tool", {})
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   command = "setlocal spell spelllang=en_gb,de_de",
-  desc = "Update signature help on jump placeholder"
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" },

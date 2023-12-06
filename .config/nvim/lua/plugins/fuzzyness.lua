@@ -32,7 +32,7 @@ return {
 						sorter = wilder.python_difflib_sorter(),
 						-- can be set to 're2' for performance, requires pyre2 to be installed
 						-- see :h wilder#python_search() for more details
-						engine = 're',
+						engine = 're2',
 					})
 				),
 			})
@@ -41,9 +41,6 @@ return {
 				highlighter = wilder.basic_highlighter(),
 			}))
 		end,
-		dependencies = {
-			'junegunn/fzf',
-		}
 	},
 	{
 		'nvim-telescope/telescope.nvim',
