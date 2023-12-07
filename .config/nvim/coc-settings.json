@@ -118,6 +118,16 @@
       "yamlfmt"
     ]
   },
+  "diagnostic-languageserver.formatters": {
+    "shfmt": {
+      "comment": "indent with two spaces",
+      "command": "shfmt",
+      "args": [
+        "-i",
+        "2"
+      ]
+    }
+  },
   "clangd.arguments": [
     "--background-index",
     "--fallback-style=google"
