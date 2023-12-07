@@ -8,6 +8,7 @@ vim.opt.mouse = "a"
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.wildmenu = true
+vim.opt.splitright = true
 
 -- Searching
 vim.opt.ignorecase = true
