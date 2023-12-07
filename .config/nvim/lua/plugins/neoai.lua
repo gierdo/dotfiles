@@ -27,7 +27,7 @@ return {
       {
         mode = "n",
         '<A-a>',
-        ':NeoAI',
+        ':NeoAI<CR>',
         keymap_opts
       },
       {
