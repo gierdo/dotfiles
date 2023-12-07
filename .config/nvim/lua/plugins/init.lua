@@ -41,6 +41,7 @@ return {
 			local npairs = require("nvim-autopairs")
 
 			npairs.setup({
+				map_cr = false,
 				check_ts = true,
 			})
 		end,
@@ -71,7 +72,13 @@ return {
 	'dhruvasagar/vim-table-mode',
 	'airblade/vim-gitgutter',
 	'tpope/vim-fugitive',
-	'kevinhwang91/nvim-bqf',
+	{
+		'kevinhwang91/nvim-bqf',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+			'junegunn/fzf'
+		}
+	},
 	{
 		'lervag/vimtex',
 		init = function()
