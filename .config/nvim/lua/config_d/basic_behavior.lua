@@ -41,7 +41,10 @@ vim.opt.sw = 2
 vim.opt.expandtab = true
 
 -- Reorder tabs on window resize
-vim.cmd("autocmd VimResized * wincmd =")
+vim.api.nvim_create_autocmd("VimResized", {
+  pattern = "*",
+  command = "wincmd ="
+})
 
 vim.cmd("let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'")
 vim.cmd.set("wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/**,node_modules/**,.git/*,svn/*,.ctags")
