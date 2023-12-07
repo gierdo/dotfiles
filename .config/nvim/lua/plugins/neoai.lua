@@ -4,44 +4,49 @@ local function startLlama()
   os.execute('systemctl --user start llama')
 end
 
-local keymap_opts = { noremap = true, silent = true }
+local keymap_opts = { expr = true }
 
 return {
   {
     'gierdo/neoai.nvim',
     branch = 'local-llama',
+    cmd = {
+      "NeoAI",
+      "NeoAIOpen",
+      "NeoAIClose",
+      "NeoAIToggle",
+      "NeoAIContext",
+      "NeoAIContextOpen",
+      "NeoAIContextClose",
+      "NeoAIInject",
+      "NeoAIInjectCode",
+      "NeoAIInjectContext",
+      "NeoAIInjectContextCode",
+    },
     keys = {
       {
         mode = "n",
         '<A-a>',
-        function()
-          vim.cmd("NeoAI")
-        end,
+        ':NeoAI',
         keymap_opts
       },
       {
         mode = "n",
         '<A-i>',
-        function()
-          vim.cmd('NeoAIInject<Space>')
-        end,
+        ':NeoAIInject<Space>',
         keymap_opts
       },
 
       {
         mode = "v",
         '<A-a>',
-        function()
-          vim.cmd('NeoAIContext')
-        end,
+        ':NeoAIContext<CR>',
         keymap_opts
       },
       {
         mode = "v",
         '<A-i>',
-        function()
-          vim.cmd('NeoAIInjectContext<Space>')
-        end,
+        ':NeoAIInjectContext<Space>',
         keymap_opts
       }
     },
