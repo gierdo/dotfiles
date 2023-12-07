@@ -21,7 +21,10 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
   "yaml.schemas": {
-    "kustomization": ["**/kustomization.y*ml", "**/*.patch.y*ml"],
+    "kustomization": [
+      "**/kustomization.y*ml",
+      "**/*.patch.y*ml"
+    ],
     "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
       "**/*.template.y*ml",
       "**/*-template.y*ml"
@@ -46,31 +49,79 @@
     "!Join sequence"
   ],
   "pyright.disableDiagnostics": false,
+  "prettier.formatterPriority": -1,
   "diagnostic-languageserver.filetypes": {
-    "cpp": ["clangtidy", "cppcheck", "cpplint", "flawfinder"],
-    "python": ["mypy", "pylint", "flake8", "bandit"],
-    "c": ["clangtidy", "cppcheck", "flawfinder"],
-    "yaml": ["yamllint"],
-    "cloudformation.yaml": ["cloudformation", "yamllint"],
+    "cpp": [
+      "clangtidy",
+      "cppcheck",
+      "cpplint",
+      "flawfinder"
+    ],
+    "python": [
+      "mypy",
+      "pylint",
+      "flake8",
+      "bandit"
+    ],
+    "c": [
+      "clangtidy",
+      "cppcheck",
+      "flawfinder"
+    ],
+    "yaml": [
+      "yamllint"
+    ],
+    "cloudformation.yaml": [
+      "cloudformation",
+      "yamllint"
+    ],
     "vim": "vint",
     "email": "languagetool",
-    "markdown": ["write-good", "markdownlint"],
+    "markdown": [
+      "write-good",
+      "markdownlint"
+    ],
     "sh": "shellcheck",
-    "cmake": ["cmake-lint", "cmakelint"],
+    "cmake": [
+      "cmake-lint",
+      "cmakelint"
+    ],
     "systemd": "systemd-analyze"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["black", "isort"],
+    "python": [
+      "black",
+      "isort"
+    ],
     "sh": "shfmt",
-    "json": ["fixjson", "jq"],
-    "go": ["goimports", "gofmt"],
-    "rust": ["rustfmt"],
-    "ruby": ["rubocop"],
-    "typescript": ["eslint"],
-    "kotlin": ["ktlint"],
-    "yaml": ["yamlfmt"]
+    "json": [
+      "fixjson",
+      "jq"
+    ],
+    "go": [
+      "goimports",
+      "gofmt"
+    ],
+    "rust": [
+      "rustfmt"
+    ],
+    "ruby": [
+      "rubocop"
+    ],
+    "typescript": [
+      "eslint"
+    ],
+    "kotlin": [
+      "ktlint"
+    ],
+    "yaml": [
+      "yamlfmt"
+    ]
   },
-  "clangd.arguments": ["--background-index", "--fallback-style=google"],
+  "clangd.arguments": [
+    "--background-index",
+    "--fallback-style=google"
+  ],
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnType": true,
