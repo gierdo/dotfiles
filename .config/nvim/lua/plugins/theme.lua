@@ -35,12 +35,37 @@ return {
           semantic = true,
           syntax = true,
           telescope = true,
-          tree = true,
+          tree = false,
           treesitter = true,
           whichkey = true,
           mini = true,
         },
-        highlights = {},
+        highlights = function(colors, colorhelper)
+          return {
+            NvimTreeSymlink = { link = 'Underlined' },
+            NvimTreeSymlinkIcon = { link = 'Directory' },
+            NvimTreeFolderName = { fg = colors.base0 }, -- (Directory)
+            NvimTreeRootFolder = { link = 'Title' },
+            NvimTreeFolderIcon = { link = 'Directory' },
+            NvimTreeEmptyFolderName = { fg = colors.base0 }, -- (Directory)
+            NvimTreeExecFile = { link = 'Function' },
+            NvimTreeOpenedFile = { fg = colors.blue, bold = true },
+            NvimTreeModifiedFile = { fg = colors.change },
+            NvimTreeSpecialFile = { link = 'Special' },
+            NvimTreeIndentMarker = { fg = colors.base01 },
+            NvimTreeLspDiagnosticsInformation = {}, -- (DiagnosticInfo)
+            NvimTreeLspDiagnosticsHint = {},        -- (DiagnosticHint)
+            NvimTreeGitDirty = { fg = colors.change },
+            NvimTreeGitStaged = { fg = colors.add },
+            NvimTreeGitMerge = { fg = colors.change },
+            NvimTreeGitRenamed = { fg = colors.add },
+            NvimTreeGitNew = { fg = colors.add },
+            NvimTreeGitDeleted = { fg = colors.delete },
+            NvimTreeNormal = { fg = colors.base0, bg = colors.base04 },
+            NvimTreeNormalFloat = { link = 'NvimTreeNormal' },
+            NvimTreeEndOfBuffer = { fg = colors.base04 }, -- (NonText)
+          }
+        end,
         colors = {},
         theme = 'default', -- or 'neosolarized' or 'neo' for short
       })
