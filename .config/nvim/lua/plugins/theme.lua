@@ -42,6 +42,7 @@ return {
         },
         highlights = function(colors, colorhelper)
           return {
+            -- nvim-tree configuration
             NvimTreeSymlink = { link = 'Underlined' },
             NvimTreeSymlinkIcon = { link = 'Directory' },
             NvimTreeFolderName = { fg = colors.base0 }, -- (Directory)

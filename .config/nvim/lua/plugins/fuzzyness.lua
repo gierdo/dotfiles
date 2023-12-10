@@ -138,4 +138,14 @@ return {
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	'fannheyward/telescope-coc.nvim',
 	'nvim-telescope/telescope-github.nvim',
+	{
+		'nvim-pack/nvim-spectre',
+		config = function()
+			require('spectre').setup()
+			vim.cmd.command("Replace", "Spectre")
+		end,
+		dependencies = {
+			'nvim-lua/plenary.nvim'
+		}
+	},
 }
