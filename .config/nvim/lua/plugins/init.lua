@@ -103,12 +103,5 @@ return {
 			end
 		end
 	},
-	{
-		'https://codeberg.org/esensar/nvim-dev-container',
-		config = function()
-			require("devcontainer").setup {}
-		end,
-		dependencies = 'nvim-treesitter/nvim-treesitter'
-	},
 	'tpope/vim-sleuth',
 }
