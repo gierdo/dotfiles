@@ -123,7 +123,6 @@ alias gitlog='git log --graph --decorate=full --all --oneline'
 
 export SHELL=$(command -v bash)
 
-
 if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
   . "$HOME/.asdf/plugins/java/set-java-home.bash"
 else
@@ -131,3 +130,4 @@ else
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+

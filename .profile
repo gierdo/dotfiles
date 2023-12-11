@@ -30,6 +30,10 @@ PATH=$PATH:~/go/bin
 export GOPATH=~/go
 export GOPRIVATE=github.com
 
+if [ -f "$HOME/.ghcup/env" ]; then
+  . "$HOME/.ghcup/env"
+fi
+
 # Set up node environment
 PATH="$HOME/.npmpath/bin:$PATH"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
