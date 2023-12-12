@@ -118,6 +118,15 @@
       "yamlfmt"
     ]
   },
+  "diagnostic-languageserver.linters": {
+    "flake8": {
+      "command": "flake8",
+      "args": [
+        "--extend-ignore",
+        "E501"
+      ]
+    }
+  },
   "diagnostic-languageserver.formatters": {
     "shfmt": {
       "comment": "indent with two spaces",
