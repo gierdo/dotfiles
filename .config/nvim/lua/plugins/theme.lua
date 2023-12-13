@@ -15,7 +15,7 @@ return {
           constants = {},
           parameters = {},
           keywords = {},
-          types = {},
+          types = { bold = true },
         },
         enables = {
           bufferline = true,
