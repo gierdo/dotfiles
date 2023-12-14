@@ -1,7 +1,7 @@
 local utils = require('utils')
 
 return {
-	'nvim-lua/plenary.nvim', -- lua base library
+	{ 'nvim-lua/plenary.nvim', lazy = true }, -- lua base library
 	{
 		'scrooloose/nerdcommenter',
 		config = function()
@@ -74,6 +74,7 @@ return {
 	'tpope/vim-fugitive',
 	{
 		'kevinhwang91/nvim-bqf',
+		event = 'VeryLazy',
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 			'junegunn/fzf'

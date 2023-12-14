@@ -1,6 +1,7 @@
 return {
   {
     "ThePrimeagen/refactoring.nvim",
+    event = 'VeryLazy',
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -52,6 +53,7 @@ return {
   },
   {
     "danymat/neogen",
+    event = 'VeryLazy',
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
     -- Uncomment next line if you want to follow only stable versions
@@ -59,6 +61,7 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ':TSUpdate',
     config = function()
       require 'nvim-treesitter.configs'.setup {

@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neotest/neotest",
+    event = 'VeryLazy',
     config = function()
       require("neotest").setup({
         adapters = {
@@ -31,10 +32,10 @@ return {
       "nvim-neotest/neotest-vim-test",
     }
   },
-  "antoinemadec/FixCursorHold.nvim",
-  "nvim-neotest/neotest-python",
-  "rcasia/neotest-java",
-  "nvim-neotest/neotest-jest",
-  "nvim-neotest/neotest-vim-test",
-  "vim-test/vim-test",
+  { 'antoinemadec/FixCursorHold.nvim', lazy = true },
+  { 'nvim-neotest/neotest-python',     lazy = true },
+  { 'rcasia/neotest-java',             lazy = true },
+  { 'nvim-neotest/neotest-jest',       lazy = true },
+  { 'nvim-neotest/neotest-vim-test',   lazy = true },
+  { 'vim-test/vim-test',               lazy = true },
 }

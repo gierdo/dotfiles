@@ -2,10 +2,12 @@ local utils = require("utils")
 return {
 	{
 		'junegunn/fzf',
+		lazy = true,
 		build = './install --all'
 	},
 	{
 		'gelguy/wilder.nvim',
+		event = "VeryLazy",
 		build = function()
 			vim.cmd("UpdateRemotePlugins")
 		end,
@@ -44,6 +46,7 @@ return {
 	},
 	{
 		'nvim-telescope/telescope.nvim',
+		event = 'VeryLazy',
 		branch = '0.1.x',
 		init = function()
 			vim.keymap.set('n', '<A-l>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
@@ -132,14 +135,19 @@ return {
 			'fannheyward/telescope-coc.nvim',
 			'nvim-telescope/telescope-github.nvim',
 			'nvim-telescope/telescope-fzf-native.nvim',
-			'junegunn/fzf'
 		}
 	},
-	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-	'fannheyward/telescope-coc.nvim',
-	'nvim-telescope/telescope-github.nvim',
+	{
+		'nvim-telescope/telescope-fzf-native.nvim',
+		lazy = true,
+		build = 'make',
+		dependencies = { 'junegunn/fzf' }
+	},
+	{ 'fannheyward/telescope-coc.nvim',       lazy = true },
+	{ 'nvim-telescope/telescope-github.nvim', lazy = true },
 	{
 		'nvim-pack/nvim-spectre',
+		event = "VeryLazy",
 		config = function()
 			require('spectre').setup()
 			vim.cmd.command("Replace", "Spectre")
