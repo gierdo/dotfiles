@@ -20,7 +20,7 @@ return {
         enables = {
           bufferline = true,
           cmp = true,
-          diagnostic = true,
+          diagnostic = false,
           dashboard = true,
           editor = true,
           gitsign = true,
@@ -42,8 +42,8 @@ return {
         },
         highlights = function(colors, colorhelper)
           return {
-            NvimTreeWinSeparator = { link = 'WinSeparator' },     -- Use normal window separator lines for nvim tree
-            CocFadeOut = { fg = colors.info, bg = colors.base1 }, -- Change background of diagnostic-info-sections
+            NvimTreeWinSeparator = { link = 'WinSeparator' }, -- Use normal window separator lines for nvim tree
+            CocUnusedHighlight = { link = 'DiagnosticHint' }, -- Change background of diagnostic-info-sections
           }
         end,
         colors = {},
