@@ -92,18 +92,10 @@ return {
           url = "http://localhost:9741/v1/chat/completions",
           display_name = "llama.cpp",
           api_key = {
-            env = "OPENAI_API_KEY",
             value = nil,
-            -- `get` is is a function that retrieves an API key, can be used to override the default method.
-            -- get = function() ... end
-
-            -- Here is some code for a function that retrieves an API key. You can use it with
-            -- the Linux 'pass' application.
-            -- get = function()
-            --     local key = vim.fn.system("pass show openai/mytestkey")
-            --     key = string.gsub(key, "\n", "")
-            --     return key
-            -- end,
+            get = function()
+              return ""
+            end,
           },
         },
         shortcuts = {
