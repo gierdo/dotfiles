@@ -11,4 +11,4 @@ Volume=${HOME}/.local/lib/llama/models:/models
 PublishPort=9741:8000
 Environment=MODEL=/models/codellama-13b-instruct.Q4_K_M.gguf
 Environment=HSA_OVERRIDE_GFX_VERSION=11.0.2
-Exec= sh -c "python3 -m llama_cpp.server --n_gpu_layers 15 --host 0.0.0.0 --port 8000"
+Exec= sh -c "python3 -m llama_cpp.server --n_gpu_layers 10 --host 0.0.0.0 --port 8000"
