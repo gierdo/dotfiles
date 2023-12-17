@@ -9,4 +9,4 @@ Annotation="run.oci.keep_original_groups=1"
 Volume=${HOME}/.local/lib/llama/models:/models
 PublishPort=9741:8000
 Environment=MODEL=/models/codellama-13b-instruct.Q4_K_M.gguf
-Exec= sh -c "python3 -m llama_cpp.server --n_batch 2048 --n_ctx 2048 --n_gpu_layers 30 --host 0.0.0.0 --port 8000"
+Exec= sh -c "python3 -m llama_cpp.server --numa True --n_batch 2048 --n_ctx 2048 --n_gpu_layers 30 --host 0.0.0.0 --port 8000"
