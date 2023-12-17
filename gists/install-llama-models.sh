@@ -17,3 +17,4 @@ function install_model() {
 }
 
 install_model https://huggingface.co/TheBloke/CodeLlama-13B-Instruct-GGUF/resolve/main/codellama-13b-instruct.Q4_K_M.gguf codellama-13b-instruct.Q4_K_M.gguf
+install_model https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF/resolve/main/codellama-7b-instruct.Q4_K_M.gguf codellama-7b-instruct.Q4_K_M.gguf
