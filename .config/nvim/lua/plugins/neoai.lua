@@ -80,7 +80,7 @@ return {
           context_prompt = function(context)
             return "I'd like to provide some context for future "
                 .. "messages. Here is what I want to refer "
-                .. "to in our upcoming conversations:\n\n"
+                .. "to in our upcoming conversations (TEXT/CODE ONLY):\n\n"
                 .. context
           end,
         },
