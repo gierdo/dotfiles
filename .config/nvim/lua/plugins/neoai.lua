@@ -63,7 +63,7 @@ return {
         models = {
           {
             name = "openai",
-            model = "codellama",
+            model = "mistral",
             params = nil,
           },
         },

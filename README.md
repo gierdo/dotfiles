@@ -41,10 +41,6 @@ The server is started automatically, using systemd and podman.
 The current setup uses iGPU accelerated inference on an _AMD Ryzen 7 PRO 7840U
 w/ Radeon 780M Graphics_, but pure CPU inference is also possible.
 
-It expects the [13B codellama instruct
-model](https://huggingface.co/TheBloke/CodeLlama-13B-Instruct-GGUF) at
-`~/.cache/llama/models/codellama-13b-instruct.Q4_K_M.gguf`
-
 ## grub
 
 ```

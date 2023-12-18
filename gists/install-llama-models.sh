@@ -16,5 +16,5 @@ function install_model() {
   fi
 }
 
-install_model https://huggingface.co/TheBloke/CodeLlama-13B-Instruct-GGUF/resolve/main/codellama-13b-instruct.Q4_K_M.gguf codellama-13b-instruct.Q4_K_M.gguf
 install_model https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF/resolve/main/codellama-7b-instruct.Q4_K_M.gguf codellama-7b-instruct.Q4_K_M.gguf
+install_model https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf mistral-7b-instruct-v0.2.Q4_K_M.gguf
