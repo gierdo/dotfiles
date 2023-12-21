@@ -50,6 +50,11 @@ vim.cmd("let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'")
 vim.cmd.set("wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/**,node_modules/**,.git/*,svn/*,.ctags")
 
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  command = "setlocal spell spelllang=en_gb,de_de",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   command = "setlocal spell spelllang=en_gb,de_de",
 })
