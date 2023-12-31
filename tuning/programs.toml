@@ -150,6 +150,21 @@ state = "present"
 
 
 [[jobs]]
+name = "install neovim"
+type = "command"
+command = "bash"
+argv = [
+  "-c",
+  '''\
+  asdf plugin-add neovim \
+  && asdf install neovim latest \
+  && asdf global neovim latest
+  '''
+]
+when = "{{ has_executable(exe='asdf') }}"
+
+
+[[jobs]]
 name = "install aws cli v2"
 type = "command"
 command = "bash"
