@@ -42,3 +42,7 @@
 	path = .config/ranger/plugins/ranger_devicons
 	url = https://github.com/alexanderjeurissen/ranger_devicons
 	branch = main
+[submodule "zsh-plugins/evalcache"]
+	path = zsh-plugins/evalcache
+	url = https://github.com/mroth/evalcache
+	branch = master

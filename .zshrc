@@ -91,6 +91,7 @@ plugins=(
 SHARE_HISTORY="true"
 
 # Manually installed plugins
+source ~/.dotfiles/zsh-plugins/evalcache/evalcache.plugin.zsh
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
@@ -150,18 +151,18 @@ alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name |
 alias fucking='sudo '
 
 if command -v thefuck 1>/dev/null 2>&1; then
-  eval $(thefuck --alias)
+  _evalcache thefuck --alias
 fi
 
 alias :q='exit'
 alias :wq='exit'
 
 if command -v pipenv 1>/dev/null 2>&1; then
-  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+  _evalcache _PIPENV_COMPLETE=zsh_source pipenv
 fi
 
 if command -v direnv 1>/dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
+  _evalcache direnv hook zsh
 fi
 
 if command -v nvim 1>/dev/null 2>&1; then
@@ -185,5 +186,5 @@ if [ -f "$HOME/.fzf.zsh" ]; then
 fi
 
 if command -v atuin 1>/dev/null 2>&1; then
-  eval "$(atuin init zsh)"
+  _evalcache atuin init zsh
 fi
