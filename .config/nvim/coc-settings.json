@@ -107,9 +107,6 @@
     "ruby": [
       "rubocop"
     ],
-    "typescript": [
-      "eslint"
-    ],
     "kotlin": [
       "ktlint"
     ],
@@ -140,6 +137,7 @@
     "--background-index",
     "--fallback-style=google"
   ],
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "coc.source.buffer.enable": true,
   "coc.source.buffer.priority": 1,
   "coc.preferences.formatOnType": true,
