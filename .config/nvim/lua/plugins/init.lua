@@ -68,7 +68,6 @@ return {
 			vim.cmd("nmap <silent> <F8> :Vista!!<CR>")
 		end
 	},
-	'godlygeek/tabular',
 	'dhruvasagar/vim-table-mode',
 	'airblade/vim-gitgutter',
 	'tpope/vim-fugitive',
