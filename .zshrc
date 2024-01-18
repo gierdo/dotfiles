@@ -91,15 +91,7 @@ plugins=(
 SHARE_HISTORY="true"
 
 # Manually installed plugins
-source ~/.dotfiles/zsh-plugins/evalcache/evalcache.plugin.zsh
-
-source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
-
-source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
-
-source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
+fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
 fpath=(/usr/share/zsh/vendor-completions $fpath)
 
@@ -107,11 +99,21 @@ fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/forgit/completions $fpath)
 
-fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
-
 fpath=(~/.zfunc $fpath)
 
 fpath=(~/.local/share/zsh/site-functions $fpath)
+
+source ~/.dotfiles/zsh-plugins/fzf-custom/fzf.zsh
+
+source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
+
+source ~/.dotfiles/zsh-plugins/evalcache/evalcache.plugin.zsh
+
+source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
+
+source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
 
 # Allow completing of sbin entries for sudo
 zstyle ':completion:*:sudo::' environ PATH="/sbin:/usr/sbin:$PATH"
