@@ -80,6 +80,7 @@ return {
 			tree.setup(
 				{
 					on_attach = my_on_attach,
+					open_on_tab = true,
 					view = {
 						adaptive_size = true
 					},
