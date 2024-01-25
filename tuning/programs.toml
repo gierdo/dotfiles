@@ -70,6 +70,7 @@ packages = [
   "mvdan.cc/sh/v3/cmd/shfmt",
   "gitlab.com/gitlab-org/cli/cmd/glab",
   "github.com/Gelio/go-global-update",
+  "github.com/jesseduffield/lazygit",
   "mvdan.cc/sh/v3/cmd/shfmt",
   "golang.org/x/tools/gopls",
   "golang.org/x/lint/golint",
