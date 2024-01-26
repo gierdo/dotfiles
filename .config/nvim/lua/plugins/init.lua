@@ -91,17 +91,21 @@ return {
 	},
 	'jamessan/vim-gnupg',
 	'aklt/plantuml-syntax',
+	'tyru/open-browser.vim',
 	{
-		'previm/previm',
+		'weirongxu/plantuml-previewer.vim',
+		dependencies = {
+			'tyru/open-browser.vim',
+		}
+	},
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
 		init = function()
-			-- If x-www-browser is not set, assume firefox
-			local x_browser = 'x-www-browser'
-			if vim.fn.executable(x_browser) == 1 then
-				vim.g.previm_open_cmd = x_browser
-			else
-				vim.g.previm_open_cmd = 'firefox'
-			end
-		end
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
 	},
 	'tpope/vim-sleuth',
 }
