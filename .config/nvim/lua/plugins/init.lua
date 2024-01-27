@@ -91,7 +91,23 @@ return {
 	},
 	'jamessan/vim-gnupg',
 	'aklt/plantuml-syntax',
-	'tyru/open-browser.vim',
+	{
+		'tyru/open-browser.vim',
+		config = function()
+			vim.cmd [[
+			let g:openbrowser_browser_commands = [
+				\ {"name": "firefox",
+				\  "args": ["{browser}", "{uri}"]},
+				\ {"name": "xdg-open",
+				\  "args": ["{browser}", "{uri}"]},
+				\ {"name": "x-www-browser",
+				\  "args": ["{browser}", "{uri}"]},
+				\ {"name": "w3m",
+				\  "args": ["{browser}", "{uri}"]},
+				\ ]
+			]]
+		end
+	},
 	{
 		'weirongxu/plantuml-previewer.vim',
 		dependencies = {
@@ -104,6 +120,7 @@ return {
 		build = "cd app && yarn install",
 		init = function()
 			vim.g.mkdp_filetypes = { "markdown" }
+			vim.g.mkdp_browser = "firefox"
 		end,
 		ft = { "markdown" },
 	},
