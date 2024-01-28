@@ -112,7 +112,10 @@ return {
 		'weirongxu/plantuml-previewer.vim',
 		dependencies = {
 			'tyru/open-browser.vim',
-		}
+		},
+		config = function()
+			vim.g.plantuml_previewer_plantuml_jar_path = vim.env.HOME .. ".local/share/plantuml/plantuml.jar"
+		end
 	},
 	{
 		"iamcco/markdown-preview.nvim",
