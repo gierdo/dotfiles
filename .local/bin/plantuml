@@ -1,11 +1,14 @@
 #!/bin/bash
 
 PLANTUML_PATH="${HOME}/.local/share/plantuml"
+PLANTUML_JAR="plantuml.jar"
 
 mkdir -p "$PLANTUML_PATH"
 
-if [ ! -f "$PLANTUML_PATH/plantuml.jar" ]; then
-  wget -P "${PLANTUML_PATH}" https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
+if [ ! -f "$PLANTUML_PATH/$PLANTUML_JAR" ] || [ "$*" = "--update" ]; then
+  wget -O "${PLANTUML_PATH}/$PLANTUML_JAR" https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
+else
+  echo "Update plantuml with --update"
 fi
 
-java -jar "${PLANTUML_PATH}/plantuml.jar" "$@"
+java -jar "${PLANTUML_PATH}/$PLANTUML_JAR" "$@"
