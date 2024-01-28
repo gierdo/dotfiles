@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PLANTUML_PATH="${HOME}/.local/share/plantuml"
+
+mkdir -p "$PLANTUML_PATH"
+
+if [ ! -f "$PLANTUML_PATH/plantuml.jar" ]; then
+  wget -P "${PLANTUML_PATH}" https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
+fi
+
+java -jar "${PLANTUML_PATH}/plantuml.jar" "$@"
