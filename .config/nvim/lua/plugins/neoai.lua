@@ -78,10 +78,14 @@ return {
         },
         prompts = {
           context_prompt = function(context)
-            return "I'd like to provide some context for future "
-                .. "messages. Here is what I want to refer "
-                .. "to in our upcoming conversations (TEXT/CODE ONLY):\n\n"
+            return "Please only follow instructions or answer to questions. Be concise. "
+                .. "I'd like to provide some context for future "
+                .. "messages. Here is the code/text that I want to refer "
+                .. "to in our upcoming conversations:\n\n"
                 .. context
+          end,
+          default_prompt = function()
+            return "Please only follow instructions or answer to questions. Be concise."
           end,
         },
         mappings = {
