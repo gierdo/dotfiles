@@ -76,18 +76,6 @@ return {
         inject = {
           cutoff_width = 75,
         },
-        prompts = {
-          context_prompt = function(context)
-            return "Please only follow instructions or answer to questions. Be concise. "
-                .. "I'd like to provide some context for future "
-                .. "messages. Here is the code/text that I want to refer "
-                .. "to in our upcoming conversations:\n\n"
-                .. context
-          end,
-          default_prompt = function()
-            return "Please only follow instructions or answer to questions. Be concise."
-          end,
-        },
         mappings = {
           ["select_up"] = "<C-k>",
           ["select_down"] = "<C-j>",
@@ -101,36 +89,6 @@ return {
               return ""
             end,
           },
-        },
-        shortcuts = {
-          --        {
-          --            name = "textify",
-          --            key = "<leader>as",
-          --            desc = "fix text with AI",
-          --            use_context = true,
-          --            prompt = [[
-          --                Please rewrite the text to make it more readable, clear,
-          --                concise, and fix any grammatical, punctuation, or spelling
-          --                errors
-          --            ]],
-          --            modes = { "v" },
-          --            strip_function = nil,
-          --        },
-          --        {
-          --            name = "gitcommit",
-          --            key = "<leader>ag",
-          --            desc = "generate git commit message",
-          --            use_context = false,
-          --            prompt = function()
-          --                return [[
-          --                    Using the following git diff generate a consise and
-          --                    clear git commit message, with a short title summary
-          --                    that is 75 characters or less:
-          --                ]] .. vim.fn.system("git diff --cached")
-          --            end,
-          --            modes = { "n" },
-          --            strip_function = nil,
-          --        },
         },
       })
     end,
