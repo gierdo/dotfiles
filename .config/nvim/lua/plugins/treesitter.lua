@@ -61,6 +61,9 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'tadmccorkle/markdown.nvim'
+    },
     lazy = false,
     build = ':TSUpdate',
     config = function()
@@ -103,6 +106,10 @@ return {
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = { 'markdown' },
+
+          markdown = {
+            enable = true
+          }
         },
       }
     end
