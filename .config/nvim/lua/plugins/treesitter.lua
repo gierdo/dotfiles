@@ -79,7 +79,11 @@ return {
         auto_install = false,
 
         -- List of parsers to ignore installing (or "all")
-        ignore_install = { "javascript" },
+        ignore_install = {
+          "javascript",
+          "jsdoc",
+          "bicep"
+        },
 
         ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
         -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -105,7 +109,7 @@ return {
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = { 'markdown' },
+          additional_vim_regex_highlighting = {},
 
           markdown = {
             enable = true
