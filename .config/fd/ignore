@@ -6,14 +6,15 @@ tags
 *.jar
 *.ser
 
-.git
-.svn
 .bzr
-.hg
-.pc
-.dep
-.dot
-.nib
-.plst
 .cache
 .clangd
+.conan
+.dep
+.dot
+.git
+.hg
+.nib
+.pc
+.plst
+.svn
