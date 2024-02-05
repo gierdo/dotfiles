@@ -118,6 +118,13 @@ return {
 		end
 	},
 	{
+		"preservim/vim-markdown",
+
+		config = function()
+			vim.g.vim_markdown_folding_disabled = 1
+		end
+	},
+	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = "cd app && yarn install",
