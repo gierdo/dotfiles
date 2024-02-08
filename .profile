@@ -21,7 +21,6 @@ export EDITOR=nvim
 PATH="$HOME/.dotfiles/.local/bin:$PATH"
 PATH="$HOME/.yarn/bin:$PATH"
 PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-PATH="$HOME/.gem/ruby/current/bin:$PATH"
 PATH="$HOME/.luarocks/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 
