@@ -66,15 +66,16 @@ when = "{{ not has_executable(exe='rofi') }}"
 type = "installergo"
 name = "Install go dependencies"
 packages = [
-  "github.com/google/yamlfmt/cmd/yamlfmt",
-  "mvdan.cc/sh/v3/cmd/shfmt",
-  "gitlab.com/gitlab-org/cli/cmd/glab",
   "github.com/Gelio/go-global-update",
+  "github.com/google/yamlfmt/cmd/yamlfmt",
+  "github.com/jesseduffield/lazydocker",
   "github.com/jesseduffield/lazygit",
-  "mvdan.cc/sh/v3/cmd/shfmt",
-  "golang.org/x/tools/gopls",
+  "gitlab.com/gitlab-org/cli/cmd/glab",
   "golang.org/x/lint/golint",
   "golang.org/x/tools/cmd/goimports",
+  "golang.org/x/tools/gopls",
+  "mvdan.cc/sh/v3/cmd/shfmt",
+  "mvdan.cc/sh/v3/cmd/shfmt",
 ]
 state = "latest"
 
@@ -143,9 +144,11 @@ type = "installercargo"
 crates = [
   "atuin",
   "cargo-updater",
+  "exa",
+  "fd-find",
   "git-delta",
   "ripgrep",
-  "fd-find",
+  "zoxide",
 ]
 state = "present"
 

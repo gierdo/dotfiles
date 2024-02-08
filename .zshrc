@@ -167,6 +167,10 @@ if command -v direnv 1>/dev/null 2>&1; then
   _evalcache direnv hook zsh
 fi
 
+if command -v zoxide 1>/dev/null 2>&1; then
+  _evalcache zoxide init zsh
+fi
+
 if command -v nvim 1>/dev/null 2>&1; then
   alias vim='nvim'
 fi
