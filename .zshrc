@@ -193,7 +193,7 @@ alias :wq='exit'
 alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
 alias ctop_podman='podman run --rm -ti \
   --name=ctop \
-  --volume /run/user/$(id -u)/podman/podman.sock:/var/run/docker.sock:ro \
+  --volume $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock:ro \
   quay.io/vektorlab/ctop:latest'
 
 alias ctop='docker run --rm -ti \

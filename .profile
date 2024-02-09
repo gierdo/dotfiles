@@ -112,6 +112,11 @@ if command -v keychain 1>/dev/null 2>&1; then
   eval "$(keychain -q --eval id_rsa)"
 fi
 
+# Use the podman socket as replacement for docker, to be used by testcontainers etc.
+if command -v podman 1>/dev/null 2>&1; then
+  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+fi
+
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
