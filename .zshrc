@@ -147,17 +147,10 @@ if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
   source "$HOME/.asdf/plugins/java/set-java-home.zsh"
 fi
 
-alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
-
-# Funny fun:
-alias fucking='sudo '
 
 if command -v thefuck 1>/dev/null 2>&1; then
   _evalcache thefuck --alias
 fi
-
-alias :q='exit'
-alias :wq='exit'
 
 if command -v pipenv 1>/dev/null 2>&1; then
   _evalcache _PIPENV_COMPLETE=zsh_source pipenv
@@ -179,10 +172,6 @@ if command -v aws 1>/dev/null 2>&1; then
   export AWS_CLI_AUTO_PROMPT=on-partial
 fi
 
-if [ -f "$HOME/.zshrc.local" ]; then
-  source "$HOME/.zshrc.local"
-fi
-
 if [ -d "$HOME/.local/share/nvim/lazy/fzf/bin" ]; then
   export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
 fi
@@ -193,4 +182,25 @@ fi
 
 if command -v atuin 1>/dev/null 2>&1; then
   _evalcache atuin init zsh
+fi
+
+# Generic Aliases
+alias fucking='sudo '
+
+alias :q='exit'
+alias :wq='exit'
+
+alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
+alias ctop_podman='podman run --rm -ti \
+  --name=ctop \
+  --volume /run/user/1000/podman/podman.sock:/var/run/docker.sock:ro \
+  quay.io/vektorlab/ctop:latest'
+
+alias ctop='docker run --rm -ti \
+  --name=ctop \
+  --volume /var/run/docker.sock:/var/run/docker.sock:ro \
+  quay.io/vektorlab/ctop:latest'
+
+if [ -f "$HOME/.zshrc.local" ]; then
+  source "$HOME/.zshrc.local"
 fi
