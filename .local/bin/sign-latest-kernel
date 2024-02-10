@@ -4,28 +4,30 @@ TMP_UNPACKED="tmp-unpacked-package"
 
 if [ -d "$TMP_UNPACKED" ]; then rm -Rf "$TMP_UNPACKED"; fi
 
-KERNEL_PACKAGE=$(find ./ -name "linux-image-*_amd64.deb" ! -name "*dbg*.deb" | sort -r | head -n1)
+KERNEL_PACKAGE=""
+if [ "$*" == "" ]; then
+  KERNEL_PACKAGE=$(find ./ -name "linux-image-*_amd64.deb" ! -name "*dbg*.deb" | sort -r | head -n1)
+else
+  KERNEL_PACKAGE="$*"
+fi
 
 SIGNING_KEY="linux/certs/signing_key.pem"
 
-if [ ! -f "$SIGNING_KEY" ]
-then
-    echo "No signing key found. Please create $SIGNING_KEY"
-    exit 1
+if [ ! -f "$SIGNING_KEY" ]; then
+  echo "No signing key found. Please create $SIGNING_KEY"
+  exit 1
 fi
 
-if [ ! -f "$KERNEL_PACKAGE" ]
-then
-    echo "There appears to be no kernel package here."
-    exit 1
+if [ ! -f "$KERNEL_PACKAGE" ]; then
+  echo "There appears to be no kernel package here."
+  exit 1
 else
   echo "Trying to sign the kernel package $KERNEL_PACKAGE"
 fi
 
-if [ -f "$KERNEL_PACKAGE.unsigned" ]
-then
-    echo "You appear to already have signed the kernel. There is a package $KERNEL_PACKAGE.unsigned"
-    exit 1
+if [ -f "$KERNEL_PACKAGE.unsigned" ]; then
+  echo "You appear to already have signed the kernel. There is a package $KERNEL_PACKAGE.unsigned"
+  exit 1
 fi
 
 dpkg-deb --raw-extract "$KERNEL_PACKAGE" "$TMP_UNPACKED"
