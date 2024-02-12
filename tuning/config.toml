@@ -41,6 +41,13 @@ path = "{{ home_dir }}/.config/containers/registries.conf"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/containers/storage.conf"
+path = "{{ home_dir }}/.config/containers/storage.conf"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/ctags/config.ctags"
 path = "{{ home_dir }}/.config/ctags/config.ctags"
 
