@@ -146,6 +146,7 @@ crates = [
   "exa",
   "fd-find",
   "git-delta",
+  "mise",
   "ripgrep",
   "zoxide",
 ]
@@ -153,18 +154,17 @@ state = "present"
 
 
 [[jobs]]
-name = "install asdf plugins and tools"
+name = "install mise plugins and tools"
 type = "command"
 command = "bash"
+needs = ["install rust dependencies"]
 argv = [
   "-c",
   '''\
   cd \
-  && cat .tool-versions | cut -d' ' -f1 | grep "^[^\#]" | xargs -i asdf plugin add  {} \
-  && asdf install
+  && mise install -y
   '''
 ]
-when = "{{ has_executable(exe='asdf') }}"
 
 
 [[jobs]]

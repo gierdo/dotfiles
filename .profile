@@ -18,14 +18,20 @@ fi
 
 export EDITOR=nvim
 
-PATH="$HOME/.dotfiles/.local/bin:$PATH"
-PATH="$HOME/.yarn/bin:$PATH"
-PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-PATH="$HOME/.luarocks/bin:$PATH"
-PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.dotfiles/.local/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.luarocks/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
+
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # set up go as needed. GOPRIVATE is set up together with .gitconfig
-PATH=$PATH:~/go/bin
+export PATH=$PATH:~/go/bin
 export GOPATH=~/go
 export GOPRIVATE=github.com
 
@@ -43,16 +49,8 @@ if [ -d "/usr/lib/ccache" ]; then
   PATH="/usr/lib/ccache:$PATH"
 fi
 
-if [ -f "$HOME/.dotfiles/asdf/asdf.sh" ]; then
-  . "$HOME/.dotfiles/asdf/asdf.sh"
-fi
-
 export ANDROID_HOME=~/.android-sdks
-if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
-  . "$HOME/.asdf/plugins/java/set-java-home.bash"
-else
-  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
-fi
+export JAVA_HOME="$(dirname $(dirname $(readlink -f $(which javac))))"
 
 if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
   export PYENV_ROOT="$HOME/.dotfiles/pyenv"
@@ -118,10 +116,6 @@ export GPG_TTY=$(tty)
 # Use the podman socket as replacement for docker, to be used by testcontainers etc.
 if command -v podman 1>/dev/null 2>&1; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
-fi
-
-if [ -f "$HOME/.cargo/env" ]; then
-  . "$HOME/.cargo/env"
 fi
 
 if [ -f "$HOME/.profile.local" ]; then

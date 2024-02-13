@@ -383,8 +383,8 @@ path = "{{ home_dir }}/.tmux.conf"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.tool-versions"
-path = "{{ home_dir }}/.tool-versions"
+src = "{{ home_dir }}/.dotfiles/.config/mise/config.toml"
+path = "{{ home_dir }}/.config/mise/config.toml"
 
 [[jobs]]
 type = "file"

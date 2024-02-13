@@ -123,11 +123,8 @@ alias gitlog='git log --graph --decorate=full --all --oneline'
 
 export SHELL=$(command -v bash)
 
-if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
-  . "$HOME/.asdf/plugins/java/set-java-home.bash"
-else
-  export JAVA_HOME="$(dirname $(dirname $(readlink -f /usr/bin/javac)))"
+if command -v mise 1>/dev/null 2>&1; then
+  eval "$(mise activate bash)"
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-

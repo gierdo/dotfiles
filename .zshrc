@@ -64,7 +64,7 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  asdf
+  mise
   aws
   colored-man-pages
   cp
@@ -138,14 +138,6 @@ setopt +o nomatch
 # else
 #   export EDITOR='nvim'
 # fi
-
-if [ -f "$HOME/.dotfiles/asdf/completions/asdf.bash" ]; then
-  source "$HOME/.dotfiles/asdf/completions/asdf.bash"
-fi
-
-if [ -f "$HOME/.asdf/plugins/java/set-java-home.zsh" ]; then
-  source "$HOME/.asdf/plugins/java/set-java-home.zsh"
-fi
 
 
 if command -v thefuck 1>/dev/null 2>&1; then
