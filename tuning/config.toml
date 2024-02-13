@@ -383,6 +383,13 @@ path = "{{ home_dir }}/.tmux.conf"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.tool-versions"
+path = "{{ home_dir }}/.tool-versions"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.Xdefaults"
 path = "{{ home_dir }}/.Xdefaults"
 

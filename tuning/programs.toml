@@ -75,7 +75,6 @@ packages = [
   "golang.org/x/tools/cmd/goimports",
   "golang.org/x/tools/gopls",
   "mvdan.cc/sh/v3/cmd/shfmt",
-  "mvdan.cc/sh/v3/cmd/shfmt",
 ]
 state = "latest"
 
@@ -154,33 +153,18 @@ state = "present"
 
 
 [[jobs]]
-name = "install neovim"
+name = "install asdf plugins and tools"
 type = "command"
 command = "bash"
 argv = [
   "-c",
   '''\
-  asdf plugin-add neovim \
-  && asdf install neovim latest \
-  && asdf global neovim latest
+  cd \
+  && cat .tool-versions | cut -d' ' -f1 | grep "^[^\#]" | xargs -i asdf plugin add  {} \
+  && asdf install
   '''
 ]
 when = "{{ has_executable(exe='asdf') }}"
-
-
-[[jobs]]
-name = "install aws cli v2"
-type = "command"
-command = "bash"
-argv = [
-  "-c",
-  '''\
-  asdf plugin-add awscli \
-  && asdf install awscli latest \
-  && asdf global awscli latest
-  '''
-]
-when = "{{ not has_executable(exe='aws') }}"
 
 
 [[jobs]]
