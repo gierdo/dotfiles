@@ -175,13 +175,9 @@ command = "bash"
 argv = [
   "-c",
   '''\
-  mkdir -p ~/Downloads/awscli \
-  && cd ~/Downloads/awscli \
-  && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-  && unzip awscliv2.zip \
-  && ./aws/install -i ~/.local/aws-cli -b ~/.local/bin --update \
-  && cd \
-  && rm -rf ~/Downloads/awscli \
+  asdf plugin-add awscli \
+  && asdf install awscli latest \
+  && asdf global awscli latest
   '''
 ]
 when = "{{ not has_executable(exe='aws') }}"
