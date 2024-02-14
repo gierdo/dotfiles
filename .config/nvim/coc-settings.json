@@ -146,6 +146,15 @@
         "-i",
         "2"
       ]
+    },
+    "ktlint": {
+      "command": "ktlint",
+      "isStdout": false,
+      "doesWriteToFile": true,
+      "args": [
+        "-F",
+        "%file",
+      ]
     }
   },
   "clangd.arguments": [
