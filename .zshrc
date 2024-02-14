@@ -68,20 +68,13 @@ plugins=(
   aws
   colored-man-pages
   cp
-  dirhistory
-  docker
   fancy-ctrl-z
-  gh
   git
-  git-escape-magic
-  git-extras
-  golang
-  helm
   mvn
+  pyenv
   pipenv
   virtualenv
   poetry
-  pyenv
   rust
   sudo
 )
@@ -97,7 +90,6 @@ fpath=(/usr/share/zsh/vendor-completions $fpath)
 
 fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
-fpath=(~/.dotfiles/zsh-plugins/forgit/completions $fpath)
 
 fpath=(~/.zfunc $fpath)
 
@@ -114,6 +106,7 @@ source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.p
 source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
+fpath=(~/.dotfiles/zsh-plugins/forgit/completions $fpath)
 
 # Allow completing of sbin entries for sudo
 zstyle ':completion:*:sudo::' environ PATH="/sbin:/usr/sbin:$PATH"
@@ -132,20 +125,8 @@ source $ZSH/oh-my-zsh.sh
 # e.g. --set ingress.hosts[0]=flerb.bar
 setopt +o nomatch
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-
 if command -v thefuck 1>/dev/null 2>&1; then
   _evalcache thefuck --alias
-fi
-
-if command -v pipenv 1>/dev/null 2>&1; then
-  _evalcache _PIPENV_COMPLETE=zsh_source pipenv
 fi
 
 if command -v direnv 1>/dev/null 2>&1; then
