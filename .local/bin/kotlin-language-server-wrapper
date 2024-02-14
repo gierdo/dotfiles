@@ -1,0 +1,16 @@
+#!/bin/bash
+
+KOTLIN_LANGUAGE_SERVER_PATH="${HOME}/.local/share/kotlin-language-server"
+KOTLIN_LANGUAGE_SERVER="server/bin/kotlin-language-server"
+KOTLIN_LANGUAGE_SERVER_ARCHIVE="server.zip"
+
+mkdir -p "$KOTLIN_LANGUAGE_SERVER_PATH"
+
+if [ ! -f "$KOTLIN_LANGUAGE_SERVER_PATH/$KOTLIN_LANGUAGE_SERVER" ] || [ "$*" = "--update" ]; then
+  wget -O "${KOTLIN_LANGUAGE_SERVER_PATH}/$KOTLIN_LANGUAGE_SERVER_ARCHIVE" https://github.com/fwcd/kotlin-language-server/releases/latest/download/server.zip
+  unzip -o -d "$KOTLIN_LANGUAGE_SERVER_PATH" "$KOTLIN_LANGUAGE_SERVER_PATH/$KOTLIN_LANGUAGE_SERVER_ARCHIVE"
+  chmod +x "$KOTLIN_LANGUAGE_SERVER_PATH/$KOTLIN_LANGUAGE_SERVER"
+  rm "$KOTLIN_LANGUAGE_SERVER_PATH/$KOTLIN_LANGUAGE_SERVER_ARCHIVE"
+fi
+
+exec "${KOTLIN_LANGUAGE_SERVER_PATH}/$KOTLIN_LANGUAGE_SERVER" "$@"
