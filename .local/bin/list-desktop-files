@@ -1,5 +1,7 @@
 #!/bin/bash
 
-for p in ${XDG_DATA_DIRS//:/ }; do
-  find "$p/applications" -name '*.desktop'
+DATA_DIRS=$XDG_DATA_DIRS:${HOME}/.local/share/
+
+for p in ${DATA_DIRS//:/ }; do
+  find "${p}/applications" -name '*.desktop'
 done
