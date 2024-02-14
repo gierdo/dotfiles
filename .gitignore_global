@@ -13,4 +13,5 @@ node_modules
 .settings
 tags
 .tool-versions
+.mise.toml
 .vim
