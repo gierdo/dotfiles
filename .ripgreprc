@@ -4,6 +4,7 @@
 
 # exclude specific directories
 --glob=!**/.{conan,git,svn,bzr,hg,pc,dep,dot,nib,plst,*cache,clangd}/*
+--glob=!**/{python-build,__pycache__,site-packages}/*
 --glob=!**/{node_modules}/*
 
 # exclude specific filetypes
