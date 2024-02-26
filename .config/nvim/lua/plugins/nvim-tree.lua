@@ -75,6 +75,9 @@ return {
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
 		end,
+		enabled = function()
+			return vim.g.started_by_firenvim ~= true
+		end,
 		config = function()
 			local tree = require("nvim-tree")
 			tree.setup(

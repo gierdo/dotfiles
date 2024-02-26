@@ -57,6 +57,9 @@ return {
     dependencies = {
       { 'nvim-tree/nvim-web-devicons' }
     },
+    enabled = function()
+      return vim.g.started_by_firenvim ~= true
+    end,
     config = function()
       require('lualine').setup {
         options = {
