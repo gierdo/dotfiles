@@ -18,7 +18,8 @@ return {
 						selector = 'textarea:not([readonly], [aria-readonly]), div[role="textbox"]',
 						takeover = "always"
 					},
-					["https?://teams\\.microsoft\\.com/.*"] = { takeover = 'never', priority = 1 }
+					["https?://teams\\.microsoft\\.com/.*"] = { takeover = 'never', priority = 1 },
+					["https?://app\\.slack\\.com/.*"] = { takeover = 'never', priority = 1 },
 				}
 			}
 		end
