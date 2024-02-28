@@ -20,6 +20,7 @@ return {
 					},
 					["https?://teams\\.microsoft\\.com/.*"] = { takeover = 'never', priority = 1 },
 					["https?://app\\.slack\\.com/.*"] = { takeover = 'never', priority = 1 },
+					["https?://app\\.mural\\.co/.*"] = { takeover = 'never', priority = 1 },
 				}
 			}
 		end
