@@ -15,7 +15,7 @@ return {
 						cmdline  = "neovim",
 						content  = "text",
 						priority = 0,
-						selector = 'textarea:not([readonly], [aria-readonly]), div[role="textbox"]',
+						selector = 'textarea:not([readonly], [aria-readonly], [aria-autocomplete]), div[role="textbox"]',
 						takeover = "always"
 					},
 					["https?://teams\\.microsoft\\.com/.*"] = { takeover = 'never', priority = 1 },
