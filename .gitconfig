@@ -51,6 +51,8 @@
 [core]
   excludesfile = ~/.gitignore_global
   pager = delta
+[protocol "file"]
+  allow = always
 [include]
   path = ~/.gitconfig.local
 [includeIf "gitdir:~/.dotfiles"]
