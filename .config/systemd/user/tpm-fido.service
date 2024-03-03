@@ -1,0 +1,10 @@
+[Unit]
+Description=tpm-fido - tpm2 as fido token
+
+[Service]
+Type=simple
+ExecStart=-/bin/bash -c 'PATH=~/go/bin:$PATH tpm-fido'
+Restart=no
+
+[Install]
+WantedBy=default.target

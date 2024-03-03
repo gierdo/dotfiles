@@ -6,3 +6,6 @@ src = "./programs.toml"
 
 [[includes]]
 src = "./resources.toml"
+
+[[includes]]
+src = "./systemd.toml"

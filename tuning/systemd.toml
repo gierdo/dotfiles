@@ -1,0 +1,76 @@
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/containers/systemd/llama.container"
+path = "{{ home_dir }}/.config/containers/systemd/llama.container"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/tpm-fido.service"
+path = "{{ home_dir }}/.config/systemd/user/tpm-fido.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/dunst.service"
+path = "{{ home_dir }}/.config/systemd/user/dunst.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/kanshi.service"
+path = "{{ home_dir }}/.config/systemd/user/kanshi.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/udiskie.service"
+path = "{{ home_dir }}/.config/systemd/user/udiskie.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/swayidle.service"
+path = "{{ home_dir }}/.config/systemd/user/swayidle.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "/dev/null"
+path = "{{ home_dir }}/.config/systemd/user/pipewire-session-manager.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "/dev/null"
+path = "{{ home_dir }}/.config/systemd/user/pulseaudio.service.service"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/sway-session.target"
+path = "{{ home_dir }}/.config/systemd/user/sway-session.target"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/sway-session.target.wants/"
+path = "{{ home_dir }}/.config/systemd/user/sway-session.target.wants"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/xsettingsd.service"
+path = "{{ home_dir }}/.config/systemd/user/xsettingsd.service"
