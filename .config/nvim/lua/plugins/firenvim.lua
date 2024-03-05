@@ -12,15 +12,8 @@ return {
 				globalSettings = { alt = "all" },
 				localSettings = {
 					[".*"] = {
-						cmdline  = "neovim",
-						content  = "text",
-						priority = 0,
-						selector = 'textarea:not([readonly], [aria-readonly], [aria-autocomplete]), div[role="textbox"]',
-						takeover = "always"
+						takeover = "never"
 					},
-					["https?://teams\\.microsoft\\.com/.*"] = { takeover = 'never', priority = 1 },
-					["https?://app\\.slack\\.com/.*"] = { takeover = 'never', priority = 1 },
-					["https?://app\\.mural\\.co/.*"] = { takeover = 'never', priority = 1 },
 				}
 			}
 		end
