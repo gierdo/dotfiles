@@ -84,6 +84,9 @@ return {
 		init = function()
 			vim.g.tex_flavor = 'latex'
 			vim.g.vimtex_syntax_enabled = 0
+			if vim.fn.executable('zathura') == 1 then
+				vim.g.vimtex_view_method = 'zathura'
+			end
 		end
 	},
 	{
