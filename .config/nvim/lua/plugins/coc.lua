@@ -1,7 +1,7 @@
 return {
   {
     'neoclide/coc.nvim',
-		event = "VeryLazy",
+    event = "VeryLazy",
     branch = 'master',
     build = 'yarn install --frozen-lockfile',
     init = function()
@@ -31,7 +31,7 @@ return {
         'coc-snippets',
         'coc-sumneko-lua',
         'coc-tsserver',
-        'coc-vimtex',
+        'coc-texlab',
         'coc-xml',
         'coc-yaml',
       }
