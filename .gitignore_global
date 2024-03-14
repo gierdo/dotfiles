@@ -15,3 +15,14 @@ tags
 .tool-versions
 .mise.toml
 .vim
+
+# LaTeX
+*.fdb_latexmk
+*.fls
+*.snm
+*.synctex.gz
+*.out
+*.log
+*.nav
+*.aux
+*.toc
