@@ -104,6 +104,13 @@ path = "{{ home_dir }}/.config/nvim/coc-settings.json"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/coc/ultisnips/markdown.snippets"
+path = "{{ home_dir }}/.config/coc/ultisnips/markdown.snippets"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/ranger/rc.conf"
 path = "{{ home_dir }}/.config/ranger/rc.conf"
 
