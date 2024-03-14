@@ -23,6 +23,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.luarocks/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
 
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
