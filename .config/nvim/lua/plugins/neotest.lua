@@ -23,6 +23,7 @@ return {
       })
     end,
     dependencies = {
+      "nvim-neotest/nvim-nio",
       'nvim-treesitter/nvim-treesitter',
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
@@ -35,6 +36,7 @@ return {
   { 'antoinemadec/FixCursorHold.nvim', lazy = true },
   { 'nvim-neotest/neotest-python',     lazy = true },
   { 'rcasia/neotest-java',             lazy = true },
+  { 'nvim-neotest/nvim-nio',           lazy = true },
   { 'nvim-neotest/neotest-jest',       lazy = true },
   { 'nvim-neotest/neotest-vim-test',   lazy = true },
   { 'vim-test/vim-test',               lazy = true },
