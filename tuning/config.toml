@@ -357,3 +357,10 @@ state= "link"
 force = true
 src = "{{ home_dir }}/.dotfiles/.zshrc"
 path = "{{ home_dir }}/.zshrc"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.vimspector.json"
+path = "{{ home_dir }}/.vimspector.json"

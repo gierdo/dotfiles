@@ -65,6 +65,7 @@ return {
 			require('telescope').load_extension('coc')
 			require('telescope').load_extension('gh')
 			require('telescope').load_extension('fzf')
+			require('telescope').load_extension('vimspector')
 
 			local builtin = require('telescope.builtin')
 			local coc_builtin = require('telescope').extensions.coc
@@ -134,6 +135,7 @@ return {
 			'nvim-lua/plenary.nvim',
 			'fannheyward/telescope-coc.nvim',
 			'nvim-telescope/telescope-github.nvim',
+			'nvim-telescope/telescope-vimspector.nvim',
 			'nvim-telescope/telescope-fzf-native.nvim',
 		}
 	},
@@ -143,8 +145,9 @@ return {
 		build = 'make',
 		dependencies = { 'junegunn/fzf' }
 	},
-	{ 'fannheyward/telescope-coc.nvim',       lazy = true },
-	{ 'nvim-telescope/telescope-github.nvim', lazy = true },
+	{ 'fannheyward/telescope-coc.nvim',           lazy = true },
+	{ 'nvim-telescope/telescope-github.nvim',     lazy = true },
+	{ 'nvim-telescope/telescope-vimspector.nvim', lazy = true },
 	{
 		'nvim-pack/nvim-spectre',
 		event = "VeryLazy",
