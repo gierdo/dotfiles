@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BFG_PATH="${HOME}/.local/share/bfg/"
+BFG_JAR="bfg.jar"
+
+BFG_SOURCE_JAR="https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar"
+
+mkdir -p "$BFG_PATH"
+if [ ! -f "$BFG_PATH/$BFG_JAR" ] || [ "$*" = "--update" ]; then
+  wget -O "${BFG_PATH}/$BFG_JAR" "$BFG_SOURCE_JAR"
+fi
+
+java -jar "${BFG_PATH}/$BFG_JAR" "$@"
