@@ -1,6 +1,6 @@
 {
   "configurations": {
-    "c - launch": {
+    "run-current-cxx": {
       "adapter": "vscode-cpptools",
       "filetypes": [
         "cpp",
@@ -47,7 +47,7 @@
         }
       },
       "configuration": {
-        "name": "cpp: launch current file",
+        "name": "python: launch current file",
         "request": "launch",
         "protocol": "auto",
         "stopOnEntry": true,
