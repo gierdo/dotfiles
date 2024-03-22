@@ -7,10 +7,10 @@ for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucon
 for_window [class=Firefox|Chromium|Evince|Soffice|libreoffice*|Gimp*|Inkscape|Vlc|Lxappearance] focus
 
 # Color Class               Border      BG         FG
-client.focused             #586e75   #002b36    #586e75
+client.focused             #586e75   #586e75    #586e75
 client.focused_inactive    #333333   #333333    #586e75
 client.unfocused           #333333   #333333    #93a1a1
-client.urgent              #FF0000   #FF0000    #FF0000
+client.urgent              #d30102   #d30102    #d30102
 
 # panel
 bar {
