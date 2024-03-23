@@ -1,7 +1,7 @@
 exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start)
 
 # window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 4
+for_window [class=".*"] border pixel 2
 # assign [class=Firefox|Chromium] 2
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class=Firefox|Chromium|Evince|Soffice|libreoffice*|Gimp*|Inkscape|Vlc|Lxappearance] focus
