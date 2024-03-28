@@ -3,8 +3,6 @@
 [mergetool]
   path = nvim
   prompt = true
-[diff]
-  tool = vimdiff
 [difftool]
   path = nvim
   prompt = true
