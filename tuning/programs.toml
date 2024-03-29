@@ -69,7 +69,6 @@ packages = [
   "github.com/Gelio/go-global-update",
   "github.com/google/yamlfmt/cmd/yamlfmt",
   "github.com/jesseduffield/lazydocker",
-  "github.com/jesseduffield/lazygit",
   "gitlab.com/gitlab-org/cli/cmd/glab",
   "golang.org/x/lint/golint",
   "golang.org/x/tools/cmd/goimports",
