@@ -1,5 +1,3 @@
-local utils = require('utils')
-
 return {
 	{ 'nvim-lua/plenary.nvim', lazy = true }, -- lua base library
 	{
@@ -68,8 +66,6 @@ return {
 		end
 	},
 	'dhruvasagar/vim-table-mode',
-	'airblade/vim-gitgutter',
-	'tpope/vim-fugitive',
 	{
 		'kevinhwang91/nvim-bqf',
 		event = 'VeryLazy',

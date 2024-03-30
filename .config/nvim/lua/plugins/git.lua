@@ -1,4 +1,6 @@
 return {
+  'airblade/vim-gitgutter',
+  'tpope/vim-fugitive',
   {
     'sindrets/diffview.nvim',
     event = 'VeryLazy',
