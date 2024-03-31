@@ -129,6 +129,12 @@ fi
 
 # sway is installed, simply assuming sway as session for now
 if command -v sway 1>/dev/null 2>&1; then
+  export XDG_DATA_DIRS="$HOME/.local/share:$XDG_DATA_DIRS"
+
+  if command -v flatpak 1>/dev/null 2>&1; then
+    export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
+  fi
+
   # setting gdk_backend and qt_qpa_platform manually may cause trouble
   # export QT_QPA_PLATFORM=wayland
   export GDK_BACKEND=wayland

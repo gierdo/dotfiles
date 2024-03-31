@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME_DIRECTORY=~/.themes/Solarized-Dark-Cyan-GTK
+THEME_DIRECTORY=~/.local/share/themes/Solarized-Dark-Cyan-GTK
 
 if [ -d "$THEME_DIRECTORY" ]; then
   echo "solarized theme already installed"
@@ -9,7 +9,8 @@ else
   echo "Installing solarized theme"
 
   mkdir -p ~/.local/share/icons
-  mkdir -p ~/.themes && cd ~/.themes || exit
+  mkdir -p ~/.local/share/themes && cd ~/.local/share/themes || exit
+  ln -sf ~/.local/share/themes ~/.themes
 
   wget https://github.com/rtlewis88/rtl88-Themes/archive/refs/tags/1.0.tar.gz
   tar -xvzf 1.0.tar.gz

@@ -42,3 +42,6 @@
 	path = zsh-plugins/evalcache
 	url = https://github.com/mroth/evalcache
 	branch = master
+[submodule "zsh-plugins/flatpak-zsh-completion"]
+	path = zsh-plugins/flatpak-zsh-completion
+	url = https://github.com/bilelmoussaoui/flatpak-zsh-completion

@@ -173,6 +173,10 @@ compdef _cdk_yargs_completions cdk
 
 cdk() { npx -- cdk "$@" }
 
+if command -v flatpak 1>/dev/null 2>&1; then
+  source ~/.dotfiles/zsh-plugins/flatpak-zsh-completion/flatpak.plugin.zsh
+fi
+
 # Generic Aliases
 alias fucking='sudo '
 
