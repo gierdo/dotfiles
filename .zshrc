@@ -69,6 +69,7 @@ plugins=(
   colored-man-pages
   cp
   fancy-ctrl-z
+  gh
   git
   mvn
   pyenv
