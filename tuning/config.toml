@@ -257,6 +257,13 @@ path = "{{ home_dir }}/.gitignore_global"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/Kvantum/Solarized-Dark"
+path = "{{ home_dir }}/.config/Kvantum/Solarized-Dark"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.gtkrc-2.0"
 path = "{{ home_dir }}/.gtkrc-2.0"
 

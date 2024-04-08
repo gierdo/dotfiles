@@ -40,3 +40,7 @@ if command -v flatpak 1>/dev/null 2>&1; then
   flatpak override --user --filesystem=xdg-config/gtk-3.0
   flatpak override --user --filesystem=xdg-config/gtk-4.0
 fi
+
+if command -v kvantummanager 1>/dev/null 2>&1; then
+  kvantummanager --set Solarized-Dark
+fi
