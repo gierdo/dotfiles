@@ -126,6 +126,4 @@ return {
     end
   },
   'mkitt/tabline.vim',
-  'jeetsukumaran/vim-buffergator',
-
 }

@@ -31,7 +31,6 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {}
 	},
-	'tpope/vim-surround',
 	{
 		'windwp/nvim-autopairs',
 		config = function()
