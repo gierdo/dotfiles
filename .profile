@@ -151,7 +151,7 @@ if command -v sway 1>/dev/null 2>&1; then
   export MOZ_ENABLE_WAYLAND=1
   export MOZ_WEBRENDER=1
 
-  export GTK_THEME=Material-Solarized
+  export GTK_THEME=adw-gtk3-dark
 
   # Assume gnome-keyring is set up
   export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"

@@ -264,6 +264,20 @@ path = "{{ home_dir }}/.gtkrc-2.0"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/gtk-4.0/gtk.css"
+path = "{{ home_dir }}/.config/gtk-4.0/gtk.css"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/gtk-4.0/gtk.css"
+path = "{{ home_dir }}/.config/gtk-3.0/gtk.css"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.java-format.xml"
 path = "{{ home_dir }}/.java-format.xml"
 

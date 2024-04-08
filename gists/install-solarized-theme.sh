@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME_DIRECTORY=~/.themes/Material-Solarized
+THEME_DIRECTORY=~/.themes/adw-gtk3-dark
 
 if [ -d "$THEME_DIRECTORY" ]; then
   echo "solarized theme already installed"
@@ -11,10 +11,9 @@ else
   mkdir -p ~/.icons
   mkdir -p ~/.themes && cd ~/.themes || exit
 
-  git clone --depth 1 --branch Material-Solarized-Complete-Desktop https://github.com/rtlewis1/GTK.git tmp
-
-  mv tmp/Material-Solarized ./
-  rm -rf tmp
+  wget -O "adw-gtk3.tar.xz" https://github.com/lassekongo83/adw-gtk3/releases/download/v5.3/adw-gtk3v5.3.tar.xz
+  unp adw-gtk3.tar.xz
+  rm adw-gtk3.tar.xz
 
   wget https://github.com/rtlewis88/rtl88-Themes/archive/refs/tags/1.0.tar.gz
   tar -xvzf 1.0.tar.gz
@@ -27,13 +26,17 @@ else
   rm Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz
 fi
 
-gsettings set org.gnome.desktop.interface gtk-theme 'Material-Solarized'
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Solarized-Cyan-gtk-theme-iconpack'
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'
 
 if command -v flatpak 1>/dev/null 2>&1; then
-  flatpak override --user --filesystem=$HOME/.icons
-  flatpak override --user --filesystem=$HOME/.themes
-  flatpak override --user --env=GTK_THEME=Material-Solarized
+  flatpak override --user --filesystem=$HOME/.icons/:ro
+  flatpak override --user --filesystem=$HOME/.themes/:ro
+  flatpak override --user --filesystem=$HOME/.dotfiles/.config/gtk-4.0/:ro
+  flatpak override --user --env=GTK_THEME=adw-gtk3-dark
+  flatpak override --user --filesystem=xdg-config/gtk-3.0
+  flatpak override --user --filesystem=xdg-config/gtk-4.0
 fi
