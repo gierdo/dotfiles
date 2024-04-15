@@ -37,10 +37,15 @@ if command -v flatpak 1>/dev/null 2>&1; then
   flatpak override --user --filesystem=$HOME/.themes/:ro
   flatpak override --user --filesystem=$HOME/.dotfiles/.config/gtk-4.0/:ro
   flatpak override --user --env=GTK_THEME=adw-gtk3-dark
-  flatpak override --user --filesystem=xdg-config/gtk-3.0
-  flatpak override --user --filesystem=xdg-config/gtk-4.0
+  flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
+  flatpak override --user --filesystem=xdg-config/gtk-4.0:ro
 fi
 
 if command -v kvantummanager 1>/dev/null 2>&1; then
   kvantummanager --set Solarized-Dark
+  if command -v flatpak 1>/dev/null 2>&1; then
+    flatpak override --user --filesystem=xdg-config/Kvantum:ro
+    flatpak override --user --env=QT_STYLE_OVERRIDE=kvantum
+    flatpak override --user --env=QT_SCALE_FACTOR=1.25
+  fi
 fi
