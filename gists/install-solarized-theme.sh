@@ -46,6 +46,6 @@ if command -v kvantummanager 1>/dev/null 2>&1; then
   if command -v flatpak 1>/dev/null 2>&1; then
     flatpak override --user --filesystem=xdg-config/Kvantum:ro
     flatpak override --user --env=QT_STYLE_OVERRIDE=kvantum
-    flatpak override --user --env=QT_SCALE_FACTOR=1.25
+    flatpak override --user --env=QT_SCALE_FACTOR=1.2
   fi
 fi
