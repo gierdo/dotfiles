@@ -1,4 +1,3 @@
-include "/home/dominik/.gtkrc-2.0.mine"
 gtk-theme-name="Material-Solarized"
 gtk-icon-theme-name="Papirus-Dark"
 gtk-font-name="Cantarell 11"
