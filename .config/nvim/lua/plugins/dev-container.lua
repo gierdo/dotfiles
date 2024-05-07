@@ -1,6 +1,7 @@
 return {
   {
     'https://codeberg.org/esensar/nvim-dev-container',
+    event = "VeryLazy",
     config = function()
       require("devcontainer").setup {
         attach_mounts = {

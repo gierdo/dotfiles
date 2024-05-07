@@ -2,6 +2,7 @@ return {
 	{ 'nvim-lua/plenary.nvim', lazy = true }, -- lua base library
 	{
 		'scrooloose/nerdcommenter',
+		event = "VeryLazy",
 		config = function()
 			vim.g.NERDDefaultAlign = 'left'
 			vim.g.NERDCompactSexyComs = 0
@@ -15,24 +16,32 @@ return {
 			]]
 		end
 	},
+	'tpope/vim-sleuth',
 	{
 		"cappyzawa/trim.nvim",
+		event = "VeryLazy",
 		opts = {}
 	},
 	{
 		'RaafatTurki/hex.nvim',
+		event = "VeryLazy",
 		config = function()
 			require('hex').setup()
 		end
 	},
-	'honza/vim-snippets',
+	{
+		'honza/vim-snippets',
+		event = "VeryLazy"
+	},
 	{
 		"folke/todo-comments.nvim",
+		event = "VeryLazy",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {}
 	},
 	{
 		'windwp/nvim-autopairs',
+		event = "VeryLazy",
 		config = function()
 			local npairs = require("nvim-autopairs")
 
@@ -45,15 +54,21 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 		}
 	},
-	'justinmk/vim-gtfo',
-	'powerman/vim-plugin-AnsiEsc',
+	{
+		'justinmk/vim-gtfo',
+		event = "VeryLazy"
+	},
+	{
+		'powerman/vim-plugin-AnsiEsc',
+		event = "VeryLazy"
+	},
 	{
 		"JMarkin/gentags.lua",
 		cond = vim.fn.executable("ctags") == 1,
+		event = "VeryLazy",
 		config = function()
 			require("gentags").setup({})
 		end,
-		event = "VeryLazy",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
@@ -64,7 +79,10 @@ return {
 			vim.cmd("nmap <silent> <F8> :Vista!!<CR>")
 		end
 	},
-	'dhruvasagar/vim-table-mode',
+	{
+		'dhruvasagar/vim-table-mode',
+		event = "VeryLazy"
+	},
 	{
 		'kevinhwang91/nvim-bqf',
 		event = 'VeryLazy',
@@ -75,6 +93,7 @@ return {
 	},
 	{
 		'lervag/vimtex',
+		event = 'VeryLazy',
 		init = function()
 			vim.g.tex_flavor = 'latex'
 			vim.g.vimtex_syntax_enabled = 0
@@ -85,12 +104,20 @@ return {
 	},
 	{
 		'fatih/vim-go',
+		event = 'VeryLazy',
 		build = ':GoUpdateBinaries'
 	},
-	'jamessan/vim-gnupg',
-	'aklt/plantuml-syntax',
+	{
+		'jamessan/vim-gnupg',
+		event = 'VeryLazy'
+	},
+	{
+		'aklt/plantuml-syntax',
+		event = "VeryLazy"
+	},
 	{
 		'tyru/open-browser.vim',
+		lazy = true,
 		config = function()
 			vim.cmd [[
 			let g:openbrowser_browser_commands = [
@@ -108,6 +135,9 @@ return {
 	},
 	{
 		'weirongxu/plantuml-previewer.vim',
+		cmd = { "PlantumlOpen",
+			"PlantumlToggle",
+			"PlantumlStart" },
 		dependencies = {
 			'tyru/open-browser.vim',
 		},
@@ -117,7 +147,7 @@ return {
 	},
 	{
 		"preservim/vim-markdown",
-
+		event = "VeryLazy",
 		config = function()
 			vim.g.vim_markdown_folding_disabled = 1
 			vim.g.vim_markdown_auto_insert_bullets = 0
@@ -135,5 +165,4 @@ return {
 		end,
 		ft = { "markdown" },
 	},
-	'tpope/vim-sleuth',
 }
