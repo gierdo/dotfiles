@@ -19,8 +19,12 @@ else
   tar -xvzf 1.0.tar.gz
   rm 1.0.tar.gz
   mv rtl88-Themes-1.0/Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz ~/.icons/
+  # Used for gtk2
+  mv rtl88-Themes-1.0/solarized-dark-gtk-theme-colorpack_1.3.tar.gz ./
   rm -r rtl88-Themes-1.0
+  tar -xvzf solarized-dark-gtk-theme-colorpack_1.3.tar.gz
   rm solarized-dark-gtk-theme-colorpack_1.3.tar.gz
+
   cd ~/.icons || exit
   tar -xvzf Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz
   rm Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz
