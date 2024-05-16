@@ -93,7 +93,7 @@ return {
 	},
 	{
 		'lervag/vimtex',
-		event = 'VeryLazy',
+		lazy = false,
 		init = function()
 			vim.g.tex_flavor = 'latex'
 			vim.g.vimtex_syntax_enabled = 0
