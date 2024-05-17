@@ -2,7 +2,7 @@
 go = "1.22.2"
 node = "21.7.3"
 java = "adoptopenjdk-21.0.3+9.0.LTS"
-neovim = "0.9.5"
+neovim = "0.10.0"
 ruby = "3.3.0"
 awscli = "2.15.45"
 direnv = "2.34.0"
