@@ -77,7 +77,7 @@ chdir = "{{ home_dir }}/workspace/other/ueberzugpp"
 command = "bash"
 argv = [
   "-c",
-  'mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_X11=OFF -DENABLE_OPENCV=OFF .. && cmake -- build . && cmake --install . --prefix ${HOME}/.local'
+  'mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_X11=OFF -DENABLE_OPENCV=OFF .. && cmake --build . && cmake --install . --prefix ${HOME}/.local'
 ]
 
 [[jobs]]
