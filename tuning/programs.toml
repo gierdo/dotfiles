@@ -63,6 +63,24 @@ when = "{{ not has_executable(exe='rofi') }}"
 
 
 [[jobs]]
+name = "ueberzugpp: repository"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/workspace/other/ueberzugpp"
+repo = "https://github.com/jstkdng/ueberzugpp.git"
+
+[[jobs]]
+name = "ueberzugpp: install"
+needs = ["ueberzugpp: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/ueberzugpp"
+command = "bash"
+argv = [
+  "-c",
+  'mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_X11=OFF -DENABLE_OPENCV=OFF .. && cmake -- build . && cmake --install . --prefix ${HOME}/.local'
+]
+
+[[jobs]]
 type = "installergo"
 name = "Install go dependencies"
 packages = [
