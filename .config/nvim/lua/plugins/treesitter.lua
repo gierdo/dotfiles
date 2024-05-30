@@ -313,7 +313,6 @@ return {
     dependencies = {
       'tadmccorkle/markdown.nvim'
     },
-    event = "VeryLazy",
     build = ':TSUpdate',
     config = function()
       require 'nvim-treesitter.configs'.setup {

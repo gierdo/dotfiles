@@ -60,7 +60,6 @@ return {
 	},
 	{
 		'powerman/vim-plugin-AnsiEsc',
-		event = "VeryLazy"
 	},
 	{
 		"JMarkin/gentags.lua",
@@ -104,16 +103,13 @@ return {
 	},
 	{
 		'fatih/vim-go',
-		event = 'VeryLazy',
 		build = ':GoUpdateBinaries'
 	},
 	{
 		'jamessan/vim-gnupg',
-		event = 'VeryLazy'
 	},
 	{
 		'aklt/plantuml-syntax',
-		event = "VeryLazy"
 	},
 	{
 		'tyru/open-browser.vim',
@@ -147,7 +143,6 @@ return {
 	},
 	{
 		"preservim/vim-markdown",
-		event = "VeryLazy",
 		config = function()
 			vim.g.vim_markdown_folding_disabled = 1
 			vim.g.vim_markdown_auto_insert_bullets = 0
