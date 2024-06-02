@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   pkg-config \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-ARG ROCM_VERSION=6.0.2
+ARG ROCM_VERSION=6.1.1
 
 RUN mkdir --parents --mode=0755 /etc/apt/keyrings \
   && wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | \
@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ARG OVERRIDE_GFX_VERSION=11.0.2
 ENV HSA_OVERRIDE_GFX_VERSION=${OVERRIDE_GFX_VERSION}
-ARG LLAMA_CPP_VERSION=0.2.54
+ARG LLAMA_CPP_VERSION=0.2.76
 
 RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install --user llama-cpp-python[server]==${LLAMA_CPP_VERSION}
 
