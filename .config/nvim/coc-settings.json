@@ -175,7 +175,7 @@
   "coc.preferences.formatOnSaveTimeout": 500,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.useQuickfixForLocations": true,
-  "coc.preferences.maxFileSize": "50MB",
+  "coc.preferences.maxFileSize": "5MB",
   "snippets.ultisnips.pythonPrompt": false,
   "languageserver": {
     "haskell": {
