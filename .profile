@@ -60,8 +60,6 @@ if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
   fi
 fi
 
-export QT_QPA_PLATFORMTHEME=qt5ct
-
 if command -v rg 1>/dev/null 2>&1; then
   export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/.ripgreprc"
   export FZF_DEFAULT_COMMAND='fd --type f --hidden .'
@@ -127,50 +125,52 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
-# sway is installed, simply assuming sway as session for now
-if command -v sway 1>/dev/null 2>&1; then
-  export XDG_DATA_DIRS="$HOME/.local/share:$XDG_DATA_DIRS"
+#
+if [ "$(tty)" = "/dev/tty1" ]; then
+  # sway is installed, simply assuming sway as session for now
+  if command -v sway 1>/dev/null 2>&1; then
+    export QT_QPA_PLATFORMTHEME=qt5ct
+    export XDG_DATA_DIRS="$HOME/.local/share:$XDG_DATA_DIRS"
 
-  if command -v flatpak 1>/dev/null 2>&1; then
-    export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
-  fi
+    if command -v flatpak 1>/dev/null 2>&1; then
+      export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
+    fi
 
-  # setting gdk_backend and qt_qpa_platform manually may cause trouble
-  # export QT_QPA_PLATFORM=wayland
-  export GDK_BACKEND=wayland
-  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-  export CLUTTER_BACKEND=wayland
-  export XDG_SESSION_TYPE=wayland
-  export XDG_SESSION_DESKTOP=sway
-  export XDG_CURRENT_DESKTOP=sway
-  export DESKTOP_SESSION=sway
+    # setting gdk_backend and qt_qpa_platform manually may cause trouble
+    # export QT_QPA_PLATFORM=wayland
+    export GDK_BACKEND=wayland
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+    export CLUTTER_BACKEND=wayland
+    export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_DESKTOP=sway
+    export XDG_CURRENT_DESKTOP=sway
+    export DESKTOP_SESSION=sway
 
-  export LIBSEAT_BACKEND=logind
+    export LIBSEAT_BACKEND=logind
 
-  export SDL_VIDEODRIVER=wayland
-  export MOZ_ENABLE_WAYLAND=1
-  export MOZ_WEBRENDER=1
+    export SDL_VIDEODRIVER=wayland
+    export MOZ_ENABLE_WAYLAND=1
+    export MOZ_WEBRENDER=1
 
-  export GTK_THEME=adw-gtk3-dark
+    export GTK_THEME=adw-gtk3-dark
 
-  # Assume gnome-keyring is set up
-  export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
+    # Assume gnome-keyring is set up
+    export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
 
-  # Fix Java AWT applications on wayland
-  export _JAVA_AWT_WM_NONREPARENTING=1
+    # Fix Java AWT applications on wayland
+    export _JAVA_AWT_WM_NONREPARENTING=1
 
-  # Android studio breaks on sway if the shipped jdk is used for the UI
-  export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
+    # Android studio breaks on sway if the shipped jdk is used for the UI
+    export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
 
-  # Autostart sway on tty1
-  if [ "$(tty)" = "/dev/tty1" ]; then
+    # Autostart sway on tty1
     if lshw -C display 2>/dev/null | grep -qi "vendor.*nvidia"; then
       exec sway --unsupported-gpu
     else
       exec sway
     fi
+  else
+    # Autostart x session (i3) on tty1
+    [ "$(tty)" = "/dev/tty1" ] && exec startx
   fi
-else
-  # Autostart x session (i3) on tty1
-  [ "$(tty)" = "/dev/tty1" ] && exec startx
 fi
