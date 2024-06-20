@@ -125,7 +125,7 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
-#
+# Autostart sway session on specific tty
 if [ "$(tty)" = "/dev/tty1" ]; then
   # sway is installed, simply assuming sway as session for now
   if command -v sway 1>/dev/null 2>&1; then
@@ -163,14 +163,10 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     # Android studio breaks on sway if the shipped jdk is used for the UI
     export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
 
-    # Autostart sway on tty1
     if lshw -C display 2>/dev/null | grep -qi "vendor.*nvidia"; then
       exec sway --unsupported-gpu
     else
       exec sway
     fi
-  else
-    # Autostart x session (i3) on tty1
-    [ "$(tty)" = "/dev/tty1" ] && exec startx
   fi
 fi
