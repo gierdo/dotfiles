@@ -43,7 +43,8 @@ function register_clang_version {
     --slave /usr/bin/clang-reorder-fields clang-reorder-fields /usr/bin/clang-reorder-fields-${VERSION} \
     --slave /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-${VERSION} \
     --slave /usr/bin/lldb lldb /usr/bin/lldb-${VERSION} \
-    --slave /usr/bin/lldb-server lldb-server /usr/bin/lldb-server-${VERSION}
+    --slave /usr/bin/lldb-server lldb-server /usr/bin/lldb-server-${VERSION} \
+    --slave /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-${VERSION}
 }
 
 register_clang_version $1 $2
