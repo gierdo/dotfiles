@@ -10,7 +10,8 @@ the core of my system setup.
 The main purpose of this repo is portability and backup of my own
 configuration.
 
-The repository can be cloned locally, relevant configuration files can be replaced with symlinks to the dotfiles file.
+The repository can be cloned locally, relevant configuration files can be
+replaced with symlinks to the dotfiles file.
 
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
