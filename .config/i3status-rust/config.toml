@@ -22,6 +22,16 @@ interval = 5
 idle_bg = { link = "info_bg" }
 idle_fg = { link = "info_fg" }
 
+# I only have machines with amd gpu
+[[block]]
+block = "amd_gpu"
+format = " $icon $utilization "
+format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
+interval = 5
+[block.theme_overrides]
+idle_bg = { link = "info_bg" }
+idle_fg = { link = "info_fg" }
+
 [[block]]
 block = "net"
 device = "eth.*"
