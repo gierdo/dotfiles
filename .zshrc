@@ -64,20 +64,22 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  mise
   aws
   colored-man-pages
-  cp
   fancy-ctrl-z
   gh
   git
+  gradle
+  mise
   mvn
-  pyenv
+  npm
   pipenv
-  virtualenv
   poetry
+  pyenv
   rust
-  sudo
+  thefuck
+  toolbox
+  virtualenv
 )
 
 # User configuration
