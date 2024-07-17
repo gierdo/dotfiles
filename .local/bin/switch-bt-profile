@@ -4,21 +4,34 @@ function list_bt_audio() {
   pactl list cards | awk -v RS='' '/bluez/'
 }
 
-HQ_CODEC=""
+function is_profile_available() {
+  local _profile=$1
 
-list_bt_audio | awk -v RS='' '/Profiles/' | grep -q "ldac"
-if [ $? -eq 0 ]; then
-  HQ_CODEC="ldac"
-else
-  list_bt_audio | awk -v RS='' '/Profiles/' | grep -q "a2dp-sink-sbc_xq"
+  list_bt_audio | awk -v RS='' '/Profiles/' | grep -q "$_profile"
   if [ $? -eq 0 ]; then
-    HQ_CODEC="a2dp-sink-sbc_xq"
+    echo true
   else
-    HQ_CODEC="a2dp-sink-sbc"
+    echo false
   fi
+}
+
+CODEC=""
+
+LDAC_AVAILABLE=$(is_profile_available "ldac")
+A2DP_SINK_SBC_XQ_AVAILABLE=$(is_profile_available "a2dp-sink-sbc_xq")
+A2DP_SINK_SBC_AVAILABLE=$(is_profile_available "a2dp-sink-sbc")
+
+if $LDAC_AVAILABLE; then
+  CODEC="ldac"
+elif $A2DP_SINK_SBC_XQ_AVAILABLE; then
+  CODEC="a2dp-sink-sbc_xq"
+elif $A2DP_SINK_SBC_AVAILABLE; then
+  CODEC="a2dp-sink-sbc"
+else
+  CODEC="a2dp-sink"
 fi
 
-HQ_ACTIVE=$(list_bt_audio | grep "Active Profile" | grep "${HQ_CODEC}")
+HQ_ACTIVE=$(list_bt_audio | grep "Active Profile" | grep "${CODEC}")
 CARD=$(list_bt_audio | grep "Name: bluez_card." | cut -d ' ' -f 2)
 
 if [ -n "$HQ_ACTIVE" ]; then
@@ -26,7 +39,7 @@ if [ -n "$HQ_ACTIVE" ]; then
   pactl set-card-profile "${CARD}" headset-head-unit-msbc
   echo "...done"
 else
-  echo "Switching $CARD to hq codec ${HQ_CODEC}..."
-  pactl set-card-profile "${CARD}" a2dp-sink-sbc_xq
+  echo "Switching $CARD to hq codec ${CODEC}..."
+  pactl set-card-profile "${CARD}" "${CODEC}"
   echo "...done"
 fi
