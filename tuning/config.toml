@@ -194,6 +194,15 @@ force = true
 src = "{{ home_dir }}/.dotfiles/.gnupg/gpg-agent.conf"
 path = "{{ home_dir }}/.gnupg/gpg-agent.conf"
 
+[[jobs]]
+name = "make sure gpg trustlist exists"
+type = "command"
+chdir = "{{ home_dir }}/.gnupg/"
+command = "bash"
+argv = [
+  "-c",
+  'touch trustlist.txt'
+]
 
 ## Everything in ~/
 
