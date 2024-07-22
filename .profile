@@ -160,9 +160,6 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     # Fix Java AWT applications on wayland
     export _JAVA_AWT_WM_NONREPARENTING=1
 
-    # Android studio breaks on sway if the shipped jdk is used for the UI
-    export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk-amd64/
-
     if lshw -C display 2>/dev/null | grep -qi "vendor.*nvidia"; then
       exec sway --unsupported-gpu
     else
