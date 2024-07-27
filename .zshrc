@@ -79,6 +79,7 @@ plugins=(
   rust
   thefuck
   toolbox
+  universalarchive
   virtualenv
 )
 
