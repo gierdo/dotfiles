@@ -67,6 +67,7 @@ plugins=(
   aws
   colored-man-pages
   fancy-ctrl-z
+  eza
   gh
   git
   gradle
