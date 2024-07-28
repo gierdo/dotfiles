@@ -154,7 +154,7 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 
     export GTK_THEME=adw-gtk3-dark
 
-    # gnome-keyring will be set up with systemd by sway
+    # gnome-keyring will be set up by sway
     export GNOME_KEYRING_CONTROL=/run/user/$(id -u)/keyring
     export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
 
