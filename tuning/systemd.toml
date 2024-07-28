@@ -44,20 +44,6 @@ path = "{{ home_dir }}/.config/systemd/user/swayidle.service"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/systemd/user/gnome-keyring-daemon.service"
-path = "{{ home_dir }}/.config/systemd/user/gnome-keyring-daemon.service"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
-src = "{{ home_dir }}/.dotfiles/.config/systemd/user/gnome-keyring-daemon.socket"
-path = "{{ home_dir }}/.config/systemd/user/gnome-keyring-daemon.socket"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
 src = "/dev/null"
 path = "{{ home_dir }}/.config/systemd/user/pipewire-session-manager.service"
 

@@ -1,3 +1,5 @@
+exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start --control-directory=/run/user/$(id -u)/keyring)
+
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 2
 # assign [class=Firefox|Chromium] 2
