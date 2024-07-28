@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPO_NAME=gpgme
-REPO_BASE=~/workspace
+REPO_BASE=~/workspace/other
 REPO_DIRECTORY=$REPO_BASE/$REPO_NAME
 
 RELEASE_TAG=gpgme-1.23.2
