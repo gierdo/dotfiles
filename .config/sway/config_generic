@@ -1,4 +1,4 @@
-exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start --control-directory=/run/user/$(id -u)/keyring)
+exec eval $(gnome-keyring-daemon --components=secrets\,pkcs11\,ssh --start)
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 2
