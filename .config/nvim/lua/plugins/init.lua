@@ -107,6 +107,12 @@ return {
 	},
 	{
 		'jamessan/vim-gnupg',
+		config = function()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "GnuPG",
+				command = "setlocal textwidth=72",
+			})
+		end
 	},
 	{
 		'aklt/plantuml-syntax',
