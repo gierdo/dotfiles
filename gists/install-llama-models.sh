@@ -16,5 +16,6 @@ function install_model() {
   fi
 }
 
+install_model https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
 install_model https://huggingface.co/bartowski/Llama-3-8B-Instruct-Coder-GGUF/resolve/main/Llama-3-8B-Instruct-Coder-Q4_K_M.gguf Llama-3-8B-Instruct-Coder-Q4_K_M.gguf
 install_model https://huggingface.co/lmstudio-community/Llama-3-Groq-8B-Tool-Use-GGUF/resolve/main/Llama-3-Groq-8B-Tool-Use-Q4_K_M.gguf Llama-3-Groq-8B-Tool-Use-Q4_K_M.gguf

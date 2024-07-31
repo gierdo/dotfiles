@@ -2,11 +2,11 @@
 Description=Local llama.cpp api server
 
 [Container]
-Image=ghcr.io/gierdo/dotfiles/llama-cpp-python-server-rocm:0.2.81-6.1.2-11.0.2
+Image=ghcr.io/gierdo/dotfiles/llama-cpp-python-server-rocm:0.2.84-6.1.2-11.0.2
 AddDevice=/dev/dri
 AddDevice=/dev/kfd
 Annotation="run.oci.keep_original_groups=1"
 Volume=${HOME}/.local/lib/llama/models:/models
 PublishPort=9741:8000
-Environment=MODEL=/models/Llama-3-Groq-8B-Tool-Use-Q4_K_M.gguf
+Environment=MODEL=/models/Meta-Llama-3.1-Instruct-Q4_K_M.gguf
 Exec= sh -c "python3 -m llama_cpp.server --numa True --n_batch 2048 --n_ctx 8000 --n_gpu_layers -1 --host 0.0.0.0 --port 8000"
