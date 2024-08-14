@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS rocm_base
+FROM ubuntu:noble AS rocm_base
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
@@ -7,12 +7,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   pkg-config \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-ARG ROCM_VERSION=6.1.2
+ARG ROCM_VERSION=6.2
 
 RUN mkdir --parents --mode=0755 /etc/apt/keyrings \
   && wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | \
   gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null \
-  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/${ROCM_VERSION} jammy main" > /etc/apt/sources.list.d/rocm.list \
+  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/${ROCM_VERSION} noble main" > /etc/apt/sources.list.d/rocm.list \
   && echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' > /etc/apt/preferences.d/rocm-pin-600
 
 # Allow caching the runtime base even if llama_cpp is rebuilt
@@ -21,6 +21,8 @@ FROM rocm_base AS runtime_base
 RUN apt-get update && apt-get install -y --no-install-recommends \
   python3-pip \
   rocm-hip-libraries \
+  rocm-device-libs \
+  rocm-llvm \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 
@@ -38,9 +40,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ARG OVERRIDE_GFX_VERSION=11.0.2
 ENV HSA_OVERRIDE_GFX_VERSION=${OVERRIDE_GFX_VERSION}
-ARG LLAMA_CPP_VERSION=0.2.81
+ARG LLAMA_CPP_VERSION=0.2.88
 
-RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install --user llama-cpp-python[server]==${LLAMA_CPP_VERSION}
+RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install --user --break-system-packages llama-cpp-python[server]==${LLAMA_CPP_VERSION}
 
 FROM runtime_base AS final
 LABEL maintainer="Dominikus Gierlach <dominik.gierlach@gmail.com>"

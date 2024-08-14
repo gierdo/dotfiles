@@ -81,7 +81,7 @@ return {
           ["select_down"] = "<C-j>",
         },
         open_ai = {
-          url = "http://localhost:9741/v1/chat/completions",
+          url = "http://127.0.0.1:9741/v1/chat/completions",
           display_name = "llama.cpp",
           api_key = {
             value = nil,
