@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# pgreping nvim also matches the firenvim headless process. A full nvim session
+# in my setup always starts the nvim python integration.
+if ps -aux | grep python | grep -q 'neovim.start_host()'; then
+  echo "nvim is running, no need to stop llama."
+else
+  echo "nvim is not running, stopping llama if needed."
+  systemctl --user stop llama
+fi

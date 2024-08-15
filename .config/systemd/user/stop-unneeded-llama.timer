@@ -1,0 +1,10 @@
+[Unit]
+Description=Stop local llama if nvim is not running.
+
+[Timer]
+OnBootSec=30sec
+OnUnitActiveSec=10sec
+Unit=stop-unneeded-llama.service
+
+[Install]
+WantedBy=sway-session.target
