@@ -6,6 +6,9 @@ return {
     config = function()
       vim.o.background = 'dark' -- or 'light'
       require('solarized').setup({
+        transparent = {
+          enabled = false
+        },
         styles = {
           comments = {},
           functions = {},
