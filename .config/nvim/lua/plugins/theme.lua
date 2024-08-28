@@ -7,49 +7,66 @@ return {
       vim.o.background = 'dark' -- or 'light'
       require('solarized').setup({
         transparent = {
-          enabled = false
-        },
-        styles = {
-          comments = {},
-          functions = {},
-          variables = {},
-          numbers = {},
-          constants = {},
-          parameters = {},
-          keywords = {},
-          types = { bold = true },
-        },
-        enables = {
-          bufferline = true,
-          cmp = true,
-          diagnostic = false,
-          dashboard = true,
-          editor = true,
-          gitsign = true,
-          hop = true,
-          indentblankline = true,
-          lsp = true,
-          lspsaga = true,
-          navic = true,
-          neogit = true,
+          enabled = true,
+          pmenu = false,
+          normal = false,
+          normalfloat = false,
           neotree = true,
-          notify = true,
-          semantic = true,
-          syntax = true,
-          telescope = true,
-          tree = true,
-          treesitter = true,
+          nvimtree = true,
           whichkey = true,
-          mini = true,
+          telescope = true,
+          lazy = false,
         },
-        highlights = function(colors, colorhelper)
-          return {
+        on_highlights = function(colors, color)
+          ---@type solarized.highlights
+          local groups = {
             NvimTreeWinSeparator = { link = 'WinSeparator' }, -- Use normal window separator lines for nvim tree
             CocUnusedHighlight = { link = 'DiagnosticHint' }, -- Change background of diagnostic-info-sections
           }
+          return groups
         end,
-        colors = {},
-        theme = 'default', -- or 'neosolarized' or 'neo' for short
+        on_colors = nil,
+        palette = 'solarized', -- solarized (default) | selenized
+        styles = {
+          types = { bold = true },
+          functions = {},
+          parameters = {},
+          comments = {},
+          strings = {},
+          keywords = {},
+          variables = {},
+          constants = {},
+        },
+        plugins = {
+          treesitter = true,
+          lspconfig = true,
+          navic = true,
+          cmp = true,
+          indentblankline = true,
+          neotree = true,
+          nvimtree = true,
+          whichkey = true,
+          dashboard = true,
+          gitsigns = true,
+          telescope = true,
+          noice = true,
+          hop = true,
+          ministatusline = true,
+          minitabline = true,
+          ministarter = true,
+          minicursorword = true,
+          notify = true,
+          rainbowdelimiters = true,
+          bufferline = true,
+          lazy = true,
+          rendermarkdown = true,
+          ale = true,
+          coc = true,
+          leap = true,
+          alpha = true,
+          yanky = true,
+          gitgutter = true,
+        },
       })
       vim.cmd.colorscheme('solarized')
     end
