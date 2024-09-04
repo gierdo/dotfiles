@@ -329,6 +329,7 @@ return {
         -- List of parsers to ignore installing (or "all")
         ignore_install = {
           "javascript",
+          "norg",
           "jsdoc",
           "bicep"
         },
