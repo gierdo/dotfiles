@@ -22,6 +22,7 @@ return {
           local groups = {
             NvimTreeWinSeparator = { link = 'WinSeparator' }, -- Use normal window separator lines for nvim tree
             CocUnusedHighlight = { link = 'DiagnosticHint' }, -- Change background of diagnostic-info-sections
+            SpellBad = { strikethrough = false }              -- Solarized dark defaults to striking through wrong spelling
           }
           return groups
         end,
