@@ -7,6 +7,7 @@
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
   "fzf": { "branch": "master", "commit": "8af0af3400fc36651b59a7e3f9a2bedd4a51daed" },
   "gentags.lua": { "branch": "main", "commit": "f8b0314c150f8f10411cf47adacf7cf9f308d4c6" },
+  "git-conflict.nvim": { "branch": "main", "commit": "45cde6f0acf26d0e4b64acfa45349dd1da01e577" },
   "gitlab.nvim": { "branch": "main", "commit": "4ae623cd657c0f32f4d64e49f286aa0be165e33c" },
   "hex.nvim": { "branch": "master", "commit": "d0f553dcd2c08d226026d769119b2eb6b09b8dfd" },
   "indent-blankline.nvim": { "branch": "master", "commit": "18603eb949eba08300799f64027af11ef922283f" },

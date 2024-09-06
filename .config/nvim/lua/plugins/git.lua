@@ -9,7 +9,6 @@ return {
   },
   {
     'sindrets/diffview.nvim',
-    event = 'VeryLazy',
     config = function()
       require("diffview").setup()
     end,
@@ -22,6 +21,11 @@ return {
       "sindrets/diffview.nvim",        -- optional - Diff integration
       "nvim-telescope/telescope.nvim", -- optional
     },
+    config = true
+  },
+  {
+    'akinsho/git-conflict.nvim',
+    event = 'VeryLazy',
     config = true
   }
 }

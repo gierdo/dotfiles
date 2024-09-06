@@ -1,23 +1,19 @@
-[merge]
-  tool = vimdiff-merge
 [mergetool]
-  path = nvim
-  prompt = true
-[difftool]
-  path = nvim
-  prompt = true
+  keepBackup = false
 [mergetool "vimdiff-merge"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "vimdiff"]
   cmd = nvim -d $LOCAL $REMOTE
-[alias]
-  nicelog = log --graph --decorate=full --all --oneline
-  do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
-  find-dangling = "!sh -c 'git fsck --lost-found | grep \"^dangling commit\" | sed \"s/^dangling commit //g\" | xargs git show -s --oneline'"
+[merge]
+  tool = vimdiff-merge
 [diff]
   tool = vimdiff
   submodule = diff
   colorMoved = default
+[alias]
+  nicelog = log --graph --decorate=full --all --oneline
+  do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
+  find-dangling = "!sh -c 'git fsck --lost-found | grep \"^dangling commit\" | sed \"s/^dangling commit //g\" | xargs git show -s --oneline'"
 [push]
   default = current
 [gui]
