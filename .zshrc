@@ -62,6 +62,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
   aws
   colored-man-pages
+  dotnet
   fancy-ctrl-z
   eza
   gh
@@ -84,6 +85,9 @@ plugins=(
 
 SHARE_HISTORY="true"
 
+# global aliases that may be needed below
+alias asdf='mise'
+
 # Manually installed plugins
 fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 
@@ -105,6 +109,12 @@ source ~/.dotfiles/zsh-plugins/evalcache/evalcache.plugin.zsh
 source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
 
 source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if [ -f "$HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh" ]; then
+  # we have dotnet, so deal with it
+ source $HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh
+ export PATH="$HOME/.dotnet/tools:$PATH"
+fi
 
 source ~/.dotfiles/zsh-plugins/forgit/forgit.plugin.zsh
 fpath=(~/.dotfiles/zsh-plugins/forgit/completions $fpath)
