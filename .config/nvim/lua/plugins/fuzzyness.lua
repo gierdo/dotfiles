@@ -67,9 +67,7 @@ return {
 
 			require("telescope").load_extension("gh")
 			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("vimspector")
-
-			local builtin = require("telescope.builtin")
+			require("telescope").load_extension("dap")
 
 			function custom_actions.fzf_multi_select(prompt_bufnr)
 				local picker = action_state.get_current_picker(prompt_bufnr)
@@ -131,8 +129,8 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-github.nvim",
-			"nvim-telescope/telescope-vimspector.nvim",
 			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-dap.nvim",
 		},
 	},
 	{
@@ -141,9 +139,8 @@ return {
 		build = "make",
 		dependencies = { "junegunn/fzf" },
 	},
-	{ "fannheyward/telescope-coc.nvim", lazy = true },
 	{ "nvim-telescope/telescope-github.nvim", lazy = true },
-	{ "nvim-telescope/telescope-vimspector.nvim", lazy = true },
+	{ "nvim-telescope/telescope-dap.nvim", lazy = true },
 	{
 		"nvim-pack/nvim-spectre",
 		event = "VeryLazy",
