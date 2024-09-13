@@ -103,6 +103,7 @@ return {
 					"cpplint",
 					"flawfinder",
 				},
+				git = { "gitlint", "write_good" },
 				python = {
 					"pylint",
 					"flake8",
@@ -112,6 +113,7 @@ return {
 				cmake = {
 					"cmakelint",
 				},
+				json = { "jsonlint" },
 				systemd = { "systemd-analyze" },
 				kotlin = { "ktlint" },
 			}
