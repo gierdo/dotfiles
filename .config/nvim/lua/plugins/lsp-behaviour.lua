@@ -6,12 +6,6 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		config = function()
 			-- note: diagnostics are not exclusive to lsp servers
@@ -40,43 +34,6 @@ return {
 					vim.keymap.set({ "n", "x" }, "gf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
 					vim.keymap.set({ "n", "x" }, "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 				end,
-			})
-
-			local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			local default_setup = function(server)
-				require("lspconfig")[server].setup({
-					capabilities = lsp_capabilities,
-				})
-			end
-
-			require("mason").setup({})
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"ast_grep",
-					"bashls",
-					"clangd",
-					"cmake",
-					"csharp_ls",
-					"eslint",
-					"gitlab_ci_ls",
-					"gopls",
-					"gradle_ls",
-					"groovyls",
-					"jdtls",
-					"jqls",
-					"kotlin_language_server",
-					"lemminx",
-					"lua_ls",
-					"pyright",
-					"rust_analyzer",
-					"texlab",
-					"ts_ls",
-					"yamlls",
-				},
-				handlers = {
-					default_setup,
-				},
 			})
 
 			local cmp = require("cmp")
@@ -133,29 +90,13 @@ return {
 			})
 		end,
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			"williamboman/mason.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
 			"dcampos/cmp-snippy",
 			"nvim-telescope/telescope.nvim",
-		},
-	},
-	{
-		-- Enable decompiler for csharp-lsp
-		"Decodetalkers/csharpls-extended-lsp.nvim",
-		config = function()
-			local config = {
-				handlers = {
-					["textDocument/definition"] = require("csharpls_extended").handler,
-					["textDocument/typeDefinition"] = require("csharpls_extended").handler,
-				},
-			}
-			require("lspconfig").csharp_ls.setup(config)
-		end,
-		dependencies = {
-			"neovim/nvim-lspconfig",
 		},
 	},
 }
