@@ -97,22 +97,8 @@ path = "{{ home_dir }}/.config/nvim/lua"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/nvim/coc-settings.json"
-path = "{{ home_dir }}/.config/nvim/coc-settings.json"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
 src = "{{ home_dir }}/.dotfiles/.config/nvim/lazy-lock.json"
 path = "{{ home_dir }}/.config/nvim/lazy-lock.json"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
-src = "{{ home_dir }}/.dotfiles/.config/coc/ultisnips/markdown.snippets"
-path = "{{ home_dir }}/.config/coc/ultisnips/markdown.snippets"
 
 [[jobs]]
 type = "file"
