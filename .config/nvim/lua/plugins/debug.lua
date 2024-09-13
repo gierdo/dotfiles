@@ -19,9 +19,6 @@ return {
 	},
 	{
 		"mfussenegger/nvim-dap",
-		config = function()
-			local dap = require("dap")
-		end,
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jay-babu/mason-nvim-dap.nvim",
@@ -46,9 +43,15 @@ return {
 			end
 
 			local wk = require("which-key")
+			local telescope = require("telescope")
 
 			wk.add({
 				{ "<leader>d", group = "  Debug" },
+				{
+					"<leader>dd",
+					telescope.extensions.dap.commands,
+					desc = "Show debug commands.",
+				},
 				{
 					"<leader>dt",
 					dap.toggle_breakpoint,
@@ -61,8 +64,13 @@ return {
 				},
 				{
 					"<leader>dbl",
-					dap.list_breakpoints,
+					telescope.extensions.dap.list_breakpoints,
 					desc = "List breakpoints.",
+				},
+				{
+					"<leader>dv",
+					telescope.extensions.dap.variables,
+					desc = "Show variables.",
 				},
 				{
 					"<leader>dbc",
@@ -116,6 +124,7 @@ return {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"mfussenegger/nvim-dap",
+			"nvim-telescope/telescope.nvim",
 		},
 	},
 }
