@@ -1,38 +1,5 @@
 return {
 	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		config = function()
-			local mason_tool_installer = require("mason-tool-installer")
-
-			mason_tool_installer.setup({
-				ensure_installed = {
-					"autoflake",
-					"beautysh",
-					"black",
-					"clang-format",
-					"eslint_d",
-					"flake8",
-					"gitlint",
-					"jq",
-					"jsonlint",
-					"ktfmt",
-					"ktlint",
-					"markdownlint",
-					"prettier",
-					"pylint",
-					"shellcheck",
-					"stylua",
-					"ts-standard",
-					"write-good",
-					"yamllint",
-				},
-			})
-		end,
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-	},
-	{
 		"stevearc/conform.nvim",
 		config = function()
 			local conform = require("conform")
@@ -70,11 +37,17 @@ return {
 		end,
 	},
 	{
-		"mfussenegger/nvim-lint",
-		event = {
-			"BufReadPre",
-			"BufNewFile",
+		"zapling/mason-conform.nvim",
+		config = function()
+			require("mason-conform").setup()
+		end,
+		dependencies = {
+			"williamboman/mason.nvim",
+			"stevearc/conform.nvim",
 		},
+	},
+	{
+		"mfussenegger/nvim-lint",
 		config = function()
 			local lint = require("lint")
 
@@ -131,5 +104,17 @@ return {
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
 		end,
+	},
+	{
+		"rshkarin/mason-nvim-lint",
+		config = function()
+			require("mason-nvim-lint").setup({
+				quiet_mode = true,
+			})
+		end,
+		dependencies = {
+			"mfussenegger/nvim-lint",
+			"williamboman/mason.nvim",
+		},
 	},
 }
