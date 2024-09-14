@@ -4,25 +4,23 @@ return {
 		config = function()
 			require("mason-nvim-dap").setup({
 				ensure_installed = {
-					"delve",
-					"python",
-					"kotlin",
-					"javadbg",
 					"cppdbg",
+					"delve",
+					"javadbg",
+					"kotlin",
+					"netcoredbg",
+					"python",
 				},
 				handlers = {},
 			})
 		end,
 		dependencies = {
 			"williamboman/mason.nvim",
+			"mfussenegger/nvim-dap",
 		},
 	},
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jay-babu/mason-nvim-dap.nvim",
-		},
 	},
 	{
 		"rcarriga/nvim-dap-ui",
