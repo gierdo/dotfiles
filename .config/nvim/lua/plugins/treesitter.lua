@@ -1,13 +1,13 @@
 return {
   {
     "ThePrimeagen/refactoring.nvim",
-    event = 'VeryLazy',
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require('refactoring').setup({
+      require("refactoring").setup({
         prompt_func_return_type = {
           go = true,
           java = true,
@@ -25,11 +25,9 @@ return {
         printf_statements = {},
         print_var_statements = {},
       })
-      vim.keymap.set(
-        { "n", "x" },
-        "<leader>r",
-        function() require('refactoring').select_refactor() end
-      )
+      vim.keymap.set({ "n", "x" }, "<leader>r", function()
+        require("refactoring").select_refactor()
+      end)
     end,
   },
   {
@@ -197,9 +195,9 @@ return {
             -- disable jump labels when not enabled, when using a count,
             -- or when recording/executing registers
             opts.jump_labels = opts.jump_labels
-                and vim.v.count == 0
-                and vim.fn.reg_executing() == ""
-                and vim.fn.reg_recording() == ""
+              and vim.v.count == 0
+              and vim.fn.reg_executing() == ""
+              and vim.fn.reg_recording() == ""
 
             -- Show jump labels only in operator-pending mode
             -- opts.jump_labels = vim.v.count == 0 and vim.fn.mode(true):find("o")
@@ -269,8 +267,8 @@ return {
           relative = "editor",
           width = 1, -- when <=1 it's a percentage of the editor width
           height = 1,
-          row = -1,  -- when negative it's an offset from the bottom
-          col = 0,   -- when negative it's an offset from the right
+          row = -1, -- when negative it's an offset from the bottom
+          col = 0, -- when negative it's an offset from the right
           zindex = 1000,
         },
       },
@@ -296,20 +294,20 @@ return {
   },
   {
     "danymat/neogen",
-    event = 'VeryLazy',
+    event = "VeryLazy",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      'tadmccorkle/markdown.nvim'
+      "tadmccorkle/markdown.nvim",
     },
-    build = ':TSUpdate',
+    build = ":TSUpdate",
     config = function()
-      require 'nvim-treesitter.configs'.setup {
+      require("nvim-treesitter.configs").setup({
         -- A list of parser names, or "all" (the five listed parsers should always be installed)
         ensure_installed = "all",
 
@@ -325,7 +323,7 @@ return {
           "javascript",
           "norg",
           "jsdoc",
-          "bicep"
+          "bicep",
         },
 
         ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
@@ -355,43 +353,43 @@ return {
           additional_vim_regex_highlighting = {},
 
           markdown = {
-            enable = true
-          }
+            enable = true,
+          },
         },
-      }
-    end
+      })
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    event = 'VeryLazy',
+    event = "VeryLazy",
     config = function()
-      require 'treesitter-context'.setup {
-        enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+      require("treesitter-context").setup({
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
         line_numbers = true,
         multiline_threshold = 20, -- Maximum number of lines to show for a single context
-        trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
+        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
         -- Separator between context and content. Should be a single character string, like '-'.
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-        separator = '-',
-        zindex = 20,     -- The Z-index of the context window
+        separator = "-",
+        zindex = 20, -- The Z-index of the context window
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-      }
-    end
+      })
+    end,
   },
   {
-    'RRethy/vim-illuminate',
-    event = 'VeryLazy',
+    "RRethy/vim-illuminate",
+    event = "VeryLazy",
     config = function()
-      require('illuminate').configure({
+      require("illuminate").configure({
         -- providers: provider used to get references in the buffer, ordered by priority
         providers = {
-          'lsp',
-          'treesitter',
-          'regex',
+          "lsp",
+          "treesitter",
+          "regex",
         },
         -- delay: delay in milliseconds
         delay = 100,
@@ -401,9 +399,9 @@ return {
         filetype_overrides = {},
         -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
         filetypes_denylist = {
-          'dirbuf',
-          'dirvish',
-          'fugitive',
+          "dirbuf",
+          "dirvish",
+          "fugitive",
         },
         -- filetypes_allowlist: filetypes to illuminate, this is overridden by filetypes_denylist
         -- You must set filetypes_denylist = {} to override the defaults to allow filetypes_allowlist to take effect
@@ -436,43 +434,45 @@ return {
         -- should_enable: a callback that overrides all other settings to
         -- enable/disable illumination. This will be called a lot so don't do
         -- anything expensive in it.
-        should_enable = function(bufnr) return true end,
+        should_enable = function(bufnr)
+          return true
+        end,
         -- case_insensitive_regex: sets regex case sensitivity
         case_insensitive_regex = false,
       })
-    end
+    end,
   },
   {
-    'HiPhish/rainbow-delimiters.nvim',
-    event = 'VeryLazy',
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "VeryLazy",
     config = function()
       -- This module contains a number of default definitions
-      local rainbow_delimiters = require 'rainbow-delimiters'
+      local rainbow_delimiters = require("rainbow-delimiters")
 
       ---@type rainbow_delimiters.config
       vim.g.rainbow_delimiters = {
         strategy = {
-          [''] = rainbow_delimiters.strategy['global'],
-          vim = rainbow_delimiters.strategy['local'],
+          [""] = rainbow_delimiters.strategy["global"],
+          vim = rainbow_delimiters.strategy["local"],
         },
         query = {
-          [''] = 'rainbow-delimiters',
-          lua = 'rainbow-blocks',
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
         },
         priority = {
-          [''] = 110,
+          [""] = 110,
           lua = 210,
         },
         highlight = {
-          'RainbowDelimiterRed',
-          'RainbowDelimiterYellow',
-          'RainbowDelimiterBlue',
-          'RainbowDelimiterOrange',
-          'RainbowDelimiterGreen',
-          'RainbowDelimiterViolet',
-          'RainbowDelimiterCyan',
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
         },
       }
-    end
-  }
+    end,
+  },
 }

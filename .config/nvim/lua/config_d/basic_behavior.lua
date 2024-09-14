@@ -31,9 +31,8 @@ vim.opt.diffopt = vim.opt.diffopt + "vertical"
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   command = "wincmd J",
-  desc = "Open quickfix window in full width at the bottom"
+  desc = "Open quickfix window in full width at the bottom",
 })
-
 
 vim.opt.ts = 2
 vim.opt.sts = 2
@@ -43,7 +42,7 @@ vim.opt.expandtab = true
 -- Reorder tabs on window resize
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",
-  command = "wincmd ="
+  command = "wincmd =",
 })
 
 vim.cmd("let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'")
@@ -59,8 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "setlocal spell spelllang=en_gb,de_de",
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" },
-  { pattern = "CMakeLists.txt", command = "set filetype=cmake" })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "CMakeLists.txt", command = "set filetype=cmake" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.gradle", command = "set filetype=groovy" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.g", command = "set filetype=antlr3" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.g4", command = "set filetype=antlr4" })

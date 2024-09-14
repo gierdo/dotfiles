@@ -1,15 +1,15 @@
 local utils = require("utils")
 
 local function startLlama()
-  os.execute('systemctl --user start llama')
+  os.execute("systemctl --user start llama")
 end
 
 local keymap_opts = { expr = true }
 
 return {
   {
-    'gierdo/neoai.nvim',
-    branch = 'local-llama',
+    "gierdo/neoai.nvim",
+    branch = "local-llama",
     cmd = {
       "NeoAI",
       "NeoAIOpen",
@@ -26,29 +26,29 @@ return {
     keys = {
       {
         mode = "n",
-        '<A-a>',
-        ':NeoAI<CR>',
-        keymap_opts
+        "<A-a>",
+        ":NeoAI<CR>",
+        keymap_opts,
       },
       {
         mode = "n",
-        '<A-i>',
-        ':NeoAIInject<Space>',
-        keymap_opts
+        "<A-i>",
+        ":NeoAIInject<Space>",
+        keymap_opts,
       },
 
       {
         mode = "v",
-        '<A-a>',
-        ':NeoAIContext<CR>',
-        keymap_opts
+        "<A-a>",
+        ":NeoAIContext<CR>",
+        keymap_opts,
       },
       {
         mode = "v",
-        '<A-i>',
-        ':NeoAIInjectContext<Space>',
-        keymap_opts
-      }
+        "<A-i>",
+        ":NeoAIInjectContext<Space>",
+        keymap_opts,
+      },
     },
     config = function()
       startLlama()
@@ -56,9 +56,9 @@ return {
         ui = {
           output_popup_text = "AI",
           input_popup_text = "Prompt",
-          width = 45,               -- As percentage eg. 45%
+          width = 45, -- As percentage eg. 45%
           output_popup_height = 80, -- As percentage eg. 80%
-          submit = "<Enter>",       -- Key binding to submit the prompt
+          submit = "<Enter>", -- Key binding to submit the prompt
         },
         models = {
           {
@@ -93,9 +93,8 @@ return {
       })
     end,
     dependencies = {
-      'MunifTanjim/nui.nvim',
-    }
-
+      "MunifTanjim/nui.nvim",
+    },
   },
-  { 'MunifTanjim/nui.nvim', lazy = true },
+  { "MunifTanjim/nui.nvim", lazy = true },
 }
