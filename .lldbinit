@@ -3,5 +3,3 @@ command regex rd 's/[[:space:]]*$/po [[[UIApplication sharedApplication] keyWind
 
 # Try not to step into uninteresting library code. Needs some work.
 settings set target.process.thread.step-avoid-regexp ^(std::(!function)|boost::shared_ptr)
-
-command script import ~/.local/lib/python3.8/site-packages/voltron/entry.py

@@ -10,29 +10,89 @@ return {
 		config = function()
 			-- note: diagnostics are not exclusive to lsp servers
 			-- so these can be global keybindings
-			vim.keymap.set("n", "gl", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>") -- Open diagnostics of current buffer
-			vim.keymap.set("n", "gL", "<cmd>lua require('telescope.builtin').diagnostics()<cr>") -- Open diagnostics of all buffers
-			vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-			vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+			vim.keymap.set(
+				"n",
+				"gl",
+				"<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>",
+				{ desc = "Open diagnostics of current buffer." }
+			)
+			vim.keymap.set(
+				"n",
+				"gL",
+				"<cmd>lua require('telescope.builtin').diagnostics()<cr>",
+				{ desc = "Open diagnostics of all buffers." }
+			)
+			vim.keymap.set(
+				"n",
+				"[d",
+				"<cmd>lua vim.diagnostic.goto_prev()<cr>",
+				{ desc = "Go to previous diagnostic item." }
+			)
+			vim.keymap.set(
+				"n",
+				"]d",
+				"<cmd>lua vim.diagnostic.goto_next()<cr>",
+				{ desc = "Go to next diagnostic item." }
+			)
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
-					local opts = { buffer = event.buf }
-
-					-- these will be buffer-local keybindings
-					-- because they only work if you have an active language server
-
-					vim.keymap.set("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", opts)
-					vim.keymap.set("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", opts)
-					vim.keymap.set("n", "go", "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", opts)
-					vim.keymap.set("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
-					vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-					vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-					vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-					vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-					vim.keymap.set({ "n", "x" }, "gf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-					vim.keymap.set({ "n", "x" }, "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+					vim.keymap.set(
+						"n",
+						"gd",
+						"<cmd>lua require('telescope.builtin').lsp_definitions()<cr>",
+						{ buffer = event.buf, desc = "Go to definition." }
+					)
+					vim.keymap.set(
+						"n",
+						"gi",
+						"<cmd>lua require('telescope.builtin').lsp_implementations()<cr>",
+						{ buffer = event.buf, desc = "Go to implementation." }
+					)
+					vim.keymap.set(
+						"n",
+						"go",
+						"<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>",
+						{ buffer = event.buf, desc = "Go to type definition." }
+					)
+					vim.keymap.set(
+						"n",
+						"gr",
+						"<cmd>lua require('telescope.builtin').lsp_references()<cr>",
+						{ buffer = event.buf, desc = "Show references." }
+					)
+					vim.keymap.set(
+						"n",
+						"gD",
+						"<cmd>lua vim.lsp.buf.declaration()<cr>",
+						{ buffer = event.buf, desc = "Go to declaration." }
+					)
+					vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { buffer = event.buf })
+					vim.keymap.set(
+						"n",
+						"gs",
+						"<cmd>lua vim.lsp.buf.signature_help()<cr>",
+						{ buffer = event.buf, desc = "Signature help." }
+					)
+					vim.keymap.set(
+						"n",
+						"<F2>",
+						"<cmd>lua vim.lsp.buf.rename()<cr>",
+						{ buffer = event.buf, desc = "Rename." }
+					)
+					vim.keymap.set(
+						{ "n", "x" },
+						"gf",
+						"<cmd>lua vim.lsp.buf.format({async = true})<cr>",
+						{ buffer = event.buf, desc = "Format file or selection." }
+					)
+					vim.keymap.set(
+						{ "n", "x" },
+						"<F4>",
+						"<cmd>lua vim.lsp.buf.code_action()<cr>",
+						{ buffer = event.buf, desc = "Perform code action." }
+					)
 				end,
 			})
 

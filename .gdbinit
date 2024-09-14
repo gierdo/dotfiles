@@ -4,4 +4,3 @@ set history save on
 set history size 10000
 set history expansion on
 skip -rfu Catch
-source ~/.local/lib/python/site-packages/voltron/entry.py
