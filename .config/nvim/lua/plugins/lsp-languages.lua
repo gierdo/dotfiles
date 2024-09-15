@@ -24,6 +24,7 @@ return {
           "gradle_ls",
           "groovyls",
           "jqls",
+          "jsonls",
           "kotlin_language_server",
           "lemminx",
           "lua_ls",

@@ -1,0 +1,58 @@
+{
+  "lspconfig": {
+    "jdtls": {
+      "java.import.gradle.enabled": true,
+      "java.import.maven.enabled": true,
+      "java.maven.downloadSources": true,
+      "java.eclipse.downloadSources": true,
+      "java.maxConcurrentBuilds": 1,
+      "java.import.maven.offline.enabled": true,
+      "java.configuration.maven.userSettings": "~/.m2/settings.xml",
+      "java.codeGeneration.useBlocks": true,
+      "java.configuration.updateBuildConfiguration": "automatic",
+      "java.autobuild.enabled": false,
+      "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+      "java.format.enabled": true,
+      "java.format.onType.enabled": true,
+      "java.format.comments.enabled": true,
+      "java.errors.incompleteClasspath.severity": "ignore",
+      "java.jdt.ls.vmargs": "-noverify -Xmx4G -XX:+UseG1GC -XX:+UseStringDeduplication"
+    },
+    "clangd": {
+      "clangd.arguments": [
+        "--background-index",
+        "--fallback-style=google"
+      ]
+    },
+    "yamlls": {
+      "yaml.schemas": {
+        "kustomization": [
+          "**/kustomization.y*ml",
+          "**/*.patch.y*ml"
+        ],
+        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+          "**/*.template.y*ml",
+          "**/*-template.y*ml"
+        ]
+      },
+      "yaml.customTags": [
+        "!And scalar",
+        "!If scalar",
+        "!Not",
+        "!Equals scalar",
+        "!Or scalar",
+        "!FindInMap scalar",
+        "!Base64",
+        "!Cidr",
+        "!Ref",
+        "!Sub",
+        "!GetAtt sequence",
+        "!GetAZs",
+        "!ImportValue sequence",
+        "!Select sequence",
+        "!Split sequence",
+        "!Join sequence"
+      ]
+    }
+  }
+}

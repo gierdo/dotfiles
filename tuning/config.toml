@@ -90,6 +90,13 @@ path = "{{ home_dir }}/.config/nvim/init.lua"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/nvim/neoconf.json"
+path = "{{ home_dir }}/.config/nvim/neoconf.json"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/nvim/lua/"
 path = "{{ home_dir }}/.config/nvim/lua"
 
