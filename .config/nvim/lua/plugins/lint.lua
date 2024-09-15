@@ -61,6 +61,8 @@ return {
           "cppcheck",
           "cpplint",
           "flawfinder",
+          "codespell",
+          "cspell",
         },
         email = {
           "languagetool",
@@ -74,34 +76,64 @@ return {
           "clangtidy",
           "cppcheck",
           "cpplint",
+          "codespell",
+          "cspell",
           "flawfinder",
         },
-        git = { "gitlint", "write_good" },
+        git = {
+          "commitlint",
+          "gitlint",
+          "write_good",
+        },
         python = {
           "pylint",
           "flake8",
           "mypy",
+          "codespell",
+          "cspell",
         },
-        sh = { "shellcheck" },
+        sh = {
+          "shellcheck",
+          "codespell",
+          "cspell",
+        },
         cmake = {
           "cmakelint",
         },
         json = { "jsonlint" },
         systemd = { "systemd-analyze" },
-        kotlin = { "ktlint" },
+        kotlin = {
+          "ktlint",
+          "codespell",
+          "cspell",
+        },
+        java = {
+          "codespell",
+          "cspell",
+        },
+        cs = {
+          "codespell",
+          "cspell",
+        },
       }
+
+      local run_linters = function()
+        lint.try_lint()
+        -- Run these linters on all filetypes
+        lint.try_lint("trivy") -- Security / misconfiguration scanner
+      end
 
       local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = lint_augroup,
         callback = function()
-          lint.try_lint()
+          run_linters()
         end,
       })
 
       vim.keymap.set("n", "<leader>l", function()
-        lint.try_lint()
+        run_linters()
       end, { desc = "Trigger linting for current file" })
     end,
   },
@@ -109,6 +141,7 @@ return {
     "rshkarin/mason-nvim-lint",
     config = function()
       require("mason-nvim-lint").setup({
+        ensure_installed = { "trivy" },
         quiet_mode = true,
       })
     end,
