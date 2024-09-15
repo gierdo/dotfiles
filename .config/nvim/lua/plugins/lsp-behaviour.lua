@@ -9,6 +9,12 @@ return {
     },
   },
   {
+    "folke/neoconf.nvim",
+    config = function()
+      require("neoconf").setup()
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       -- note: diagnostics are not exclusive to lsp servers
@@ -149,6 +155,7 @@ return {
       end
     end,
     dependencies = {
+      "folke/neoconf.nvim",
       "williamboman/mason.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/nvim-cmp",
