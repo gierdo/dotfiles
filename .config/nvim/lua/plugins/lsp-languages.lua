@@ -3,8 +3,10 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local lspconfig = require("lspconfig")
+
       local default_setup = function(server)
-        require("lspconfig")[server].setup({
+        lspconfig[server].setup({
           capabilities = lsp_capabilities,
         })
       end
@@ -21,7 +23,6 @@ return {
           "gopls",
           "gradle_ls",
           "groovyls",
-          "jdtls",
           "jqls",
           "kotlin_language_server",
           "lemminx",
@@ -36,27 +37,32 @@ return {
           default_setup,
         },
       })
-    end,
-    dependencies = {
-      "williamboman/mason.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      "neovim/nvim-lspconfig",
-    },
-  },
-  {
-    -- Enable decompiler for csharp-lsp
-    "Decodetalkers/csharpls-extended-lsp.nvim",
-    config = function()
-      local config = {
+
+      -- comes with nvim-java
+      default_setup("jdtls")
+
+      -- Enable decompiler for csharp-lsp
+      local cs_config = {
+        capabilities = lsp_capabilities,
         handlers = {
           ["textDocument/definition"] = require("csharpls_extended").handler,
           ["textDocument/typeDefinition"] = require("csharpls_extended").handler,
         },
       }
-      require("lspconfig").csharp_ls.setup(config)
+      lspconfig.csharp_ls.setup(cs_config)
     end,
     dependencies = {
+      "williamboman/mason.nvim",
+      "hrsh7th/cmp-nvim-lsp",
       "neovim/nvim-lspconfig",
+      "nvim-java/nvim-java",
+      "Decodetalkers/csharpls-extended-lsp.nvim",
     },
+  },
+  {
+    "nvim-java/nvim-java",
+    config = function()
+      require("java").setup()
+    end,
   },
 }
