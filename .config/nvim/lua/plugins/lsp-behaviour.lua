@@ -1,5 +1,11 @@
 return {
   {
+    "zapling/mason-lock.nvim",
+    init = function()
+      require("mason-lock").setup({})
+    end,
+  },
+  {
     "williamboman/mason.nvim",
     opts = {
       registries = {
