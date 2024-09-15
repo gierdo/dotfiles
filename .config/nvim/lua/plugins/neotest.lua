@@ -3,7 +3,8 @@ return {
     "nvim-neotest/neotest",
     event = "VeryLazy",
     config = function()
-      require("neotest").setup({
+      local neotest = require("neotest")
+      neotest.setup({
         adapters = {
           require("neotest-python"),
 
@@ -26,6 +27,26 @@ return {
 
       wk.add({
         { "<leader>t", group = "   Test" },
+        { "<leader>tr", neotest.run.run, desc = "Run nearest test." },
+        {
+          "<leader>tf",
+          function()
+            neotest.run.run(vim.fn.expand("%"))
+          end,
+          desc = "Run current file.",
+        },
+        {
+          "<leader>td",
+          function()
+            neotest.run.run({ strategy = "dap" })
+          end,
+          desc = "Debug nearest test.",
+        },
+        {
+          "<leader>ts",
+          neotest.summary.toggle,
+          desc = "Show/hide summary.",
+        },
       })
     end,
     dependencies = {
@@ -39,6 +60,7 @@ return {
       "nvim-neotest/neotest-vim-test",
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
+      "mfussenegger/nvim-dap",
     },
   },
   { "antoinemadec/FixCursorHold.nvim", lazy = true },

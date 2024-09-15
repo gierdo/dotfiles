@@ -81,6 +81,10 @@ return {
   {
     "dhruvasagar/vim-table-mode",
     event = "VeryLazy",
+    config = function()
+      -- Delete keymap to not conflict with test keymaps
+      vim.keymap.del({ "n", "x" }, "<leader>tt")
+    end,
   },
   {
     "kevinhwang91/nvim-bqf",
