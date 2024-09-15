@@ -108,8 +108,10 @@ return {
       cmp.setup({
         sources = {
           { name = "nvim_lsp" },
-          { name = "snippy" },
+          { name = "calc" },
+          { name = "path" },
           { name = "nvim_lsp_signature_help" },
+          { name = "snippy" },
         },
         snippet = {
           expand = function(args)
@@ -164,6 +166,8 @@ return {
       "folke/neoconf.nvim",
       "williamboman/mason.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-calc",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "dcampos/nvim-snippy",
