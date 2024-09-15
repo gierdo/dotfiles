@@ -1,5 +1,8 @@
 {
   "lspconfig": {
+    "bashls": {
+      "bashIde.shfmt.simplifyCode": true
+    },
     "jdtls": {
       "java.import.gradle.enabled": true,
       "java.import.maven.enabled": true,
@@ -22,36 +25,6 @@
       "clangd.arguments": [
         "--background-index",
         "--fallback-style=google"
-      ]
-    },
-    "yamlls": {
-      "yaml.schemas": {
-        "kustomization": [
-          "**/kustomization.y*ml",
-          "**/*.patch.y*ml"
-        ],
-        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
-          "**/*.template.y*ml",
-          "**/*-template.y*ml"
-        ]
-      },
-      "yaml.customTags": [
-        "!And scalar",
-        "!If scalar",
-        "!Not",
-        "!Equals scalar",
-        "!Or scalar",
-        "!FindInMap scalar",
-        "!Base64",
-        "!Cidr",
-        "!Ref",
-        "!Sub",
-        "!GetAtt sequence",
-        "!GetAZs",
-        "!ImportValue sequence",
-        "!Select sequence",
-        "!Split sequence",
-        "!Join sequence"
       ]
     }
   }
