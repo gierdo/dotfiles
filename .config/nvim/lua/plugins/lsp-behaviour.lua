@@ -110,6 +110,7 @@ return {
           { name = "nvim_lsp" },
           { name = "calc" },
           { name = "path" },
+          { name = "conventionalcommits" },
           { name = "nvim_lsp_signature_help" },
           { name = "snippy" },
         },
@@ -165,14 +166,16 @@ return {
     dependencies = {
       "folke/neoconf.nvim",
       "williamboman/mason.nvim",
+      "dcampos/nvim-snippy",
+      "nvim-telescope/telescope.nvim",
+      -- cmp + sources
+      "dcampos/cmp-snippy",
+      "davidsierradz/cmp-conventionalcommits",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-calc",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
-      "dcampos/nvim-snippy",
-      "dcampos/cmp-snippy",
-      "nvim-telescope/telescope.nvim",
     },
   },
 }
