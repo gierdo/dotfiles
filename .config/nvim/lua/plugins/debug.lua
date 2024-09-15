@@ -44,7 +44,7 @@ return {
       local telescope = require("telescope")
 
       wk.add({
-        { "<leader>d", group = "  Debug" },
+        { "<leader>d", group = "   Debug" },
         {
           "<leader>dd",
           telescope.extensions.dap.commands,

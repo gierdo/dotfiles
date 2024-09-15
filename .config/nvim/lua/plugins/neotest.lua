@@ -21,6 +21,12 @@ return {
           }),
         },
       })
+
+      local wk = require("which-key")
+
+      wk.add({
+        { "<leader>t", group = "   Test" },
+      })
     end,
     dependencies = {
       "nvim-neotest/nvim-nio",
@@ -32,6 +38,7 @@ return {
       "nvim-neotest/neotest-jest",
       "nvim-neotest/neotest-vim-test",
       "weilbith/neotest-gradle",
+      "folke/which-key.nvim",
     },
   },
   { "antoinemadec/FixCursorHold.nvim", lazy = true },
