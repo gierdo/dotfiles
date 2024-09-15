@@ -58,6 +58,7 @@ return {
       vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
       vim.keymap.set("n", "<C-A-b>", "<cmd>Telescope buffers<cr>")
       vim.keymap.set("n", "<C-A-p>", "<cmd>Telescope tags<cr>")
+      vim.keymap.set({ "n", "x", "i" }, "<F1>", "<cmd>Telescope help_tags<cr>")
     end,
     config = function()
       local actions = require("telescope.actions")
