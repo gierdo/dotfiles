@@ -141,7 +141,7 @@ return {
     "rshkarin/mason-nvim-lint",
     config = function()
       require("mason-nvim-lint").setup({
-        ensure_installed = { "trivy" },
+        ensure_installed = {},
         quiet_mode = true,
       })
     end,
