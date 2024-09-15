@@ -132,6 +132,18 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
       })
+
+      local signs = {
+        Error = " ",
+        Warn = " ",
+        Hint = "💡",
+        Info = " ",
+      }
+
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      end
     end,
     dependencies = {
       "williamboman/mason.nvim",
