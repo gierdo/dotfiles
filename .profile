@@ -10,12 +10,13 @@
 
 export EDITOR=nvim
 
-export PATH="$HOME/.luarocks/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
 export PATH="$HOME/.dotfiles/.local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+export PATH="$HOME/.luarocks/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
