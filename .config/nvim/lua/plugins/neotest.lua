@@ -7,6 +7,7 @@ return {
       neotest.setup({
         adapters = {
           require("neotest-python"),
+          require("neotest-golang"),
 
           require("neotest-jest")({
             env = { CI = true },
@@ -50,6 +51,7 @@ return {
       })
     end,
     dependencies = {
+      "fredrikaverpil/neotest-golang",
       "nvim-neotest/nvim-nio",
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
@@ -71,5 +73,6 @@ return {
   { "nvim-neotest/neotest-vim-test", lazy = true },
   { "vim-test/vim-test", lazy = true },
   { "weilbith/neotest-gradle", lazy = true },
+  { "fredrikaverpil/neotest-golang", lazy = true },
   { "nvim-neotest/nvim-nio" },
 }
