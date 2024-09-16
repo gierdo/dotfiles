@@ -8,6 +8,7 @@ return {
         adapters = {
           require("neotest-python"),
           require("neotest-golang"),
+          require("neotest-dotnet"),
 
           require("neotest-jest")({
             env = { CI = true },
@@ -15,6 +16,7 @@ return {
               return vim.fn.getcwd()
             end,
           }),
+
           require("neotest-vim-test")({ ignore_filetypes = { "python", "java", "typescript", "javascript" } }),
           require("neotest-gradle"),
           require("neotest-java")({
@@ -60,19 +62,11 @@ return {
       "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
       "nvim-neotest/neotest-vim-test",
+      "Issafalcon/neotest-dotnet",
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
       "mfussenegger/nvim-dap",
       "williamboman/mason-lspconfig.nvim", -- the java lsp configuration breaks kotlin test system precedency
     },
   },
-  { "antoinemadec/FixCursorHold.nvim", lazy = true },
-  { "nvim-neotest/neotest-python", lazy = true },
-  { "rcasia/neotest-java", lazy = true },
-  { "nvim-neotest/neotest-jest", lazy = true },
-  { "nvim-neotest/neotest-vim-test", lazy = true },
-  { "vim-test/vim-test", lazy = true },
-  { "weilbith/neotest-gradle", lazy = true },
-  { "fredrikaverpil/neotest-golang", lazy = true },
-  { "nvim-neotest/nvim-nio" },
 }
