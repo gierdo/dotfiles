@@ -52,10 +52,10 @@ return {
       local lint = require("lint")
 
       lint.linters_by_ft = {
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
+        javascript = { "eslint_d", "trivy" },
+        typescript = { "eslint_d", "trivy" },
+        javascriptreact = { "eslint_d", "trivy" },
+        typescriptreact = { "eslint_d", "trivy" },
         cpp = {
           "clangtidy",
           "cppcheck",
@@ -63,6 +63,7 @@ return {
           "flawfinder",
           "codespell",
           "cspell",
+          "trivy",
         },
         email = {
           "languagetool",
@@ -79,6 +80,7 @@ return {
           "codespell",
           "cspell",
           "flawfinder",
+          "trivy",
         },
         git = {
           "commitlint",
@@ -91,11 +93,13 @@ return {
           "mypy",
           "codespell",
           "cspell",
+          "trivy",
         },
         sh = {
           "shellcheck",
           "codespell",
           "cspell",
+          "trivy",
         },
         cmake = {
           "cmakelint",
@@ -106,21 +110,33 @@ return {
           "ktlint",
           "codespell",
           "cspell",
+          "trivy",
         },
         java = {
           "codespell",
           "cspell",
+          "trivy",
         },
         cs = {
           "codespell",
           "cspell",
+          "trivy",
+        },
+        docker = {
+          "trivy",
+        },
+        yaml = {
+          "trivy",
+        },
+        xml = {
+          "trivy",
         },
       }
 
       local run_linters = function()
         lint.try_lint()
         -- Run these linters on all filetypes
-        lint.try_lint("trivy") -- Security / misconfiguration scanner
+        -- lint.try_lint("trivy")
       end
 
       local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

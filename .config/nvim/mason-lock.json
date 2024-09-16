@@ -48,6 +48,7 @@
   "sqls": "v0.2.28",
   "stylua": "v0.20.0",
   "texlab": "v5.19.0",
+  "trivy": "v0.55.1",
   "typescript-language-server": "4.3.3",
   "write-good": "1.0.8",
   "yaml-language-server": "1.15.0",
