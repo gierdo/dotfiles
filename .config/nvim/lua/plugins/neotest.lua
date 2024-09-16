@@ -61,6 +61,7 @@ return {
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
       "mfussenegger/nvim-dap",
+      "williamboman/mason-lspconfig.nvim", -- the java lsp configuration breaks kotlin test system precedency
     },
   },
   { "antoinemadec/FixCursorHold.nvim", lazy = true },
@@ -70,6 +71,5 @@ return {
   { "nvim-neotest/neotest-vim-test", lazy = true },
   { "vim-test/vim-test", lazy = true },
   { "weilbith/neotest-gradle", lazy = true },
-
   { "nvim-neotest/nvim-nio" },
 }
