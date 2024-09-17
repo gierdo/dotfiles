@@ -22,6 +22,9 @@ return {
             "goimports",
             "gofmt",
           },
+          markdown = {
+            "markdownlint",
+          },
           javascript = {
             "prettierd",
             "prettier",
