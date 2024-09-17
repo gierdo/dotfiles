@@ -22,6 +22,7 @@
   "gradle-language-server": "3.12.7",
   "groovy-language-server": "0c40ec136525b592f1d798bb52ced9d8d2d7945c",
   "haskell-language-server": "2.8.0.0",
+  "hlint": "v3.8",
   "isort": "5.13.2",
   "java-debug-adapter": "0.58.0",
   "java-test": "0.40.1",
