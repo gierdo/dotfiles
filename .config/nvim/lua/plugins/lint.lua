@@ -131,6 +131,9 @@ return {
         xml = {
           "trivy",
         },
+        haskell = {
+          "hlint",
+        },
       }
 
       local run_linters = function()
