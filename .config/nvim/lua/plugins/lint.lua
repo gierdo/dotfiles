@@ -8,15 +8,37 @@ return {
           lsp_format = "fallback",
         },
         formatters_by_ft = {
-          lua = { "stylua" },
-          python = { "isort", "black" },
-          rust = { "rustfmt" },
-          go = { "goimports", "gofmt" },
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-          kotlin = { "ktlint" },
-          sh = { "shfmt" },
-          yaml = { "yamlfmt" },
-          ["*"] = { "trim_whitespace" },
+          lua = {
+            "stylua",
+          },
+          python = {
+            "isort",
+            "black",
+          },
+          rust = {
+            "rustfmt",
+          },
+          go = {
+            "goimports",
+            "gofmt",
+          },
+          javascript = {
+            "prettierd",
+            "prettier",
+            stop_after_first = true,
+          },
+          kotlin = {
+            "ktlint",
+          },
+          sh = {
+            "shfmt",
+          },
+          yaml = {
+            "yamlfmt",
+          },
+          ["*"] = {
+            "trim_whitespace",
+          },
         },
         formatters = {
           shfmt = {
@@ -52,10 +74,22 @@ return {
       local lint = require("lint")
 
       lint.linters_by_ft = {
-        javascript = { "eslint_d", "trivy" },
-        typescript = { "eslint_d", "trivy" },
-        javascriptreact = { "eslint_d", "trivy" },
-        typescriptreact = { "eslint_d", "trivy" },
+        javascript = {
+          "eslint_d",
+          "trivy",
+        },
+        typescript = {
+          "eslint_d",
+          "trivy",
+        },
+        javascriptreact = {
+          "eslint_d",
+          "trivy",
+        },
+        typescriptreact = {
+          "eslint_d",
+          "trivy",
+        },
         cpp = {
           "clangtidy",
           "cppcheck",
@@ -89,7 +123,6 @@ return {
         },
         python = {
           "pylint",
-          "flake8",
           "mypy",
           "codespell",
           "cspell",
@@ -104,8 +137,12 @@ return {
         cmake = {
           "cmakelint",
         },
-        json = { "jsonlint" },
-        systemd = { "systemd-analyze" },
+        json = {
+          "jsonlint",
+        },
+        systemd = {
+          "systemd-analyze",
+        },
         kotlin = {
           "ktlint",
           "codespell",

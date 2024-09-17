@@ -15,7 +15,6 @@
   "dockerfile-language-server": "0.13.0",
   "eslint-lsp": "4.10.0",
   "eslint_d": "14.0.3",
-  "flake8": "7.1.1",
   "gitlab-ci-ls": "0.21.1",
   "goimports": "v0.25.0",
   "gopls": "v0.16.2",
