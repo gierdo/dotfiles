@@ -25,6 +25,7 @@ return {
           "gradle_ls",
           "groovyls",
           "hls",
+          "html",
           "jqls",
           "jsonls",
           "kotlin_language_server",
