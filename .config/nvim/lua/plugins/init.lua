@@ -1,6 +1,19 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true }, -- lua base library
   {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
     "scrooloose/nerdcommenter",
     event = "VeryLazy",
     config = function()
@@ -168,5 +181,50 @@ return {
       vim.g.mkdp_auto_close = 0
     end,
     ft = { "markdown" },
+  },
+  {
+    "https://codeberg.org/esensar/nvim-dev-container",
+    event = "VeryLazy",
+    config = function()
+      require("devcontainer").setup({
+        attach_mounts = {
+          neovim_config = {
+            -- enables mounting local config to /root/.config/nvim in container
+            enabled = true,
+            -- makes mount readonly in container
+            options = { "readonly" },
+          },
+          neovim_data = {
+            -- enables mounting local data to /root/.local/share/nvim in container
+            enabled = true,
+            -- no options by default
+            options = {},
+          },
+          -- Only useful if using neovim 0.8.0+
+          neovim_state = {
+            -- enables mounting local state to /root/.local/state/nvim in container
+            enabled = true,
+            -- no options by default
+            options = {},
+          },
+        },
+      })
+    end,
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "glacambre/firenvim",
+    lazy = not vim.g.started_by_firenvim,
+    build = ":call firenvim#install(0)",
+    config = function()
+      vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+          [".*"] = {
+            takeover = "never",
+          },
+        },
+      }
+    end,
   },
 }
