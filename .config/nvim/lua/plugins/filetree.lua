@@ -105,8 +105,10 @@ return {
         nested = true,
       })
       vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-      vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<cr>")
-      vim.keymap.set("n", "<A-n>", "<cmd>NvimTreeFindFile<cr>")
+
+      local api = require("nvim-tree.api")
+      vim.keymap.set("n", "<C-n>", api.tree.toggle)
+      vim.keymap.set("n", "<A-n>", api.tree.find_file)
     end,
   },
   "nvim-tree/nvim-web-devicons",

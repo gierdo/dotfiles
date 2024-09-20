@@ -52,13 +52,17 @@ return {
     event = "VeryLazy",
     branch = "0.1.x",
     init = function()
-      vim.keymap.set("n", "<A-l>", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
-      vim.keymap.set("n", "<C-A-l>", '<cmd>Telescope grep_string search=""<cr>')
-      vim.keymap.set("n", "<A-p>", "<cmd>Telescope live_grep<cr>")
-      vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
-      vim.keymap.set("n", "<C-A-b>", "<cmd>Telescope buffers<cr>")
-      vim.keymap.set("n", "<C-A-p>", "<cmd>Telescope tags<cr>")
-      vim.keymap.set({ "n", "x", "i" }, "<F1>", "<cmd>Telescope help_tags<cr>")
+      local telescope = require("telescope.builtin")
+
+      vim.keymap.set("n", "<A-l>", telescope.current_buffer_fuzzy_find)
+      vim.keymap.set("n", "<C-A-l>", function()
+        telescope.grep_string({ search = "" })
+      end)
+      vim.keymap.set("n", "<A-p>", telescope.live_grep)
+      vim.keymap.set("n", "<C-p>", telescope.find_files)
+      vim.keymap.set("n", "<C-A-b>", telescope.buffers)
+      vim.keymap.set("n", "<C-A-p>", telescope.tags)
+      vim.keymap.set({ "n", "x", "i" }, "<F1>", telescope.help_tags)
     end,
     config = function()
       local actions = require("telescope.actions")
