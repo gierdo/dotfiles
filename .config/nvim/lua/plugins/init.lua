@@ -31,20 +31,11 @@ return {
   },
   "tpope/vim-sleuth",
   {
-    "cappyzawa/trim.nvim",
-    event = "VeryLazy",
-    opts = {},
-  },
-  {
     "RaafatTurki/hex.nvim",
     event = "VeryLazy",
     config = function()
       require("hex").setup()
     end,
-  },
-  {
-    "honza/vim-snippets",
-    event = "VeryLazy",
   },
   {
     "folke/todo-comments.nvim",

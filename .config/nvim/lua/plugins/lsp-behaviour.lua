@@ -185,4 +185,8 @@ return {
       "hrsh7th/cmp-nvim-lsp-signature-help",
     },
   },
+  {
+    "honza/vim-snippets",
+    event = "VeryLazy",
+  },
 }

@@ -30,8 +30,8 @@ Assuming that rust is set up, `cargo` being available, and the dotfiles
 respository is cloned (recursively) to `~/.dotfiles`
 
 ```shell
-$ cargo install tuning
-$ tuning
+cargo install tuning
+tuning
 ```
 
 ## llama - local coding assistant
