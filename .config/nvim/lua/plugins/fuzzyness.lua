@@ -52,27 +52,30 @@ return {
     event = "VeryLazy",
     branch = "0.1.x",
     init = function()
-      local telescope = require("telescope.builtin")
+      local builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<A-l>", telescope.current_buffer_fuzzy_find)
+      vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find)
       vim.keymap.set("n", "<C-A-l>", function()
-        telescope.grep_string({ search = "" })
+        builtin.grep_string({ search = "" })
       end)
-      vim.keymap.set("n", "<A-p>", telescope.live_grep)
-      vim.keymap.set("n", "<C-p>", telescope.find_files)
-      vim.keymap.set("n", "<C-A-b>", telescope.buffers)
-      vim.keymap.set("n", "<C-A-p>", telescope.tags)
-      vim.keymap.set({ "n", "x", "i" }, "<F1>", telescope.help_tags)
+      vim.keymap.set("n", "<A-p>", builtin.live_grep)
+      vim.keymap.set("n", "<C-p>", builtin.find_files)
+      vim.keymap.set("n", "<C-A-b>", builtin.buffers)
+      vim.keymap.set("n", "<C-A-p>", builtin.tags)
+      vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Search help tags" })
     end,
     config = function()
       local actions = require("telescope.actions")
       local action_state = require("telescope.actions.state")
 
       local custom_actions = {}
+      local builtin = require("telescope.builtin")
 
-      require("telescope").load_extension("gh")
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("dap")
+      local telescope = require("telescope")
+
+      telescope.load_extension("gh")
+      telescope.load_extension("fzf")
+      telescope.load_extension("dap")
 
       function custom_actions.fzf_multi_select(prompt_bufnr)
         local picker = action_state.get_current_picker(prompt_bufnr)
@@ -88,7 +91,7 @@ return {
         end
       end
 
-      require("telescope").setup({
+      telescope.setup({
         defaults = {
           -- Default configuration for telescope goes here:
           -- config_key = value,

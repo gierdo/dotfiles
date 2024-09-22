@@ -3,15 +3,17 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    init = function()
+    config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
+
+      local wk = require("which-key")
+      ---@class wk.Opts
+      local options = {
+        sort = { "group", "local", "order", "manual", "mod" },
+      }
+      wk.setup(options)
     end,
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
   },
   {
     "scrooloose/nerdcommenter",
