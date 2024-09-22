@@ -22,6 +22,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     config = function()
       -- note: diagnostics are not exclusive to lsp servers
       -- so these can be global keybindings
@@ -133,11 +134,16 @@ return {
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
+
+      require("telescope").load_extension("lsp_handlers")
     end,
     dependencies = {
       "folke/neoconf.nvim",
       "williamboman/mason.nvim",
       "dcampos/nvim-snippy",
+      -- fuzzy handlers
+      "nvim-telescope/telescope.nvim",
+      "gbrlsnchs/telescope-lsp-handlers.nvim",
       -- cmp + sources
       "dcampos/cmp-snippy",
       "davidsierradz/cmp-conventionalcommits",

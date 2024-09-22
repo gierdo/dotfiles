@@ -53,6 +53,7 @@
   "trivy": "v0.55.2",
   "typescript-language-server": "4.3.3",
   "write-good": "1.0.8",
+  "xmlformatter": "0.2.6",
   "yaml-language-server": "1.15.0",
   "yamlfmt": "v0.13.0"
 }

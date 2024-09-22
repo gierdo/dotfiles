@@ -39,6 +39,9 @@ return {
           yaml = {
             "yamlfmt",
           },
+          xml = {
+            "xmlformat",
+          },
           ["*"] = {
             "trim_whitespace",
           },
