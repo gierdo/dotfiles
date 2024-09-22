@@ -41,7 +41,7 @@
   "openjdk-17": "17.0.2",
   "prettier": "3.3.3",
   "prettierd": "0.25.3",
-  "pylint": "3.2.7",
+  "pylint": "3.3.0",
   "pyright": "1.1.381",
   "rust-analyzer": "2024-09-16",
   "shellcheck": "v0.10.0",
