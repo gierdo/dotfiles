@@ -85,6 +85,7 @@ return {
           { name = "conventionalcommits" },
           { name = "nvim_lsp_signature_help" },
           { name = "snippy" },
+          { name = "neorg" },
         },
         snippet = {
           expand = function(args)
