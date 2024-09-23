@@ -111,7 +111,6 @@ return {
         },
         markdown = {
           "markdownlint",
-          "write_good",
         },
         c = {
           "clangtidy",
@@ -125,7 +124,6 @@ return {
         git = {
           "commitlint",
           "gitlint",
-          "write_good",
         },
         python = {
           "pylint",
