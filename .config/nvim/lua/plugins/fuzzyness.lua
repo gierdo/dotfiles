@@ -79,7 +79,7 @@ return {
 
       function custom_actions.fzf_multi_select(prompt_bufnr)
         local picker = action_state.get_current_picker(prompt_bufnr)
-        local num_selections = table.getn(picker:get_multi_selection())
+        local num_selections = #picker:get_multi_selection()
 
         if num_selections > 1 then
           -- actions.file_edit throws - context of picker seems to change

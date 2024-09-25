@@ -76,7 +76,6 @@ return {
         require("telescope").extensions.orgmode.search_headings,
         { desc = "Search headings" }
       )
-      vim.keymap.set("n", "<leader>oli", require("telescope").extensions.orgmode.insert_link, { desc = "Insert link" })
     end,
     dependencies = {
       "nvim-orgmode/orgmode",
