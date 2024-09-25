@@ -322,6 +322,7 @@ return {
         ignore_install = {
           "javascript",
           "norg",
+          "org",
           "jsdoc",
           "bicep",
         },

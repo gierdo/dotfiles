@@ -1,60 +1,86 @@
 return {
   {
-    "nvim-neorg/neorg",
-    lazy = false,
-    version = "*", -- Pin Neorg to the latest stable release
+    "nvim-orgmode/orgmode",
+    event = "VeryLazy",
+    ft = { "org" },
     config = function()
-      local neorg = require("neorg")
-      neorg.setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.integrations.telescope"] = {},
-          ["core.esupports.hop"] = {},
-          ["core.concealer"] = {},
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp",
-            },
-          },
-          ["core.keybinds"] = {
-            config = {
-              default_keybinds = false,
-            },
-            ["core.dirman"] = {
-              config = {
-                workspaces = {
-                  notes = "~/Sync/notes",
-                },
-              },
-            },
+      -- Setup orgmode
+      require("orgmode").setup({
+        org_agenda_files = { "~/Sync/org/**/*", "~/org/**/*" },
+        org_default_notes_file = "~/Sync/org/refile.org",
+        mappings = {
+          org = {
+            org_insert_link = false,
+            org_refile = false,
           },
         },
       })
 
-      -- Unfold and conceal norg files
-      vim.wo.foldlevel = 99
-      vim.wo.conceallevel = 2
-
       local wk = require("which-key")
+      wk.add({
+        { "<leader>n", group = "📚 org roam" },
+      })
 
       wk.add({
-        { "<leader>n", group = "📚 Neorg" },
-        { "<leader>nf", "<Plug>(neorg.telescope.find_norg_files)", desc = "Find norg files" },
-        { "<leader>nl", "<Plug>(neorg.telescope.insert_link)", desc = "Insert link" },
-        { "<leader>nx", "<Plug>(neorg.esupports.hop.hop-link)", desc = "Hop to link" },
-        { "<leader>nw", "<Plug>(neorg.telescope.switch_workspace)", desc = "Switch workspace" },
-        { "<leader>nr", "<Plug>(neorg.telescope.backlinks.file_backlinks)", desc = "Find file backlinks" },
-        { "<leader>nd", "<Plug>(neorg.qol.todo-items.todo.task-done)", desc = "Task done" },
-        { "<leader>nu", "<Plug>(neorg.qol.todo-items.todo.task-undone)", desc = "Task undone" },
-        { "<leader>ni", "<Plug>(neorg.qol.todo-items.todo.task-important)", desc = "Task important" },
-        { "<leader>nc", "<Plug>(neorg.qol.todo-items.todo.task-cancelled)", desc = "Task cancelled" },
-        { "<leader>n<space>", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", desc = "Cycle task state" },
+        { "<leader>o", group = "📚 org" },
       })
+      vim.opt.conceallevel = 2
+      vim.opt.concealcursor = "nc"
+    end,
+  },
+  {
+    "akinsho/org-bullets.nvim",
+    config = function()
+      require("org-bullets").setup()
     end,
     dependencies = {
+      "nvim-orgmode/orgmode",
+    },
+  },
+  {
+    "chipsenkbeil/org-roam.nvim",
+    tag = "0.1.0",
+    dependencies = {
+      {
+        "nvim-orgmode/orgmode",
+        tag = "0.3.4",
+      },
+    },
+    config = function()
+      require("org-roam").setup({
+        directory = "~/Sync/org/roam",
+        -- optional
+        -- org_files = {
+        --   "~/another_org_dir",
+        --   "~/some/folder/*.org",
+        --   "~/a/single/org_file.org",
+        -- },
+      })
+    end,
+  },
+  {
+    "nvim-orgmode/telescope-orgmode.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("telescope").load_extension("orgmode")
+
+      vim.keymap.set(
+        "n",
+        "<leader>or",
+        require("telescope").extensions.orgmode.refile_heading,
+        { desc = "Refile heading" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>oh",
+        require("telescope").extensions.orgmode.search_headings,
+        { desc = "Search headings" }
+      )
+      vim.keymap.set("n", "<leader>oli", require("telescope").extensions.orgmode.insert_link, { desc = "Insert link" })
+    end,
+    dependencies = {
+      "nvim-orgmode/orgmode",
       "nvim-telescope/telescope.nvim",
-      "nvim-neorg/neorg-telescope",
-      "folke/which-key.nvim",
     },
   },
 }
