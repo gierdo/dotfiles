@@ -125,4 +125,20 @@ return {
       require("java").setup()
     end,
   },
+  {
+    "edolphin-ydf/goimpl.nvim",
+    ft = { "go" },
+    config = function()
+      require("telescope").load_extension("goimpl")
+      vim.keymap.set("n", "<leader>i", function()
+        require("telescope").extensions.goimpl.goimpl()
+      end, { desc = "Implement stub based on interface" })
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-lua/popup.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+  },
 }
