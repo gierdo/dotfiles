@@ -8,6 +8,18 @@ return {
       require("orgmode").setup({
         org_agenda_files = { "~/Sync/org/**/*", "~/org/**/*" },
         org_default_notes_file = "~/Sync/org/refile.org",
+        org_capture_templates = {
+          t = { description = "Task", template = "* TODO %?\n  %u" },
+          b = {
+            description = "Bookmark",
+            headline = "Bookmarks",
+            template = "** [[%?]] \n:PROPERTIES:\n:CREATED: %U\n:END:",
+            properties = {
+              empty_lines = 1,
+            },
+            target = "~/Sync/org/bookmarks.org",
+          },
+        },
         mappings = {
           org = {
             org_insert_link = false,
