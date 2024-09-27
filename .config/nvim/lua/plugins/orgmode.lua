@@ -9,7 +9,12 @@ return {
         org_agenda_files = { "~/Sync/org/**/*", "~/org/**/*" },
         org_default_notes_file = "~/Sync/org/refile.org",
         org_capture_templates = {
-          t = { description = "Task", template = "* TODO %?\n  %u" },
+          t = {
+            description = "Task",
+            headline = "Todos",
+            template = "* TODO %?\n  %u",
+            target = "~/Sync/org/todos.org",
+          },
           b = {
             description = "Bookmark",
             headline = "Bookmarks",
