@@ -36,8 +36,11 @@ return {
       wk.add({
         { "<leader>o", group = "📚 org" },
       })
-      vim.opt.conceallevel = 2
-      vim.opt.concealcursor = "nc"
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "org",
+        command = "setlocal concealcursor=nc conceallevel=2",
+      })
     end,
   },
   {
