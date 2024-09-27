@@ -30,6 +30,7 @@
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "8b9363d83b5d779813cdd2819b8308651cec2a09" },
   "mason-nvim-lint": { "branch": "main", "commit": "b579a00ee39dcd590b1023028dc8fb3d203a67b0" },
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
+  "multicursor.nvim": { "branch": "1.0", "commit": "5f6186b3b4e687cc47755e8635220de065310759" },
   "neoai.nvim": { "branch": "local-llama", "commit": "316276af46f4c2f0973cfdde636b38413e9b6e8d" },
   "neoconf.nvim": { "branch": "main", "commit": "944f30e58171cf909b6567ce206e9097745560d1" },
   "neogen": { "branch": "main", "commit": "e932ba918b56723436b77aa3efb844a11b2851ab" },
