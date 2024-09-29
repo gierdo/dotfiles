@@ -5,7 +5,6 @@ return {
       require("mason-nvim-dap").setup({
         ensure_installed = {
           "cppdbg",
-          "delve",
           "javadbg",
           "kotlin",
           "netcoredbg",
@@ -17,6 +16,13 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
+    },
+  },
+  {
+    "leoluz/nvim-dap-go",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "jay-babu/mason-nvim-dap.nvim",
     },
   },
   {

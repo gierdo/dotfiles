@@ -113,10 +113,6 @@ return {
     end,
   },
   {
-    "fatih/vim-go",
-    build = ":GoUpdateBinaries",
-  },
-  {
     "jamessan/vim-gnupg",
     config = function()
       vim.api.nvim_create_autocmd("User", {
