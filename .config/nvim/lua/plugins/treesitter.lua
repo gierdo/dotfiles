@@ -316,7 +316,7 @@ return {
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = false,
+        auto_install = true,
 
         -- List of parsers to ignore installing (or "all")
         ignore_install = {
@@ -441,6 +441,20 @@ return {
         -- case_insensitive_regex: sets regex case sensitivity
         case_insensitive_regex = false,
       })
+
+      -- Add external parsers
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+      parser_config.plantuml = {
+        install_info = {
+          url = "https://github.com/Decodetalkers/tree_sitter_plantuml.git", -- local path or git repo
+          files = { "src/parser.c" },
+          branch = "gh-pages",
+          generate_requires_npm = false,
+          requires_generate_from_grammar = true,
+        },
+        filetype = "plantuml",
+      }
     end,
   },
   {

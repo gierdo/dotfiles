@@ -166,6 +166,7 @@ crates = [
   "git-delta",
   "mise",
   "ripgrep",
+  "tree-sitter-cli",
   "zoxide",
 ]
 state = "present"
