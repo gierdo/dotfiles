@@ -23,8 +23,9 @@ return {
   },
   {
     "leoluz/nvim-dap-go",
-    config = function()
-      require("dap-go").setup({})
+    ft = "go",
+    config = function(_, opts)
+      require("dap-go").setup(opts)
     end,
     dependencies = {
       "mfussenegger/nvim-dap",
