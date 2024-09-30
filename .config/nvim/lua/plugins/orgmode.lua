@@ -63,7 +63,6 @@ return {
     dependencies = {
       {
         "nvim-orgmode/orgmode",
-        tag = "0.3.4",
       },
     },
     config = function()

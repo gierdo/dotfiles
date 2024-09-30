@@ -12,6 +12,9 @@ return {
         },
         handlers = {},
       })
+
+      -- Support vscode launch configurations
+      require("dap.ext.vscode").load_launchjs()
     end,
     dependencies = {
       "williamboman/mason.nvim",
