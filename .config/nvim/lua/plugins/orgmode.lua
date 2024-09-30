@@ -24,6 +24,13 @@ return {
             },
             target = "~/Sync/org/bookmarks.org",
           },
+          n = {
+            description = "Unordered Note",
+            template = "* %?\n  %u",
+            properties = {
+              empty_lines = 1,
+            },
+          },
         },
         mappings = {
           org = {
