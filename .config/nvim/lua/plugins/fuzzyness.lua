@@ -74,11 +74,6 @@ return {
         end
       end
 
-      telescope.load_extension("project")
-      telescope.load_extension("fzf")
-      telescope.load_extension("dap")
-      telescope.load_extension("file_browser")
-
       local fb_actions = require("telescope").extensions.file_browser.actions
       telescope.setup({
         defaults = {
@@ -102,25 +97,34 @@ return {
           },
         },
         pickers = {
-          file_browser = {
-            mappings = {
-              i = {
-                ["<C-t>"] = false,
-                ["<A-w>"] = fb_actions.change_cwd,
-              },
-              n = {
-                t = false,
-                ["<A-w>"] = fb_actions.change_cwd,
-              },
-            },
-          },
           find_files = {
             hidden = true,
           },
           lsp_references = {},
         },
-        extensions = {},
+        extensions = {
+          file_browser = {
+            hidden = {
+              file_browser = true,
+              folder_browser = true,
+            },
+            hijack_netrw = true,
+            mappings = {
+              i = {
+                ["<A-w>"] = fb_actions.change_cwd,
+              },
+              n = {
+                ["<A-w>"] = fb_actions.change_cwd,
+              },
+            },
+          },
+        },
       })
+
+      telescope.load_extension("project")
+      telescope.load_extension("fzf")
+      telescope.load_extension("dap")
+      telescope.load_extension("file_browser")
 
       vim.keymap.set("n", "<C-n>", function()
         require("telescope").extensions.file_browser.file_browser()
