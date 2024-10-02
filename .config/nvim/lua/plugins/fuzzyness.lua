@@ -51,19 +51,6 @@ return {
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     branch = "0.1.x",
-    init = function()
-      local builtin = require("telescope.builtin")
-
-      vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find)
-      vim.keymap.set("n", "<C-A-l>", function()
-        builtin.grep_string({ search = "" })
-      end)
-      vim.keymap.set("n", "<A-p>", builtin.live_grep)
-      vim.keymap.set("n", "<C-p>", builtin.find_files)
-      vim.keymap.set("n", "<C-A-b>", builtin.buffers)
-      vim.keymap.set("n", "<C-A-p>", builtin.tags)
-      vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Search help tags" })
-    end,
     config = function()
       local actions = require("telescope.actions")
       local action_state = require("telescope.actions.state")
@@ -72,10 +59,6 @@ return {
       local builtin = require("telescope.builtin")
 
       local telescope = require("telescope")
-
-      telescope.load_extension("gh")
-      telescope.load_extension("fzf")
-      telescope.load_extension("dap")
 
       function custom_actions.fzf_multi_select(prompt_bufnr)
         local picker = action_state.get_current_picker(prompt_bufnr)
@@ -91,6 +74,12 @@ return {
         end
       end
 
+      telescope.load_extension("project")
+      telescope.load_extension("fzf")
+      telescope.load_extension("dap")
+      telescope.load_extension("file_browser")
+
+      local fb_actions = require("telescope").extensions.file_browser.actions
       telescope.setup({
         defaults = {
           -- Default configuration for telescope goes here:
@@ -113,32 +102,49 @@ return {
           },
         },
         pickers = {
-          -- Default configuration for builtin pickers goes here:
-          -- picker_name = {
-          --   picker_config_key = value,
-          --   ...
-          -- }
-          -- Now the picker_config_key will be applied every time you call this
-          -- builtin picker
+          file_browser = {
+            mappings = {
+              i = {
+                ["<C-t>"] = false,
+                ["<A-w>"] = fb_actions.change_cwd,
+              },
+              n = {
+                t = false,
+                ["<A-w>"] = fb_actions.change_cwd,
+              },
+            },
+          },
           find_files = {
             hidden = true,
           },
           lsp_references = {},
         },
-        extensions = {
-          -- Your extension configuration goes here:
-          -- extension_name = {
-          --   extension_config_key = value,
-          -- }
-          -- please take a look at the readme of the extension you want to configure
-        },
+        extensions = {},
       })
+
+      vim.keymap.set("n", "<C-n>", function()
+        require("telescope").extensions.file_browser.file_browser()
+      end)
+      vim.keymap.set("n", "<A-n>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+      vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find)
+      vim.keymap.set("n", "<C-A-l>", function()
+        builtin.grep_string({ search = "" })
+      end)
+      vim.keymap.set("n", "<A-p>", builtin.live_grep)
+      vim.keymap.set("n", "<C-p>", builtin.find_files)
+      vim.keymap.set("n", "<C-A-b>", builtin.buffers)
+      vim.keymap.set("n", "<C-A-p>", builtin.tags)
+      vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Search help tags" })
+      vim.keymap.set("n", "<C-d>", function()
+        telescope.extensions.project.project({})
+      end, { desc = "Open Projects", noremap = true, silent = true })
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-github.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-dap.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-project.nvim",
     },
   },
   {
@@ -147,8 +153,6 @@ return {
     build = "make",
     dependencies = { "junegunn/fzf" },
   },
-  { "nvim-telescope/telescope-github.nvim", lazy = true },
-  { "nvim-telescope/telescope-dap.nvim", lazy = true },
   {
     "nvim-pack/nvim-spectre",
     event = "VeryLazy",

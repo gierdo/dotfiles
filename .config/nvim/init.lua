@@ -13,6 +13,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.cmd.set("shortmess=I")
+
 require("config_d")
 local lazy = require("lazy")
 lazy.setup("plugins")
