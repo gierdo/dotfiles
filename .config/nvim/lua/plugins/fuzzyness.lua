@@ -118,6 +118,9 @@ return {
               },
             },
           },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
         },
       })
 
@@ -125,6 +128,7 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("dap")
       telescope.load_extension("file_browser")
+      telescope.load_extension("ui-select")
 
       vim.keymap.set("n", "<C-n>", function()
         require("telescope").extensions.file_browser.file_browser()
@@ -149,6 +153,7 @@ return {
       "nvim-telescope/telescope-dap.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-project.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
   },
   {
