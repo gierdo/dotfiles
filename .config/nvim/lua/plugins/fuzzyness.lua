@@ -131,7 +131,7 @@ return {
       telescope.load_extension("ui-select")
 
       vim.keymap.set("n", "<C-n>", function()
-        require("telescope").extensions.file_browser.file_browser()
+        telescope.extensions.file_browser.file_browser()
       end)
       vim.keymap.set("n", "<A-n>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
       vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find)
@@ -146,6 +146,14 @@ return {
       vim.keymap.set("n", "<C-d>", function()
         telescope.extensions.project.project({})
       end, { desc = "Open Projects", noremap = true, silent = true })
+
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          if vim.fn.argv(0) == "" then
+            builtin.find_files()
+          end
+        end,
+      })
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",
