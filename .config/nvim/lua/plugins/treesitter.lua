@@ -133,7 +133,7 @@ return {
           jump = { register = false },
         },
         treesitter = {
-          labels = "abcdefghijklmnopqrstuvwxyz",
+          labels = "asdfghjklqwertzuiopyxcvbnm",
           jump = { pos = "range" },
           search = { incremental = false },
           label = { before = true, after = true, style = "inline" },
