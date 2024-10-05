@@ -40,6 +40,15 @@ return {
         },
       })
 
+      local orgHyperlink = require("orgmode.org.links.hyperlink")
+      local function copy_at_point()
+        local link = orgHyperlink.at_cursor()
+        if not link then
+          vim.fn.setreg("+", "")
+        end
+        vim.fn.setreg("+", link.url:to_string())
+      end
+
       local wk = require("which-key")
       wk.add({
         { "<leader>n", group = "📚 org roam" },
@@ -47,6 +56,11 @@ return {
 
       wk.add({
         { "<leader>o", group = "📚 org" },
+        {
+          "<leader>ol",
+          copy_at_point,
+          desc = "Copy link into register",
+        },
       })
 
       vim.api.nvim_create_autocmd("FileType", {
@@ -75,12 +89,9 @@ return {
     config = function()
       require("org-roam").setup({
         directory = "~/Sync/org/roam",
-        -- optional
-        -- org_files = {
-        --   "~/another_org_dir",
-        --   "~/some/folder/*.org",
-        --   "~/a/single/org_file.org",
-        -- },
+        org_files = {
+          "~/Sync/org/*.org",
+        },
       })
     end,
   },
