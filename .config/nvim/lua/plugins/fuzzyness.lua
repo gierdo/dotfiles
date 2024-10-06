@@ -124,28 +124,34 @@ return {
         },
       })
 
-      telescope.load_extension("project")
       telescope.load_extension("fzf")
       telescope.load_extension("dap")
       telescope.load_extension("file_browser")
       telescope.load_extension("ui-select")
+      telescope.load_extension("zoxide")
 
-      vim.keymap.set("n", "<C-n>", function()
-        telescope.extensions.file_browser.file_browser()
-      end)
-      vim.keymap.set("n", "<A-n>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
-      vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find)
+      vim.keymap.set("n", "<C-n>", telescope.extensions.file_browser.file_browser, { desc = "Show file browser" })
+      vim.keymap.set(
+        "n",
+        "<A-n>",
+        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        { desc = "Open current path in file browser" }
+      )
+      vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find, { desc = "Find in current file" })
       vim.keymap.set("n", "<C-A-l>", function()
         builtin.grep_string({ search = "" })
-      end)
-      vim.keymap.set("n", "<A-p>", builtin.live_grep)
-      vim.keymap.set("n", "<C-p>", builtin.find_files)
-      vim.keymap.set("n", "<C-A-b>", builtin.buffers)
-      vim.keymap.set("n", "<C-A-p>", builtin.tags)
-      vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Search help tags" })
-      vim.keymap.set("n", "<C-d>", function()
-        telescope.extensions.project.project({})
-      end, { desc = "Open Projects", noremap = true, silent = true })
+      end, { desc = "Fuzzy-find in files" })
+      vim.keymap.set("n", "<A-p>", builtin.live_grep, { desc = "Find in files" })
+      vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
+      vim.keymap.set("n", "<C-A-b>", builtin.buffers, { desc = "Find buffers" })
+      vim.keymap.set("n", "<C-A-p>", builtin.tags, { desc = "Find Code tags" })
+      vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Find help tags" })
+      vim.keymap.set(
+        "n",
+        "<C-d>",
+        telescope.extensions.zoxide.list,
+        { desc = "Show recent directories", noremap = true, silent = true }
+      )
 
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
@@ -160,8 +166,8 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-telescope/telescope-project.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "jvgrootveld/telescope-zoxide",
     },
   },
   {
