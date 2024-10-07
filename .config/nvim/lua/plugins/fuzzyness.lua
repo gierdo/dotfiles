@@ -152,14 +152,6 @@ return {
         telescope.extensions.zoxide.list,
         { desc = "Show recent directories", noremap = true, silent = true }
       )
-
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          if vim.fn.argv(0) == "" then
-            builtin.find_files()
-          end
-        end,
-      })
     end,
     dependencies = {
       "nvim-lua/plenary.nvim",
