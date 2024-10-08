@@ -22,6 +22,10 @@ vim.opt.autoread = true
 vim.opt.exrc = true
 vim.opt.secure = true
 
+-- Remap leader for german keyboard layout
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+
 -- Copy-Paste from X-Buffer
 vim.opt.clipboard = "unnamedplus"
 
