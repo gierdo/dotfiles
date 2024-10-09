@@ -25,7 +25,11 @@ return {
         printf_statements = {},
         print_var_statements = {},
       })
-      vim.keymap.set({ "n", "x" }, "<leader>r", function()
+      vim.keymap.set({ "n", "x" }, "<F4>r", function()
+        require("refactoring").select_refactor()
+      end, { desc = "Refactor with treesitter." })
+
+      vim.keymap.set({ "n", "x" }, "g<F4>r", function()
         require("refactoring").select_refactor()
       end, { desc = "Refactor with treesitter." })
     end,

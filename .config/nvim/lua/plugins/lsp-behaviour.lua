@@ -55,15 +55,15 @@ return {
           end, { buffer = event.buf, desc = "Format file or selection." })
           vim.keymap.set(
             { "n", "x" },
-            "<F4>",
+            "<F4><F4>",
             vim.lsp.buf.code_action,
-            { buffer = event.buf, desc = "Perform code action." }
+            { buffer = event.buf, desc = "Perform lsp code action." }
           )
           vim.keymap.set(
             { "n", "x" },
-            "g<F4>",
+            "g<F4><F4>",
             vim.lsp.buf.code_action,
-            { buffer = event.buf, desc = "Perform code action." }
+            { buffer = event.buf, desc = "Perform lsp code action." }
           )
         end,
       })
