@@ -46,21 +46,6 @@ return {
     opts = {},
   },
   {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    config = function()
-      local npairs = require("nvim-autopairs")
-
-      npairs.setup({
-        map_cr = false,
-        check_ts = true,
-      })
-    end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
-  {
     "justinmk/vim-gtfo",
     event = "VeryLazy",
   },
