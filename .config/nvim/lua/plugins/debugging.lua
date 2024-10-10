@@ -14,11 +14,18 @@ return {
       })
 
       -- Support vscode launch configurations
-      require("dap.ext.vscode").load_launchjs()
+      -- external json decoder for support of (non-standard) trailing commas
+      local dap_vscode = require("dap.ext.vscode")
+      dap_vscode.json_decode = require("json5").parse
+      dap_vscode.load_launchjs()
     end,
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
+      {
+        "Joakker/lua-json5",
+        build = "./install.sh",
+      },
     },
   },
   {
