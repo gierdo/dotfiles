@@ -36,8 +36,6 @@ fi
 # Set up node environment
 PATH="$HOME/.npmpath/bin:$PATH"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
-# Fix for   reason: 'unsupported',code: 'ERR_OSSL_EVP_UNSUPPORTED'
-export NODE_OPTIONS=--openssl-legacy-provider
 
 if [ -d "/usr/lib/ccache" ]; then
   PATH="/usr/lib/ccache:$PATH"
