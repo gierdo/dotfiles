@@ -36,12 +36,11 @@
   "lombok-nightly": "nightly",
   "lua-language-server": "3.11.1",
   "markdownlint": "0.42.0",
-  "mypy": "1.11.2",
   "openjdk-17": "17.0.2",
   "prettier": "3.3.3",
   "prettierd": "0.25.3",
   "pylint": "3.3.1",
-  "pyright": "1.1.384",
+  "pyright": "1.1.385",
   "rust-analyzer": "2024-10-14",
   "shellcheck": "v0.10.0",
   "shfmt": "v3.9.0",
@@ -54,5 +53,6 @@
   "write-good": "1.0.8",
   "xmlformatter": "0.2.6",
   "yaml-language-server": "1.15.0",
-  "yamlfmt": "v0.13.0"
+  "yamlfmt": "v0.13.0",
+
 }
