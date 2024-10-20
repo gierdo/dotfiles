@@ -6,14 +6,15 @@ compile_commands.json
 .envrc
 .factorypath
 .metals
+.mise.toml
 node_modules
 .nvimlog
+.nvim.lua
 .project
 .python-version
 .settings
 tags
 .tool-versions
-.mise.toml
 .vim
 
 # LaTeX
