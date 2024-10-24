@@ -2,3 +2,5 @@ update_check = false
 secrets_filter = true
 show_preview = true
 max_preview_height = 5
+[sync]
+records = true
