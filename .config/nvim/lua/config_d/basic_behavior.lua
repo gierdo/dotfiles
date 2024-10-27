@@ -62,6 +62,11 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "setlocal spell spelllang=en_gb,de_de",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "org",
+  command = "setlocal spell spelllang=en_gb,de_de",
+})
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "CMakeLists.txt", command = "set filetype=cmake" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.gradle", command = "set filetype=groovy" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.g", command = "set filetype=antlr3" })
