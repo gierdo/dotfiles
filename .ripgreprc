@@ -3,6 +3,7 @@
 --smart-case
 
 # exclude specific directories
+--glob=!**/{node_modules}/*
 --glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,*cache}/*
 --glob=!**/.{conan,clangd}/*
 --glob=!**/{python-build,__pycache__,site-packages}/*

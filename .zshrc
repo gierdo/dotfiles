@@ -145,7 +145,7 @@ if command -v direnv 1>/dev/null 2>&1; then
 fi
 
 if command -v zoxide 1>/dev/null 2>&1; then
-  _evalcache zoxide init zsh
+  _evalcache zoxide init zsh --cmd cd
 fi
 
 if command -v nvim 1>/dev/null 2>&1; then
