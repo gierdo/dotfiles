@@ -36,15 +36,26 @@ return {
         desc = "LSP actions",
         callback = function(event)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to definition." })
+          vim.keymap.set("n", "gD", function()
+            vim.cmd("vsplit")
+            vim.lsp.buf.definition()
+          end, { buffer = event.buf, desc = "Go to definition (vsplit)." })
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to implementation." })
+          vim.keymap.set("n", "gI", function()
+            vim.cmd("vsplit")
+            vim.lsp.buf.implementation()
+          end, { buffer = event.buf, desc = "Go to implementation (vsplit)." })
           vim.keymap.set(
             "n",
             "go",
             vim.lsp.buf.type_definition,
             { buffer = event.buf, desc = "Go to type definition." }
           )
+          vim.keymap.set("n", "go", function()
+            vim.cmd("vsplit")
+            vim.lsp.buf.type_definition()
+          end, { buffer = event.buf, desc = "Go to type definition (vsplit)." })
           vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = event.buf, desc = "Show references." })
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to declaration." })
           vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = event.buf })
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature help." })
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename." })
