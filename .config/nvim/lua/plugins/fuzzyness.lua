@@ -124,10 +124,15 @@ return {
       })
 
       telescope.load_extension("fzf")
-      telescope.load_extension("dap")
       telescope.load_extension("file_browser")
       telescope.load_extension("ui-select")
       telescope.load_extension("zoxide")
+
+      -- until https://github.com/nvim-telescope/telescope-dap.nvim/pull/24 is merged, telescope-dap breaks pid selection
+      local dap_ui = require("dap.ui")
+      local original_pick_one = dap_ui.pick_one
+      telescope.load_extension("dap")
+      dap_ui.pick_one = original_pick_one
 
       vim.keymap.set("n", "<C-n>", telescope.extensions.file_browser.file_browser, { desc = "Show file browser" })
       vim.keymap.set(
