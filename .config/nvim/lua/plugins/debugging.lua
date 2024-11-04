@@ -9,6 +9,7 @@ return {
           "kotlin",
           "netcoredbg",
           "python",
+          "node-debug2-adapter",
         },
         handlers = {},
       })
