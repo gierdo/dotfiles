@@ -97,6 +97,19 @@ idle_fg = { link = "warning_fg" }
 
 [[block]]
 block = "sound"
+driver = "pulseaudio"
+device_kind = "sink"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[block.theme_overrides]
+idle_bg = { link = "good_bg" }
+idle_fg = { link = "good_fg" }
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+device_kind = "source"
 [[block.click]]
 button = "left"
 cmd = "pavucontrol"
