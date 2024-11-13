@@ -200,4 +200,7 @@ return {
       end)
     end,
   },
+  {
+    "rest-nvim/rest.nvim",
+  },
 }
