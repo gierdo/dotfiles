@@ -147,4 +147,8 @@ return {
     end,
   },
   "mkitt/tabline.vim",
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
 }
