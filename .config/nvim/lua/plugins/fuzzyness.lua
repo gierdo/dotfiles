@@ -79,6 +79,8 @@ return {
         defaults = {
           -- Default configuration for telescope goes here:
           -- config_key = value,
+          layout_strategy = "horizontal",
+          layout_config = { height = 0.95, width = 0.95 },
           mappings = {
             i = {
               ["<C-t>"] = actions.file_tab,
