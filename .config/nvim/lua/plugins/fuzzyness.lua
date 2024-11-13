@@ -74,7 +74,6 @@ return {
         end
       end
 
-      local fb_actions = require("telescope").extensions.file_browser.actions
       telescope.setup({
         defaults = {
           -- Default configuration for telescope goes here:
@@ -104,21 +103,6 @@ return {
           lsp_references = {},
         },
         extensions = {
-          file_browser = {
-            hidden = {
-              file_browser = true,
-              folder_browser = true,
-            },
-            hijack_netrw = true,
-            mappings = {
-              i = {
-                ["<A-w>"] = fb_actions.change_cwd,
-              },
-              n = {
-                ["<A-w>"] = fb_actions.change_cwd,
-              },
-            },
-          },
           ["ui-select"] = {
             require("telescope.themes").get_dropdown({}),
           },
@@ -126,18 +110,10 @@ return {
       })
 
       telescope.load_extension("fzf")
-      telescope.load_extension("file_browser")
       telescope.load_extension("ui-select")
       telescope.load_extension("zoxide")
       telescope.load_extension("dap")
 
-      vim.keymap.set("n", "<C-n>", telescope.extensions.file_browser.file_browser, { desc = "Show file browser" })
-      vim.keymap.set(
-        "n",
-        "<A-n>",
-        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-        { desc = "Open current path in file browser" }
-      )
       vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find, { desc = "Find in current file" })
       vim.keymap.set("n", "<C-A-l>", function()
         builtin.grep_string({ search = "" })
@@ -158,7 +134,6 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-dap.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "jvgrootveld/telescope-zoxide",
     },

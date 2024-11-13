@@ -73,7 +73,7 @@ return {
           ["<C-l>"] = "actions.refresh",
           ["-"] = "actions.parent",
           ["_"] = "actions.open_cwd",
-          ["`"] = "actions.cd",
+          ["<A-w>"] = "actions.cd",
           ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory", mode = "n" },
           ["gs"] = "actions.change_sort",
           ["gx"] = "actions.open_external",
@@ -122,7 +122,7 @@ return {
         -- Configuration for the floating window in oil.open_float
         float = {
           -- Padding around the floating window
-          -- padding = 2,
+          padding = 2,
           max_width = 0,
           max_height = 0,
           border = "rounded",
@@ -195,6 +195,10 @@ return {
         },
       })
       vim.keymap.set("n", "-", oil.open_float, { desc = "Open parent directory" })
+      vim.keymap.set("n", "<C-n>", function()
+        oil.open_float(vim.fn.getcwd())
+      end, { desc = "Show file browser" })
+      vim.keymap.set("n", "<A-n>", oil.open_float, { desc = "Open current path in file browser" })
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
