@@ -206,6 +206,8 @@ alias ctop='docker run --rm -ti \
   --volume /var/run/docker.sock:/var/run/docker.sock:ro \
   quay.io/vektorlab/ctop:latest'
 
+alias dive='podman run -ti --rm  -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock wagoodman/dive'
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
