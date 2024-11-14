@@ -149,6 +149,6 @@ return {
   "mkitt/tabline.vim",
   {
     "stevearc/dressing.nvim",
-    opts = {},
+    config = true,
   },
 }

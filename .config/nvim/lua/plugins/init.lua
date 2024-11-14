@@ -204,4 +204,21 @@ return {
   {
     "rest-nvim/rest.nvim",
   },
+  {
+    "stevearc/overseer.nvim",
+    event = "VeryLazy",
+    config = function()
+      local overseer = require("overseer")
+      overseer.setup()
+
+      vim.keymap.set("n", "<A-r>", function()
+        vim.cmd("OverseerRun")
+      end, { desc = "Run Tasks" })
+    end,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "stevearc/dressing.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
 }

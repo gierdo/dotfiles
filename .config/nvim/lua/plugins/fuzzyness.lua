@@ -65,8 +65,6 @@ return {
         local num_selections = #picker:get_multi_selection()
 
         if num_selections > 1 then
-          -- actions.file_edit throws - context of picker seems to change
-          --actions.file_edit(prompt_bufnr)
           actions.send_selected_to_qflist(prompt_bufnr)
           actions.open_qflist()
         else
