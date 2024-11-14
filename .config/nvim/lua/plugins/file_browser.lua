@@ -71,7 +71,7 @@ return {
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
           ["<C-l>"] = "actions.refresh",
-          ["-"] = "actions.parent",
+          ["<A-->"] = "actions.parent",
           ["_"] = "actions.open_cwd",
           ["<A-w>"] = "actions.cd",
           ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory", mode = "n" },
