@@ -115,6 +115,7 @@ return {
       telescope.load_extension("dap")
 
       vim.keymap.set("n", "<A-l>", builtin.current_buffer_fuzzy_find, { desc = "Find in current file" })
+      vim.keymap.set("n", "-", builtin.current_buffer_fuzzy_find, { desc = "Find in current file" })
       vim.keymap.set("n", "<C-A-l>", function()
         builtin.grep_string({ search = "" })
       end, { desc = "Fuzzy-find in files" })

@@ -194,7 +194,6 @@ return {
           border = "rounded",
         },
       })
-      vim.keymap.set("n", "-", oil.open_float, { desc = "Open parent directory" })
       vim.keymap.set("n", "<C-n>", function()
         oil.open_float(vim.fn.getcwd())
       end, { desc = "Show file browser" })
