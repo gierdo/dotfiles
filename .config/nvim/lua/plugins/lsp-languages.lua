@@ -1,5 +1,35 @@
 return {
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    config = function()
+      require("mason-tool-installer").setup({
+
+        -- a list of all tools you want to ensure are installed upon
+        -- start
+        ensure_installed = {
+          -- { "golangci-lint", version = "v1.47.0" },
+          -- { "bash-language-server", auto_update = true },
+
+          { "roslyn" },
+        },
+        auto_update = false,
+        run_on_start = true,
+        start_delay = 3000, -- 3 second delay
+        debounce_hours = 5, -- at least 5 hours between attempts to install/update
+        integrations = {
+          ["mason-lspconfig"] = true,
+          ["mason-null-ls"] = false,
+          ["mason-nvim-dap"] = true,
+        },
+      })
+    end,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "jay-babu/mason-nvim-dap.nvim",
+    },
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -102,7 +132,6 @@ return {
     end,
     dependencies = {
       "b0o/schemastore.nvim",
-      "Decodetalkers/csharpls-extended-lsp.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "neovim/nvim-lspconfig",
       "nvim-java/nvim-java",
