@@ -68,7 +68,6 @@ return {
           "kotlin_language_server",
           "lemminx",
           "lua_ls",
-          "pbls",
           "spectral",
           "pyright",
           "rust_analyzer",
@@ -78,67 +77,77 @@ return {
           "yamlls",
         },
         automatic_installation = true,
-        handlers = {
-          default_setup,
-        },
       })
+
+      require("mason-lspconfig").setup_handlers = {
+        default_setup,
+        ["clangd"] = function()
+          lspconfig.clangd.setup({
+            capabilities = lsp_capabilities,
+            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+          })
+        end,
+        -- Set and extend yaml/json schemas
+
+        ["jsonls"] = function()
+          lspconfig.jsonls.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+              json = {
+                schemas = require("schemastore").json.schemas(),
+                validate = { enable = true },
+                schemaDownload = { enable = false },
+              },
+            },
+          })
+        end,
+        ["yamlls"] = function()
+          lspconfig.yamlls.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+              yaml = {
+                schemaStore = {
+                  enable = false,
+                  url = "",
+                },
+                schemas = require("schemastore").yaml.schemas({
+                  extra = {
+                    {
+                      name = "Cloudformation",
+                      description = "Cloudformation Template",
+                      fileMatch = { "*.template.y*ml", "*-template.y*ml" },
+                      url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
+                    },
+                  },
+                }),
+                customTags = {
+                  -- Cloudformation tags
+                  "!And scalar",
+                  "!If scalar",
+                  "!Not",
+                  "!Equals scalar",
+                  "!Or scalar",
+                  "!FindInMap scalar",
+                  "!Base64",
+                  "!Cidr",
+                  "!Ref",
+                  "!Sub",
+                  "!GetAtt sequence",
+                  "!GetAZs",
+                  "!ImportValue sequence",
+                  "!Select sequence",
+                  "!Split sequence",
+                  "!Join sequence",
+                },
+              },
+            },
+          })
+        end,
+      }
 
       -- comes with nvim-java
       default_setup("jdtls")
-
-      -- Set and extend yaml/json schemas
-
-      lspconfig.jsonls.setup({
-        capabilities = lsp_capabilities,
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            validate = { enable = true },
-            schemaDownload = { enable = false },
-          },
-        },
-      })
-
-      lspconfig.yamlls.setup({
-        capabilities = lsp_capabilities,
-        settings = {
-          yaml = {
-            schemaStore = {
-              enable = false,
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas({
-              extra = {
-                {
-                  name = "Cloudformation",
-                  description = "Cloudformation Template",
-                  fileMatch = { "*.template.y*ml", "*-template.y*ml" },
-                  url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
-                },
-              },
-            }),
-            customTags = {
-              -- Cloudformation tags
-              "!And scalar",
-              "!If scalar",
-              "!Not",
-              "!Equals scalar",
-              "!Or scalar",
-              "!FindInMap scalar",
-              "!Base64",
-              "!Cidr",
-              "!Ref",
-              "!Sub",
-              "!GetAtt sequence",
-              "!GetAZs",
-              "!ImportValue sequence",
-              "!Select sequence",
-              "!Split sequence",
-              "!Join sequence",
-            },
-          },
-        },
-      })
+      default_setup("buf_ls")
     end,
     dependencies = {
       "b0o/schemastore.nvim",

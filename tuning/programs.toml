@@ -101,6 +101,7 @@ name = "install npm dependencies"
 type = "installernpm"
 packages = [
   "bash-language-server",
+  "@bufbuild/buf",
   "concurrently",
   "copy",
   "cross-spawn",
