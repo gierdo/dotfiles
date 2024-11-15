@@ -68,6 +68,8 @@ return {
           "kotlin_language_server",
           "lemminx",
           "lua_ls",
+          "pbls",
+          "spectral",
           "pyright",
           "rust_analyzer",
           "sqls",
