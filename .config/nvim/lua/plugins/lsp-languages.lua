@@ -10,7 +10,15 @@ return {
           -- { "golangci-lint", version = "v1.47.0" },
           -- { "bash-language-server", auto_update = true },
 
+          -- C# Integration
           { "roslyn" },
+
+          -- Dependencies for nvim-java
+          { "jdtls" },
+          { "lombok-nightly" },
+          { "java-test" },
+          { "java-debug-adapter" },
+          { "spring-boot-tools" },
         },
         auto_update = false,
         run_on_start = true,
@@ -142,7 +150,28 @@ return {
   {
     "nvim-java/nvim-java",
     config = function()
-      require("java").setup()
+      -- Override the nvim-java setup function in order to allow following the latest dependency versions (jdtls, ...)
+      local custom_config = {}
+
+      local decomple_watch = require("java.startup.decompile-watcher")
+      local setup_wrap = require("java.startup.lspconfig-setup-wrap")
+      local dap_api = require("java.api.dap")
+      local global_config = require("java.config")
+
+      local java = require("java")
+
+      vim.api.nvim_exec_autocmds("User", { pattern = "JavaPreSetup" })
+
+      local config = vim.tbl_deep_extend("force", global_config, custom_config or {})
+
+      vim.g.nvim_java_config = config
+      vim.api.nvim_exec_autocmds("User", { pattern = "JavaSetup", data = { config = config } })
+
+      setup_wrap.setup(config)
+      decomple_watch.setup()
+      dap_api.setup_dap_on_lsp_attach()
+
+      vim.api.nvim_exec_autocmds("User", { pattern = "JavaPostSetup", data = { config = config } })
     end,
   },
   {
