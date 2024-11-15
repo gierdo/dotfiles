@@ -79,6 +79,7 @@
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "f22496dfdd46da4d571f5254c72eff65ff5a1c27" },
   "refactoring.nvim": { "branch": "master", "commit": "53ed6854e0bba64d467c58e87084dcf8b1c22d36" },
   "rest.nvim": { "branch": "main", "commit": "e82dc524894b1b55bcc3296d3644f15c9e06d5ad" },
+  "roslyn.nvim": { "branch": "main", "commit": "d121ca7d067c9b25a09990ccebb8eaa11710efbf" },
   "schemastore.nvim": { "branch": "main", "commit": "dbf93f5074efe788a3c0a80c6680d9b9b64953b2" },
   "solarized.nvim": { "branch": "main", "commit": "c0dfe1cbfabd93b546baf5f1408f5df7e02e2050" },
   "spring-boot.nvim": { "branch": "main", "commit": "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0" },

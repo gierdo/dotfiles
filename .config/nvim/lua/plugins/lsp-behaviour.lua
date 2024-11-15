@@ -3,8 +3,11 @@ return {
     "williamboman/mason.nvim",
     opts = {
       registries = {
-        "github:nvim-java/mason-registry",
         "github:mason-org/mason-registry",
+        -- java integration
+        "github:nvim-java/mason-registry",
+        -- c# roslyn integration
+        "github:Crashdummyy/mason-registry",
       },
     },
   },

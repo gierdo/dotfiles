@@ -17,7 +17,6 @@ return {
           "bashls",
           "clangd",
           "cmake",
-          "csharp_ls",
           "dockerls",
           "eslint",
           "gitlab_ci_ls",
@@ -38,6 +37,7 @@ return {
           "ts_ls",
           "yamlls",
         },
+        automatic_installation = true,
         handlers = {
           default_setup,
         },
@@ -45,16 +45,6 @@ return {
 
       -- comes with nvim-java
       default_setup("jdtls")
-
-      -- Enable decompiler for csharp-lsp
-      local cs_config = {
-        capabilities = lsp_capabilities,
-        handlers = {
-          ["textDocument/definition"] = require("csharpls_extended").handler,
-          ["textDocument/typeDefinition"] = require("csharpls_extended").handler,
-        },
-      }
-      lspconfig.csharp_ls.setup(cs_config)
 
       -- Set and extend yaml/json schemas
 
@@ -117,6 +107,7 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-java/nvim-java",
       "williamboman/mason.nvim",
+      "seblj/roslyn.nvim",
     },
   },
   {
@@ -152,6 +143,17 @@ return {
     dependencies = { -- optional packages
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
+    "seblj/roslyn.nvim",
+    ft = "cs",
+    opts = {
+      -- your configuration comes here; leave empty for default settings
+    },
+    dependencies = {
+      -- Allow setting up the registry
+      "williamboman/mason.nvim",
     },
   },
 }
