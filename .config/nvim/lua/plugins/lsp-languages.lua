@@ -225,8 +225,8 @@ return {
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-    dependencies = { -- optional packages
+    build = ':lua require("go.install").update_all_sync()',
+    dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
@@ -234,9 +234,7 @@ return {
   {
     "seblj/roslyn.nvim",
     ft = "cs",
-    opts = {
-      -- your configuration comes here; leave empty for default settings
-    },
+    opts = {},
     dependencies = {
       -- Allow setting up the registry
       "williamboman/mason.nvim",
