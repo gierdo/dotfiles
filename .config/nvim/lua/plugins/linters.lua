@@ -33,6 +33,9 @@ return {
           kotlin = {
             "ktlint",
           },
+          proto = {
+            "clang-format",
+          },
           sh = {
             "shfmt",
           },
