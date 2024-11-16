@@ -125,6 +125,9 @@ return {
           "commitlint",
           "gitlint",
         },
+        proto = {
+          "protolint",
+        },
         python = {
           "pylint",
           "mypy",

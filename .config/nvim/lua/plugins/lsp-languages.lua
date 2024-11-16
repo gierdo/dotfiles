@@ -147,7 +147,8 @@ return {
 
       -- comes with nvim-java
       default_setup("jdtls")
-      default_setup("buf_ls")
+
+      default_setup("protols")
     end,
     dependencies = {
       "b0o/schemastore.nvim",
