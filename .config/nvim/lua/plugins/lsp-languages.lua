@@ -118,6 +118,12 @@ return {
                       fileMatch = { "*.template.y*ml", "*-template.y*ml" },
                       url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
                     },
+                    {
+                      name = "OpenAPI",
+                      description = "OpenAPI spec",
+                      filetypes = { "openapi.yaml" },
+                      url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
+                    },
                   },
                 }),
                 customTags = {
