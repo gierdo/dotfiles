@@ -43,43 +43,13 @@ return {
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
 
-      local default_setup = function(server)
-        lspconfig[server].setup({
+      local default_setup = function(server_name)
+        lspconfig[server_name].setup({
           capabilities = lsp_capabilities,
         })
       end
 
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "ast_grep",
-          "bashls",
-          "clangd",
-          "cmake",
-          "dockerls",
-          "eslint",
-          "gitlab_ci_ls",
-          "gopls",
-          "gradle_ls",
-          "groovyls",
-          "hls",
-          "html",
-          "jqls",
-          "jsonls",
-          "kotlin_language_server",
-          "lemminx",
-          "lua_ls",
-          "spectral",
-          "pyright",
-          "rust_analyzer",
-          "sqls",
-          "texlab",
-          "ts_ls",
-          "yamlls",
-        },
-        automatic_installation = true,
-      })
-
-      require("mason-lspconfig").setup_handlers = {
+      local handlers = {
         default_setup,
         ["clangd"] = function()
           lspconfig.clangd.setup({
@@ -94,7 +64,16 @@ return {
             capabilities = lsp_capabilities,
             settings = {
               json = {
-                schemas = require("schemastore").json.schemas(),
+                schemas = require("schemastore").json.schemas({
+                  extra = {
+                    {
+                      name = "OpenAPI",
+                      description = "OpenAPI spec",
+                      filetypes = { "openapi.json" },
+                      url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
+                    },
+                  },
+                }),
                 validate = { enable = true },
                 schemaDownload = { enable = false },
               },
@@ -150,6 +129,37 @@ return {
           })
         end,
       }
+
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "ast_grep",
+          "bashls",
+          "clangd",
+          "cmake",
+          "dockerls",
+          "eslint",
+          "gitlab_ci_ls",
+          "gopls",
+          "gradle_ls",
+          "groovyls",
+          "hls",
+          "html",
+          "jqls",
+          "jsonls",
+          "kotlin_language_server",
+          "lemminx",
+          "lua_ls",
+          "spectral",
+          "pyright",
+          "rust_analyzer",
+          "sqls",
+          "texlab",
+          "ts_ls",
+          "yamlls",
+        },
+        handlers = handlers,
+        automatic_installation = true,
+      })
 
       -- comes with nvim-java
       default_setup("jdtls")
