@@ -92,11 +92,12 @@ return {
 
       cmp.setup({
         sources = {
+          { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
+          { name = "treesitter" },
           { name = "calc" },
           { name = "path" },
           { name = "conventionalcommits" },
-          { name = "nvim_lsp_signature_help" },
           { name = "snippy" },
           { name = "orgmode" },
         },
@@ -166,6 +167,7 @@ return {
       "hrsh7th/cmp-calc",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
+      "ray-x/cmp-treesitter",
     },
   },
   {

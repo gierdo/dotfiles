@@ -15,6 +15,7 @@ return {
       wk.setup(options)
     end,
   },
+  {},
   {
     "scrooloose/nerdcommenter",
     event = "VeryLazy",
