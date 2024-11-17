@@ -104,6 +104,9 @@ fi
 # fix curses pinentry
 export GPG_TTY=$(tty)
 
+# persuade cmake to always export compile commands
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
+
 # Use the podman socket as replacement for docker, to be used by testcontainers etc.
 if command -v podman 1>/dev/null 2>&1; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
