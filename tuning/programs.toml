@@ -167,7 +167,6 @@ crates = [
   "git-delta",
   "mise",
   "ripgrep",
-  "protols,"
   "tree-sitter-cli",
   "zoxide",
 ]
