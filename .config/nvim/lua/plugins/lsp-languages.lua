@@ -54,7 +54,24 @@ return {
         ["clangd"] = function()
           lspconfig.clangd.setup({
             capabilities = lsp_capabilities,
-            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+            filetypes = {
+              "c",
+              "cpp",
+              "objc",
+              "objcpp",
+              "cuda",
+            },
+          })
+        end,
+        ["graphql"] = function()
+          lspconfig.graphql.setup({
+            capabilities = lsp_capabilities,
+            filetypes = {
+              "graphql",
+              "typescript",
+              "typescriptreact",
+              "javascriptreact",
+            },
           })
         end,
         -- Set and extend yaml/json schemas
@@ -140,6 +157,7 @@ return {
           "eslint",
           "gitlab_ci_ls",
           "gopls",
+          "graphql",
           "gradle_ls",
           "groovyls",
           "hls",
