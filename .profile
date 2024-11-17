@@ -17,6 +17,7 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="$HOME/.luarocks/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.pub-cache/bin:$PATH"
 
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"

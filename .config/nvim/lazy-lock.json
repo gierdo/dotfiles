@@ -14,6 +14,7 @@
   "dressing.nvim": { "branch": "master", "commit": "fc78a3ca96f4db9f8893bb7e2fd9823e0780451b" },
   "firenvim": { "branch": "master", "commit": "64f9389b88c8b0c7667d45c171a5f25c42d852fb" },
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
+  "flutter-tools.nvim": { "branch": "main", "commit": "fb976f0e83296d011be95701085ff4711a89de94" },
   "fzf": { "branch": "master", "commit": "215ab48222ac5fa8855c1e5bbf56742276b57324" },
   "gentags.lua": { "branch": "main", "commit": "f8b0314c150f8f10411cf47adacf7cf9f308d4c6" },
   "git-conflict.nvim": { "branch": "main", "commit": "4dc906855751096aaeba2edde7c2cdc7bb881c98" },

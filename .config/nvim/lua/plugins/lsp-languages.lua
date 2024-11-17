@@ -259,4 +259,12 @@ return {
       "williamboman/mason.nvim",
     },
   },
+  {
+    "nvim-flutter/flutter-tools.nvim",
+    config = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim",
+    },
+  },
 }
