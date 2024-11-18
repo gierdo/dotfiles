@@ -90,6 +90,7 @@ return {
                       url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
                     },
                   },
+                  validate = { enable = true },
                 }),
                 validate = { enable = true },
                 schemaDownload = { enable = false },
@@ -107,6 +108,7 @@ return {
                   url = "",
                 },
                 schemas = require("schemastore").yaml.schemas({
+                  validate = { enable = true },
                   extra = {
                     {
                       name = "Cloudformation",
@@ -197,28 +199,28 @@ return {
   {
     "nvim-java/nvim-java",
     config = function()
-      -- Override the nvim-java setup function in order to allow following the latest dependency versions (jdtls, ...)
-      local custom_config = {}
-
-      local decomple_watch = require("java.startup.decompile-watcher")
-      local setup_wrap = require("java.startup.lspconfig-setup-wrap")
-      local dap_api = require("java.api.dap")
-      local global_config = require("java.config")
-
       local java = require("java")
 
-      vim.api.nvim_exec_autocmds("User", { pattern = "JavaPreSetup" })
+      local override_setup = function()
+        -- Override the nvim-java setup function in order to allow following the latest dependency versions (jdtls, ...)
+        local custom_config = {}
+        local decomple_watch = require("java.startup.decompile-watcher")
+        local setup_wrap = require("java.startup.lspconfig-setup-wrap")
+        local dap_api = require("java.api.dap")
+        local global_config = require("java.config")
+        vim.api.nvim_exec_autocmds("User", { pattern = "JavaPreSetup" })
+        local config = vim.tbl_deep_extend("force", global_config, custom_config or {})
+        vim.g.nvim_java_config = config
+        vim.api.nvim_exec_autocmds("User", { pattern = "JavaSetup", data = { config = config } })
+        setup_wrap.setup(config)
+        decomple_watch.setup()
+        dap_api.setup_dap_on_lsp_attach()
+        vim.api.nvim_exec_autocmds("User", { pattern = "JavaPostSetup", data = { config = config } })
+      end
 
-      local config = vim.tbl_deep_extend("force", global_config, custom_config or {})
+      java.setup = override_setup
 
-      vim.g.nvim_java_config = config
-      vim.api.nvim_exec_autocmds("User", { pattern = "JavaSetup", data = { config = config } })
-
-      setup_wrap.setup(config)
-      decomple_watch.setup()
-      dap_api.setup_dap_on_lsp_attach()
-
-      vim.api.nvim_exec_autocmds("User", { pattern = "JavaPostSetup", data = { config = config } })
+      java.setup()
     end,
   },
   {
