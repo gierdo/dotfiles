@@ -124,8 +124,8 @@ return {
           "gitlint",
         },
         python = {
+          "mypy",
           "pylint",
-          "ruff",
           "trivy",
         },
         sh = {
