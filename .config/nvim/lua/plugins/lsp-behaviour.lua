@@ -92,14 +92,14 @@ return {
 
       cmp.setup({
         sources = {
-          { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "treesitter" },
           { name = "calc" },
           { name = "path" },
           { name = "conventionalcommits" },
           { name = "snippy" },
-          { name = "orgmode" },
+          -- { name = "orgmode" },
         },
         snippet = {
           expand = function(args)
@@ -138,6 +138,10 @@ return {
         }),
       })
 
+      -- If you want insert `(` after select function or method item
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
       local signs = {
         Error = " ",
         Warn = " ",
@@ -168,6 +172,7 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "ray-x/cmp-treesitter",
+      "windwp/nvim-autopairs",
     },
   },
   {

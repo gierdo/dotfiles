@@ -104,8 +104,6 @@ return {
           "cppcheck",
           "cpplint",
           "flawfinder",
-          "codespell",
-          "cspell",
           "trivy",
         },
         email = {
@@ -119,8 +117,6 @@ return {
           "clangtidy",
           "cppcheck",
           "cpplint",
-          "codespell",
-          "cspell",
           "flawfinder",
           "trivy",
         },
@@ -131,14 +127,10 @@ return {
         python = {
           "pylint",
           "mypy",
-          "codespell",
-          "cspell",
           "trivy",
         },
         sh = {
           "shellcheck",
-          "codespell",
-          "cspell",
           "trivy",
         },
         cmake = {
@@ -152,18 +144,12 @@ return {
         },
         kotlin = {
           "ktlint",
-          "codespell",
-          "cspell",
           "trivy",
         },
         java = {
-          "codespell",
-          "cspell",
           "trivy",
         },
         cs = {
-          "codespell",
-          "cspell",
           "trivy",
         },
         docker = {
