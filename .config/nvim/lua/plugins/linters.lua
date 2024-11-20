@@ -12,8 +12,7 @@ return {
             "stylua",
           },
           python = {
-            "isort",
-            "black",
+            "ruff",
           },
           rust = {
             "rustfmt",
@@ -126,7 +125,7 @@ return {
         },
         python = {
           "pylint",
-          "mypy",
+          "ruff",
           "trivy",
         },
         sh = {
