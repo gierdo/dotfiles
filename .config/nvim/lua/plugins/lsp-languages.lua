@@ -169,7 +169,7 @@ return {
           "lemminx",
           "lua_ls",
           "spectral",
-          "ruff",
+          "pyright",
           "rust_analyzer",
           "sqls",
           "texlab",

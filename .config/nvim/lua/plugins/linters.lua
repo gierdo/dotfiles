@@ -12,7 +12,7 @@ return {
             "stylua",
           },
           python = {
-            "ruff",
+            "black",
           },
           rust = {
             "rustfmt",
