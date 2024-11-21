@@ -151,6 +151,7 @@ argv = [
   "pylint",
   "pynvim",
   "pyright",
+  "pytype",
   "thefuck",
 ]
 state = "present"
