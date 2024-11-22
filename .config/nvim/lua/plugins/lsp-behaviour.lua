@@ -206,6 +206,9 @@ return {
     event = "VeryLazy",
     config = function()
       local opts = {
+        max_width = 120,
+        wrap = true,
+        always_trigger = true,
         hint_prefix = {
           above = "↙ ", -- when the hint is on the line above the current line
           current = "← ", -- when the hint is on the same line
