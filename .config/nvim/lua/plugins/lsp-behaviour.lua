@@ -98,9 +98,10 @@ return {
         },
         sorting = {
           comparators = {
-            cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
+            cmp.config.compare.order,
+            cmp.config.compare.length,
             cmp.config.compare.recently_used,
             -- https://github.com/lukas-reineke/cmp-under-comparator
             function(entry1, entry2)
