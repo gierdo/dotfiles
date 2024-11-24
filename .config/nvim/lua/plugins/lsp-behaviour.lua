@@ -121,6 +121,7 @@ return {
         },
         sources = {
           { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "treesitter" },
           { name = "calc" },
           { name = "path" },
@@ -197,30 +198,10 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-calc",
       "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
       "ray-x/cmp-treesitter",
       "windwp/nvim-autopairs",
     },
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    config = function()
-      local opts = {
-        max_width = 120,
-        wrap = true,
-        always_trigger = false,
-        hint_prefix = {
-          above = "↙ ", -- when the hint is on the line above the current line
-          current = "← ", -- when the hint is on the same line
-          below = "↖ ", -- when the hint is on the line below the current line
-        },
-        hint_inline = function()
-          return false
-        end,
-        timer_interval = 100,
-      }
-      require("lsp_signature").setup(opts)
-    end,
   },
   {
     "honza/vim-snippets",
