@@ -59,7 +59,7 @@ return {
             vim.lsp.buf.type_definition()
           end, { buffer = event.buf, desc = "Go to type definition (vsplit)." })
           vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = event.buf, desc = "Show references." })
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = event.buf })
+          vim.keymap.set("n", "gh", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover description." })
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature help." })
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename." })
           vim.keymap.set("n", "g<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename." })
