@@ -50,6 +50,21 @@ return {
       local dapui = require("dapui")
       dapui.setup({})
 
+      local python_launch_with_arguments = {
+        {
+          type = "python",
+          request = "launch",
+          name = "Python: Launch file with arguments",
+          program = "${file}",
+          pythonPath = "python",
+          args = function()
+            local args_string = vim.fn.input("Arguments: ")
+            return vim.split(args_string, " +")
+          end,
+        },
+      }
+      vim.list_extend(dap.configurations["python"], python_launch_with_arguments)
+
       -- add listeners to auto open DAP UI
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
