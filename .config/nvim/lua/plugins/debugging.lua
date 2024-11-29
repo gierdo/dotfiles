@@ -146,7 +146,7 @@ return {
       })
     end,
     dependencies = {
-      "mfussenegger/nvim-dap",
+      "jay-babu/mason-nvim-dap.nvim",
       "nvim-neotest/nvim-nio",
       "folke/which-key.nvim",
     },
