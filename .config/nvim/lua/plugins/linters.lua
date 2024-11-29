@@ -13,6 +13,7 @@ return {
           },
           python = {
             "black",
+            "isort",
           },
           rust = {
             "rustfmt",
