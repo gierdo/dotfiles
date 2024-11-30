@@ -88,15 +88,12 @@ return {
           "trivy",
         },
         typescript = {
-          "eslint_d",
           "trivy",
         },
         javascriptreact = {
-          "eslint_d",
           "trivy",
         },
         typescriptreact = {
-          "eslint_d",
           "trivy",
         },
         cpp = {
