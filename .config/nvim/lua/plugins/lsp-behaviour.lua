@@ -205,6 +205,12 @@ return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
+    config = function()
+      local ls = require("luasnip")
+      ls.setup({})
+      -- snippets for proto are broken, which breaks lsp support for proto
+      ls.filetype_set("proto", {})
+    end,
   },
   {
     "mireq/luasnip-snippets",
