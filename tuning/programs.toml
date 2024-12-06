@@ -163,7 +163,7 @@ type = "installercargo"
 crates = [
   "atuin",
   "cargo-updater",
-  "exa",
+  "eza",
   "fd-find",
   "git-delta",
   "mise",
