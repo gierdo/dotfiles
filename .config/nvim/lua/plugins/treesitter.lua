@@ -199,11 +199,13 @@ return {
         sync_install = false,
         auto_install = true,
         ignore_install = {
+          "bicep",
+          "hoon",
           "javascript",
+          "jsdoc",
           "norg",
           "org",
-          "jsdoc",
-          "bicep",
+          "teal",
         },
 
         highlight = {
