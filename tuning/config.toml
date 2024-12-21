@@ -357,6 +357,13 @@ path = "{{ home_dir }}/.config/mise/config.toml"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/pypoetry/config.toml"
+path = "{{ home_dir }}/.config/pypoetry/config.toml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.Xdefaults"
 path = "{{ home_dir }}/.Xdefaults"
 
