@@ -18,7 +18,7 @@ local nvim_virtualenv_root = pyenv_root .. "/versions/nvim"
 if not directory_exists(nvim_virtualenv_root) then
   os.execute([[
   pyenv virtualenv --force nvim
-  PYENV_VERSION=nvim pip install pynvim pyre2
+  PYENV_VERSION=nvim pip install pynvim
   ]])
 end
 
