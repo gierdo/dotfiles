@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ARG OVERRIDE_GFX_VERSION=11.0.2
 ENV HSA_OVERRIDE_GFX_VERSION=${OVERRIDE_GFX_VERSION}
-ARG LLAMA_CPP_VERSION=0.3.2
+ARG LLAMA_CPP_VERSION=0.3.5
 
 RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install --user --break-system-packages llama-cpp-python[server]==${LLAMA_CPP_VERSION}
 
