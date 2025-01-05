@@ -158,21 +158,6 @@ return {
     ft = { "markdown" },
   },
   {
-    "glacambre/firenvim",
-    lazy = not vim.g.started_by_firenvim,
-    build = ":call firenvim#install(0)",
-    config = function()
-      vim.g.firenvim_config = {
-        globalSettings = { alt = "all" },
-        localSettings = {
-          [".*"] = {
-            takeover = "never",
-          },
-        },
-      }
-    end,
-  },
-  {
     "monaqa/dial.nvim",
     config = function()
       local dial_map = require("dial.map")

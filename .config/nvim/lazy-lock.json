@@ -13,7 +13,6 @@
   "dial.nvim": { "branch": "master", "commit": "46b4375e84e8eb771129bff6b2b1e47746601ef9" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "3a45525bb182730fe462325c99395529308f431e" },
-  "firenvim": { "branch": "master", "commit": "dd2d6f6b3b87b3726d5ef59adfe8a6c444889dda" },
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
   "flutter-tools.nvim": { "branch": "main", "commit": "a526c30f1941a7472509aaedda13758f943c968e" },
   "fzf": { "branch": "master", "commit": "fd513f8af8191cd60364497f4184b8accd988282" },
