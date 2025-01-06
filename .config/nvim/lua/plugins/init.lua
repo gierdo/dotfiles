@@ -67,7 +67,10 @@ return {
   {
     "liuchengxu/vista.vim",
     config = function()
-      vim.cmd("nmap <silent> <F8> :Vista!!<CR>")
+      vim.cmd([[
+      let g:vista_default_executive = 'nvim_lsp'
+      nmap <silent> <F8> :Vista!!<CR>
+      ]])
     end,
   },
   {
