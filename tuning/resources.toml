@@ -1,21 +1,11 @@
 [[jobs]]
-name = "nerd-fonts: repository"
-type = "git"
-depth = 1
-clone = true
-dest = "{{ home_dir }}/workspace/other/nerd-fonts"
-repo = "https://github.com/ryanoasis/nerd-fonts.git"
-
-
-[[jobs]]
-name = "nerd-fonts: install"
-needs = ["nerd-fonts: repository"]
+name = "install nerd-fonts"
 type = "command"
-chdir = "{{ home_dir }}/workspace/other/nerd-fonts"
+chdir = "{{ home_dir }}/.dotfiles/gists"
 command = "bash"
 argv = [
   "-c",
-  './install.sh'
+  './install-nerd-fonts.sh'
 ]
 
 
