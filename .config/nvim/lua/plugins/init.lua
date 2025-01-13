@@ -65,15 +65,6 @@ return {
     },
   },
   {
-    "liuchengxu/vista.vim",
-    config = function()
-      vim.cmd([[
-      let g:vista_default_executive = 'nvim_lsp'
-      nmap <silent> <F8> :Vista!!<CR>
-      ]])
-    end,
-  },
-  {
     "dhruvasagar/vim-table-mode",
     event = "VeryLazy",
     config = function()
