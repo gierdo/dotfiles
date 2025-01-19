@@ -110,6 +110,10 @@ source ~/.dotfiles/zsh-plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.p
 
 source ~/.dotfiles/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source ~/.dotfiles/zsh-plugins/nix-zsh-completions/nix.plugin.zsh
+
+fpath=(~/.dotfiles/zsh-plugins/nix-zsh-completions $fpath)
+
 if [ -f "$HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh" ]; then
   # we have dotnet, so deal with it
  source $HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh

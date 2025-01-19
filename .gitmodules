@@ -49,3 +49,7 @@
 	path = .config/ranger/plugins/ranger-zoxide
 	url = https://github.com/jchook/ranger-zoxide.git
 	branch = master
+[submodule "zsh-plugins/nix-zsh-completions"]
+	path = zsh-plugins/nix-zsh-completions
+	url = https://github.com/spwhitt/nix-zsh-completions.git
+	branch = master
