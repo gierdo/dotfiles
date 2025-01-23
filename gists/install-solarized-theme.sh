@@ -39,7 +39,8 @@ gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'
 if command -v flatpak 1>/dev/null 2>&1; then
   flatpak override --user --filesystem=$HOME/.icons/:ro
   flatpak override --user --filesystem=$HOME/.themes/:ro
-  flatpak override --user --filesystem=$HOME/.dotfiles/.config/gtk-4.0/:ro
+  # dotfiles are not only relevant for theming, so this has a positive sideeffect
+  flatpak override --user --filesystem=$HOME/.dotfiles/:ro
   flatpak override --user --env=GTK_THEME=adw-gtk3-dark
   flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
   flatpak override --user --filesystem=xdg-config/gtk-4.0:ro
