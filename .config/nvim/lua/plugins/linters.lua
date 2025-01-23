@@ -147,6 +147,7 @@ return {
         },
         python = {
           "mypy",
+          "ruff",
           "pylint",
           "trivy",
         },
