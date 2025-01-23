@@ -110,8 +110,6 @@ return {
     config = function()
       vim.cmd([[
 			let g:openbrowser_browser_commands = [
-				\ {"name": "firefox",
-				\  "args": ["{browser}", "{uri}"]},
 				\ {"name": "xdg-open",
 				\  "args": ["{browser}", "{uri}"]},
 				\ {"name": "x-www-browser",
@@ -146,7 +144,6 @@ return {
     build = "cd app && yarn install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_browser = "firefox"
       vim.g.mkdp_auto_close = 0
     end,
     ft = { "markdown" },
