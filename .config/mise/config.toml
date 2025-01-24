@@ -20,3 +20,11 @@ ktlint = "1.5.0"
 git = "2.48.1"
 cmake = "3.31.4"
 gradle = "8.12"
+
+[settings]
+fetch_remote_versions_cache = "0s"
+always_keep_download = true
+always_keep_install = true
+http_timeout = "10s"
+plugin_autoupdate_last_check_duration = "0s"
+quiet = true
