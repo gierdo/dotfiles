@@ -37,6 +37,8 @@ input type:pointer {
 # preffered terminal emulator
 set $term foot
 
+focus_follows_mouse no
+
 # Remove titlebar
 for_window [class=".*"] titlebar hide
 titlebar_border_thickness 2
