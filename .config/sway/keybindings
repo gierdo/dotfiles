@@ -16,6 +16,7 @@ bindsym Print exec $ScreenshotGrabber
 bindsym $mod+Ctrl+f exec firefox
 bindsym $mod+Ctrl+c exec google-chrome --enable-features=VaapiVideoDecoder
 bindsym $mod+Ctrl+b exec flatpak run com.brave.Browser --enable-features=VaapiVideoDecoder
+bindsym $mod+Ctrl+k exec flatpak run org.keepassxc.KeePassXC
 bindsym $mod+Ctrl+p exec thunderbird
 
 # Lock, shutdown etc.
