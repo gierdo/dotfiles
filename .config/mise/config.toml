@@ -2,7 +2,7 @@
 go = "1.23.5"
 node = "23.6.1"
 java = "adoptopenjdk-23.0.1"
-awscli = "2.23.4"
+awscli = "2.23.6"
 direnv = "2.35.0"
 lazygit = "0.45.2"
 github-cli = "2.65.0"
@@ -18,7 +18,7 @@ flutter = "3.27.3-stable"
 dart = "3.6.1"
 ktlint = "1.5.0"
 git = "2.48.1"
-cmake = "3.31.4"
+cmake = "3.31.5"
 gradle = "8.12"
 
 [settings]
