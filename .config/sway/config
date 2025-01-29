@@ -15,8 +15,6 @@ set $menu rofi -show drun
 
 set $ScreenshotGrabber grim
 
-output "*" bg ~/.dotfiles/themes/wallpaper.png fill
-
 bindsym $mod+Shift+r reload
 
 input type:keyboard {
@@ -63,3 +61,4 @@ include ~/.config/sway/workspace_config
 # include local config, if it exists
 include ~/.sway.local
 
+output "*" bg ~/.dotfiles/themes/wallpaper.png fill
