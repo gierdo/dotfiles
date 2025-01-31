@@ -126,7 +126,6 @@ return {
           { name = "async_path" },
           { name = "conventionalcommits" },
           { name = "luasnip" },
-          -- { name = "orgmode" },
         },
         snippet = {
           expand = function(args)
