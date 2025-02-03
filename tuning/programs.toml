@@ -204,3 +204,17 @@ argv = [
   '''
 ]
 when = "{{ not has_executable(exe='git-credential-libsecret') }}"
+
+
+[[jobs]]
+name = "install others"
+type = "command"
+command "bash"
+argv = [
+  "-c",
+  '''\
+  cd \
+  && curl -LsSf https://astral.sh/uv/install.sh | sh
+  '''
+]
+

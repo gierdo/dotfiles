@@ -157,6 +157,10 @@ if command -v nvim 1>/dev/null 2>&1; then
   alias vimdiff='nvim -n -c "DiffviewOpen"'
 fi
 
+if command -v uv 1>/dev/null 2>&1; then
+  _evalcache uv generate-shell-completion zsh
+fi
+
 if command -v aws 1>/dev/null 2>&1; then
   export AWS_CLI_AUTO_PROMPT=on-partial
 fi
