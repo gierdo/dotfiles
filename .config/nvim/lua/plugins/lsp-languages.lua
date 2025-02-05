@@ -171,7 +171,7 @@ return {
           "kotlin_language_server",
           "lemminx",
           "lua_ls",
-          "pyright",
+          "basedpyright",
           "rust_analyzer",
           "sqls",
           "texlab",
