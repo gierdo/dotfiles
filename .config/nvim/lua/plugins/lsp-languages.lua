@@ -54,6 +54,18 @@ return {
 
       local handlers = {
         default_setup,
+        ["basedpyright"] = function()
+          lspconfig.basedpyright.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+              basedpyright = {
+                analysis = {
+                  typeCheckingMode = "standard",
+                },
+              },
+            },
+          })
+        end,
         ["clangd"] = function()
           lspconfig.clangd.setup({
             capabilities = lsp_capabilities,
@@ -77,8 +89,37 @@ return {
             },
           })
         end,
-        -- Set and extend yaml/json schemas
-
+        ["ts_ls"] = function()
+          lspconfig.ts_ls.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+              javascript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                },
+              },
+              typescript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                },
+              },
+            },
+          })
+        end,
         ["jsonls"] = function()
           lspconfig.jsonls.setup({
             capabilities = lsp_capabilities,
