@@ -171,6 +171,27 @@ return {
         }),
       })
 
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          {
+            name = "cmdline",
+            option = {
+              ignore_cmds = { "Man", "!" },
+            },
+          },
+        }),
+      })
+
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
       -- If you want insert `(` after select function or method item
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -200,6 +221,7 @@ return {
       "davidsierradz/cmp-conventionalcommits",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lsp",
       "https://codeberg.org/FelipeLema/cmp-async-path",
       "hrsh7th/cmp-calc",
