@@ -131,6 +131,7 @@ return {
           { name = "treesitter" },
           { name = "calc" },
           { name = "async_path" },
+          { name = "buffer" },
           { name = "conventionalcommits" },
           { name = "luasnip" },
         },
@@ -198,6 +199,7 @@ return {
       -- cmp + sources
       "davidsierradz/cmp-conventionalcommits",
       "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp",
       "https://codeberg.org/FelipeLema/cmp-async-path",
       "hrsh7th/cmp-calc",
