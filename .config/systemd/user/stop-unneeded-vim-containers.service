@@ -1,0 +1,6 @@
+[Unit]
+Description=Stop local containers if nvim is not running.
+
+[Service]
+Type=oneshot
+ExecStart=-/bin/bash -c 'PATH=~/.dotfiles/.local/bin:$PATH stop-unneeded-vim-containers'

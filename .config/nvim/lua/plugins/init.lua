@@ -127,7 +127,9 @@ return {
       "tyru/open-browser.vim",
     },
     config = function()
-      vim.g.plantuml_previewer_plantuml_jar_path = vim.env.HOME .. ".local/share/plantuml/plantuml.jar"
+      vim.cmd([[
+        let g:plantuml_previewer#plantuml_jar_path = $HOME."/.local/share/plantuml/plantuml.jar"
+      ]])
     end,
   },
   {
@@ -143,8 +145,25 @@ return {
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_auto_close = 0
+      os.execute("systemctl --user start plantuml")
+      vim.cmd([[
+      let g:mkdp_auto_close = 0
+      let g:mkdp_filetypes = ['markdown']
+      let g:mkdp_preview_options = {
+        \ 'mkit': {},
+        \ 'katex': {},
+        \ 'uml': { 'server': 'http://localhost:9742',  'imageFormat': 'svg' },
+        \ 'maid': {},
+        \ 'disable_sync_scroll': 0,
+        \ 'sync_scroll_type': 'middle',
+        \ 'hide_yaml_meta': 1,
+        \ 'sequence_diagrams': {},
+        \ 'flowchart_diagrams': {},
+        \ 'content_editable': v:false,
+        \ 'disable_filename': 0,
+        \ 'toc': {}
+        \ }
+        ]])
     end,
     ft = { "markdown" },
   },

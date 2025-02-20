@@ -9,6 +9,13 @@ path = "{{ home_dir }}/.config/containers/systemd/llama.container"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/containers/systemd/plantuml.container"
+path = "{{ home_dir }}/.config/containers/systemd/plantuml.container"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/systemd/user/tpm-fido.service"
 path = "{{ home_dir }}/.config/systemd/user/tpm-fido.service"
 
@@ -30,15 +37,15 @@ path = "{{ home_dir }}/.config/systemd/user/kanshi.service"
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/systemd/user/stop-unneeded-llama.service"
-path = "{{ home_dir }}/.config/systemd/user/stop-unneeded-llama.service"
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/stop-unneeded-vim-containers.service"
+path = "{{ home_dir }}/.config/systemd/user/stop-unneeded-vim-containers.service"
 
 [[jobs]]
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/systemd/user/stop-unneeded-llama.timer"
-path = "{{ home_dir }}/.config/systemd/user/stop-unneeded-llama.timer"
+src = "{{ home_dir }}/.dotfiles/.config/systemd/user/stop-unneeded-vim-containers.timer"
+path = "{{ home_dir }}/.config/systemd/user/stop-unneeded-vim-containers.timer"
 
 [[jobs]]
 type = "file"

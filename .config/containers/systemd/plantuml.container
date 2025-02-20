@@ -1,0 +1,6 @@
+[Unit]
+Description=Local plantuml server
+
+[Container]
+Image=plantuml/plantuml-server:jetty
+PublishPort=9742:8080
