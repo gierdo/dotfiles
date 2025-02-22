@@ -30,7 +30,7 @@ if [ -f "$KERNEL_PACKAGE.unsigned" ]; then
   exit 1
 fi
 
-dpkg-deb --raw-extract "$KERNEL_PACKAGE" "$TMP_UNPACKED"
+dpkg-deb --raw-extract --root-owner-group "$KERNEL_PACKAGE" "$TMP_UNPACKED"
 
 KERNEL_IMAGE=$(find "$TMP_UNPACKED/boot" -name "vmlinuz*")
 
@@ -38,6 +38,6 @@ sbsign --key linux/certs/signing_key.pem --cert linux/certs/signing_key.pem --ou
 
 mv "$KERNEL_PACKAGE" "$KERNEL_PACKAGE.unsigned"
 
-dpkg-deb -b "$TMP_UNPACKED" "$KERNEL_PACKAGE"
+dpkg-deb --root-owner-group -b "$TMP_UNPACKED" "$KERNEL_PACKAGE"
 
 if [ -d "$TMP_UNPACKED" ]; then rm -Rf "$TMP_UNPACKED"; fi
