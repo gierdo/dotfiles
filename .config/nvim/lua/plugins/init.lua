@@ -122,7 +122,12 @@ return {
   },
   {
     "weirongxu/plantuml-previewer.vim",
-    cmd = { "PlantumlOpen", "PlantumlToggle", "PlantumlStart" },
+    cmd = {
+      "PlantumlOpen",
+      "PlantumlToggle",
+      "PlantumlStart",
+      "PlantumlSave",
+    },
     dependencies = {
       "tyru/open-browser.vim",
     },
