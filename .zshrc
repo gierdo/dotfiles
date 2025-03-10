@@ -155,6 +155,7 @@ fi
 if command -v nvim 1>/dev/null 2>&1; then
   alias vim='nvim'
   alias vimdiff='nvim -n -c "DiffviewOpen"'
+  export MANPAGER='nvim +Man!'
 fi
 
 if command -v uv 1>/dev/null 2>&1; then
