@@ -19,6 +19,7 @@ dart = "3.7.1"
 ktlint = "1.5.0"
 cmake = "3.31.6"
 gradle = "8.13"
+bazel = "8.1.1"
 
 [settings]
 fetch_remote_versions_cache = "365d"
