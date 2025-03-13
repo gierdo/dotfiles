@@ -1,5 +1,16 @@
 return {
   {
+    "zapling/mason-lock.nvim",
+    init = function()
+      require("mason-lock").setup({
+        lockfile_path = vim.fn.expand("$HOME/") .. "/.dotfiles/.config/nvim/mason-lock.json",
+      })
+    end,
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+  },
+  {
     "williamboman/mason.nvim",
     opts = {
       registries = {
