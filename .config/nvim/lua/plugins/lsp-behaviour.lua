@@ -1,13 +1,19 @@
 return {
   {
     "zapling/mason-lock.nvim",
-    init = function()
+    config = function()
+      -- Override json parser for mason lock to get consistent behavior over all my machines
+      vim.json.decode = require("json5").parse
       require("mason-lock").setup({
         lockfile_path = vim.fn.expand("$HOME/") .. "/.dotfiles/.config/nvim/mason-lock.json",
       })
     end,
     dependencies = {
       "williamboman/mason.nvim",
+      {
+        "Joakker/lua-json5",
+        build = "./install.sh",
+      },
     },
   },
   {
