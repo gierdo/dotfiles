@@ -139,6 +139,13 @@ path = "{{ home_dir }}/.config/ranger/plugins"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/ranger/rifle.conf"
+path = "{{ home_dir }}/.config/ranger/rifle.conf"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/rofi/config.rasi"
 path = "{{ home_dir }}/.config/rofi/config.rasi"
 
