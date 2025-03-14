@@ -217,4 +217,5 @@ argv = [
   && curl -LsSf https://astral.sh/uv/install.sh | sh
   '''
 ]
+when = "{{ not has_executable(exe='uv') }}"
 
