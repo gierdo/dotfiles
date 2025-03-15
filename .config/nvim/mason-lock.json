@@ -9,7 +9,6 @@
   "cmakelint": "1.4.3",
   "cpplint": "2.0.0",
   "cpptools": "v1.23.6",
-  "debugpy": "1.8.13",
   "dockerfile-language-server": "0.13.0",
   "eslint-lsp": "4.10.0",
   "eslint_d": "14.3.0",
@@ -40,7 +39,7 @@
   "prettier": "3.5.3",
   "prettierd": "0.26.1",
   "pylint": "3.3.5",
-  "roslyn": "5.0.0-1.25162.9",
+  "roslyn": "5.0.0-1.25164.7",
   "ruff": "0.9.10",
   "rust-analyzer": "2025-03-10",
   "shellcheck": "v0.10.0",
@@ -55,5 +54,6 @@
   "write-good": "1.0.8",
   "xmlformatter": "0.2.8",
   "yaml-language-server": "1.17.0",
-  "yamlfmt": "v0.16.0"
+  "yamlfmt": "v0.16.0",
+
 }
