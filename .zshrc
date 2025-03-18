@@ -217,6 +217,8 @@ alias ctop='docker run --rm -ti \
 
 alias dive='podman run -ti --rm  -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock wagoodman/dive'
 
+alias bazel='bazelisk'
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi

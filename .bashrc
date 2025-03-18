@@ -121,6 +121,8 @@ alias fucking='sudo '
 
 alias gitlog='git log --graph --decorate=full --all --oneline'
 
+alias bazel='bazelisk'
+
 export SHELL=$(command -v bash)
 
 if command -v mise 1>/dev/null 2>&1; then
