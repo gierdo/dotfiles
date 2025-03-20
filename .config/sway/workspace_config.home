@@ -3,7 +3,7 @@
 set $output-primary eDP-1
 set $output-secondary HDMI-A-0 DP-1 DP-2
 
-# the last output is picked if detected
+# the last output is picked if no other is detected
 workspace 1 output $output-primary
 workspace 2 output $output-primary
 workspace 3 output $output-primary
