@@ -61,10 +61,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   aws
+  bazel
   colored-man-pages
   dotnet
-  fancy-ctrl-z
   eza
+  fancy-ctrl-z
   gh
   git
   gradle
