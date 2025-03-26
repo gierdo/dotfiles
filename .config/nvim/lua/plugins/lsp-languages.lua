@@ -43,7 +43,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     config = function()
-      local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
       local lspconfig = require("lspconfig")
 
       local default_setup = function(server_name)
@@ -231,8 +231,8 @@ return {
     end,
     dependencies = {
       "b0o/schemastore.nvim",
-      "hrsh7th/cmp-nvim-lsp",
       "neovim/nvim-lspconfig",
+      "saghen/blink.cmp",
       "nvim-java/nvim-java",
       "williamboman/mason.nvim",
       "seblj/roslyn.nvim",

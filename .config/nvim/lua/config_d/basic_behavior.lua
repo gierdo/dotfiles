@@ -7,7 +7,6 @@ vim.opt.encoding = "utf-8"
 vim.opt.mouse = "a"
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.wildmenu = true
 vim.opt.splitright = true
 
 -- Searching

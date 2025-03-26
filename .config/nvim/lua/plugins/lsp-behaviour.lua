@@ -29,6 +29,58 @@ return {
     end,
   },
   {
+    "saghen/blink.cmp",
+    version = "1.*",
+    -- build = 'cargo build --release',
+    opts = {
+      keymap = { preset = "super-tab" },
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        ghost_text = { enabled = true },
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        menu = { draw = { treesitter = { "lsp" } } },
+      },
+      signature = { enabled = true },
+      snippets = { preset = "luasnip" },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      cmdline = {
+        keymap = {
+          ["<Tab>"] = {
+            function(cmp)
+              if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
+                return cmp.accept()
+              end
+            end,
+            "show_and_insert",
+            "select_next",
+          },
+          ["<C-space>"] = { "show", "fallback" },
+          ["<Down>"] = { "select_next", "fallback" },
+          ["<Up>"] = { "select_prev", "fallback" },
+          ["<C-n>"] = { "select_next", "fallback" },
+          ["<C-p>"] = { "select_prev", "fallback" },
+          ["<Right>"] = { "select_next", "fallback" },
+          ["<Left>"] = { "select_prev", "fallback" },
+          ["<C-y>"] = { "select_and_accept" },
+          ["<C-e>"] = { "cancel" },
+        },
+        completion = { menu = { auto_show = true } },
+      },
+      fuzzy = { implementation = "prefer_rust" },
+    },
+    opts_extend = { "sources.default" },
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "nvim-lua/plenary.nvim" },
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
     config = function()
@@ -99,114 +151,6 @@ return {
 
       vim.lsp.inlay_hint.enable(true, { 0 })
 
-      local cmp = require("cmp")
-
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      cmp.setup({
-        matching = {
-          disallow_fuzzy_matching = false,
-          disallow_fullfuzzy_matching = false,
-          disallow_partial_fuzzy_matching = false,
-        },
-        sorting = {
-          comparators = {
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.order,
-            cmp.config.compare.length,
-            cmp.config.compare.recently_used,
-            -- https://github.com/lukas-reineke/cmp-under-comparator
-            function(entry1, entry2)
-              local _, entry1_under = entry1.completion_item.label:find("^_+")
-              local _, entry2_under = entry2.completion_item.label:find("^_+")
-              entry1_under = entry1_under or 0
-              entry2_under = entry2_under or 0
-              if entry1_under > entry2_under then
-                return false
-              elseif entry1_under < entry2_under then
-                return true
-              end
-            end,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-          },
-        },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "treesitter" },
-          { name = "calc" },
-          { name = "async_path" },
-          { name = "buffer" },
-          { name = "conventionalcommits" },
-          { name = "luasnip" },
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              if #cmp.get_entries() == 1 then
-                cmp.confirm({ select = true })
-              else
-                cmp.select_next_item()
-              end
-            elseif require("luasnip").expand_or_jumpable() then
-              require("luasnip").expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-              if #cmp.get_entries() == 1 then
-                cmp.confirm({ select = true })
-              end
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        }),
-      })
-
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
-            },
-          },
-        }),
-      })
-
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      })
-
-      -- If you want insert `(` after select function or method item
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
       local signs = {
         Error = " ",
         Warn = " ",
@@ -224,22 +168,8 @@ return {
     dependencies = {
       "folke/neoconf.nvim",
       "williamboman/mason.nvim",
-      "L3MON4D3/LuaSnip",
-      -- fuzzy handlers
       "nvim-telescope/telescope.nvim",
       "gbrlsnchs/telescope-lsp-handlers.nvim",
-      -- cmp + sources
-      "davidsierradz/cmp-conventionalcommits",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lsp",
-      "https://codeberg.org/FelipeLema/cmp-async-path",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "ray-x/cmp-treesitter",
-      "windwp/nvim-autopairs",
     },
   },
   {
