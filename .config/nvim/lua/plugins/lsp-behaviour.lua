@@ -78,14 +78,14 @@ return {
     config = function()
       -- note: diagnostics are not exclusive to lsp servers
       -- so these can be global keybindings
-      vim.keymap.set("n", "gl", function()
+      vim.keymap.set("n", "<leader>xt", function()
         require("telescope.builtin").diagnostics({ bufnr = 0 })
-      end, { desc = "Open diagnostics of current buffer." })
+      end, { desc = "Search diagnostics of current buffer." })
       vim.keymap.set(
         "n",
-        "<leader>xt",
+        "<leader>xT",
         require("telescope.builtin").diagnostics,
-        { desc = "Open diagnostics of all buffers (Telescope)" }
+        { desc = "Search diagnostics of all buffers." }
       )
       vim.keymap.set("n", "[d", function()
         vim.diagnostic.jump({ count = -1, float = true })
@@ -201,34 +201,19 @@ return {
     cmd = "Trouble",
     keys = {
       {
-        "<leader>xx",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
-      {
         "<leader>xX",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Open diagnostics of all buffers",
+      },
+      {
+        "<leader>xx",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
-      },
-      {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
+        desc = "Open diagnostics of current buffer.",
       },
       {
         "<leader>xL",
         "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
-      },
-      {
-        "<leader>xQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
+        desc = "Open diagnostics Location List.",
       },
     },
   },
