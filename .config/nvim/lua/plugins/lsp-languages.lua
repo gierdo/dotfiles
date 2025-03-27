@@ -196,6 +196,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "bashls",
+          "bzl",
           "clangd",
           "cmake",
           "dockerls",
@@ -212,6 +213,7 @@ return {
           "kotlin_language_server",
           "lemminx",
           "lua_ls",
+          "marksman",
           "basedpyright",
           "rust_analyzer",
           "sqls",
