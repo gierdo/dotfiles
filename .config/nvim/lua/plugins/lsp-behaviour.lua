@@ -95,8 +95,12 @@ return {
         require("telescope.builtin").diagnostics,
         { desc = "Open diagnostics of all buffers (Telescope)" }
       )
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic item." })
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic item." })
+      vim.keymap.set("n", "[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, { desc = "Go to previous diagnostic item." })
+      vim.keymap.set("n", "]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, { desc = "Go to next diagnostic item." })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
