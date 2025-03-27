@@ -1,5 +1,70 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "tadmccorkle/markdown.nvim",
+    },
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = "all",
+        sync_install = false,
+        auto_install = true,
+        ignore_install = {
+          "bicep",
+          "hoon",
+          "javascript",
+          "jsdoc",
+          "norg",
+          "org",
+          "teal",
+        },
+
+        highlight = {
+          enable = true,
+
+          disable = function(lang, buf)
+            local max_filesize = 5 * 1024 * 1024 -- 5 MB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+              return true
+            end
+          end,
+
+          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+          -- Using this option may slow down your editor, and you may see some duplicate highlights.
+          -- Instead of true it can also be a list of languages
+          additional_vim_regex_highlighting = {},
+
+          markdown = {
+            enable = true,
+          },
+        },
+      })
+
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+      parser_config.plantuml = {
+        install_info = {
+          url = "https://github.com/lyndsysimon/tree-sitter-plantuml",
+          files = { "src/parser.c" },
+          revision = "main",
+        },
+        filetype = "plantuml",
+      }
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
     "ThePrimeagen/refactoring.nvim",
     event = "VeryLazy",
     dependencies = {
@@ -184,62 +249,6 @@ return {
     event = "VeryLazy",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "tadmccorkle/markdown.nvim",
-    },
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = "all",
-        sync_install = false,
-        auto_install = true,
-        ignore_install = {
-          "bicep",
-          "hoon",
-          "javascript",
-          "jsdoc",
-          "norg",
-          "org",
-          "teal",
-        },
-
-        highlight = {
-          enable = true,
-
-          disable = function(lang, buf)
-            local max_filesize = 5 * 1024 * 1024 -- 5 MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = {},
-
-          markdown = {
-            enable = true,
-          },
-        },
-      })
-
-      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-      parser_config.plantuml = {
-        install_info = {
-          url = "https://github.com/lyndsysimon/tree-sitter-plantuml",
-          files = { "src/parser.c" },
-          revision = "main",
-        },
-        filetype = "plantuml",
-      }
-    end,
   },
   {
     "RRethy/vim-illuminate",
