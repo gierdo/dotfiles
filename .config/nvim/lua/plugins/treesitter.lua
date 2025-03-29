@@ -92,11 +92,11 @@ return {
       })
       vim.keymap.set({ "n", "x" }, "<F4>r", function()
         require("refactoring").select_refactor()
-      end, { desc = "Refactor with treesitter." })
+      end, { desc = "Refactor with treesitter" })
 
       vim.keymap.set({ "n", "x" }, "g<F4>r", function()
         require("refactoring").select_refactor()
-      end, { desc = "Refactor with treesitter." })
+      end, { desc = "Refactor with treesitter" })
     end,
   },
   {

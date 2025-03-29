@@ -290,7 +290,7 @@ return {
       -- The plugin enables virtual text diagnostics, which is not what I want
       vim.diagnostic.config({
         virtual_lines = { current_line = true },
-        virtual_text = true,
+        virtual_text = false,
       })
     end,
     ft = { "go", "gomod" },

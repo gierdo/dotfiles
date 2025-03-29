@@ -46,25 +46,25 @@ return {
 
       wk.add({
         { "<leader>t", group = "   Test" },
-        { "<leader>tr", neotest.run.run, desc = "Run nearest test." },
+        { "<leader>tr", neotest.run.run, desc = "Run nearest test" },
         {
           "<leader>tf",
           function()
             neotest.run.run(vim.fn.expand("%"))
           end,
-          desc = "Run current file.",
+          desc = "Run current file",
         },
         {
           "<leader>td",
           function()
             neotest.run.run({ suite = false, strategy = "dap" })
           end,
-          desc = "Debug nearest test.",
+          desc = "Debug nearest test",
         },
         {
           "<leader>ts",
           neotest.summary.toggle,
-          desc = "Show/hide summary.",
+          desc = "Show/hide summary",
         },
       })
     end,

@@ -80,62 +80,57 @@ return {
       -- so these can be global keybindings
       vim.keymap.set("n", "<leader>xt", function()
         require("telescope.builtin").diagnostics({ bufnr = 0 })
-      end, { desc = "Search diagnostics of current buffer." })
+      end, { desc = "Search diagnostics of current buffer" })
       vim.keymap.set(
         "n",
         "<leader>xT",
         require("telescope.builtin").diagnostics,
-        { desc = "Search diagnostics of all buffers." }
+        { desc = "Search diagnostics of all buffers" }
       )
       vim.keymap.set("n", "[d", function()
         vim.diagnostic.jump({ count = -1, float = true })
-      end, { desc = "Go to previous diagnostic item." })
+      end, { desc = "Go to previous diagnostic item" })
       vim.keymap.set("n", "]d", function()
         vim.diagnostic.jump({ count = 1, float = true })
-      end, { desc = "Go to next diagnostic item." })
+      end, { desc = "Go to next diagnostic item" })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         callback = function(event)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to definition." })
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to definition" })
           vim.keymap.set("n", "gD", function()
             vim.cmd("vsplit")
             vim.lsp.buf.definition()
-          end, { buffer = event.buf, desc = "Go to definition (vsplit)." })
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to implementation." })
+          end, { buffer = event.buf, desc = "Go to definition (vsplit)" })
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to implementation" })
           vim.keymap.set("n", "gI", function()
             vim.cmd("vsplit")
             vim.lsp.buf.implementation()
-          end, { buffer = event.buf, desc = "Go to implementation (vsplit)." })
-          vim.keymap.set(
-            "n",
-            "go",
-            vim.lsp.buf.type_definition,
-            { buffer = event.buf, desc = "Go to type definition." }
-          )
+          end, { buffer = event.buf, desc = "Go to implementation (vsplit)" })
+          vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "Go to type definition" })
           vim.keymap.set("n", "go", function()
             vim.cmd("vsplit")
             vim.lsp.buf.type_definition()
-          end, { buffer = event.buf, desc = "Go to type definition (vsplit)." })
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = event.buf, desc = "Show references." })
-          vim.keymap.set("n", "gh", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover description." })
-          vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature help." })
-          vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename." })
-          vim.keymap.set("n", "g<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename." })
+          end, { buffer = event.buf, desc = "Go to type definition (vsplit)" })
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = event.buf, desc = "Show references" })
+          vim.keymap.set("n", "gh", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover description" })
+          vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature help" })
+          vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename" })
+          vim.keymap.set("n", "g<F2>", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename" })
           vim.keymap.set({ "n", "x" }, "gf", function()
             vim.lsp.buf.format({ async = true })
-          end, { buffer = event.buf, desc = "Format file or selection." })
+          end, { buffer = event.buf, desc = "Format file or selection" })
           vim.keymap.set(
             { "n", "x" },
             "<F4><F4>",
             vim.lsp.buf.code_action,
-            { buffer = event.buf, desc = "Perform lsp code action." }
+            { buffer = event.buf, desc = "Perform lsp code action" }
           )
           vim.keymap.set(
             { "n", "x" },
             "g<F4><F4>",
             vim.lsp.buf.code_action,
-            { buffer = event.buf, desc = "Perform lsp code action." }
+            { buffer = event.buf, desc = "Perform lsp code action" }
           )
         end,
       })
@@ -167,11 +162,16 @@ return {
         },
       })
 
-      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = true })
+      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
 
       vim.keymap.set("n", "<leader>xd", function()
-        vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-      end, { desc = "Toggle diagnostics" })
+        vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+      end, { desc = "Disable diagnostics" })
+
+      vim.keymap.set("n", "<leader>xe", function()
+        vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+      end, { desc = "Enable diagnostics" })
+
       require("telescope").load_extension("lsp_handlers")
     end,
     dependencies = {
@@ -212,12 +212,12 @@ return {
       {
         "<leader>xx",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Open diagnostics of current buffer.",
+        desc = "Open diagnostics of current buffer",
       },
       {
         "<leader>xL",
         "<cmd>Trouble loclist toggle<cr>",
-        desc = "Open diagnostics Location List.",
+        desc = "Open diagnostics Location List",
       },
     },
   },
