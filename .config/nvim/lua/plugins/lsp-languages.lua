@@ -268,6 +268,16 @@ return {
     end,
   },
   {
+    "folke/lazydev.nvim", -- improve lua development experience, especially concerning nvim config
+    ft = "lua",
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  {
     "edolphin-ydf/goimpl.nvim",
     ft = { "go" },
     config = function()
