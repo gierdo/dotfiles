@@ -167,13 +167,10 @@ return {
         },
       })
 
-      vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = true })
+
       vim.keymap.set("n", "<leader>xd", function()
-        if vim.diagnostic.is_enabled() then
-          vim.diagnostic.enable(false)
-        else
-          vim.diagnostic.enable()
-        end
+        vim.diagnostic.enable(not vim.diagnostic.is_enabled())
       end, { desc = "Toggle diagnostics" })
       require("telescope").load_extension("lsp_handlers")
     end,

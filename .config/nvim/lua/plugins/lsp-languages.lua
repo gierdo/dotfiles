@@ -288,7 +288,10 @@ return {
     config = function()
       require("go").setup()
       -- The plugin enables virtual text diagnostics, which is not what I want
-      vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+      vim.diagnostic.config({
+        virtual_lines = { current_line = true },
+        virtual_text = true,
+      })
     end,
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
