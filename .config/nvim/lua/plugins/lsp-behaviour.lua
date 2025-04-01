@@ -33,7 +33,13 @@ return {
     version = "1.*",
     -- build = 'cargo build --release',
     opts = {
-      keymap = { preset = "super-tab" },
+      keymap = {
+        preset = "super-tab",
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+      },
       appearance = {
         nerd_font_variant = "mono",
       },
@@ -53,8 +59,8 @@ return {
           ["<C-space>"] = { "show", "fallback" },
           ["<Down>"] = { "select_next", "fallback" },
           ["<Up>"] = { "select_prev", "fallback" },
-          ["<C-n>"] = { "select_next", "fallback" },
-          ["<C-p>"] = { "select_prev", "fallback" },
+          ["<C-j>"] = { "select_next", "fallback" },
+          ["<C-k>"] = { "select_prev", "fallback" },
           ["<Right>"] = { "select_next", "fallback" },
           ["<Left>"] = { "select_prev", "fallback" },
           ["<C-y>"] = { "select_and_accept" },
