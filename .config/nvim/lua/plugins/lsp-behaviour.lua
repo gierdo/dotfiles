@@ -29,6 +29,12 @@ return {
     end,
   },
   {
+    "saghen/blink.compat",
+    version = "*",
+    lazy = true,
+    opts = {},
+  },
+  {
     "saghen/blink.cmp",
     version = "1.*",
     -- build = 'cargo build --release',
@@ -51,7 +57,14 @@ return {
       signature = { enabled = true },
       snippets = { preset = "luasnip" },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets", "buffer", "calc" },
+        providers = {
+          calc = {
+            name = "calc",
+            module = "blink.compat.source",
+            score_offset = -3,
+          },
+        },
       },
       cmdline = {
         keymap = {
@@ -72,6 +85,8 @@ return {
     },
     opts_extend = { "sources.default" },
     dependencies = {
+      "saghen/blink.compat",
+      "hrsh7th/cmp-calc",
       {
         "L3MON4D3/LuaSnip",
         dependencies = { "nvim-lua/plenary.nvim" },
