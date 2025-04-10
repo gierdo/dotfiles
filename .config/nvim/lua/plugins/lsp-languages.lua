@@ -195,6 +195,7 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "ast_grep",
           "bashls",
           "bzl",
           "clangd",

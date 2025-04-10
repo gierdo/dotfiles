@@ -101,14 +101,35 @@ return {
     dependencies = { "junegunn/fzf" },
   },
   {
-    "nvim-pack/nvim-spectre",
-    event = "VeryLazy",
+    "MagicDuck/grug-far.nvim",
     config = function()
-      require("spectre").setup()
-      vim.cmd.command("Replace", "Spectre")
+      local grug_far = require("grug-far")
+      grug_far.setup({})
+
+      vim.keymap.set("n", "<leader>sr", function()
+        grug_far.open({
+          transient = true,
+          prefills = { paths = vim.fn.expand("%") },
+        })
+      end, {
+        desc = "[s]earch [R]eplace in current file",
+      })
+      vim.keymap.set("n", "<leader>sR", function()
+        grug_far.open({
+          transient = true,
+        })
+      end, {
+        desc = "[s]earch [r]eplace in all files",
+      })
+
+      vim.keymap.set("n", "<leader>sa", function()
+        grug_far.open({
+          transient = true,
+          engine = "astgrep",
+        })
+      end, {
+        desc = "[s]earch replace with [a]st search engine",
+      })
     end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
   },
 }

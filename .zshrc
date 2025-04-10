@@ -167,6 +167,11 @@ if command -v aws 1>/dev/null 2>&1; then
   export AWS_CLI_AUTO_PROMPT=on-partial
 fi
 
+if command -v ast-grep 1>/dev/null 2>&1; then
+  _evalcache ast-grep completions
+fi
+
+
 if [ -d "$HOME/.local/share/nvim/lazy/fzf/bin" ]; then
   export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
 fi
