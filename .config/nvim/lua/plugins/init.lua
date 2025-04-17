@@ -15,7 +15,6 @@ return {
       wk.setup(options)
     end,
   },
-  {},
   {
     "scrooloose/nerdcommenter",
     event = "VeryLazy",
@@ -43,8 +42,32 @@ return {
   {
     "folke/todo-comments.nvim",
     event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {},
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "folke/which-key.nvim",
+    },
+    config = function()
+      require("todo-comments").setup()
+
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>p", group = "  Project" },
+        {
+          "<leader>pt",
+          function()
+            vim.cmd("TodoTrouble")
+          end,
+          desc = "Show todo comments in trouble",
+        },
+        {
+          "<leader>ps",
+          function()
+            vim.cmd("TodoTelescope")
+          end,
+          desc = "Show todo comments in telescope",
+        },
+      })
+    end,
   },
   {
     "justinmk/vim-gtfo",

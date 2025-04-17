@@ -200,6 +200,7 @@ return {
           "bzl",
           "clangd",
           "cmake",
+          "cypher_ls",
           "dockerls",
           "eslint",
           "gitlab_ci_ls",
