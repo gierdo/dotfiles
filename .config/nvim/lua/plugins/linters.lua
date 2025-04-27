@@ -230,9 +230,6 @@ return {
     "rshkarin/mason-nvim-lint",
     config = function()
       require("mason-nvim-lint").setup({
-        ensure_installed = {
-          "hlint",
-        },
         automatic_installation = true,
         quiet_mode = true,
       })
