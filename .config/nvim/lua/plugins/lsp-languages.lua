@@ -232,6 +232,9 @@ return {
 
       -- protobuf lsp built-in into buf
       default_setup("buf_ls")
+
+      -- kulala ls for rest and http files
+      default_setup("kulala_ls")
     end,
     dependencies = {
       "b0o/schemastore.nvim",

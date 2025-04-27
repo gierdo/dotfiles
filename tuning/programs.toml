@@ -110,6 +110,7 @@ packages = [
   "which",
   "yaml-language-server",
   "yarn",
+  "@mistweaverco/kulala-ls",
 ]
 state = "present"
 
