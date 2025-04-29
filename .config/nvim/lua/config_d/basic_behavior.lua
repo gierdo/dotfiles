@@ -62,6 +62,11 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = "java",
+  command = "let g:java_ignore_markdown = 1",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "org",
   command = "setlocal spell spelllang=en_gb,de_de",
 })
