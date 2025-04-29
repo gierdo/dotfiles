@@ -77,17 +77,6 @@ return {
     "powerman/vim-plugin-AnsiEsc",
   },
   {
-    "JMarkin/gentags.lua",
-    cond = vim.fn.executable("ctags") == 1,
-    event = "VeryLazy",
-    config = function()
-      require("gentags").setup({})
-    end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
     "dhruvasagar/vim-table-mode",
     event = "VeryLazy",
     config = function()
