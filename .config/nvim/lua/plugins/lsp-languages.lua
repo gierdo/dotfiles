@@ -35,13 +35,13 @@ return {
       })
     end,
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "jay-babu/mason-nvim-dap.nvim",
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     config = function()
       local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
       local lspconfig = require("lspconfig")
@@ -241,7 +241,7 @@ return {
       "neovim/nvim-lspconfig",
       "saghen/blink.cmp",
       "nvim-java/nvim-java",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "seblj/roslyn.nvim",
     },
   },
@@ -271,6 +271,13 @@ return {
 
       java.setup()
     end,
+    dependencies = {
+      {
+        "nvim-java/nvim-java-core",
+        url = "https://github.com/Kabil777/nvim-java-core.git",
+        branch = "fix/mason-api-update",
+      },
+    },
   },
   {
     "folke/lazydev.nvim", -- improve lua development experience, especially concerning nvim config
@@ -321,7 +328,7 @@ return {
     opts = {},
     dependencies = {
       -- Allow setting up the registry
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
     },
   },
   {

@@ -115,7 +115,7 @@ return {
       require("mason-conform").setup()
     end,
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "stevearc/conform.nvim",
     },
   },
@@ -236,7 +236,7 @@ return {
     end,
     dependencies = {
       "mfussenegger/nvim-lint",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
     },
   },
 }

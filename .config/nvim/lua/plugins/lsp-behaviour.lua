@@ -1,17 +1,6 @@
 return {
   {
-    "zapling/mason-lock.nvim",
-    config = function()
-      require("mason-lock").setup({
-        lockfile_path = vim.fn.expand("$HOME/") .. "/.dotfiles/.config/nvim/mason-lock.json",
-      })
-    end,
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
-  },
-  {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       registries = {
         "github:mason-org/mason-registry",
@@ -197,7 +186,7 @@ return {
     end,
     dependencies = {
       "folke/neoconf.nvim",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "nvim-telescope/telescope.nvim",
       "gbrlsnchs/telescope-lsp-handlers.nvim",
     },

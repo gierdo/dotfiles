@@ -87,7 +87,7 @@ return {
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
       "mfussenegger/nvim-dap",
-      "williamboman/mason-lspconfig.nvim", -- the java lsp configuration breaks kotlin test system precedency
+      "mason-org/mason-lspconfig.nvim", -- the java lsp configuration breaks kotlin test system precedency
     },
   },
 }

@@ -21,7 +21,7 @@ return {
       dap_vscode.load_launchjs()
     end,
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "mfussenegger/nvim-dap",
       {
         "Joakker/lua-json5",
