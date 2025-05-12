@@ -146,11 +146,14 @@ name = "install rust dependencies"
 type = "installercargo"
 crates = [
   "atuin",
+  "bandwhich",
   "cargo-updater",
   "eza",
   "fd-find",
   "git-delta",
   "mise",
+  "netscanner",
+  "ntap",
   "ripgrep",
   "tree-sitter-cli",
   "zoxide",
