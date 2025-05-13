@@ -83,6 +83,11 @@ return {
       -- Delete keymap to not conflict with test keymaps
       vim.keymap.del({ "n", "x" }, "<leader>tt")
       vim.keymap.del({ "n" }, "<leader>tm")
+
+      -- Markdown compatible tables
+      vim.cmd([[
+        let g:table_mode_corner='|'
+      ]])
     end,
   },
   {
