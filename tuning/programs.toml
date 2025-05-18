@@ -154,6 +154,7 @@ crates = [
   "mise",
   "netscanner",
   "ntap",
+  "ouch",
   "ripgrep",
   "tree-sitter-cli",
   "yazi-fm",
@@ -162,6 +163,19 @@ crates = [
 ]
 state = "present"
 
+
+[[jobs]]
+name = "install yazi plugins"
+type = "command"
+command = "bash"
+needs = ["install rust dependencies"]
+argv = [
+  "-c",
+  '''\
+  cd \
+  && ya pack -a ndtoan96/ouch
+  '''
+]
 
 [[jobs]]
 name = "install mise plugins and tools"
