@@ -34,10 +34,6 @@
 	path = zsh-plugins/forgit
 	url = https://github.com/wfxr/forgit.git
 	branch = master
-[submodule ".config/ranger/plugins/ranger_devicons"]
-	path = .config/ranger/plugins/ranger_devicons
-	url = https://github.com/alexanderjeurissen/ranger_devicons
-	branch = main
 [submodule "zsh-plugins/evalcache"]
 	path = zsh-plugins/evalcache
 	url = https://github.com/mroth/evalcache
@@ -45,10 +41,6 @@
 [submodule "zsh-plugins/flatpak-zsh-completion"]
 	path = zsh-plugins/flatpak-zsh-completion
 	url = https://github.com/bilelmoussaoui/flatpak-zsh-completion
-[submodule ".config/ranger/plugins/ranger-zoxide"]
-	path = .config/ranger/plugins/ranger-zoxide
-	url = https://github.com/jchook/ranger-zoxide.git
-	branch = master
 [submodule "zsh-plugins/nix-zsh-completions"]
 	path = zsh-plugins/nix-zsh-completions
 	url = https://github.com/spwhitt/nix-zsh-completions.git
