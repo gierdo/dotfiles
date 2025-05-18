@@ -100,7 +100,9 @@ prepend_previewers = [
 ]
 fetchers = [
 	# Mimetype
-	{ id = "mime", name = "*", run = "mime", prio = "high" },
+	{ id = "mime",  name = "*",     run = "mime",   prio = "high" },
+	{ id = "git",   name = "*",     run = "git",    prio = "high" },
+	{ id = "git",   name = "*/",    run = "git",    prio = "high" },
 ]
 spotters = [
 	{ name = "*/", run = "folder" },

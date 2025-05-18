@@ -160,6 +160,13 @@ path = "{{ home_dir }}/.config/electron-flags.conf"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/yazi/init.lua"
+path = "{{ home_dir }}/.config/yazi/init.lua"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/yazi/keymap.toml"
 path = "{{ home_dir }}/.config/yazi/keymap.toml"
 
