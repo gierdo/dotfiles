@@ -244,6 +244,23 @@ return {
     },
   },
   {
+    "chrisgrieser/nvim-rulebook",
+    config = function()
+      vim.keymap.set("n", "<leader>xi", function()
+        require("rulebook").ignoreRule()
+      end, { desc = "Ignore Rule" })
+      vim.keymap.set("n", "<leader>xl", function()
+        require("rulebook").lookupRule()
+      end, { desc = "Lookup Rule" })
+      vim.keymap.set("n", "<leader>xy", function()
+        require("rulebook").yankDiagnosticCode()
+      end, { desc = "Yank diagnostic code" })
+      vim.keymap.set({ "n", "x" }, "<leader>xf", function()
+        require("rulebook").suppressFormatter()
+      end, { desc = "Suppress formatter" })
+    end,
+  },
+  {
     "liuchengxu/vista.vim",
     config = function()
       vim.cmd([[
