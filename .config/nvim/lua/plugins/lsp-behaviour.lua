@@ -172,14 +172,26 @@ return {
         },
       })
 
-      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+      vim.diagnostic.config({
+        virtual_lines = { current_line = true },
+        virtual_text = false,
+        severity_sort = true,
+      })
 
       vim.keymap.set("n", "<leader>xd", function()
-        vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+        vim.diagnostic.config({
+          virtual_lines = { current_line = true },
+          virtual_text = false,
+          severity_sort = true,
+        })
       end, { desc = "Disable diagnostics" })
 
       vim.keymap.set("n", "<leader>xe", function()
-        vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+        vim.diagnostic.config({
+          virtual_lines = true,
+          virtual_text = false,
+          severity_sort = true,
+        })
       end, { desc = "Enable diagnostics" })
 
       require("telescope").load_extension("lsp_handlers")

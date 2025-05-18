@@ -184,6 +184,20 @@ force = true
 src = "{{ home_dir }}/.dotfiles/.config/electron-flags.conf"
 path = "{{ home_dir }}/.config/electron-flags.conf"
 
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/yazi/keymap.toml"
+path = "{{ home_dir }}/.config/yazi/keymap.toml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/yazi/yazi.toml"
+path = "{{ home_dir }}/.config/yazi/yazi.toml"
+
 
 ## Random configuration in ~/\..*/
 

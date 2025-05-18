@@ -156,6 +156,8 @@ crates = [
   "ntap",
   "ripgrep",
   "tree-sitter-cli",
+  "yazi-fm",
+  "yazi-cli",
   "zoxide",
 ]
 state = "present"

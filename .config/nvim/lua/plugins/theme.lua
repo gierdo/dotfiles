@@ -21,7 +21,6 @@ return {
           ---@type solarized.highlights
           local groups = {
             NvimTreeWinSeparator = { link = "WinSeparator" }, -- Use normal window separator lines for nvim tree
-            CocUnusedHighlight = { link = "DiagnosticHint" }, -- Change background of diagnostic-info-sections
             SpellBad = { strikethrough = false }, -- Solarized dark defaults to striking through wrong spelling
           }
           return groups
@@ -41,31 +40,31 @@ return {
         plugins = {
           treesitter = true,
           lspconfig = true,
-          navic = true,
-          cmp = true,
+          navic = false,
+          cmp = false,
           indentblankline = true,
-          neotree = true,
-          nvimtree = true,
+          neotree = false,
+          nvimtree = false,
           whichkey = true,
           dashboard = true,
           gitsigns = true,
           telescope = true,
           noice = true,
           hop = true,
-          ministatusline = true,
-          minitabline = true,
-          ministarter = true,
-          minicursorword = true,
+          ministatusline = false,
+          minitabline = false,
+          ministarter = false,
+          minicursorword = false,
           notify = true,
           rainbowdelimiters = true,
           bufferline = true,
           lazy = true,
           rendermarkdown = true,
-          ale = true,
-          coc = true,
-          leap = true,
-          alpha = true,
-          yanky = true,
+          ale = false,
+          coc = false,
+          leap = false,
+          alpha = false,
+          yanky = false,
           gitgutter = true,
         },
       })

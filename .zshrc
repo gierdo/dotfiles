@@ -184,6 +184,17 @@ if command -v atuin 1>/dev/null 2>&1; then
   _evalcache atuin init zsh
 fi
 
+if command -v yazi 1>/dev/null 2>&1; then
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+fi
+
 # # TODO:  <12-02-24, gierdo> # split up in sane modules
 
 # Get cdk completions and always use cdk from the project context, if available
@@ -228,3 +239,5 @@ alias bazel='bazelisk'
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
+
+
