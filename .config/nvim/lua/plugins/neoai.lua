@@ -9,7 +9,7 @@ local keymap_opts = { expr = true }
 return {
   {
     "gierdo/neoai.nvim",
-    branch = "local-llama",
+    branch = "main",
     cmd = {
       "NeoAI",
       "NeoAIOpen",
@@ -51,7 +51,24 @@ return {
       },
     },
     config = function()
-      startLlama()
+      local q_available = vim.fn.executable("q")
+
+      local models = {}
+
+      if q_available then
+        table.insert(models, {
+          name = "q",
+          model = "q",
+        })
+      else
+        startLlama()
+        table.insert(models, {
+          name = "openai",
+          model = "llama 3",
+          params = nil,
+        })
+      end
+
       require("neoai").setup({
         ui = {
           output_popup_text = "AI",
@@ -60,13 +77,7 @@ return {
           output_popup_height = 80, -- As percentage eg. 80%
           submit = "<Enter>", -- Key binding to submit the prompt
         },
-        models = {
-          {
-            name = "openai",
-            model = "llama 3",
-            params = nil,
-          },
-        },
+        models = models,
         register_output = {
           ["a"] = function(output)
             return output
