@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 local function startLlama()
   os.execute("systemctl --user start llama")
 end
