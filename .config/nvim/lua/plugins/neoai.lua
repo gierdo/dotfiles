@@ -103,6 +103,7 @@ return {
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",
+      "m00qek/baleia.nvim",
     },
   },
   { "MunifTanjim/nui.nvim", lazy = true },
