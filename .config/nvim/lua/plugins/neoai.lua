@@ -49,7 +49,7 @@ return {
       },
     },
     config = function()
-      local q_available = vim.fn.executable("q")
+      local q_available = vim.fn.executable("q") == 1
 
       local models = {}
 
