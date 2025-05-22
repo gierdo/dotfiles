@@ -57,6 +57,7 @@ return {
         table.insert(models, {
           name = "q",
           model = "q",
+          params = { "--trust-all-tools" },
         })
       else
         startLlama()
