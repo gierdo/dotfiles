@@ -86,6 +86,20 @@ return {
         inject = {
           cutoff_width = 75,
         },
+        prompts = {
+          context_prompt = function(context)
+            return "Please only follow instructions or answer to questions. Be concise. "
+              .. (vim.fn.expand("%:p") ~= "" and "This is my currently opened file: " .. vim.fn.expand("%:p") or "")
+              .. "I'd like to provide some context for future "
+              .. "messages. Here is the code/text that I want to refer "
+              .. "to in our upcoming conversations:\n\n"
+              .. context
+          end,
+          default_prompt = function()
+            return "Please only follow instructions or answer to questions. Be concise. "
+              .. (vim.fn.expand("%:p") ~= "" and "This is my currently opened file: " .. vim.fn.expand("%:p") or "")
+          end,
+        },
         mappings = {
           ["select_up"] = "<C-k>",
           ["select_down"] = "<C-j>",
