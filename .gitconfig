@@ -56,3 +56,5 @@
   path = ~/.dotfiles/.gitconfig.github
 [includeIf "gitdir:~/go/*"]
   path = ~/.dotfiles/.gitconfig.github
+[includeIf "gitdir:~/.local/share/nvim/*"]
+  path = ~/.dotfiles/.gitconfig.github
