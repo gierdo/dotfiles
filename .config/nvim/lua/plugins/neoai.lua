@@ -89,7 +89,9 @@ return {
         prompts = {
           context_prompt = function(context)
             return "Please only follow instructions or answer to questions. Be concise. "
-              .. (vim.fn.expand("%:p") ~= "" and "This is my currently opened file: " .. vim.fn.expand("%:p") or "")
+              .. (vim.api.nvim_buf_get_name(0) ~= "" and "This is my currently opened file: " .. vim.api.nvim_buf_get_name(
+                0
+              ) or "")
               .. "I'd like to provide some context for future "
               .. "messages. Here is the code/text that I want to refer "
               .. "to in our upcoming conversations:\n\n"
@@ -97,7 +99,11 @@ return {
           end,
           default_prompt = function()
             return "Please only follow instructions or answer to questions. Be concise. "
-              .. (vim.fn.expand("%:p") ~= "" and "This is my currently opened file: " .. vim.fn.expand("%:p") or "")
+              .. (
+                vim.api.nvim_buf_get_name(0) ~= ""
+                  and "This is my currently opened file: " .. vim.api.nvim_buf_get_name(0)
+                or ""
+              )
           end,
         },
         mappings = {
