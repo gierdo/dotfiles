@@ -52,8 +52,19 @@ return {
       local q_available = vim.fn.executable("q") == 1
 
       local models = {}
+      local extract_code_snippets
 
       if q_available then
+        extract_code_snippets = function(text)
+          local matches = {}
+          -- Amazon Q marks code by color-coding it green with ansi codes.
+          -- Everything between "start green" and "reset color" is assumed to be code.
+          for match in string.gmatch(text, "\27%[38;5;%d+m(.-)\27%[0m") do
+            table.insert(matches, match)
+          end
+          return table.concat(matches, "\n\n")
+        end
+
         table.insert(models, {
           name = "q",
           model = "q",
@@ -61,6 +72,23 @@ return {
         })
       else
         startLlama()
+
+        extract_code_snippets = function(text)
+          local matches = {}
+          for match in string.gmatch(text, "```%w*\n(.-)```") do
+            table.insert(matches, match)
+          end
+
+          -- Next part matches any code snippets that are incomplete
+          local count = select(2, string.gsub(text, "```", "```"))
+          if count % 2 == 1 then
+            local pattern = "```%w*\n([^`]-)$"
+            local match = string.match(text, pattern)
+            table.insert(matches, match)
+          end
+          return table.concat(matches, "\n\n")
+        end
+
         table.insert(models, {
           name = "openai",
           model = "llama 3",
@@ -68,7 +96,7 @@ return {
         })
       end
 
-      require("neoai").setup({
+      require("neoai").setup({ ---@diagnostic disable-line: missing-fields
         ui = {
           output_popup_text = "AI",
           input_popup_text = "Prompt",
@@ -81,7 +109,7 @@ return {
           ["a"] = function(output)
             return output
           end,
-          ["c"] = require("neoai.utils").extract_code_snippets,
+          ["c"] = extract_code_snippets,
         },
         inject = {
           cutoff_width = 75,
@@ -113,7 +141,7 @@ return {
         open_ai = {
           url = "http://127.0.0.1:9741/v1/chat/completions",
           display_name = "llama.cpp",
-          api_key = {
+          api_key = { ---@diagnostic disable-line: missing-fields
             value = nil,
             get = function()
               return ""
