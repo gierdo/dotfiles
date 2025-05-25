@@ -1,12 +1,13 @@
 return {
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = "markdown",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
+      "saghen/blink.cmp",
     },
 
     config = function()
@@ -43,6 +44,7 @@ return {
 
         completion = { ---@diagnostic disable-line: missing-fields
           nvim_cmp = false,
+          blink = true,
           min_chars = 2,
         },
 
