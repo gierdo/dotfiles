@@ -4,14 +4,6 @@ return {
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    -- event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-    --   -- refer to `:h file-pattern` for more examples
-    --   "BufReadPre path/to/my-vault/*.md",
-    --   "BufNewFile path/to/my-vault/*.md",
-    -- },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
@@ -34,16 +26,30 @@ return {
             name = "workspace_notes",
             path = "~/workspace/workspace_notes",
           },
+          {
+            name = "no-vault",
+            path = function()
+              return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
+            end,
+            overrides = { ---@diagnostic disable-line: missing-fields
+              notes_subdir = vim.NIL, ---@diagnostic disable-line: assign-type-mismatch
+              new_notes_location = "current_dir",
+              templates = { ---@diagnostic disable-line: missing-fields
+                folder = vim.NIL, ---@diagnostic disable-line: assign-type-mismatch
+              },
+              disable_frontmatter = true,
+            },
+          },
         },
 
-        completion = {
+        completion = { ---@diagnostic disable-line: missing-fields
           nvim_cmp = true,
           min_chars = 2,
         },
 
         -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
         -- way then set 'mappings = {}'.
-        mappings = {
+        mappings = { ---@diagnostic disable-line: missing-fields
           -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
           ["gf"] = {
             action = function()
@@ -80,7 +86,7 @@ return {
         disable_frontmatter = false,
 
         -- Optional, for templates (see below).
-        templates = {
+        templates = { ---@diagnostic disable-line: missing-fields
           folder = "templates",
           date_format = "%Y-%m-%d",
           time_format = "%H:%M",
@@ -88,18 +94,18 @@ return {
           substitutions = {},
         },
 
-        picker = {
+        picker = { ---@diagnostic disable-line: missing-fields
           -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
           name = "telescope.nvim",
           -- Optional, configure key mappings for the picker. These are the defaults.
           -- Not all pickers support all mappings.
-          note_mappings = {
+          note_mappings = { ---@diagnostic disable-line: missing-fields
             -- Create a new note from your query.
             new = "<C-x>",
             -- Insert a link to the selected note.
             insert_link = "<C-l>",
           },
-          tag_mappings = {
+          tag_mappings = { ---@diagnostic disable-line: missing-fields
             -- Add tag(s) to current note.
             tag_note = "<C-x>",
             -- Insert a tag at the current location.
@@ -123,7 +129,7 @@ return {
         open_notes_in = "current",
 
         -- Optional, define your own callbacks to further customize behavior.
-        callbacks = {
+        callbacks = { ---@diagnostic disable-line: missing-fields
           -- Runs at the end of `require("obsidian").setup()`.
           ---@param client obsidian.Client
           post_setup = function(client) end,
