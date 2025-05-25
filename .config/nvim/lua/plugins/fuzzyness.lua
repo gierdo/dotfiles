@@ -23,7 +23,7 @@ return {
 
         if num_selections > 1 then
           actions.send_selected_to_qflist(prompt_bufnr)
-          actions.open_qflist()
+          actions.open_qflist() ---@diagnostic disable-line: missing-parameter
         else
           actions.select_default(prompt_bufnr)
         end

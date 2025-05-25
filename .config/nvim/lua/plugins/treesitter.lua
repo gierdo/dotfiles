@@ -6,7 +6,7 @@ return {
     },
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = "all",
         sync_install = false,
         auto_install = true,
@@ -25,7 +25,7 @@ return {
 
           disable = function(lang, buf)
             local max_filesize = 5 * 1024 * 1024 -- 5 MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf)) ---@diagnostic disable-line: undefined-field
             if ok and stats and stats.size > max_filesize then
               return true
             end
@@ -45,7 +45,7 @@ return {
 
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-      parser_config.plantuml = {
+      parser_config.plantuml = { ---@diagnostic disable-line: inject-field
         install_info = {
           url = "https://github.com/lyndsysimon/tree-sitter-plantuml",
           files = { "src/parser.c" },

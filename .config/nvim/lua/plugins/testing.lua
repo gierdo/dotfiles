@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     config = function()
       local neotest = require("neotest")
-      neotest.setup({
+      neotest.setup({ ---@diagnostic disable-line: missing-fields
         adapters = {
           require("neotest-python"),
           require("neotest-dotnet"),

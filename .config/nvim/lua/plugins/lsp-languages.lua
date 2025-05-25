@@ -127,7 +127,7 @@ return {
               json = {
                 schemas = require("schemastore").json.schemas({
                   extra = {
-                    {
+                    { ---@diagnostic disable-line: missing-fields
                       name = "OpenAPI",
                       description = "OpenAPI spec",
                       filetypes = { "openapi.json" },
@@ -160,7 +160,7 @@ return {
                       fileMatch = { "*.template.y*ml", "*-template.y*ml" },
                       url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
                     },
-                    {
+                    { ---@diagnostic disable-line: missing-fields
                       name = "OpenAPI",
                       description = "OpenAPI spec",
                       filetypes = { "openapi.yaml" },
@@ -193,7 +193,7 @@ return {
         end,
       }
 
-      require("mason-lspconfig").setup({
+      require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "ast_grep",
           "bashls",
