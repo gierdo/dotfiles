@@ -269,12 +269,4 @@ return {
       ]])
     end,
   },
-  -- lsp for code embedded in markdown etc.
-  {
-    "jmbuhr/otter.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opts = {},
-  },
 }

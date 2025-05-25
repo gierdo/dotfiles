@@ -6,7 +6,6 @@ return {
     ft = "markdown",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
       "nvim-telescope/telescope.nvim",
     },
 
@@ -43,7 +42,7 @@ return {
         },
 
         completion = { ---@diagnostic disable-line: missing-fields
-          nvim_cmp = true,
+          nvim_cmp = false,
           min_chars = 2,
         },
 
