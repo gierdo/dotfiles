@@ -4,6 +4,7 @@
 # exclude specific directories
 --glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,*cache}/*
 --glob=!**/.{conan,clangd}/*
+--glob=!**/.local/share/containers/*
 --glob=!**/{python-build,__pycache__,site-packages}/*
 --glob=!**/{node_modules,.vscode-test}/*
 
