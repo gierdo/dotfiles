@@ -210,6 +210,7 @@ return {
           "groovyls",
           "hls",
           "html",
+          "jinja_lsp",
           "jqls",
           "jsonls",
           "kotlin_language_server",
