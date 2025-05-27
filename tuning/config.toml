@@ -4,13 +4,6 @@
 type = "file"
 state= "link"
 force = true
-src = "{{ home_dir }}/.dotfiles/.config/alacritty/alacritty.yml"
-path = "{{ home_dir }}/.config/alacritty/alacritty.yml"
-
-[[jobs]]
-type = "file"
-state= "link"
-force = true
 src = "{{ home_dir }}/.dotfiles/.config/atuin/config.toml"
 path = "{{ home_dir }}/.config/atuin/config.toml"
 
@@ -71,6 +64,13 @@ state= "link"
 force = true
 src = "{{ home_dir }}/.dotfiles/.config/foot/foot.ini"
 path = "{{ home_dir }}/.config/foot/foot.ini"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
+src = "{{ home_dir }}/.dotfiles/.config/kitty/kitty.conf"
+path = "{{ home_dir }}/.config/kitty/kitty.conf"
 
 [[jobs]]
 type = "file"
