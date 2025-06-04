@@ -77,17 +77,9 @@ return {
     "powerman/vim-plugin-AnsiEsc",
   },
   {
-    "dhruvasagar/vim-table-mode",
-    event = "VeryLazy",
+    "Kicamon/markdown-table-mode.nvim",
     config = function()
-      -- Delete keymap to not conflict with test keymaps
-      vim.keymap.del({ "n", "x" }, "<leader>tt")
-      vim.keymap.del({ "n" }, "<leader>tm")
-
-      -- Markdown compatible tables
-      vim.cmd([[
-        let g:table_mode_corner='|'
-      ]])
+      require("markdown-table-mode").setup()
     end,
   },
   {
