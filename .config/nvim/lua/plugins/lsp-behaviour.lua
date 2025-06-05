@@ -208,6 +208,7 @@ return {
   },
   {
     "L3MON4D3/LuaSnip",
+    event = "VeryLazy",
     version = "v2.*",
     build = "make install_jsregexp",
     config = function()
@@ -219,7 +220,8 @@ return {
   },
   {
     "mireq/luasnip-snippets",
-    init = function()
+    event = "VeryLazy",
+    config = function()
       require("luasnip_snippets.common.snip_utils").setup()
     end,
     dependencies = { "L3MON4D3/LuaSnip" },
