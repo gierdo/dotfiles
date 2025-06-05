@@ -1,6 +1,7 @@
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = "VeryLazy",
     config = function()
       require("mason-tool-installer").setup({
 
@@ -42,6 +43,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    event = "VeryLazy",
     config = function()
       local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
       local lspconfig = require("lspconfig")
@@ -248,6 +250,7 @@ return {
   },
   {
     "nvim-java/nvim-java",
+    event = "VeryLazy",
     config = function()
       local java = require("java")
 

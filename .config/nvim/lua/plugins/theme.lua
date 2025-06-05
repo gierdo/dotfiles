@@ -15,7 +15,7 @@ return {
           nvimtree = true,
           whichkey = true,
           telescope = true,
-          lazy = false,
+          lazy = true,
         },
         on_highlights = function(colors, color)
           ---@type solarized.highlights
@@ -72,6 +72,8 @@ return {
     end,
   },
   {
+    lazy = false,
+    priority = 1000,
     "nvim-lualine/lualine.nvim",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
@@ -117,7 +119,6 @@ return {
         inactive_winbar = {},
         extensions = {
           "quickfix",
-          "nvim-tree",
         },
       })
     end,

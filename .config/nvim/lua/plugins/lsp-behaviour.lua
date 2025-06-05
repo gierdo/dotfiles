@@ -13,6 +13,7 @@ return {
   },
   {
     "folke/neoconf.nvim",
+    event = "VeryLazy",
     config = function()
       require("neoconf").setup()
     end,
@@ -25,6 +26,7 @@ return {
   },
   {
     "saghen/blink.cmp",
+    event = "VeryLazy",
     version = "1.*",
     -- build = 'cargo build --release',
     opts = {

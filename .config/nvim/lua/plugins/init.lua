@@ -71,7 +71,6 @@ return {
   },
   {
     "justinmk/vim-gtfo",
-    event = "VeryLazy",
   },
   {
     "powerman/vim-plugin-AnsiEsc",
@@ -84,7 +83,6 @@ return {
   },
   {
     "kevinhwang91/nvim-bqf",
-    event = "VeryLazy",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "junegunn/fzf",

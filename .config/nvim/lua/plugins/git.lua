@@ -1,11 +1,9 @@
 return {
   {
     "airblade/vim-gitgutter",
-    event = "VeryLazy",
   },
   {
     "tpope/vim-fugitive",
-    event = "VeryLazy",
   },
   {
     "sindrets/diffview.nvim",
@@ -15,7 +13,6 @@ return {
   },
   {
     "NeogitOrg/neogit",
-    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
@@ -25,7 +22,6 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    event = "VeryLazy",
     config = true,
   },
 }

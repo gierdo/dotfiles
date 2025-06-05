@@ -6,7 +6,6 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
     branch = "0.1.x",
     config = function()
       local actions = require("telescope.actions")

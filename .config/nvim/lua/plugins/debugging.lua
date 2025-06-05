@@ -1,8 +1,9 @@
 return {
   {
     "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
     config = function()
-      require("mason-nvim-dap").setup({
+      require("mason-nvim-dap").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "cppdbg",
           "javadbg",
@@ -42,13 +43,15 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
+    event = "VeryLazy",
   },
   {
     "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
-      dapui.setup({})
+      dapui.setup({}) ---@diagnostic disable-line: missing-fields
 
       local python_launch_with_arguments = {
         {
@@ -153,8 +156,9 @@ return {
   },
   {
     "theHamsta/nvim-dap-virtual-text",
+    event = "VeryLazy",
     config = function()
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup() ---@diagnostic disable-line: missing-parameter
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
