@@ -1,0 +1,12 @@
+#!/bin/bash
+
+EXECUTABLE_PATH="${HOME}/.local/share/WezTerm.AppImage"
+
+mkdir -p "${HOME}/.local/share"
+
+if [ ! -f "$EXECUTABLE_PATH" ]; then
+  wget -O "${EXECUTABLE_PATH}" https://github.com/wezterm/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage
+  chmod +x "${EXECUTABLE_PATH}"
+fi
+
+"${EXECUTABLE_PATH}" "$@"

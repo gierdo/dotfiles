@@ -69,6 +69,13 @@ path = "{{ home_dir }}/.config/foot/foot.ini"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.wezterm.lua"
+path = "{{ home_dir }}/.wezterm.lua"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/kitty/kitty.conf"
 path = "{{ home_dir }}/.config/kitty/kitty.conf"
 
