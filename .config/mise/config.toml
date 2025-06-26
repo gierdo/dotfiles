@@ -16,7 +16,6 @@ trivy = "0.63.0"
 neovim = "0.11.2"
 flutter = "3.32.4-stable"
 dart = "3.8.1"
-ktlint = "1.6.0"
 cmake = "4.0.3"
 gradle = "8.14"
 
