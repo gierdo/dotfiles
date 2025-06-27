@@ -29,8 +29,8 @@ The dotfiles configuration is set up with `tuning`.
 Assuming that rust is set up, `cargo` being available, and the dotfiles
 respository is cloned (recursively) to `~/.dotfiles`
 
-```shell
-cargo install tuning
+```bash
+cargo install --locked tuning
 tuning
 ```
 
