@@ -267,4 +267,5 @@ return {
     "fabridamicelli/cronex.nvim",
     opts = {},
   },
+  { "ludovicchabant/vim-gutentags", lazy = true },
 }
