@@ -209,8 +209,6 @@ return {
           "gopls",
           "graphql",
           "gradle_ls",
-          "groovyls",
-          "hls",
           "html",
           "jinja_lsp",
           "jqls",
