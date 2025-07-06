@@ -76,7 +76,6 @@ plugins=(
   poetry
   pyenv
   rust
-  thefuck
   toolbox
   universalarchive
   virtualenv
@@ -141,8 +140,8 @@ source $ZSH/oh-my-zsh.sh
 # e.g. --set ingress.hosts[0]=flerb.bar
 setopt +o nomatch
 
-if command -v thefuck 1>/dev/null 2>&1; then
-  _evalcache thefuck --alias
+if command -v pay-respects 1>/dev/null 2>&1; then
+  _evalcache pay-respects zsh --alias fuck
 fi
 
 if command -v direnv 1>/dev/null 2>&1; then

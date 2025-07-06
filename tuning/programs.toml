@@ -136,7 +136,6 @@ argv = [
   "pynvim",
   "pyright",
   "pytype",
-  "thefuck",
 ]
 state = "present"
 
@@ -155,6 +154,8 @@ crates = [
   "netscanner",
   "ntap",
   "ouch",
+  "pay-respects",
+  "pay-respects-module-runtime-rules",
   "ripgrep",
   "tree-sitter-cli",
   "yazi-fm",
