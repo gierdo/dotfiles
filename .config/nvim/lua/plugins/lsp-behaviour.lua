@@ -266,12 +266,11 @@ return {
     end,
   },
   {
-    "liuchengxu/vista.vim",
+    -- potentially replace with aerial
+    "hedyhli/outline.nvim",
     config = function()
-      vim.cmd([[
-      let g:vista_default_executive = 'nvim_lsp'
-      nmap <silent> <F8> :Vista!!<CR>
-      ]])
+      vim.keymap.set("n", "<F8>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
+      require("outline").setup({})
     end,
   },
 }
