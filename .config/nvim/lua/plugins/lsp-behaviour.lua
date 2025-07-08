@@ -266,11 +266,26 @@ return {
     end,
   },
   {
-    -- potentially replace with aerial
-    "hedyhli/outline.nvim",
+    "stevearc/aerial.nvim",
     config = function()
-      vim.keymap.set("n", "<F8>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
-      require("outline").setup({})
+      require("aerial").setup({
+        filter_kind = {
+          "Class",
+          "Constructor",
+          "Enum",
+          "Function",
+          "Interface",
+          "Method",
+          "Module",
+          "Struct",
+          "Variable",
+        },
+      })
+      vim.keymap.set("n", "<F8>", "<cmd>AerialToggle!<CR>")
     end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 }
