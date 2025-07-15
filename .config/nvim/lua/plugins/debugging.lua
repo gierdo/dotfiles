@@ -19,7 +19,7 @@ return {
       -- external json decoder for support of (non-standard) trailing commas
       local dap_vscode = require("dap.ext.vscode")
       dap_vscode.json_decode = require("json5").parse
-      dap_vscode.load_launchjs()
+      dap_vscode.getconfigs()
     end,
     dependencies = {
       "mason-org/mason.nvim",
