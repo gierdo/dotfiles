@@ -63,6 +63,11 @@ return {
           sh = {
             "shfmt",
           },
+          typescript = {
+            "prettierd",
+            "prettier",
+            stop_after_first = true,
+          },
           yaml = {
             "yamlfmt",
           },
