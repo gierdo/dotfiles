@@ -17,6 +17,7 @@ return {
       })
 
       require("obsidian").setup({
+        legacy_commands = false,
         workspaces = {
           {
             name = "notes",
@@ -48,24 +49,6 @@ return {
           min_chars = 2,
         },
 
-        -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
-        -- way then set 'mappings = {}'.
-        mappings = { ---@diagnostic disable-line: missing-fields
-          -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-          ["gf"] = {
-            action = function()
-              return require("obsidian").util.gf_passthrough()
-            end,
-            opts = { noremap = false, expr = true, buffer = true },
-          },
-          -- Smart action depending on context, either follow link or toggle checkbox.
-          ["<cr>"] = {
-            action = function()
-              return require("obsidian").util.smart_action()
-            end,
-            opts = { buffer = true, expr = true },
-          },
-        },
         ---
         ---@param url string
         follow_url_func = function(url)
