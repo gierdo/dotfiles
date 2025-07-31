@@ -59,7 +59,6 @@ argv = [
   "-c",
   'meson setup build --prefix ${HOME}/.local && cd build && ninja install'
 ]
-when = "{{ not has_executable(exe='rofi') }}"
 
 
 [[jobs]]
