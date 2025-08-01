@@ -208,6 +208,7 @@ return {
       require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "ast_grep",
+          "basedpyright",
           "bashls",
           "bzl",
           "clangd",
@@ -217,8 +218,8 @@ return {
           "eslint",
           "gitlab_ci_ls",
           "gopls",
-          "graphql",
           "gradle_ls",
+          "graphql",
           "html",
           "jinja_lsp",
           "jqls",
@@ -227,7 +228,6 @@ return {
           "lemminx",
           "lua_ls",
           "marksman",
-          "basedpyright",
           "ruff",
           "rust_analyzer",
           "sqls",
