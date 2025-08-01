@@ -91,6 +91,16 @@ return {
             },
           })
         end,
+        ["ruff"] = function()
+          lspconfig.ruff.setup({
+            capabilities = lsp_capabilities,
+            init_options = {
+              settings = {
+                configurationPreference = "filesystemFirst",
+              },
+            },
+          })
+        end,
         ["ts_ls"] = function()
           lspconfig.ts_ls.setup({
             capabilities = lsp_capabilities,
@@ -218,12 +228,12 @@ return {
           "lua_ls",
           "marksman",
           "basedpyright",
+          "ruff",
           "rust_analyzer",
           "sqls",
           "taplo",
           "texlab",
           "ts_ls",
-          "ty",
           "yamlls",
         },
         handlers = handlers,

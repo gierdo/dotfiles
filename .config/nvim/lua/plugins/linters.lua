@@ -35,9 +35,6 @@ return {
           lua = {
             "stylua",
           },
-          python = {
-            "ruff",
-          },
           rust = {
             "rustfmt",
           },
@@ -168,7 +165,6 @@ return {
           "gitlint",
         },
         python = {
-          "ruff",
           "trivy",
         },
         sh = {
