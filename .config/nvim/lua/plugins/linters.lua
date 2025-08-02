@@ -132,23 +132,12 @@ return {
       lint.linters_by_ft = {
         javascript = {
           "eslint_d",
-          "trivy",
-        },
-        typescript = {
-          "trivy",
-        },
-        javascriptreact = {
-          "trivy",
-        },
-        typescriptreact = {
-          "trivy",
         },
         cpp = {
           "clangtidy",
           "cppcheck",
           "cpplint",
           "flawfinder",
-          "trivy",
         },
         email = {
           "languagetool",
@@ -162,18 +151,13 @@ return {
           "cppcheck",
           "cpplint",
           "flawfinder",
-          "trivy",
         },
         git = {
           "commitlint",
           "gitlint",
         },
-        python = {
-          "trivy",
-        },
         sh = {
           "shellcheck",
-          "trivy",
         },
         cmake = {
           "cmakelint",
@@ -186,22 +170,6 @@ return {
         },
         kotlin = {
           "ktlint",
-          "trivy",
-        },
-        java = {
-          "trivy",
-        },
-        cs = {
-          "trivy",
-        },
-        docker = {
-          "trivy",
-        },
-        yaml = {
-          "trivy",
-        },
-        xml = {
-          "trivy",
         },
         haskell = {
           "hlint",
