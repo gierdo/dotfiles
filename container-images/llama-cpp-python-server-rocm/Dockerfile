@@ -42,7 +42,7 @@ ARG OVERRIDE_GFX_VERSION=11.0.2
 ENV HSA_OVERRIDE_GFX_VERSION=${OVERRIDE_GFX_VERSION}
 ARG LLAMA_CPP_VERSION=0.3.14
 
-RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install --user --break-system-packages llama-cpp-python[server]==${LLAMA_CPP_VERSION}
+RUN CC=hipcc CXX=hipcc CMAKE_ARGS="-DGGML_HIP=on" FORCE_CMAKE=1 pip install --user --break-system-packages llama-cpp-python[server]==${LLAMA_CPP_VERSION}
 
 FROM runtime_base AS final
 LABEL maintainer="Dominikus Gierlach <dominik.gierlach@gmail.com>"

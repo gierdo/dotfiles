@@ -8,5 +8,6 @@ AddDevice=/dev/kfd
 Annotation="run.oci.keep_original_groups=1"
 Volume=${HOME}/.local/lib/llama/models:/models
 PublishPort=9741:8000
-Environment=MODEL=/models/qwen2.5-coder-7b-instruct-q4_k_m.gguf
+Environment=MODEL=/models/Ministral-8B-Instruct-2410-Q4_K_M.gguf
+Environment=use_mlock=false
 Exec= sh -c "python3 -m llama_cpp.server --numa True --n_batch 2048 --n_ctx 24000 --n_gpu_layers -1 --host 0.0.0.0 --port 8000"
