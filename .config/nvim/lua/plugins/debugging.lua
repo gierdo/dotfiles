@@ -44,10 +44,6 @@ return {
   {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
-  },
-  {
-    "igorlfs/nvim-dap-view",
-    event = "VeryLazy",
     config = function()
       local dap = require("dap")
 
@@ -56,12 +52,12 @@ return {
       dap_view.setup({
         winbar = {
           show = true,
-          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl" },
+          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "disassembly" },
           default_section = "breakpoints",
           base_sections = {
             breakpoints = {
               keymap = "B",
-              label = "Breakpoints [B]",
+              label = " Breakpoints [B]",
               short_label = " [B]",
               action = function()
                 views.switch_to_view("breakpoints")
@@ -69,7 +65,7 @@ return {
             },
             scopes = {
               keymap = "S",
-              label = "Scopes [S]",
+              label = "󰂥 Scopes [S]",
               short_label = "󰂥 [S]",
               action = function()
                 views.switch_to_view("scopes")
@@ -77,7 +73,7 @@ return {
             },
             exceptions = {
               keymap = "E",
-              label = "Exceptions [E]",
+              label = "󰢃 Exceptions [E]",
               short_label = "󰢃 [E]",
               action = function()
                 views.switch_to_view("exceptions")
@@ -85,7 +81,7 @@ return {
             },
             watches = {
               keymap = "W",
-              label = "Watches [W]",
+              label = "󰛐 Watches [W]",
               short_label = "󰛐 [W]",
               action = function()
                 views.switch_to_view("watches")
@@ -93,7 +89,7 @@ return {
             },
             threads = {
               keymap = "T",
-              label = "Threads [T]",
+              label = "󱉯 Threads [T]",
               short_label = "󱉯 [T]",
               action = function()
                 views.switch_to_view("threads")
@@ -101,7 +97,7 @@ return {
             },
             repl = {
               keymap = "R",
-              label = "REPL [R]",
+              label = "󰯃 REPL [R]",
               short_label = "󰯃 [R]",
               action = function()
                 require("dap-view.repl").show()
@@ -109,7 +105,7 @@ return {
             },
             console = {
               keymap = "C",
-              label = "Console [C]",
+              label = "󰆍 Console [C]",
               short_label = "󰆍 [C]",
               action = function()
                 require("dap-view.term").show()
@@ -148,9 +144,9 @@ return {
           height = 0.25,
           position = "below",
           terminal = {
-            width = 0.5,
+            width = 0.3,
             position = "left",
-            hide = {},
+            hide = { "python", "go" },
             start_hidden = false,
           },
         },
@@ -158,7 +154,7 @@ return {
           border = nil,
         },
         switchbuf = "usetab",
-        auto_toggle = false,
+        auto_toggle = true,
       }) ---@diagnostic disable-line: missing-fields
 
       local python_launch_with_arguments = {
@@ -176,17 +172,6 @@ return {
         },
       }
       vim.list_extend(dap.configurations["python"], python_launch_with_arguments)
-
-      -- add listeners to auto open DAP UI
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dap_view.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dap_view.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dap_view.close()
-      end
 
       local wk = require("which-key")
       local telescope = require("telescope")
@@ -257,6 +242,7 @@ return {
       })
     end,
     dependencies = {
+      "igorlfs/nvim-dap-view",
       "jay-babu/mason-nvim-dap.nvim",
       "nvim-neotest/nvim-nio",
       "folke/which-key.nvim",
@@ -274,4 +260,43 @@ return {
       "nvim-telescope/telescope.nvim",
     },
   },
+  {
+    "Jorenar/nvim-dap-disasm",
+    config = function()
+      require("dap-disasm").setup({
+        dapui_register = false,
+        dapview_register = true,
+        repl_commands = true,
+
+        winbar = false,
+
+        -- The sign to use for instruction the exectution is stopped at
+        sign = "DapStopped",
+
+        -- Number of instructions to show before the memory reference
+        ins_before_memref = 16,
+
+        -- Number of instructions to show after the memory reference
+        ins_after_memref = 16,
+
+        -- Labels of buttons in winbar
+        controls = {
+          step_into = "Step Into",
+          step_over = "Step Over",
+          step_back = "Step Back",
+        },
+
+        -- Columns to display in the disassembly view
+        columns = {
+          "address",
+          "instructionBytes",
+          "instruction",
+        },
+      })
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "igorlfs/nvim-dap-view",
+    }
+  }
 }
