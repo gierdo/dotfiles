@@ -41,7 +41,7 @@ return {
           treesitter = true,
           lspconfig = true,
           navic = false,
-          cmp = false,
+          cmp = true,
           indentblankline = true,
           neotree = false,
           nvimtree = false,
@@ -152,6 +152,7 @@ return {
           },
           ignore_focus = {},
           always_divide_middle = true,
+          always_show_tabline = false,
           globalstatus = true,
           refresh = {
             statusline = 1000,
@@ -175,7 +176,14 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
-        tabline = {},
+        tabline = {
+          lualine_a = { 'buffers' },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { 'tabs' }
+        },
         winbar = {},
         inactive_winbar = {},
         extensions = {
@@ -204,7 +212,6 @@ return {
       })
     end,
   },
-  "mkitt/tabline.vim",
   {
     "stevearc/dressing.nvim",
     config = true,
