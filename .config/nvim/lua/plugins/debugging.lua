@@ -46,12 +46,120 @@ return {
     event = "VeryLazy",
   },
   {
-    "rcarriga/nvim-dap-ui",
+    "igorlfs/nvim-dap-view",
     event = "VeryLazy",
     config = function()
       local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup({}) ---@diagnostic disable-line: missing-fields
+
+      local views = require("dap-view.views")
+      local dap_view = require("dap-view")
+      dap_view.setup({
+        winbar = {
+          show = true,
+          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl" },
+          default_section = "breakpoints",
+          base_sections = {
+            breakpoints = {
+              keymap = "B",
+              label = "Breakpoints [B]",
+              short_label = " [B]",
+              action = function()
+                views.switch_to_view("breakpoints")
+              end,
+            },
+            scopes = {
+              keymap = "S",
+              label = "Scopes [S]",
+              short_label = "󰂥 [S]",
+              action = function()
+                views.switch_to_view("scopes")
+              end,
+            },
+            exceptions = {
+              keymap = "E",
+              label = "Exceptions [E]",
+              short_label = "󰢃 [E]",
+              action = function()
+                views.switch_to_view("exceptions")
+              end,
+            },
+            watches = {
+              keymap = "W",
+              label = "Watches [W]",
+              short_label = "󰛐 [W]",
+              action = function()
+                views.switch_to_view("watches")
+              end,
+            },
+            threads = {
+              keymap = "T",
+              label = "Threads [T]",
+              short_label = "󱉯 [T]",
+              action = function()
+                views.switch_to_view("threads")
+              end,
+            },
+            repl = {
+              keymap = "R",
+              label = "REPL [R]",
+              short_label = "󰯃 [R]",
+              action = function()
+                require("dap-view.repl").show()
+              end,
+            },
+            console = {
+              keymap = "C",
+              label = "Console [C]",
+              short_label = "󰆍 [C]",
+              action = function()
+                require("dap-view.term").show()
+              end,
+            },
+          },
+          custom_sections = {},
+          controls = {
+            enabled = true,
+            position = "right",
+            buttons = {
+              "play",
+              "step_into",
+              "step_over",
+              "step_out",
+              "step_back",
+              "run_last",
+              "terminate",
+              "disconnect",
+            },
+            icons = {
+              play = "",
+              pause = "",
+              step_into = "",
+              step_over = "",
+              step_out = "",
+              step_back = "",
+              run_last = "",
+              terminate = "",
+              disconnect = "",
+            },
+            custom_buttons = {},
+          },
+        },
+        windows = {
+          height = 0.25,
+          position = "below",
+          terminal = {
+            width = 0.5,
+            position = "left",
+            hide = {},
+            start_hidden = false,
+          },
+        },
+        help = {
+          border = nil,
+        },
+        switchbuf = "usetab",
+        auto_toggle = false,
+      }) ---@diagnostic disable-line: missing-fields
 
       local python_launch_with_arguments = {
         {
@@ -71,13 +179,13 @@ return {
 
       -- add listeners to auto open DAP UI
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
+        dap_view.open()
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
+        dap_view.close()
       end
       dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
+        dap_view.close()
       end
 
       local wk = require("which-key")

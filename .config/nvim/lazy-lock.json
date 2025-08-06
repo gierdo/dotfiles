@@ -56,7 +56,7 @@
   "nvim-bqf": { "branch": "main", "commit": "17680cda3538913e88dd4c6456c837db9ace40ae" },
   "nvim-dap": { "branch": "master", "commit": "a479e25ed5b5d331fb46ee4b9e160ff02ac64310" },
   "nvim-dap-go": { "branch": "main", "commit": "b4421153ead5d726603b02743ea40cf26a51ed5f" },
-  "nvim-dap-ui": { "branch": "master", "commit": "cf91d5e2d07c72903d052f5207511bf7ecdb7122" },
+  "nvim-dap-view": { "branch": "main", "commit": "143411d3e5d76814345030d7029af935afc7116d" },
   "nvim-dap-virtual-text": { "branch": "master", "commit": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6" },
   "nvim-java": { "branch": "main", "commit": "083114902630de67dd82fda73892966748a1eb7c" },
   "nvim-java-core": { "branch": "fix/mason-api-update", "commit": "e67b8a1ef9b5495317c6530652825fae5a2ecc7b" },

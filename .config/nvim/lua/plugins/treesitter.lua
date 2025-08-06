@@ -106,24 +106,6 @@ return {
     ---@type Flash.Config
     opts = {
       labels = "asdfghjklqwertzuiopyxcvbnm",
-      search = {
-        multi_window = true,
-        forward = true,
-        wrap = true,
-        mode = "exact",
-        incremental = false,
-        exclude = {
-          "notify",
-          "cmp_menu",
-          "noice",
-          "flash_prompt",
-          function(win)
-            return not vim.api.nvim_win_get_config(win).focusable
-          end,
-        },
-        trigger = "",
-        max_length = false, ---@type number|false
-      },
       jump = {
         jumplist = true,
         pos = "start", ---@type "start" | "end" | "range"
@@ -170,37 +152,10 @@ return {
       config = nil, ---@type fun(opts:Flash.Config)|nil
       modes = {
         search = {
-          enabled = true,
-          highlight = { backdrop = false },
-          jump = { history = true, register = true, nohlsearch = true },
-          search = {},
+          enabled = false,
         },
         char = {
-          enabled = true,
-          config = function(opts)
-            opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
-
-            opts.jump_labels = opts.jump_labels
-              and vim.v.count == 0
-              and vim.fn.reg_executing() == ""
-              and vim.fn.reg_recording() == ""
-          end,
-          autohide = false,
-          jump_labels = false,
-          multi_line = true,
-          label = { exclude = "hjkliardc" },
-          keys = { "f", "F", "t", "T", ";", "," },
-          char_actions = function(motion)
-            return {
-              [";"] = "next", -- set to `right` to always go right
-              [","] = "prev", -- set to `left` to always go left
-              [motion:lower()] = "next",
-              [motion:upper()] = "prev",
-            }
-          end,
-          search = { wrap = false },
-          highlight = { backdrop = true },
-          jump = { register = false },
+          enabled = false,
         },
         treesitter = {
           labels = "asdfghjklqwertzuiopyxcvbnm",
@@ -241,8 +196,8 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     },
   },
   {
