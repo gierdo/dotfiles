@@ -21,7 +21,7 @@ return {
           ---@type solarized.highlights
           local groups = {
             NvimTreeWinSeparator = { link = "WinSeparator" }, -- Use normal window separator lines for nvim tree
-            SpellBad = { strikethrough = false }, -- Solarized dark defaults to striking through wrong spelling
+            SpellBad = { strikethrough = false },             -- Solarized dark defaults to striking through wrong spelling
           }
           return groups
         end,
@@ -176,7 +176,7 @@ return {
         },
         messages = {
           enabled = true,
-          view = false,
+          view = "notify",
           view_error = "notify",
           view_warn = "notify",
           view_history = "messages",
@@ -206,7 +206,7 @@ return {
                 { error = true },
                 { warning = true },
                 { event = "msg_show", kind = { "" } },
-                { event = "lsp", kind = "message" },
+                { event = "lsp",      kind = "message" },
               },
             },
           },
@@ -220,7 +220,7 @@ return {
                 { error = true },
                 { warning = true },
                 { event = "msg_show", kind = { "" } },
-                { event = "lsp", kind = "message" },
+                { event = "lsp",      kind = "message" },
               },
             },
             filter_opts = { count = 1 },
@@ -264,22 +264,22 @@ return {
           hover = {
             enabled = true,
             silent = true, -- set to true to not show a message if hover is not available
-            view = nil, -- when nil, use defaults from documentation
+            view = nil,    -- when nil, use defaults from documentation
             ---@type NoiceViewOptions
-            opts = {}, -- merged with defaults from documentation
+            opts = {},     -- merged with defaults from documentation
           },
           signature = {
             enabled = false,
             auto_open = {
               enabled = true,
-              trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
-              luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+              trigger = true,   -- Automatically show signature help when typing a trigger character from the LSP
+              luasnip = true,   -- Will open signature help when jumping to Luasnip insert nodes
               snipppets = true, -- Will open when jumping to placeholders in snippets (Neovim builtin snippets)
-              throttle = 50, -- Debounce lsp signature help request by 50ms
+              throttle = 50,    -- Debounce lsp signature help request by 50ms
             },
-            view = nil, -- when nil, use defaults from documentation
+            view = nil,         -- when nil, use defaults from documentation
             ---@type NoiceViewOptions
-            opts = {}, -- merged with defaults from documentation
+            opts = {},          -- merged with defaults from documentation
           },
           message = {
             -- Messages shown by lsp servers
@@ -306,18 +306,42 @@ return {
         presets = {
           -- you can enable a preset by setting it to true, or a table that will override the preset config
           -- you can also add custom presets that you can enable/disable with enabled=true
-          bottom_search = false, -- use a classic bottom cmdline for search
-          command_palette = false, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
+          bottom_search = false,           -- use a classic bottom cmdline for search
+          command_palette = false,         -- position the cmdline and popupmenu together
+          long_message_to_split = true,    -- long messages will be sent to a split
+          inc_rename = false,              -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,          -- add a border to hover docs and signature help
           cmdline_output_to_split = false, -- send the output of a command you executed in the cmdline to a split
         },
-        throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
+        throttle = 1000 / 30,              -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
         ---@type NoiceConfigViews
         views = {}, ---@see section on views
         ---@type NoiceRouteConfig[]
-        routes = {}, --- @see section on routes
+        routes = {
+          {
+            filter = {
+              event = "msg_show",
+              kind = "",
+              find = "written",
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = "notify",
+              kind = "info",
+              find = "SonarQube",
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = "msg_show",
+              kind = "",
+            },
+            opts = { skip = true },
+          },
+        },           --- @see section on routes
         ---@type table<string, NoiceFilter>
         status = {}, --- @see section on statusline components
         ---@type NoiceFormatOptions

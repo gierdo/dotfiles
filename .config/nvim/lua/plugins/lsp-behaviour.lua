@@ -198,16 +198,6 @@ return {
       end, { desc = "Enable diagnostics" })
 
       vim.api.nvim_create_augroup("AutoFormatting", {})
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*",
-        group = "AutoFormatting",
-        callback = function()
-          if vim.g.disable_autoformat or vim.b[vim.api.nvim_get_current_buf()].disable_autoformat then
-            return
-          end
-          vim.lsp.buf.format({ async = true })
-        end,
-      })
 
       require("telescope").load_extension("lsp_handlers")
     end,
