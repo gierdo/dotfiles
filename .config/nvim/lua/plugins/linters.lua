@@ -29,7 +29,7 @@ return {
       local conform = require("conform")
       conform.setup({
         default_format_opts = {
-          lsp_format = "prefer",
+          lsp_format = "fallback",
         },
         formatters_by_ft = {
           lua = {
@@ -57,6 +57,7 @@ return {
             "clang-format",
           },
           python = {
+            "ruff_format",
             "ruff_fix",
             "ruff_organize_imports",
           },
