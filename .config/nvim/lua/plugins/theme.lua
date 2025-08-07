@@ -177,7 +177,7 @@ return {
           lualine_z = {},
         },
         tabline = {
-          lualine_a = { 'buffers' },
+          lualine_a = {},
           lualine_b = {},
           lualine_c = {},
           lualine_x = {},
