@@ -145,7 +145,7 @@ return {
           terminal = {
             width = 0.3,
             position = "left",
-            hide = { "python", "go" },
+            hide = { "go" },
             start_hidden = false,
           },
         },
