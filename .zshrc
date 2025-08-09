@@ -152,9 +152,10 @@ if command -v zoxide 1>/dev/null 2>&1; then
 fi
 
 if command -v nvim 1>/dev/null 2>&1; then
-  alias vim='nvim'
-  alias vimdiff='nvim -n -c "DiffviewOpen"'
-  export MANPAGER='nvim +Man!'
+  # uv run nvim is required for the virtualenv setup for python lsp's and nvim python bindings
+  alias vim='uv run nvim'
+  alias vimdiff='uv run nvim -n -c "DiffviewOpen"'
+  export MANPAGER='uv run nvim +Man!'
 fi
 
 if command -v aws 1>/dev/null 2>&1; then
