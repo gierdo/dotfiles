@@ -114,29 +114,6 @@ packages = [
 state = "present"
 
 
-[[jobs]]
-name = "install python dependencies"
-type = "command"
-command = "pip3"
-argv = [
-  "install",
-  "--user",
-  "--upgrade",
-  "autopep8",
-  "bandit",
-  "black",
-  "cfn-lint",
-  "debugpy",
-  "flake8",
-  "jedi-language-server",
-  "podman-compose",
-  "poetry",
-  "pylint",
-  "pynvim",
-  "pyright",
-  "pytype",
-]
-state = "present"
 
 
 [[jobs]]
@@ -211,15 +188,50 @@ when = "{{ not has_executable(exe='git-credential-libsecret') }}"
 
 
 [[jobs]]
-name = "install others"
+name = "install uv"
 type = "command"
 command = "bash"
 argv = [
   "-c",
   '''\
-  cd \
-  && curl -LsSf https://astral.sh/uv/install.sh | sh
+  if ! command -v uv >/dev/null; then
+    cd \
+    && curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && uv python install --default
+  fi
   '''
 ]
-when = "{{ not has_executable(exe='uv') }}"
 
+
+[[jobs]]
+name = "install python dependencies"
+needs = ["install uv"]
+type = "command"
+command = "bash"
+argv = [
+"-c",
+'''\
+
+tools=(
+  "autopep8"
+  "bandit"
+  "basedpyright"
+  "black"
+  "cfn-lint"
+  "debugpy"
+  "flake8"
+  "jedi-language-server"
+  "podman-compose"
+  "poetry"
+  "pylint"
+  "pyright"
+  "pytype"
+  "virtualenv"
+)
+
+for tool in "${tools[@]}"; do
+  uv tool install --force "$tool"
+done
+'''
+]
+state = "present"

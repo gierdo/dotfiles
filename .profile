@@ -45,21 +45,6 @@ fi
 export ANDROID_HOME=~/.android-sdks
 export JAVA_HOME="$(dirname $(dirname $(readlink -f $(which javac))))"
 
-if [ -d "$HOME/.dotfiles/pyenv/bin" ]; then
-  export PYENV_ROOT="$HOME/.dotfiles/pyenv"
-  export PYTHON_CONFIGURE_OPTS="--enable-shared"
-  PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-
-  pyenv_virtualenv_plugin_root="$HOME/.dotfiles/pyenv-plugins/pyenv-virtualenv"
-  if [ -d "$pyenv_virtualenv_plugin_root" ]; then
-    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-    PATH="$pyenv_virtualenv_plugin_root/bin:$PATH"
-    eval "$(pyenv virtualenv-init -)"
-    eval "$(pyenv init --path)"
-  fi
-fi
-
 if command -v rg 1>/dev/null 2>&1; then
   export RIPGREP_CONFIG_PATH="$HOME/.dotfiles/.ripgreprc"
   export FZF_DEFAULT_COMMAND='fd --type f --hidden .'
