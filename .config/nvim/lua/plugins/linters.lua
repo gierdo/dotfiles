@@ -38,6 +38,12 @@ return {
           rust = {
             "rustfmt",
           },
+          c = {
+            "clang-format",
+          },
+          cpp = {
+            "clang-format",
+          },
           go = {
             "goimports",
             "gofmt",
