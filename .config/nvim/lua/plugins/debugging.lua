@@ -115,28 +115,6 @@ return {
           controls = {
             enabled = true,
             position = "right",
-            buttons = {
-              "play",
-              "step_into",
-              "step_over",
-              "step_out",
-              "step_back",
-              "run_last",
-              "terminate",
-              "disconnect",
-            },
-            icons = {
-              play = "",
-              pause = "",
-              step_into = "",
-              step_over = "",
-              step_out = "",
-              step_back = "",
-              run_last = "",
-              terminate = "",
-              disconnect = "",
-            },
-            custom_buttons = {},
           },
         },
         windows = {
@@ -296,6 +274,6 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap",
       "igorlfs/nvim-dap-view",
-    }
-  }
+    },
+  },
 }
