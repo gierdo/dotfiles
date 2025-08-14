@@ -167,9 +167,12 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 
     export GTK_THEME=adw-gtk3-dark
 
-    # gnome-keyring will be set up by sway
-    # TODO: Replace with gcr-4 setup once all environments in use support it
-    export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
+    # gnome-keyring will be set up by sway and unlocked by pam
+    if [ -f "/usr/libexec/gcr-ssh-agent" ]; then
+      export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gcr/ssh"
+    else
+      export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
+    fi
 
     # Fix Java AWT applications on wayland
     export _JAVA_AWT_WM_NONREPARENTING=1
