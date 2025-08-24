@@ -273,6 +273,13 @@ path = "{{ home_dir }}/.gitignore_global"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/lazygit/config.yml"
+path = "{{ home_dir }}/.config/lazygit/config.yml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/Kvantum/Solarized-Dark"
 path = "{{ home_dir }}/.config/Kvantum/Solarized-Dark"
 
