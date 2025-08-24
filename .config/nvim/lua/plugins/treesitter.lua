@@ -101,6 +101,10 @@ return {
     end,
   },
   {
+    "gsuuon/tshjkl.nvim",
+    config = true,
+  },
+  {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.Config

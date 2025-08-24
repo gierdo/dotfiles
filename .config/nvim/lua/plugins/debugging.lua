@@ -161,16 +161,6 @@ return {
           desc = "Show debug commands",
         },
         {
-          "<leader>dt",
-          dap.toggle_breakpoint,
-          desc = "Toggle line breakpoint on the current line",
-        },
-        {
-          "<leader>dbs",
-          dap.set_breakpoint,
-          desc = "Set breakpoint",
-        },
-        {
           "<leader>dbl",
           telescope.extensions.dap.list_breakpoints,
           desc = "List breakpoints",
@@ -179,16 +169,6 @@ return {
           "<leader>dv",
           telescope.extensions.dap.variables,
           desc = "Show variables",
-        },
-        {
-          "<leader>dbc",
-          dap.clear_breakpoints,
-          desc = "Clear breakpoints",
-        },
-        {
-          "<leader>dbe",
-          dap.set_exception_breakpoints,
-          desc = "Set Exception breakpoints",
         },
         {
           "<leader>dc",
@@ -274,6 +254,79 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap",
       "igorlfs/nvim-dap-view",
+    },
+  },
+  {
+    "Weissle/persistent-breakpoints.nvim",
+    config = function()
+      require("persistent-breakpoints").setup({
+        save_dir = vim.fn.stdpath("data") .. "/nvim_checkpoints",
+        -- when to load the breakpoints? "BufReadPost" is recommanded.
+        load_breakpoints_event = nil,
+        -- record the performance of different function. run :lua require('persistent-breakpoints.api').print_perf_data() to see the result.
+        perf_record = false,
+        -- perform callback when loading a persisted breakpoint
+        --- @param opts DAPBreakpointOptions options used to create the breakpoint ({condition, logMessage, hitCondition})
+        --- @param buf_id integer the buffer the breakpoint was set on
+        --- @param line integer the line the breakpoint was set on
+        on_load_breakpoint = nil,
+        -- set this to true if the breakpoints are not loaded when you are using a session-like plugin.
+        always_reload = false,
+      })
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+  {
+    "Carcuis/dap-breakpoints.nvim",
+    config = function()
+      require("dap-breakpoints").setup()
+
+      local dapbp_api = require("dap-breakpoints.api")
+      local dapbp_keymaps = {
+        { "<leader>dtt", dapbp_api.toggle_breakpoint, desc = "Toggle Breakpoint" },
+        { "<leader>dts", dapbp_api.set_breakpoint, desc = "Set Breakpoint" },
+        { "<leader>dtc", dapbp_api.set_conditional_breakpoint, desc = "Set Conditional Breakpoint" },
+        { "<leader>dth", dapbp_api.set_hit_condition_breakpoint, desc = "Set Hit Condition Breakpoint" },
+        { "<leader>dtl", dapbp_api.set_log_point, desc = "Set Log Point" },
+        {
+          "<leader>dtL",
+          function()
+            dapbp_api.load_breakpoints({
+              notify = "always", ---@type "always" | "never" | "on_empty" | "on_some"
+            })
+          end,
+          desc = "Load Breakpoints",
+        },
+        {
+          "<leader>dtS",
+          function()
+            dapbp_api.save_breakpoints({
+              notify = "always", ---@type "always" | "never" | "on_empty" | "on_some"
+            })
+          end,
+          desc = "Save Breakpoints",
+        },
+        { "<leader>dte", dapbp_api.edit_property, desc = "Edit Breakpoint Property" },
+        {
+          "<leader>dtE",
+          function()
+            dapbp_api.edit_property({ all = true })
+          end,
+          desc = "Edit All Breakpoint Properties",
+        },
+        { "<leader>dtv", dapbp_api.toggle_virtual_text, desc = "Toggle Breakpoint Virtual Text" },
+        { "<leader>dtC", dapbp_api.clear_all_breakpoints, desc = "Clear All Breakpoints" },
+        { "<M-b>", dapbp_api.popup_reveal, desc = "Reveal Breakpoint" },
+      }
+      for _, keymap in ipairs(dapbp_keymaps) do
+        vim.keymap.set("n", keymap[1], keymap[2], { desc = keymap.desc })
+      end
+    end,
+    dependencies = {
+      "Weissle/persistent-breakpoints.nvim",
+      "mfussenegger/nvim-dap",
     },
   },
 }

@@ -268,4 +268,6 @@ return {
     opts = {},
   },
   { "ludovicchabant/vim-gutentags", lazy = true },
+  -- Smarter "w", "e", "b" movements
+  { "chrisgrieser/nvim-spider", lazy = true },
 }
