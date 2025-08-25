@@ -5,8 +5,9 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c 'kanshi'
+ExecStart=-/bin/bash -c 'kanshi'
 Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=sway-session.target

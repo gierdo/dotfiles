@@ -4,7 +4,8 @@ Description=tpm-fido - tpm2 as fido token
 [Service]
 Type=simple
 ExecStart=-/bin/bash -c 'PATH=~/go/bin:$PATH tpm-fido'
-Restart=no
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=default.target

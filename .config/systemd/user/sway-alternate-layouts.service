@@ -4,8 +4,9 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '~/.dotfiles/.local/bin/sway_alternate_layouts'
+ExecStart=-/bin/bash -c '~/.dotfiles/.local/bin/sway_alternate_layouts'
 Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=sway-session.target

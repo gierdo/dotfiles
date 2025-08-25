@@ -6,8 +6,9 @@ BindsTo=sway-session.target
 [Service]
 Type=simple
 # In some of my environments, dunst has to be installed manually
-ExecStart=/bin/bash -c 'PATH=~/.local/bin:$PATH dunst'
+ExecStart=-/bin/bash -c 'PATH=~/.local/bin:$PATH dunst'
 Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=sway-session.target
