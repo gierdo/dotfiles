@@ -139,7 +139,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Autostart sway session on specific tty
-if [ "$(tty)" = "/dev/tty1" ]; then
+if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   # sway is installed, simply assuming sway as session for now
   if command -v sway 1>/dev/null 2>&1; then
     export QT_QPA_PLATFORMTHEME=qt5ct
@@ -177,10 +177,6 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     # Fix Java AWT applications on wayland
     export _JAVA_AWT_WM_NONREPARENTING=1
 
-    if lshw -C display 2>/dev/null | grep -qi "vendor.*nvidia"; then
-      exec sway --unsupported-gpu
-    else
-      exec sway
-    fi
+    exec sway
   fi
 fi
