@@ -177,6 +177,11 @@ if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
     # Fix Java AWT applications on wayland
     export _JAVA_AWT_WM_NONREPARENTING=1
 
-    exec sway
+    # If you want to debug sway, `touch ~/sway.log`
+    if [ -f "$HOME/sway.log" ]; then
+      exec sway -d >>~/sway.log 2>&1
+    else
+      exec sway
+    fi
   fi
 fi
