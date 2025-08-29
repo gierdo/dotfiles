@@ -26,6 +26,7 @@
   "kulala.nvim": { "branch": "main", "commit": "cfe40c33636ab0f53f1edd3dbda37f4298298797" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "lazydev.nvim": { "branch": "main", "commit": "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c" },
+  "lensline.nvim": { "branch": "main", "commit": "e057fe1845d58ca52967c8805eb6ff8f4d16f3d7" },
   "lua-async-await": { "branch": "main", "commit": "652d94df34e97abe2d4a689edbc4270e7ead1a98" },
   "lua-json5": { "branch": "master", "commit": "33e1e937b37b7f7e39394da2f2be430fd62fec4a" },
   "lualine.nvim": { "branch": "master", "commit": "b8c23159c0161f4b89196f74ee3a6d02cdc3a955" },
