@@ -82,7 +82,9 @@ return {
       "nvim-neotest/neotest-python",
       "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
-      "nvim-neotest/neotest-vim-test",
+      { "nvim-neotest/neotest-vim-test", dependencies = {
+        "vim-test/vim-test",
+      } },
       "Issafalcon/neotest-dotnet",
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
