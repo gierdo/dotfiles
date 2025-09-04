@@ -318,7 +318,6 @@ return {
         },
         { "<leader>dtv", dapbp_api.toggle_virtual_text, desc = "Toggle Breakpoint Virtual Text" },
         { "<leader>dtC", dapbp_api.clear_all_breakpoints, desc = "Clear All Breakpoints" },
-        { "<M-b>", dapbp_api.popup_reveal, desc = "Reveal Breakpoint" },
       }
       for _, keymap in ipairs(dapbp_keymaps) do
         vim.keymap.set("n", keymap[1], keymap[2], { desc = keymap.desc })
