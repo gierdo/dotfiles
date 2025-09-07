@@ -29,6 +29,10 @@ return {
           {
             name = "no-vault",
             path = function()
+              -- If we are in diff mode, return the current working directory instead of the tmp directory to the diff buffer
+              if vim.wo.diff then
+                return vim.fn.getcwd()
+              end
               return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
             end,
             overrides = { ---@diagnostic disable-line: missing-fields

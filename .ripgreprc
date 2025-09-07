@@ -1,5 +1,6 @@
 --hidden
 --smart-case
+--no-messages
 
 # exclude specific directories
 --glob=!**/.{git,svn,bzr,hg,pc,dep,dot,nib,plst,*cache}/*
