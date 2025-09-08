@@ -147,4 +147,76 @@ return {
       })
     end,
   },
+  {
+    "Zeioth/markmap.nvim",
+    build = "yarn global add markmap-cli",
+    cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
+    opts = {
+      hide_toolbar = false, -- (default)
+    },
+    config = function(_, opts)
+      require("markmap").setup(opts)
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    config = function()
+      os.execute("systemctl --user start plantuml")
+      vim.cmd([[
+      let g:mkdp_auto_close = 0
+      let g:mkdp_filetypes = ['markdown']
+      let g:mkdp_preview_options = {
+        \ 'mkit': {},
+        \ 'katex': {},
+        \ 'uml': { 'server': 'http://localhost:9742',  'imageFormat': 'svg' },
+        \ 'maid': {},
+        \ 'disable_sync_scroll': 0,
+        \ 'sync_scroll_type': 'middle',
+        \ 'hide_yaml_meta': 1,
+        \ 'sequence_diagrams': {},
+        \ 'flowchart_diagrams': {},
+        \ 'content_editable': v:false,
+        \ 'disable_filename': 0,
+        \ 'toc': {}
+        \ }
+        ]])
+    end,
+    ft = { "markdown" },
+  },
+  {
+    "preservim/vim-markdown",
+    config = function()
+      vim.g.vim_markdown_folding_disabled = 1
+      vim.g.vim_markdown_auto_insert_bullets = 0
+      vim.g.vim_markdown_new_list_item_indent = 0
+    end,
+  },
+  {
+    "Kicamon/markdown-table-mode.nvim",
+    config = function()
+      require("markdown-table-mode").setup()
+    end,
+  },
+  {
+    "weirongxu/plantuml-previewer.vim",
+    cmd = {
+      "PlantumlOpen",
+      "PlantumlToggle",
+      "PlantumlStart",
+      "PlantumlSave",
+    },
+    dependencies = {
+      "tyru/open-browser.vim",
+    },
+    config = function()
+      vim.cmd([[
+        let g:plantuml_previewer#plantuml_jar_path = $HOME."/.local/share/plantuml/plantuml.jar"
+      ]])
+    end,
+  },
+  {
+    "aklt/plantuml-syntax",
+  },
 }
