@@ -285,13 +285,13 @@ return {
 
       local dapbp_api = require("dap-breakpoints.api")
       local dapbp_keymaps = {
-        { "<leader>dtt", dapbp_api.toggle_breakpoint, desc = "Toggle Breakpoint" },
-        { "<leader>dts", dapbp_api.set_breakpoint, desc = "Set Breakpoint" },
-        { "<leader>dtc", dapbp_api.set_conditional_breakpoint, desc = "Set Conditional Breakpoint" },
-        { "<leader>dth", dapbp_api.set_hit_condition_breakpoint, desc = "Set Hit Condition Breakpoint" },
-        { "<leader>dtl", dapbp_api.set_log_point, desc = "Set Log Point" },
+        { "<leader>dbt", dapbp_api.toggle_breakpoint, desc = "Toggle Breakpoint" },
+        { "<leader>dbs", dapbp_api.set_breakpoint, desc = "Set Breakpoint" },
+        { "<leader>dbc", dapbp_api.set_conditional_breakpoint, desc = "Set Conditional Breakpoint" },
+        { "<leader>dbh", dapbp_api.set_hit_condition_breakpoint, desc = "Set Hit Condition Breakpoint" },
+        { "<leader>dbl", dapbp_api.set_log_point, desc = "Set Log Point" },
         {
-          "<leader>dtL",
+          "<leader>btL",
           function()
             dapbp_api.load_breakpoints({
               notify = "always", ---@type "always" | "never" | "on_empty" | "on_some"
@@ -300,7 +300,7 @@ return {
           desc = "Load Breakpoints",
         },
         {
-          "<leader>dtS",
+          "<leader>dbS",
           function()
             dapbp_api.save_breakpoints({
               notify = "always", ---@type "always" | "never" | "on_empty" | "on_some"
@@ -308,16 +308,16 @@ return {
           end,
           desc = "Save Breakpoints",
         },
-        { "<leader>dte", dapbp_api.edit_property, desc = "Edit Breakpoint Property" },
+        { "<leader>dbe", dapbp_api.edit_property, desc = "Edit Breakpoint Property" },
         {
-          "<leader>dtE",
+          "<leader>dbE",
           function()
             dapbp_api.edit_property({ all = true })
           end,
           desc = "Edit All Breakpoint Properties",
         },
-        { "<leader>dtv", dapbp_api.toggle_virtual_text, desc = "Toggle Breakpoint Virtual Text" },
-        { "<leader>dtC", dapbp_api.clear_all_breakpoints, desc = "Clear All Breakpoints" },
+        { "<leader>dbv", dapbp_api.toggle_virtual_text, desc = "Toggle Breakpoint Virtual Text" },
+        { "<leader>dbC", dapbp_api.clear_all_breakpoints, desc = "Clear All Breakpoints" },
       }
       for _, keymap in ipairs(dapbp_keymaps) do
         vim.keymap.set("n", keymap[1], keymap[2], { desc = keymap.desc })
