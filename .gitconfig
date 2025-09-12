@@ -11,6 +11,8 @@
   tool = vimdiff
   submodule = diff
   colorMoved = default
+[diff "lfs"]
+  textconv = cat
 [alias]
   nicelog = log --graph --decorate=full --all --oneline
   do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
