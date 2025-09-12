@@ -291,7 +291,7 @@ return {
         { "<leader>dbh", dapbp_api.set_hit_condition_breakpoint, desc = "Set Hit Condition Breakpoint" },
         { "<leader>dbl", dapbp_api.set_log_point, desc = "Set Log Point" },
         {
-          "<leader>btL",
+          "<leader>dbL",
           function()
             dapbp_api.load_breakpoints({
               notify = "always", ---@type "always" | "never" | "on_empty" | "on_some"
