@@ -142,7 +142,7 @@ fi
 if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   # sway is installed, simply assuming sway as session for now
   if command -v sway 1>/dev/null 2>&1; then
-    export QT_QPA_PLATFORMTHEME=qt5ct
+    export QT_STYLE_OVERRIDE=kvantum
     export XDG_DATA_DIRS="$HOME/.local/share:$XDG_DATA_DIRS"
 
     if command -v flatpak 1>/dev/null 2>&1; then
