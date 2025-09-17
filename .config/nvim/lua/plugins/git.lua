@@ -59,34 +59,39 @@ return {
     event = "LspAttach",
     config = function()
       require("lensline").setup({
-        providers = {
+        profiles = {
           {
-            name = "references",
-            enabled = true,
-            quiet_lsp = true,
-          },
-          {
-            name = "last_author",
-            enabled = true,
-            cache_max_files = 50,
-          },
+            name = "default",
+            providers = {
+              {
+                name = "references",
+                enabled = true,
+                quiet_lsp = true,
+              },
+              {
+                name = "last_author",
+                enabled = true,
+                cache_max_files = 50,
+              },
 
-          {
-            name = "diagnostics",
-            enabled = true,
-            min_level = "WARN",
+              {
+                name = "diagnostics",
+                enabled = true,
+                min_level = "WARN",
+              },
+              {
+                name = "complexity",
+                enabled = true,
+                min_level = "L",
+              },
+            },
+            style = {
+              separator = " • ",
+              highlight = "Comment",
+              prefix = "┃ ",
+              use_nerdfont = true,
+            },
           },
-          {
-            name = "complexity",
-            enabled = true,
-            min_level = "L",
-          },
-        },
-        style = {
-          separator = " • ",
-          highlight = "Comment",
-          prefix = "┃ ",
-          use_nerdfont = true,
         },
         limits = {
           exclude = {},
