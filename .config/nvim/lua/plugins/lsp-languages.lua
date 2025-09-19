@@ -1,3 +1,5 @@
+local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
+
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -13,14 +15,6 @@ return {
 
           -- C# Integration
           { "roslyn" },
-
-          -- Dependencies for nvim-java
-          { "jdtls" },
-          { "lombok-nightly" },
-          { "java-test" },
-          { "java-debug-adapter" },
-          { "spring-boot-tools" },
-
           -- Sonarlint, configured separately, ensure installation here
           { "sonarlint-language-server" },
         },
@@ -45,165 +39,145 @@ return {
     "mason-org/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
-      local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
-      local lspconfig = require("lspconfig")
+      vim.lsp.config("basedpyright", {
+        capabilities = lsp_capabilities,
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = "standard",
+            },
+          },
+        },
+      })
 
-      local default_setup = function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = lsp_capabilities,
-        })
-      end
+      vim.lsp.config("clangd", {
+        capabilities = lsp_capabilities,
+        filetypes = {
+          "c",
+          "cpp",
+          "objc",
+          "objcpp",
+          "cuda",
+        },
+      })
 
-      local handlers = {
-        default_setup,
-        ["basedpyright"] = function()
-          lspconfig.basedpyright.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-              basedpyright = {
-                analysis = {
-                  typeCheckingMode = "standard",
+      vim.lsp.config("graphql", {
+        capabilities = lsp_capabilities,
+        filetypes = {
+          "graphql",
+          "typescript",
+          "typescriptreact",
+          "javascriptreact",
+        },
+      })
+
+      vim.lsp.config("ruff", {
+        capabilities = lsp_capabilities,
+        init_options = {
+          settings = {
+            configurationPreference = "filesystemFirst",
+          },
+        },
+      })
+
+      vim.lsp.config("ts_ls", {
+        capabilities = lsp_capabilities,
+        settings = {
+          javascript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            },
+          },
+          typescript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            },
+          },
+        },
+      })
+
+      vim.lsp.config("jsonls", {
+        capabilities = lsp_capabilities,
+        settings = {
+          json = {
+            schemas = require("schemastore").json.schemas({
+              extra = {
+                { ---@diagnostic disable-line: missing-fields
+                  name = "OpenAPI",
+                  description = "OpenAPI spec",
+                  filetypes = { "openapi.json" },
+                  url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
                 },
               },
+              validate = { enable = true },
+            }),
+            validate = { enable = true },
+            schemaDownload = { enable = false },
+          },
+        },
+      })
+
+      vim.lsp.config("yamlls", {
+        capabilities = lsp_capabilities,
+        settings = {
+          yaml = {
+            schemaStore = {
+              enable = false,
+              url = "",
             },
-          })
-        end,
-        ["clangd"] = function()
-          lspconfig.clangd.setup({
-            capabilities = lsp_capabilities,
-            filetypes = {
-              "c",
-              "cpp",
-              "objc",
-              "objcpp",
-              "cuda",
-            },
-          })
-        end,
-        ["graphql"] = function()
-          lspconfig.graphql.setup({
-            capabilities = lsp_capabilities,
-            filetypes = {
-              "graphql",
-              "typescript",
-              "typescriptreact",
-              "javascriptreact",
-            },
-          })
-        end,
-        ["ruff"] = function()
-          lspconfig.ruff.setup({
-            capabilities = lsp_capabilities,
-            init_options = {
-              settings = {
-                configurationPreference = "filesystemFirst",
-              },
-            },
-          })
-        end,
-        ["ts_ls"] = function()
-          lspconfig.ts_ls.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-              javascript = {
-                inlayHints = {
-                  includeInlayEnumMemberValueHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayParameterNameHints = "all",
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayVariableTypeHints = true,
-                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            schemas = require("schemastore").yaml.schemas({
+              validate = { enable = true },
+              extra = {
+                {
+                  name = "Cloudformation",
+                  description = "Cloudformation Template",
+                  fileMatch = { "*.template.y*ml", "*-template.y*ml" },
+                  url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
+                },
+                { ---@diagnostic disable-line: missing-fields
+                  name = "OpenAPI",
+                  description = "OpenAPI spec",
+                  filetypes = { "openapi.yaml" },
+                  url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
                 },
               },
-              typescript = {
-                inlayHints = {
-                  includeInlayEnumMemberValueHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayParameterNameHints = "all",
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayVariableTypeHints = true,
-                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-                },
-              },
+            }),
+            customTags = {
+              -- Cloudformation tags
+              "!And scalar",
+              "!If scalar",
+              "!Not",
+              "!Equals scalar",
+              "!Or scalar",
+              "!FindInMap scalar",
+              "!Base64",
+              "!Cidr",
+              "!Ref",
+              "!Sub",
+              "!GetAtt sequence",
+              "!GetAZs",
+              "!ImportValue sequence",
+              "!Select sequence",
+              "!Split sequence",
+              "!Join sequence",
             },
-          })
-        end,
-        ["jsonls"] = function()
-          lspconfig.jsonls.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-              json = {
-                schemas = require("schemastore").json.schemas({
-                  extra = {
-                    { ---@diagnostic disable-line: missing-fields
-                      name = "OpenAPI",
-                      description = "OpenAPI spec",
-                      filetypes = { "openapi.json" },
-                      url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
-                    },
-                  },
-                  validate = { enable = true },
-                }),
-                validate = { enable = true },
-                schemaDownload = { enable = false },
-              },
-            },
-          })
-        end,
-        ["yamlls"] = function()
-          lspconfig.yamlls.setup({
-            capabilities = lsp_capabilities,
-            settings = {
-              yaml = {
-                schemaStore = {
-                  enable = false,
-                  url = "",
-                },
-                schemas = require("schemastore").yaml.schemas({
-                  validate = { enable = true },
-                  extra = {
-                    {
-                      name = "Cloudformation",
-                      description = "Cloudformation Template",
-                      fileMatch = { "*.template.y*ml", "*-template.y*ml" },
-                      url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
-                    },
-                    { ---@diagnostic disable-line: missing-fields
-                      name = "OpenAPI",
-                      description = "OpenAPI spec",
-                      filetypes = { "openapi.yaml" },
-                      url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
-                    },
-                  },
-                }),
-                customTags = {
-                  -- Cloudformation tags
-                  "!And scalar",
-                  "!If scalar",
-                  "!Not",
-                  "!Equals scalar",
-                  "!Or scalar",
-                  "!FindInMap scalar",
-                  "!Base64",
-                  "!Cidr",
-                  "!Ref",
-                  "!Sub",
-                  "!GetAtt sequence",
-                  "!GetAZs",
-                  "!ImportValue sequence",
-                  "!Select sequence",
-                  "!Split sequence",
-                  "!Join sequence",
-                },
-              },
-            },
-          })
-        end,
-      }
+          },
+        },
+      })
 
       require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
@@ -218,7 +192,6 @@ return {
           "eslint",
           "gitlab_ci_ls",
           "gopls",
-          "gradle_ls",
           "graphql",
           "html",
           "jinja_lsp",
@@ -236,61 +209,15 @@ return {
           "ts_ls",
           "yamlls",
         },
-        handlers = handlers,
+        automatic_enable = true,
         automatic_installation = true,
       })
-
-      -- comes with nvim-java
-      default_setup("jdtls")
-
-      -- protobuf lsp built-in into buf
-      default_setup("buf_ls")
-
-      -- kulala ls for rest and http files
-      default_setup("kulala_ls")
     end,
     dependencies = {
       "b0o/schemastore.nvim",
-      "neovim/nvim-lspconfig",
       "saghen/blink.cmp",
-      "nvim-java/nvim-java",
       "mason-org/mason.nvim",
       "seblj/roslyn.nvim",
-    },
-  },
-  {
-    "nvim-java/nvim-java",
-    event = "VeryLazy",
-    config = function()
-      local java = require("java")
-
-      local override_setup = function()
-        -- Override the nvim-java setup function in order to allow following the latest dependency versions (jdtls, ...)
-        local custom_config = {}
-        local decomple_watch = require("java.startup.decompile-watcher")
-        local setup_wrap = require("java.startup.lspconfig-setup-wrap")
-        local dap_api = require("java.api.dap")
-        local global_config = require("java.config")
-        vim.api.nvim_exec_autocmds("User", { pattern = "JavaPreSetup" })
-        local config = vim.tbl_deep_extend("force", global_config, custom_config or {})
-        vim.g.nvim_java_config = config
-        vim.api.nvim_exec_autocmds("User", { pattern = "JavaSetup", data = { config = config } })
-        setup_wrap.setup(config)
-        decomple_watch.setup()
-        dap_api.setup_dap_on_lsp_attach()
-        vim.api.nvim_exec_autocmds("User", { pattern = "JavaPostSetup", data = { config = config } })
-      end
-
-      java.setup = override_setup
-
-      java.setup()
-    end,
-    dependencies = {
-      {
-        "nvim-java/nvim-java-core",
-        url = "https://github.com/Kabil777/nvim-java-core.git",
-        branch = "fix/mason-api-update",
-      },
     },
   },
   {
@@ -316,7 +243,6 @@ return {
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
     dependencies = {
-      "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
   },

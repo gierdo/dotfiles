@@ -4,8 +4,6 @@ return {
     opts = {
       registries = {
         "github:mason-org/mason-registry",
-        -- java integration
-        "github:nvim-java/mason-registry",
         -- c# roslyn integration
         "github:Crashdummyy/mason-registry",
       },
