@@ -1,5 +1,151 @@
 local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
 
+local configure_lsps = function()
+  vim.lsp.config("*", {
+    capabilities = lsp_capabilities,
+  })
+
+  vim.lsp.config("basedpyright", {
+    capabilities = lsp_capabilities,
+    settings = {
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = "standard",
+        },
+      },
+    },
+  })
+
+  vim.lsp.config("clangd", {
+    capabilities = lsp_capabilities,
+    filetypes = {
+      "c",
+      "cpp",
+      "objc",
+      "objcpp",
+      "cuda",
+    },
+  })
+
+  vim.lsp.config("graphql", {
+    capabilities = lsp_capabilities,
+    filetypes = {
+      "graphql",
+      "typescript",
+      "typescriptreact",
+      "javascriptreact",
+    },
+  })
+
+  vim.lsp.config("ruff", {
+    capabilities = lsp_capabilities,
+    init_options = {
+      settings = {
+        configurationPreference = "filesystemFirst",
+      },
+    },
+  })
+
+  vim.lsp.config("ts_ls", {
+    capabilities = lsp_capabilities,
+    settings = {
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        },
+      },
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        },
+      },
+    },
+  })
+
+  vim.lsp.config("jsonls", {
+    capabilities = lsp_capabilities,
+    settings = {
+      json = {
+        schemas = require("schemastore").json.schemas({
+          extra = {
+            { ---@diagnostic disable-line: missing-fields
+              name = "OpenAPI",
+              description = "OpenAPI spec",
+              filetypes = { "openapi.json" },
+              url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
+            },
+          },
+          validate = { enable = true },
+        }),
+        validate = { enable = true },
+        schemaDownload = { enable = false },
+      },
+    },
+  })
+
+  vim.lsp.config("yamlls", {
+    capabilities = lsp_capabilities,
+    settings = {
+      yaml = {
+        schemaStore = {
+          enable = false,
+          url = "",
+        },
+        schemas = require("schemastore").yaml.schemas({
+          validate = { enable = true },
+          extra = {
+            {
+              name = "Cloudformation",
+              description = "Cloudformation Template",
+              fileMatch = { "*.template.y*ml", "*-template.y*ml" },
+              url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
+            },
+            { ---@diagnostic disable-line: missing-fields
+              name = "OpenAPI",
+              description = "OpenAPI spec",
+              filetypes = { "openapi.yaml" },
+              url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
+            },
+          },
+        }),
+        customTags = {
+          -- Cloudformation tags
+          "!And scalar",
+          "!If scalar",
+          "!Not",
+          "!Equals scalar",
+          "!Or scalar",
+          "!FindInMap scalar",
+          "!Base64",
+          "!Cidr",
+          "!Ref",
+          "!Sub",
+          "!GetAtt sequence",
+          "!GetAZs",
+          "!ImportValue sequence",
+          "!Select sequence",
+          "!Split sequence",
+          "!Join sequence",
+        },
+      },
+    },
+  })
+end
+
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -39,145 +185,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
-      vim.lsp.config("basedpyright", {
-        capabilities = lsp_capabilities,
-        settings = {
-          basedpyright = {
-            analysis = {
-              typeCheckingMode = "standard",
-            },
-          },
-        },
-      })
-
-      vim.lsp.config("clangd", {
-        capabilities = lsp_capabilities,
-        filetypes = {
-          "c",
-          "cpp",
-          "objc",
-          "objcpp",
-          "cuda",
-        },
-      })
-
-      vim.lsp.config("graphql", {
-        capabilities = lsp_capabilities,
-        filetypes = {
-          "graphql",
-          "typescript",
-          "typescriptreact",
-          "javascriptreact",
-        },
-      })
-
-      vim.lsp.config("ruff", {
-        capabilities = lsp_capabilities,
-        init_options = {
-          settings = {
-            configurationPreference = "filesystemFirst",
-          },
-        },
-      })
-
-      vim.lsp.config("ts_ls", {
-        capabilities = lsp_capabilities,
-        settings = {
-          javascript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            },
-          },
-          typescript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            },
-          },
-        },
-      })
-
-      vim.lsp.config("jsonls", {
-        capabilities = lsp_capabilities,
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas({
-              extra = {
-                { ---@diagnostic disable-line: missing-fields
-                  name = "OpenAPI",
-                  description = "OpenAPI spec",
-                  filetypes = { "openapi.json" },
-                  url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
-                },
-              },
-              validate = { enable = true },
-            }),
-            validate = { enable = true },
-            schemaDownload = { enable = false },
-          },
-        },
-      })
-
-      vim.lsp.config("yamlls", {
-        capabilities = lsp_capabilities,
-        settings = {
-          yaml = {
-            schemaStore = {
-              enable = false,
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas({
-              validate = { enable = true },
-              extra = {
-                {
-                  name = "Cloudformation",
-                  description = "Cloudformation Template",
-                  fileMatch = { "*.template.y*ml", "*-template.y*ml" },
-                  url = "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
-                },
-                { ---@diagnostic disable-line: missing-fields
-                  name = "OpenAPI",
-                  description = "OpenAPI spec",
-                  filetypes = { "openapi.yaml" },
-                  url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml",
-                },
-              },
-            }),
-            customTags = {
-              -- Cloudformation tags
-              "!And scalar",
-              "!If scalar",
-              "!Not",
-              "!Equals scalar",
-              "!Or scalar",
-              "!FindInMap scalar",
-              "!Base64",
-              "!Cidr",
-              "!Ref",
-              "!Sub",
-              "!GetAtt sequence",
-              "!GetAZs",
-              "!ImportValue sequence",
-              "!Select sequence",
-              "!Split sequence",
-              "!Join sequence",
-            },
-          },
-        },
-      })
+      configure_lsps()
 
       require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
