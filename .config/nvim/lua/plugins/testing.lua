@@ -33,7 +33,12 @@ return {
             end,
           }),
 
-          require("neotest-vim-test")({ ignore_filetypes = { "python", "typescript", "javascript", "go" } }),
+          require("neotest-vim-test")({ ignore_filetypes = { "python", "java", "typescript", "javascript", "go" } }),
+          require("neotest-gradle"),
+          require("neotest-java")({
+            ignore_filetypes = { "kotlin" },
+            ignore_wrapper = false, -- whether to ignore maven/gradle wrapper
+          }),
         },
       })
 
@@ -75,11 +80,13 @@ return {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-neotest/neotest-python",
+      "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
       { "nvim-neotest/neotest-vim-test", dependencies = {
         "vim-test/vim-test",
       } },
       "Issafalcon/neotest-dotnet",
+      "weilbith/neotest-gradle",
       "folke/which-key.nvim",
       "mfussenegger/nvim-dap",
       "mason-org/mason-lspconfig.nvim", -- the java lsp configuration breaks kotlin test system precedency

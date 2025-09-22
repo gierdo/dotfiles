@@ -161,6 +161,14 @@ return {
 
           -- C# Integration
           { "roslyn" },
+
+          -- Dependencies for nvim-java
+          { "jdtls" },
+          { "lombok-nightly" },
+          { "java-test" },
+          { "java-debug-adapter" },
+          { "spring-boot-tools" },
+
           -- Sonarlint, configured separately, ensure installation here
           { "sonarlint-language-server" },
         },
@@ -270,5 +278,29 @@ return {
       "nvim-lua/plenary.nvim",
       "stevearc/dressing.nvim",
     },
+  },
+  {
+    "nvim-java/nvim-java",
+    lazy = false,
+    dependencies = {
+      "nvim-java/lua-async-await",
+      {
+        "nvim-java/nvim-java-core",
+        url = "https://github.com/Kabil777/nvim-java-core.git",
+        branch = "fix/mason-api-update",
+      },
+      "nvim-java/nvim-java-test",
+      "nvim-java/nvim-java-dap",
+      "MunifTanjim/nui.nvim",
+      "neovim/nvim-lspconfig",
+      "mfussenegger/nvim-dap",
+      "mason-org/mason.nvim",
+    },
+    config = function()
+      require("java").setup({})
+      require("lspconfig").jdtls.setup({
+        -- lsp settings
+      })
+    end,
   },
 }

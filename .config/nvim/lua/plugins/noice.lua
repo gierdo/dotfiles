@@ -194,6 +194,15 @@ return {
             opts = { skip = true },
           },
           {
+            -- Silence "Feature will be removed in ... api deprecation warnings."
+            filter = {
+              event = "notify",
+              kind = "warn",
+              find = "Feature will be removed in",
+            },
+            opts = { skip = true },
+          },
+          {
             filter = {
               event = "msg_show",
               kind = "",

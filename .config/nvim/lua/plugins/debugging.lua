@@ -6,6 +6,7 @@ return {
       require("mason-nvim-dap").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "cppdbg",
+          "javadbg",
           "kotlin",
           "netcoredbg",
           "python",
