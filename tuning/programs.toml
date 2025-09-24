@@ -126,6 +126,8 @@ crates = [
   "eza",
   "fd-find",
   "git-delta",
+  "jj",
+  "jj-cli",
   "mise",
   "netscanner",
   "ntap",

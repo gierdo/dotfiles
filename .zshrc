@@ -69,6 +69,7 @@ plugins=(
   gh
   git
   gradle
+  jj
   mise
   mvn
   npm
