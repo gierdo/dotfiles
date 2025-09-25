@@ -1,0 +1,14 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[git]
+ignore-files = ["lfs"]
+
+[[--scope]]
+--when.commands = ["status"]
+[--scope.ui]
+paginate = "never"
+[[--scope]]
+--when.commands = ["diff", "show"]
+[--scope.ui]
+pager = "delta --dark --paging=never --syntax-theme base16-256 -s"
+diff-formatter = ":git"

@@ -280,6 +280,13 @@ path = "{{ home_dir }}/.config/lazygit/config.yml"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/jj/config.toml"
+path = "{{ home_dir }}/.config/jj/config.toml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/Kvantum/Solarized-Dark"
 path = "{{ home_dir }}/.config/Kvantum/Solarized-Dark"
 
