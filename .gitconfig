@@ -17,6 +17,7 @@
   nicelog = log --graph --decorate=full --all --oneline
   do-recursive = "!sh -c \"git ${*} ||:; git submodule foreach --recursive 'git ${*} ||:'\" -"
   find-dangling = "!sh -c 'git fsck --lost-found | grep \"^dangling commit\" | sed \"s/^dangling commit //g\" | xargs git show -s --oneline'"
+  open = "!f() { open $(git config remote.${1:-origin}.url | sed -E 's/:([^\\/])/\\/\\1/g' | sed -e 's/ssh:\\/\\///g' | sed -e 's/git@/https:\\/\\//g' | sed -e 's/\\.git$//g'); }; f"
 [push]
   default = current
 [gui]
