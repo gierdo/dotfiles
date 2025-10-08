@@ -1,8 +1,8 @@
 [tools]
-go = "1.25.1"
+go = "1.25.2"
 node = "24.9.0"
 java = "adoptopenjdk-24.0.1+9"
-awscli = "2.31.8"
+awscli = "2.31.3"
 direnv = "2.37.1"
 lazygit = "0.55.1"
 github-cli = "2.81.0"

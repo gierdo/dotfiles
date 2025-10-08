@@ -17,6 +17,7 @@ return {
 
       require("obsidian").setup({
         legacy_commands = false,
+        footer = { enabled = false },
         workspaces = {
           {
             name = "notes",
@@ -41,7 +42,7 @@ return {
               templates = { ---@diagnostic disable-line: missing-fields
                 folder = vim.NIL, ---@diagnostic disable-line: assign-type-mismatch
               },
-              disable_frontmatter = true,
+              frontmatter = { enabled = false },
             },
           },
         },
