@@ -69,7 +69,7 @@ packages = [
   "github.com/google/yamlfmt/cmd/yamlfmt",
   "github.com/jesseduffield/lazydocker",
   "github.com/bazelbuild/bazelisk",
-  "gitlab.com/gitlab-org/cli/cmd/glab",
+  "gitlab.com/gitlab-org/cli/cmd/glab@v1.72",
   "golang.org/x/lint/golint",
   "golang.org/x/tools/cmd/goimports",
   "golang.org/x/tools/gopls",
