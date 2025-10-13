@@ -18,12 +18,42 @@ return {
           lazy = true,
         },
         on_highlights = function(colors, color)
-          ---@type solarized.highlights
-          local groups = {
-            NvimTreeWinSeparator = { link = "WinSeparator" }, -- Use normal window separator lines for nvim tree
-            SpellBad = { strikethrough = false }, -- Solarized dark defaults to striking through wrong spelling
+          local palette = {
+            base1 = "#93A1A1",
+
+            red = "#DC322F",
+            orange = "#CB4B16",
+            yellow = "#B58900",
+            green = "#859900",
+            aqua = "#2AA198",
+            blue = "#268BD2",
+            purple = "#D33682",
+
+            diff_add = "#003200",
+            diff_change = "#323200",
+            diff_delete = "#320000",
+            diff_text = "#404000",
           }
-          return groups
+
+          local highlights = {
+            SpellBad = { strikethrough = false }, -- Solarized dark defaults to striking through wrong spelling
+
+            DiffAdd = { bg = palette.diff_add },
+            DiffChange = { bg = palette.diff_change },
+            DiffDelete = { bg = palette.diff_delete },
+            DiffText = { bg = palette.diff_text },
+            diffAdded = { fg = palette.green },
+            diffRemoved = { fg = palette.red },
+            diffChanged = { fg = palette.blue },
+            diffOldFile = { fg = palette.yellow },
+            diffNewFile = { fg = palette.orange },
+            diffFile = { fg = palette.aqua },
+            diffLine = { fg = palette.base1 },
+            diffIndexLine = { fg = palette.purple },
+            ["@text.diff.add"] = { link = "DiffAdd" },
+            ["@text.diff.delete"] = { link = "DiffDelete" },
+          }
+          return highlights
         end,
         on_colors = nil,
         palette = "solarized", -- solarized (default) | selenized
