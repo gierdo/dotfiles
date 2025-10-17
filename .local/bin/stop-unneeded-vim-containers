@@ -4,6 +4,5 @@ if ps -a | grep -q nvim; then
   echo "nvim is running, no need to stop vim service containers."
 else
   echo "nvim is not running, stopping vim service containers if needed."
-  systemctl --user stop llama
   systemctl --user stop plantuml
 fi

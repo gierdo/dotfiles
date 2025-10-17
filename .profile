@@ -10,23 +10,22 @@
 
 export EDITOR=nvim
 
-export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
-export PATH="$HOME/.dotfiles/.local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-export PATH="$HOME/.luarocks/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/.pub-cache/bin:$PATH"
+export PATH="$HOME/.dotfiles/.local/bin:$PATH" # These overrides should take precedency over pretty much everything
+export PATH="$PATH:$HOME/.local/share/nvim/lazy/fzf/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
+export PATH="$PATH:$HOME/.local/share/mise/shims"
+export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="$PATH:$HOME/.luarocks/bin"
+export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
+export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH=$PATH:~/go/bin
 
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
-export PATH="$HOME/.local/share/mise/shims:$PATH"
-
 # set up go as needed. GOPRIVATE is set up together with .gitconfig
-export PATH=$PATH:~/go/bin
 export GOPATH=~/go
 export GOPRIVATE=github.com
 
@@ -35,11 +34,11 @@ if [ -f "$HOME/.ghcup/env" ]; then
 fi
 
 # Set up node environment
-PATH="$HOME/.npmpath/bin:$PATH"
+PATH="$PATH:$HOME/.npmpath/bin"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
 
 if [ -d "/usr/lib/ccache" ]; then
-  PATH="/usr/lib/ccache:$PATH"
+  PATH="$PATH:/usr/lib/ccache"
 fi
 
 export ANDROID_HOME=~/.android-sdks
