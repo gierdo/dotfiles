@@ -7,11 +7,11 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama-cpp",
       "options": {
-        "baseURL": "http://localhost:9741/v1"
+        "baseURL": "http://127.0.0.1:9741/v1"
       },
       "models": {
         "llama": {
-          "name": "qwen",
+          "name": "local",
           "attachment": true,
           "reasoning": false,
           "temperature": true,
