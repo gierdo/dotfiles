@@ -1,6 +1,5 @@
 return {
   "folke/sidekick.nvim",
-
   config = function()
     sidekick = require("sidekick")
     sidekick.setup({
@@ -42,16 +41,8 @@ return {
     {
       "<A-i>",
       function()
-        require("sidekick.cli").send({ filter = { installed = true }, msg = "{file}" })
-      end,
-      desc = "Send File",
-    },
-    {
-      "<leader>ap",
-      function()
         require("sidekick.cli").prompt({ filter = { installed = true } })
       end,
-      mode = { "n", "x" },
       desc = "Sidekick Select Prompt",
     },
   },
