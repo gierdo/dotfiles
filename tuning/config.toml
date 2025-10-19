@@ -27,6 +27,13 @@ path = "{{ home_dir }}/.config/containers/registries.conf"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/user-dirs.dirs"
+path = "{{ home_dir }}/.config/user-dirs.dirs"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/containers/storage.conf"
 path = "{{ home_dir }}/.config/containers/storage.conf"
 
