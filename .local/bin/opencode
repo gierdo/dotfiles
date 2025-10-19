@@ -8,6 +8,4 @@ else
   echo "Update opencode with --update"
 fi
 
-systemctl --user start llama.service
-
 $EXECUTABLE_PATH "$@"
