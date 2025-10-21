@@ -209,4 +209,15 @@ return {
   { "ludovicchabant/vim-gutentags", lazy = true },
   -- Smarter "w", "e", "b" movements
   { "chrisgrieser/nvim-spider", lazy = true },
+  {
+    "deponian/nvim-base64",
+    version = "*",
+    keys = {
+      { "<Leader>b", "<Plug>(FromBase64)", mode = "x", desc = "Decode from base64" },
+      { "<Leader>B", "<Plug>(ToBase64)", mode = "x", desc = "Encode to base64" },
+    },
+    config = function()
+      require("nvim-base64").setup()
+    end,
+  },
 }
