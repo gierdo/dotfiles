@@ -44,6 +44,7 @@ return {
         require("sidekick.cli").prompt({ filter = { installed = true } })
       end,
       desc = "Sidekick Select Prompt",
+      mode = { "n", "t", "i", "x" },
     },
   },
 }
