@@ -23,9 +23,6 @@ return {
       vim.keymap.set({ "n", "v" }, "<c-left>", mc.nextCursor, { desc = "Select next cursor" })
       vim.keymap.set({ "n", "v" }, "<c-right>", mc.prevCursor, { desc = "Select previous cursor" })
 
-      -- Delete the main cursor.
-      vim.keymap.set({ "n", "v" }, "<c-x>", mc.deleteCursor, { desc = "Delete main cursor" })
-
       -- Add and remove cursors with control + left click.
       vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
 
