@@ -4,8 +4,6 @@ EXECUTABLE_PATH="${HOME}/.npmpath/bin/opencode"
 
 if [ ! -f "$EXECUTABLE_PATH" ] || [ "$*" = "--update" ]; then
   npm install -g opencode-ai
-else
-  echo "Update opencode with --update"
 fi
 
 $EXECUTABLE_PATH "$@"
