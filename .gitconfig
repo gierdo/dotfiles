@@ -1,14 +1,14 @@
 # vim: set ft=ini:
 [mergetool]
   keepBackup = false
-[mergetool "vimdiff-merge"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE
+[mergetool "diffview-merge"]
+  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+[difftool "diffview"]
+  cmd = nvim -n -c "DiffviewOpen"
 [merge]
-  tool = vimdiff-merge
+  tool = diffview-merge
 [diff]
-  tool = vimdiff
+  tool = diffview
   submodule = diff
   colorMoved = default
 [diff "lfs"]
