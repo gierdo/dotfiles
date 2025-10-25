@@ -1,6 +1,9 @@
 return {
   {
     "folke/noice.nvim",
+    lazy = false,
+    -- Noice should be loaded directly after applying color configuration in order to be ready to take on the handling of early warnings / messages
+    priority = 999,
     config = function()
       require("notify").setup({
         background_colour = "#000000",

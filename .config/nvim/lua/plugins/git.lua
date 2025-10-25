@@ -10,6 +10,12 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    keys = {
+      { "<leader>gv", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
+      { "<leader>gc", "<cmd>DiffviewClose<CR>", desc = "Close Diffview" },
+      { "<leader>gf", "<cmd>DiffviewToggleFiles<CR>", desc = "Toggle file panel" },
+    },
     config = function()
       require("diffview").setup({
         enhanced_diff_hl = true,

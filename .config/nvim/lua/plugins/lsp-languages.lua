@@ -281,7 +281,9 @@ return {
   },
   {
     "nvim-java/nvim-java",
+    -- nvim-java has to be loaded early, but should be loaded _after_ noice is there to catch e.g. deprecation warnings
     lazy = false,
+    priority = 1,
     dependencies = {
       "nvim-java/lua-async-await",
       {
