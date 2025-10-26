@@ -151,8 +151,8 @@ argv = [
   "-c",
   '''\
   cd \
-  && ya pack -a ndtoan96/ouch || true \
-  && ya pack -a yazi-rs/plugins:git || true
+  && ya pkg add ndtoan96/ouch || true \
+  && ya pkg add yazi-rs/plugins:git || true
   '''
 ]
 
