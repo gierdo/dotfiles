@@ -299,7 +299,18 @@ return {
       "mason-org/mason.nvim",
     },
     config = function()
-      require("java").setup({})
+      require("java").setup({
+        -- load java test plugins
+        java_test = {
+          enable = true,
+          version = "0.43.1",
+        },
+
+        spring_boot_tools = {
+          enable = true,
+          version = "1.59.0",
+        },
+      })
       require("lspconfig").jdtls.setup({
         -- lsp settings
       })
