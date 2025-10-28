@@ -148,12 +148,19 @@ type = "command"
 command = "bash"
 needs = ["install rust dependencies"]
 argv = [
-  "-c",
-  '''\
-  cd \
-  && ya pkg add ndtoan96/ouch || true \
-  && ya pkg add yazi-rs/plugins:git || true
-  '''
+"-c",
+'''\
+
+plugins=(
+  "ndtoan96/ouch"
+  "yazi-rs/plugins:git"
+  "yazi-rs/plugins:mount"
+)
+
+cd &&for plugin in "${plugins[@]}"; do
+  ya pkg add "$plugin" || true
+done
+'''
 ]
 
 [[jobs]]
@@ -221,6 +228,7 @@ tools=(
   "cfn-lint"
   "debugpy"
   "flake8"
+  "graph-sitter"
   "jedi-language-server"
   "podman-compose"
   "poetry"

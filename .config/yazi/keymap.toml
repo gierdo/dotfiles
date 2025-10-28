@@ -5,6 +5,8 @@
 [mgr]
 
 keymap = [
+    { on = "M", run = "plugin mount", desc = "[m]ount partitions, [u]nmount partitions, [e]ject disks" },
+
     { on = "<C-d>", run = 'shell -- dragon -x -T "$@"', desc = "Hand over to dragon for drag and drop" },
 
     { on = "C", run = "plugin ouch",            desc = "Compress with ouch" },
