@@ -153,6 +153,8 @@ argv = [
 
 plugins=(
   "ndtoan96/ouch"
+  "yazi-rs/plugins:chmod"
+  "yazi-rs/plugins:full-border"
   "yazi-rs/plugins:git"
   "yazi-rs/plugins:mount"
 )

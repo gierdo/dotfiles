@@ -103,6 +103,9 @@ keymap = [
 	{ on = [ "c", "f" ], run = "copy filename",         desc = "Copy the filename" },
 	{ on = [ "c", "n" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
 
+    # Chmod
+	{ on = [ "c", "m" ], run = "plugin chmod", desc = "Chmod on selected files" },
+
 	# Filter
 	{ on = "f", run = "filter --smart", desc = "Filter files" },
 
