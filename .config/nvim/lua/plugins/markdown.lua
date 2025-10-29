@@ -18,6 +18,7 @@ return {
       require("obsidian").setup({
         legacy_commands = false,
         footer = { enabled = false },
+        frontmatter = { enabled = false },
         workspaces = {
           {
             name = "notes",
