@@ -168,9 +168,6 @@ return {
           { "java-test" },
           { "java-debug-adapter" },
           { "spring-boot-tools" },
-
-          -- Sonarlint, configured separately, ensure installation here
-          { "sonarlint-language-server" },
         },
         auto_update = false,
         run_on_start = true,

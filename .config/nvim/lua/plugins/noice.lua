@@ -193,14 +193,6 @@ return {
             opts = { skip = true },
           },
           {
-            filter = {
-              event = "notify",
-              kind = "info",
-              find = "SonarQube",
-            },
-            opts = { skip = true },
-          },
-          {
             -- Silence "Feature will be removed in ... api deprecation warnings."
             filter = {
               event = "notify",
