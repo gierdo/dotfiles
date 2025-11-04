@@ -27,8 +27,8 @@ return {
   {
     "saghen/blink.cmp",
     event = "VeryLazy",
-    version = "1.*",
-    -- build = 'cargo build --release',
+    version = "v1.*",
+    build = "cargo build --release",
     opts = {
       keymap = {
         preset = "super-tab",
@@ -209,7 +209,6 @@ return {
   },
   {
     "L3MON4D3/LuaSnip",
-    event = "VeryLazy",
     version = "v2.*",
     build = "make install_jsregexp",
     config = function()
@@ -217,15 +216,12 @@ return {
       ls.setup({})
       -- snippets for proto are broken, which breaks lsp support for proto
       ls.filetype_set("proto", {})
+      require("luasnip.loaders.from_vscode").lazy_load()
     end,
-  },
-  {
-    "mireq/luasnip-snippets",
-    event = "VeryLazy",
-    config = function()
-      require("luasnip_snippets.common.snip_utils").setup()
-    end,
-    dependencies = { "L3MON4D3/LuaSnip" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "rafamadriz/friendly-snippets",
+    },
   },
   {
     "folke/trouble.nvim",
