@@ -76,6 +76,12 @@ local configure_lsps = function()
     },
   })
 
+  -- Avoid race condition between css and ts ls
+  local css_ls_capabilities = require("blink.cmp").get_lsp_capabilities({ definitionProvider = false })
+  vim.lsp.config("cssmodules_ls", {
+    capabilities = css_ls_capabilities,
+  })
+
   vim.lsp.config("jsonls", {
     capabilities = lsp_capabilities,
     settings = {
@@ -200,6 +206,8 @@ return {
           "bzl",
           "clangd",
           "cmake",
+          "cssls",
+          "cssmodules_ls",
           "cypher_ls",
           "dockerls",
           "eslint",
