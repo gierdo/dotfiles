@@ -150,16 +150,22 @@ return {
   },
   {
     "mistweaverco/kulala.nvim",
+    cmd = {
+      "KulalaImport",
+    },
     keys = {
       { "<leader>Rs", desc = "Send request" },
       { "<leader>Ra", desc = "Send all requests" },
       { "<leader>Rb", desc = "Open scratchpad" },
     },
     ft = { "http", "rest" },
-    opts = {
-      -- your configuration comes here
-      global_keymaps = false,
-    },
+    config = function()
+      local kulala = require("kulala")
+      kulala.setup({ global_keymaps = true, global_keymaps_prefix = "<leader>r" })
+      vim.api.nvim_create_user_command("KulalaImport", function()
+        kulala.import()
+      end, { desc = "Import openapi spec or bruno file in current buffer to http spec file" })
+    end,
   },
   {
     "stevearc/overseer.nvim",
