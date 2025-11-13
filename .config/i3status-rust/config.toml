@@ -84,8 +84,8 @@ interval = 10
 
 [[block]]
 block = "toggle"
-icon_on = "unlock"
-icon_off = "lock"
+icon_on = "lock"
+icon_off = "unlock"
 format = "$icon"
 # The toggling script has to override the command_on/off actions with
 # block.click to work propperly for the deactivation
