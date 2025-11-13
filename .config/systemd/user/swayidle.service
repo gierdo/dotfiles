@@ -5,7 +5,7 @@ BindsTo=sway-session.target
 [Service]
 Type=simple
 ExecStartPre=-/usr/bin/killall swayidle
-ExecStart=-/bin/bash -c 'PATH=~/.local/bin:$PATH swayidle -w timeout 600 "swaylock"'
+ExecStart=-/bin/bash -c 'PATH=~/.dotfiles/.local/bin:$PATH swayidle -w timeout 600 "swaylock"'
 Restart=on-failure
 RestartSec=5s
 

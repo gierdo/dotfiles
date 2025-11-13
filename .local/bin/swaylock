@@ -1,0 +1,12 @@
+#!/bin/bash
+
+paused=$(dunstctl is-paused)
+
+# When setting the trap, the state should be part of it. Expansion now is accepted.
+# shellcheck disable=SC2064
+trap "dunstctl set-paused '$paused'" EXIT
+
+dunstctl set-paused true
+# swaylock may be executed daemonized
+/usr/bin/swaylock "$@" &
+wait

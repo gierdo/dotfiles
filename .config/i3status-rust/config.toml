@@ -4,7 +4,11 @@ icons_format = "{icon}"
 theme = "solarized-dark"
 
 [icons]
-icons = "awesome4"
+icons = "material-nf"
+
+[icons.overrides]
+unlock = "󰿆"
+lock = "󰥿"
 
 [[block]]
 block = "memory"
@@ -21,6 +25,7 @@ interval = 5
 [block.theme_overrides]
 idle_bg = { link = "info_bg" }
 idle_fg = { link = "info_fg" }
+
 
 # I only have machines with amd gpu
 [[block]]
@@ -79,21 +84,25 @@ interval = 10
 
 [[block]]
 block = "toggle"
-icon_on = "bell-slash"
-icon_off = "bell"
+icon_on = "unlock"
+icon_off = "lock"
 format = "$icon"
 # The toggling script has to override the command_on/off actions with
 # block.click to work propperly for the deactivation
-command_state = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
-command_on = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
-command_off = "~/.dotfiles/.local/bin/toggle-presentation-mode -s"
+command_state = "~/.dotfiles/.local/bin/toggle-autolock -s"
+command_on = "~/.dotfiles/.local/bin/toggle-autolock -s"
+command_off = "~/.dotfiles/.local/bin/toggle-autolock -s"
 interval = 1
 [[block.click]]
 button = "left"
-cmd = "~/.dotfiles/.local/bin/toggle-presentation-mode"
+cmd = "~/.dotfiles/.local/bin/toggle-autolock"
 [block.theme_overrides]
 idle_bg = { link = "warning_bg" }
 idle_fg = { link = "warning_fg" }
+
+[[block]]
+block = "notify"
+format = " $icon"
 
 [[block]]
 block = "sound"
