@@ -176,6 +176,8 @@ if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
     # Fix Java AWT applications on wayland
     export _JAVA_AWT_WM_NONREPARENTING=1
 
+    systemctl --user import-environment XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP DESKTOP_SESSION
+
     # If you want to debug sway, `touch ~/sway.log`
     if [ -f "$HOME/sway.log" ]; then
       exec sway -d >>~/sway.log 2>&1
