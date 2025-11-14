@@ -4,10 +4,10 @@
 --tag-relative=yes
 --exclude=.*
 --exclude=log
---exclude=tmp
---exclude=node_modules/*
---exclude=db/*
---exclude=log/*
+--exclude=*/tmp/*
+--exclude=*/node_modules/*
+--exclude=*/db/*
+--exclude=*/log/*
 
 --exclude=*.css
 --exclude=*.html

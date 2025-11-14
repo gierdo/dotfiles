@@ -75,7 +75,7 @@ return {
       vim.keymap.set("n", "<A-p>", builtin.live_grep, { desc = "Find in files" })
       vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
       vim.keymap.set("n", "<A-b>", builtin.buffers, { desc = "Find buffers" })
-      vim.keymap.set("n", "<C-A-t>", builtin.tags, { desc = "Find Code tags" })
+      vim.keymap.set("n", "<C-t>", builtin.tags, { desc = "Find Code tags" })
       vim.keymap.set({ "n", "x", "i" }, "<F1>", builtin.help_tags, { desc = "Find help tags" })
       vim.keymap.set(
         "n",
