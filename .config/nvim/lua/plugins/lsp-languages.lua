@@ -1,4 +1,4 @@
-local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
+local lsp_capabilities = require("blink.cmp").get_lsp_capabilities(nil, true)
 
 local configure_lsps = function()
   vim.lsp.config("*", {
@@ -38,6 +38,27 @@ local configure_lsps = function()
       },
     },
   })
+
+  -- vim.lsp.config("pyrefly", {
+  --   capabilities = lsp_capabilities,
+  --   settings = {
+  --     python = {
+  --       pyrefly = {
+  --         disableLanguageServices = false,
+  --         displayTypeErrors = "force-on",
+  --       },
+  --       analysis = {
+  --         diagnosticMode = "workspace",
+  --         inlayHints = {
+  --           callArgumentNames = "all",
+  --           variableTypes = true,
+  --           functionReturnTypes = true,
+  --           pytestParameters = true,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- })
 
   vim.lsp.config("clangd", {
     capabilities = lsp_capabilities,
@@ -245,6 +266,7 @@ return {
           "lemminx",
           "lua_ls",
           "marksman",
+          -- "pyrefly",
           "ruff",
           "rust_analyzer",
           "sqls",
