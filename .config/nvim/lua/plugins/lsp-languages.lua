@@ -5,12 +5,35 @@ local configure_lsps = function()
     capabilities = lsp_capabilities,
   })
 
+  vim.lsp.config("ty", {
+    capabilities = lsp_capabilities,
+    settings = {
+      ty = {
+        disableLanguageServices = true, -- For now, only use ty for typechecking
+        diagnosticMode = "workspace",
+        experimental = {
+          rename = true,
+          autoImport = true,
+        },
+      },
+    },
+  })
+
   vim.lsp.config("basedpyright", {
     capabilities = lsp_capabilities,
     settings = {
       basedpyright = {
+        disableOrganizeImports = true, -- handled by ruff
         analysis = {
-          typeCheckingMode = "standard",
+          typeCheckingMode = "off", -- Use ty for typechecking
+          -- For reference, if I want to use ty's inlay hints later
+          -- inlayHints = {
+          --   variableTypes = false,
+          --   callArgumentNames = false,
+          --   functionReturnTypes = false,
+          --   genericTypes = false,
+          -- },
+          autoImportCompletions = true,
         },
       },
     },
@@ -228,6 +251,7 @@ return {
           "taplo",
           "texlab",
           "ts_ls",
+          "ty",
           "yamlls",
         },
         automatic_enable = true,
