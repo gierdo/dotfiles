@@ -6,7 +6,9 @@ return {
       local neotest = require("neotest")
       neotest.setup({ ---@diagnostic disable-line: missing-fields
         adapters = {
-          require("neotest-python"),
+          require("neotest-python")({
+            args = { "--no-cov" }, -- Required for single-test-execution
+          }),
           require("neotest-dotnet"),
           require("neotest-golang")({
             testify_enabled = true,
