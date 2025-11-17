@@ -7,7 +7,7 @@ return {
       neotest.setup({ ---@diagnostic disable-line: missing-fields
         adapters = {
           require("neotest-python")({
-            args = { "--no-cov" }, -- Required for single-test-execution
+            args = { "--no-cov", "-s", "-v" }, -- no-cov is required for single-test-execution
           }),
           require("neotest-dotnet"),
           require("neotest-golang")({
