@@ -1,6 +1,11 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true }, -- lua base library
   {
+    "okuuva/auto-save.nvim",
+    version = "*",
+    opts = {},
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
