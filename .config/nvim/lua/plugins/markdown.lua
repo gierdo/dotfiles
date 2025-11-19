@@ -18,7 +18,6 @@ return {
       require("obsidian").setup({
         legacy_commands = false,
         footer = { enabled = false },
-        frontmatter = { enabled = false },
         workspaces = {
           {
             name = "notes",
@@ -70,9 +69,7 @@ return {
         -- Either 'wiki' or 'markdown'.
         preferred_link_style = "markdown",
 
-        -- Optional, boolean or a function that takes a filename and returns a boolean.
-        -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-        disable_frontmatter = false,
+        frontmatter = { enabled = false },
 
         -- Optional, for templates (see below).
         templates = { ---@diagnostic disable-line: missing-fields
@@ -102,14 +99,7 @@ return {
           },
         },
 
-        -- Optional, sort search results by "path", "modified", "accessed", or "created".
-        -- The recommend value is "modified" and `true` for `sort_reversed`, which means, for example,
-        -- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time
-        sort_by = "modified",
-        sort_reversed = true,
-
-        -- Set the maximum number of lines to read from notes on disk when performing certain searches.
-        search_max_lines = 1000,
+        search = { max_lines = 1000, sort_by = "modified", sort_reversed = true },
 
         -- Optional, determines how certain commands open notes. The valid options are:
         -- 1. "current" (the default) - to always open in the current window
