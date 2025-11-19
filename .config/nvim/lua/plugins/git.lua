@@ -20,6 +20,21 @@ return {
       require("diffview").setup({
         enhanced_diff_hl = true,
         use_icons = true,
+        view = {
+          layout = "diff2_horizontal",
+          disable_diagnostics = true,
+          winbar_info = true,
+        },
+        merge_tool = {
+          layout = "diff3_mixed",
+          disable_diagnostics = true,
+          winbar_info = true,
+        },
+        file_history = {
+          layout = "diff2_horizontal",
+          disable_diagnostics = true,
+          winbar_info = true,
+        },
       })
     end,
   },
