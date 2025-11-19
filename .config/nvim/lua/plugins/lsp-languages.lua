@@ -12,8 +12,8 @@ local configure_lsps = function()
         disableLanguageServices = true, -- For now, only use ty for typechecking
         diagnosticMode = "workspace",
         experimental = {
-          rename = true,
-          autoImport = true,
+          rename = false,
+          autoImport = false,
         },
       },
     },
