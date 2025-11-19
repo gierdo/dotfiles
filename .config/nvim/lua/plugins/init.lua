@@ -1,6 +1,22 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true }, -- lua base library
   {
+    "mistricky/codesnap.nvim",
+    build = "make",
+    config = function()
+      require("codesnap").setup({
+        save_path = os.getenv("XDG_PICTURES_DIR") or (os.getenv("HOME") .. "/Pictures"),
+        code_font_family = "UbuntuMono NerdFont",
+        watermark_font_family = "UbuntuMono NerdFont",
+        bg_x_padding = 122,
+        bg_y_padding = 82,
+        has_line_number = true,
+        bg_theme = "sea",
+        watermark = "https://gierdo.astounding.technology",
+      })
+    end,
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()

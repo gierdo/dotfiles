@@ -6,6 +6,7 @@
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
   "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "cmp-calc": { "branch": "main", "commit": "5947b412da67306c5b68698a02a846760059be2e" },
+  "codesnap.nvim": { "branch": "main", "commit": "927d4a40361cf3c066a5426477822b41ba6069ab" },
   "conform.nvim": { "branch": "master", "commit": "1bf8b5b9caee51507aa51eaed3da5b0f2595c6b9" },
   "cronex.nvim": { "branch": "main", "commit": "9fd06b54162e3d97b5bf79fdab93be4fe329433f" },
   "dap-breakpoints.nvim": { "branch": "master", "commit": "35b6d70e3d096b2874a67f43b73478ac54ed133f" },
