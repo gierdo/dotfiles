@@ -5,7 +5,7 @@ return {
     build = "make",
     config = function()
       require("codesnap").setup({
-        save_path = os.getenv("XDG_PICTURES_DIR") or (os.getenv("HOME") .. "/Pictures"),
+        save_path = "~/Pictures/", -- For some reason expanding the home directory does not work in all environments
         code_font_family = "UbuntuMono NerdFont",
         watermark_font_family = "UbuntuMono NerdFont",
         bg_x_padding = 122,
