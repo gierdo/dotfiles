@@ -46,69 +46,52 @@ return {
     config = function()
       local dap = require("dap")
 
-      local views = require("dap-view.views")
       local dap_view = require("dap-view")
       dap_view.setup({
         winbar = {
           show = true,
-          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "disassembly" },
+          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "sessions", "disassembly" },
           default_section = "breakpoints",
           base_sections = {
             breakpoints = {
               keymap = "B",
               label = " Breakpoints [B]",
               short_label = " [B]",
-              action = function()
-                views.switch_to_view("breakpoints")
-              end,
             },
             scopes = {
               keymap = "S",
               label = "󰂥 Scopes [S]",
               short_label = "󰂥 [S]",
-              action = function()
-                views.switch_to_view("scopes")
-              end,
             },
             exceptions = {
               keymap = "E",
               label = "󰢃 Exceptions [E]",
               short_label = "󰢃 [E]",
-              action = function()
-                views.switch_to_view("exceptions")
-              end,
             },
             watches = {
               keymap = "W",
               label = "󰛐 Watches [W]",
               short_label = "󰛐 [W]",
-              action = function()
-                views.switch_to_view("watches")
-              end,
             },
             threads = {
               keymap = "T",
               label = "󱉯 Threads [T]",
               short_label = "󱉯 [T]",
-              action = function()
-                views.switch_to_view("threads")
-              end,
             },
             repl = {
               keymap = "R",
               label = "󰯃 REPL [R]",
               short_label = "󰯃 [R]",
-              action = function()
-                require("dap-view.repl").show()
-              end,
+            },
+            sessions = {
+              keymap = "K", -- I ran out of mnemonics
+              label = "Sessions [K]",
+              short_label = " [K]",
             },
             console = {
               keymap = "C",
               label = "󰆍 Console [C]",
               short_label = "󰆍 [C]",
-              action = function()
-                require("dap-view.term").show()
-              end,
             },
           },
           custom_sections = {},
@@ -131,6 +114,7 @@ return {
           border = nil,
         },
         switchbuf = "usetab",
+        follow_tab = true,
         auto_toggle = true,
       }) ---@diagnostic disable-line: missing-fields
 
