@@ -53,11 +53,3 @@
   allow = always
 [include]
   path = ~/.gitconfig.local
-[includeIf "gitdir:~/.dotfiles"]
-  path = ~/.dotfiles/.gitconfig.github
-[includeIf "gitdir:~/workspace/*"]
-  path = ~/.dotfiles/.gitconfig.github
-[includeIf "gitdir:~/go/*"]
-  path = ~/.dotfiles/.gitconfig.github
-[includeIf "gitdir:~/.local/share/nvim/*"]
-  path = ~/.dotfiles/.gitconfig.github
