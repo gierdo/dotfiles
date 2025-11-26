@@ -1,0 +1,23 @@
+# These are handy examples for ~/.gitconfig.local extensions
+
+# Override user
+[user]
+	name = Blerb bar
+	email = blerb.bar@secret.blerb
+[user]
+	signingkey = 0xkeyID
+# use pkcs11 tokens for signatures
+[gpg "x509"]
+	program = gpgsm
+[gpg]
+	format = x509
+	program = gpgsm
+
+
+# enable lfs locks verification
+[lfs "https://github.com/"]
+	locksverify = true
+
+# Rewrite ssh remotes to https
+[url "https://github.com/"]
+	insteadOf = "git@github.com:"
