@@ -237,6 +237,7 @@ tools=(
   "pylint"
   "pyright"
   "pytype"
+  "pysentry-rs"
   "virtualenv"
 )
 
