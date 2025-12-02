@@ -6,9 +6,6 @@ return {
     end,
   },
   {
-    "tpope/vim-fugitive",
-  },
-  {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
     keys = {
@@ -49,7 +46,9 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    config = true,
+    config = {
+      disable_diagnostics = true,
+    },
   },
   {
     "oribarilan/lensline.nvim",
