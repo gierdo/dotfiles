@@ -10,7 +10,7 @@ return {
         enabled = true,
         mux = {
           backend = "tmux",
-          enabled = true,
+          enabled = false,
         },
       },
     })
