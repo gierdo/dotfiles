@@ -1,4 +1,3 @@
-# Path to your oh-my-zsh installation.
 export ZSH=$HOME/.dotfiles/oh-my-zsh
 #
 # set shell variable to zsh, might be needed by stuff, e.g. toolbox
@@ -235,5 +234,3 @@ alias bazel='bazelisk'
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
-
-

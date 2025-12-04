@@ -240,14 +240,11 @@ return {
     "mason-org/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
-      configure_lsps()
-
       require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "ast_grep",
           "basedpyright",
           "bashls",
-          "bzl",
           "clangd",
           "cmake",
           "cssls",
@@ -279,6 +276,8 @@ return {
         automatic_enable = true,
         automatic_installation = true,
       })
+
+      configure_lsps()
     end,
     dependencies = {
       "b0o/schemastore.nvim",
@@ -332,40 +331,18 @@ return {
   },
   {
     "nvim-java/nvim-java",
-    -- nvim-java has to be loaded early, but should be loaded _after_ noice is there to catch e.g. deprecation warnings
-    lazy = false,
-    priority = 1,
     dependencies = {
-      "nvim-java/lua-async-await",
-      {
-        "nvim-java/nvim-java-core",
-        url = "https://github.com/Kabil777/nvim-java-core.git",
-        branch = "fix/mason-api-update",
-      },
-      "nvim-java/nvim-java-test",
-      "nvim-java/nvim-java-dap",
       "MunifTanjim/nui.nvim",
-      "neovim/nvim-lspconfig",
-      "nvim-java/nvim-java-refactor",
       "mfussenegger/nvim-dap",
-      "mason-org/mason.nvim",
     },
     config = function()
       require("java").setup({
-        -- load java test plugins
-        java_test = {
-          enable = true,
-          version = "0.43.1",
-        },
-
-        spring_boot_tools = {
-          enable = true,
-          version = "1.59.0",
+        jdk = {
+          auto_install = false,
+          version = "17",
         },
       })
-      require("lspconfig").jdtls.setup({
-        -- lsp settings
-      })
+      vim.lsp.enable("jdtls")
     end,
   },
 }
