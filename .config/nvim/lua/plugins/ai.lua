@@ -12,6 +12,11 @@ return {
           backend = "tmux",
           enabled = true,
         },
+        tools = {
+          amazon_q = { cmd = { "invalid_to_disable" } },
+          kiro = { cmd = { "kiro-cli" } },
+          opencode = { cmd = { "opencode" } },
+        },
       },
     })
 
