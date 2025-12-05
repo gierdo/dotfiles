@@ -211,13 +211,6 @@ return {
 
           -- C# Integration
           { "roslyn" },
-
-          -- Dependencies for nvim-java
-          { "jdtls" },
-          { "lombok-nightly" },
-          { "java-test" },
-          { "java-debug-adapter" },
-          { "spring-boot-tools" },
         },
         auto_update = false,
         run_on_start = true,
@@ -337,9 +330,17 @@ return {
     },
     config = function()
       require("java").setup({
-        jdk = {
-          auto_install = false,
-          version = "17",
+        java_debug_adapter = {
+          enable = true,
+        },
+        java_test = {
+          enable = true,
+        },
+        lombok = {
+          enable = true,
+        },
+        spring_boot_tools = {
+          enable = true,
         },
       })
       vim.lsp.enable("jdtls")
