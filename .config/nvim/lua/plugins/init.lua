@@ -212,8 +212,12 @@ return {
     "fabridamicelli/cronex.nvim",
     opts = {},
   },
-  { "ludovicchabant/vim-gutentags" },
-
+  {
+    "linrongbin16/gentags.nvim",
+    config = function()
+      require("gentags").setup()
+    end,
+  },
   -- Smarter "w", "e", "b" movements
   { "chrisgrieser/nvim-spider", lazy = true },
   {
