@@ -16,6 +16,7 @@ node_modules
 tags
 .tool-versions
 .vim
+mise.toml
 
 # LaTeX
 *.fdb_latexmk
