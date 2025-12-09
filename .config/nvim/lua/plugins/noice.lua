@@ -34,9 +34,9 @@ return {
         },
         messages = {
           enabled = true,
-          view = "notify",
-          view_error = "notify",
-          view_warn = "notify",
+          view = "mini",
+          view_error = "mini",
+          view_warn = "mini",
           view_history = "messages",
           view_search = "virtualtext",
         },
@@ -47,7 +47,7 @@ return {
         -- see the section on Command Redirection
         ---@type NoiceRouteConfig
         redirect = {
-          view = "popup",
+          view = "mini",
           filter = { event = "msg_show" },
         },
         -- You can add any custom commands below that will be available with `:Noice command`
@@ -70,7 +70,7 @@ return {
           },
           -- :Noice last
           last = {
-            view = "popup",
+            view = "mini",
             opts = { enter = true, format = "details" },
             filter = {
               any = {
@@ -85,9 +85,8 @@ return {
           },
           -- :Noice errors
           errors = {
-            -- options for the message history that you get with `:Noice`
-            view = "popup",
-            opts = { enter = true, format = "details" },
+            view = "mini",
+            opts = { enter = false },
             filter = { error = true },
             filter_opts = { reverse = true },
           },
