@@ -5,20 +5,24 @@ local configure_lsps = function()
     capabilities = lsp_capabilities,
   })
 
+  -- for easy comparison of capabilities between the constantly evolving python lsps ty, basedpyright, pyrefly and gang, they are all configured but not all enabled.
+
+  vim.lsp.enable("ty", true)
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
     settings = {
       ty = {
-        disableLanguageServices = true, -- For now, only use ty for typechecking
+        disableLanguageServices = false,
         diagnosticMode = "workspace",
         experimental = {
-          rename = false,
-          autoImport = false,
+          rename = true,
+          autoImport = true,
         },
       },
     },
   })
 
+  vim.lsp.enable("basedpyright", false)
   vim.lsp.config("basedpyright", {
     capabilities = lsp_capabilities,
     settings = {
@@ -26,39 +30,33 @@ local configure_lsps = function()
         disableOrganizeImports = true, -- handled by ruff
         analysis = {
           typeCheckingMode = "off", -- Use ty for typechecking
-          -- For reference, if I want to use ty's inlay hints later
-          -- inlayHints = {
-          --   variableTypes = false,
-          --   callArgumentNames = false,
-          --   functionReturnTypes = false,
-          --   genericTypes = false,
-          -- },
           autoImportCompletions = true,
         },
       },
     },
   })
 
-  -- vim.lsp.config("pyrefly", {
-  --   capabilities = lsp_capabilities,
-  --   settings = {
-  --     python = {
-  --       pyrefly = {
-  --         disableLanguageServices = false,
-  --         displayTypeErrors = "force-on",
-  --       },
-  --       analysis = {
-  --         diagnosticMode = "workspace",
-  --         inlayHints = {
-  --           callArgumentNames = "all",
-  --           variableTypes = true,
-  --           functionReturnTypes = true,
-  --           pytestParameters = true,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- })
+  vim.lsp.enable("pyrefly", false)
+  vim.lsp.config("pyrefly", {
+    capabilities = lsp_capabilities,
+    settings = {
+      python = {
+        pyrefly = {
+          disableLanguageServices = false,
+          displayTypeErrors = "force-on",
+        },
+        analysis = {
+          diagnosticMode = "workspace",
+          inlayHints = {
+            callArgumentNames = "all",
+            variableTypes = true,
+            functionReturnTypes = true,
+            pytestParameters = true,
+          },
+        },
+      },
+    },
+  })
 
   vim.lsp.config("clangd", {
     capabilities = lsp_capabilities,
@@ -256,7 +254,7 @@ return {
           "lemminx",
           "lua_ls",
           "marksman",
-          -- "pyrefly",
+          "pyrefly",
           "ruff",
           "rust_analyzer",
           "sqls",
