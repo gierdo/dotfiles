@@ -5,6 +5,14 @@ local configure_lsps = function()
     capabilities = lsp_capabilities,
   })
 
+  -- I want to use ty and pyrefly, but for different things.
+  --
+  -- e.g.:
+  -- - ty has relatively useless autoimport and less support for pydantic
+  -- - pyrefly has relatively useless renaming, it can't rename functions
+  --
+  -- This is an attempt to use ty and pyrefly in parallel, without both of them interfering and resulting in double completion, double-go-to-definition etc.
+
   ---@param client vim.lsp.Client
   local ty_on_init = function(client)
     client.server_capabilities.callHierarchyProvider = false
