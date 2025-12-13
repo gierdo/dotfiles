@@ -5,40 +5,41 @@ local configure_lsps = function()
     capabilities = lsp_capabilities,
   })
 
-  -- for easy comparison of capabilities between the constantly evolving python lsps ty, basedpyright, pyrefly and gang, they are all configured but not all enabled.
-
-  vim.lsp.enable("ty", true)
+  ---@param client vim.lsp.Client
+  local ty_on_init = function(client)
+    client.server_capabilities.callHierarchyProvider = false
+    client.server_capabilities.completionProvider = false
+    client.server_capabilities.inlineCompletionProvider = false
+    client.server_capabilities.inlineValueProvider = false
+    client.server_capabilities.declarationProvider = false
+    client.server_capabilities.definitionProvider = false
+    client.server_capabilities.implementationProvider = false
+    client.server_capabilities.inlayHintProvider = false
+    client.server_capabilities.signatureHelpProvider = false
+    client.server_capabilities.hoverProvider = false
+    client.server_capabilities.referencesProvider = false
+  end
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
+    on_init = { ty_on_init },
     settings = {
       ty = {
         disableLanguageServices = false,
         diagnosticMode = "workspace",
         experimental = {
           rename = true,
-          autoImport = true,
         },
       },
     },
   })
 
-  vim.lsp.enable("basedpyright", false)
-  vim.lsp.config("basedpyright", {
-    capabilities = lsp_capabilities,
-    settings = {
-      basedpyright = {
-        disableOrganizeImports = true, -- handled by ruff
-        analysis = {
-          typeCheckingMode = "off", -- Use ty for typechecking
-          autoImportCompletions = true,
-        },
-      },
-    },
-  })
-
-  vim.lsp.enable("pyrefly", false)
+  ---@param client vim.lsp.Client
+  local pyrefly_on_init = function(client)
+    client.server_capabilities.renameProvider = false
+  end
   vim.lsp.config("pyrefly", {
     capabilities = lsp_capabilities,
+    on_init = { pyrefly_on_init },
     settings = {
       python = {
         pyrefly = {
@@ -234,7 +235,6 @@ return {
       require("mason-lspconfig").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "ast_grep",
-          "basedpyright",
           "bashls",
           "clangd",
           "cmake",
