@@ -26,6 +26,7 @@ local configure_lsps = function()
     client.server_capabilities.signatureHelpProvider = false
     client.server_capabilities.hoverProvider = false
     client.server_capabilities.referencesProvider = false
+    client.server_capabilities.codeActionProvider = false
   end
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
