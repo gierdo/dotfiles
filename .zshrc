@@ -99,7 +99,9 @@ fpath=(~/.zfunc $fpath)
 
 fpath=(~/.local/share/zsh/site-functions $fpath)
 
-source ~/.dotfiles/zsh-plugins/fzf-custom/fzf.zsh
+source ~/.dotfiles/zsh-plugins/custom-hooks/directory-hook.zsh
+
+source ~/.dotfiles/zsh-plugins/custom-fzf/fzf.zsh
 
 source ~/.dotfiles/zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
@@ -234,3 +236,4 @@ alias bazel='bazelisk'
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
+
