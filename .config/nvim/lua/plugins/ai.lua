@@ -12,11 +12,13 @@ return {
           backend = "tmux",
           enabled = true,
         },
-        tools = {
+        -- If the tools stawn processes, e.g. mcp servers, they should all be torn down after the original process terminates. This is achieved by putting them in a firejail sandbox.
+        tools = vim.tbl_extend("force", {
           amazon_q = { cmd = { "invalid_to_disable" } },
-          kiro = { cmd = { "wrapped-kiro" } },
-          opencode = { cmd = { "opencode" } },
-        },
+        }, vim.fn.executable("firejail") == 1 and vim.tbl_extend("force",
+          vim.fn.executable("opencode") == 1 and { opencode = { cmd = { "firejail", "--quiet", "--noprofile", "opencode" } } } or {},
+          vim.fn.executable("kiro-cli") == 1 and { kiro = { cmd = { "firejail", "--noprofile", "--quiet", "kiro-cli" } } } or {}
+        ) or {}),
       },
     })
 
