@@ -238,6 +238,7 @@ tools=(
   "pyright"
   "pytype"
   "pysentry-rs"
+  "git+https://github.com/oraios/serena"
   "virtualenv"
 )
 

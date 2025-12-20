@@ -14,7 +14,7 @@ return {
         },
         tools = {
           amazon_q = { cmd = { "invalid_to_disable" } },
-          kiro = { cmd = { "kiro-cli" } },
+          kiro = { cmd = { "wrapped-kiro" } },
           opencode = { cmd = { "opencode" } },
         },
       },
