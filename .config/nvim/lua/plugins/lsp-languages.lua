@@ -259,7 +259,7 @@ return {
           "jinja_lsp",
           "jqls",
           "jsonls",
-          "kotlin_language_server",
+          "kotlin_lsp",
           "lemminx",
           "lua_ls",
           "marksman",
