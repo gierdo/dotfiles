@@ -1,7 +1,6 @@
 return {
   {
     "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
     config = function()
       require("mason-nvim-dap").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
@@ -191,7 +190,6 @@ return {
   },
   {
     "theHamsta/nvim-dap-virtual-text",
-    event = "VeryLazy",
     config = function()
       require("nvim-dap-virtual-text").setup() ---@diagnostic disable-line: missing-parameter
     end,
