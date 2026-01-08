@@ -7,6 +7,10 @@
   cmd = nvim -n -c "DiffviewOpen"
 [merge]
   tool = diffview-merge
+# Custom syntax-aware merge driver
+[merge "mergiraf"]
+  name = mergiraf
+  driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [diff]
   tool = diffview
   submodule = diff
@@ -53,3 +57,9 @@
   allow = always
 [include]
   path = ~/.gitconfig.local
+[rerere]
+  enabled = true
+  autoupdate = true
+[merge "mergiraf"]
+  name = mergiraf
+  driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L

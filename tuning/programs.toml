@@ -127,6 +127,7 @@ crates = [
   "fd-find",
   "git-delta",
   "jj-cli",
+  "mergiraf",
   "mise",
   "netscanner",
   "ntap",

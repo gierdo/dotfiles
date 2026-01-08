@@ -287,6 +287,13 @@ path = "{{ home_dir }}/.gitignore_global"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/git/attributes"
+path = "{{ home_dir }}/.config/git/attributes"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.config/lazygit/config.yml"
 path = "{{ home_dir }}/.config/lazygit/config.yml"
 
