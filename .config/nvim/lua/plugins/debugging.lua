@@ -100,10 +100,8 @@ return {
           },
         },
         windows = {
-          height = 0.25,
           position = "below",
           terminal = {
-            width = 0.3,
             position = "left",
             hide = { "go" },
             start_hidden = false,
