@@ -62,7 +62,6 @@ plugins=(
   aws
   bazel
   colored-man-pages
-  dotnet
   eza
   fancy-ctrl-z
   gh
