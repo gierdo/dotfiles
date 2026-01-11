@@ -104,7 +104,6 @@ return {
           terminal = {
             position = "left",
             hide = { "go" },
-            start_hidden = false,
           },
         },
         help = {
