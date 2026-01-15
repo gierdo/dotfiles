@@ -13,6 +13,7 @@ node_modules
 .project
 .python-version
 .settings
+.serena
 tags
 .tool-versions
 .vim
