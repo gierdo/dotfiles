@@ -2,6 +2,8 @@ return {
   {
     "jay-babu/mason-nvim-dap.nvim",
     config = function()
+      local dap = require("dap")
+
       require("mason-nvim-dap").setup({ ---@diagnostic disable-line: missing-fields
         ensure_installed = {
           "cppdbg",
@@ -13,6 +15,22 @@ return {
         },
         handlers = {},
       })
+
+      local python_launch_with_arguments = {
+        {
+          type = "python",
+          request = "launch",
+          name = "Python: Launch file with arguments",
+          program = "${file}",
+          pythonPath = "python",
+          args = function()
+            local args_string = vim.fn.input("Arguments: ")
+            return vim.split(args_string, " +")
+          end,
+          console = "integratedTerminal",
+        },
+      }
+      vim.list_extend(dap.configurations["python"], python_launch_with_arguments)
 
       -- Support vscode launch configurations
       -- external json decoder for support of (non-standard) trailing commas
@@ -44,7 +62,6 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
       local dap = require("dap")
-
       local dap_view = require("dap-view")
       dap_view.setup({
         winbar = {
@@ -114,22 +131,6 @@ return {
         auto_toggle = true,
       }) ---@diagnostic disable-line: missing-fields
 
-      local python_launch_with_arguments = {
-        {
-          type = "python",
-          request = "launch",
-          name = "Python: Launch file with arguments",
-          program = "${file}",
-          pythonPath = "python",
-          args = function()
-            local args_string = vim.fn.input("Arguments: ")
-            return vim.split(args_string, " +")
-          end,
-          console = "integratedTerminal",
-        },
-      }
-      vim.list_extend(dap.configurations["python"], python_launch_with_arguments)
-
       local wk = require("which-key")
       local telescope = require("telescope")
 
@@ -180,7 +181,6 @@ return {
     end,
     dependencies = {
       "igorlfs/nvim-dap-view",
-      "jay-babu/mason-nvim-dap.nvim",
       "nvim-neotest/nvim-nio",
       "folke/which-key.nvim",
     },
