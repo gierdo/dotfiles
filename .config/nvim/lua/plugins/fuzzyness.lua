@@ -6,7 +6,7 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    branch = "master",
     config = function()
       local actions = require("telescope.actions")
       local action_state = require("telescope.actions.state")
@@ -50,6 +50,7 @@ return {
             },
           },
         },
+
         pickers = {
           find_files = {
             hidden = true,

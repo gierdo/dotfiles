@@ -5,54 +5,38 @@ return {
       "tadmccorkle/markdown.nvim",
     },
     build = ":TSUpdate",
+    branch = "main",
     config = function()
-      require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line: missing-fields
-        ensure_installed = "all",
-        sync_install = false,
-        auto_install = true,
-        ignore_install = {
-          "bicep",
-          "hoon",
-          "javascript",
-          "jsdoc",
-          "norg",
-          "org",
-          "teal",
-        },
-
-        highlight = {
-          enable = true,
-
-          disable = function(lang, buf)
-            local max_filesize = 5 * 1024 * 1024 -- 5 MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf)) ---@diagnostic disable-line: undefined-field
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = {},
-
-          markdown = {
-            enable = true,
-          },
-        },
+      local treesitter = require("nvim-treesitter")
+      treesitter.setup()
+      treesitter.install({
+        "bash",
+        "c",
+        "cmake",
+        "cpp",
+        "c_sharp",
+        "desktop",
+        "diff",
+        "dockerfile",
+        "git_config",
+        "gitignore",
+        "git_rebase",
+        "html",
+        "java",
+        "javascript",
+        "json",
+        "latex",
+        "lua",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "matlab",
+        "mermaid",
+        "pkl",
+        "python",
+        "toml",
+        "yaml",
       })
-
-      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-      parser_config.plantuml = { ---@diagnostic disable-line: inject-field
-        install_info = {
-          url = "https://github.com/lyndsysimon/tree-sitter-plantuml",
-          files = { "src/parser.c" },
-          revision = "main",
-        },
-        filetype = "plantuml",
-      }
     end,
   },
   {
