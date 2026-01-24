@@ -66,51 +66,8 @@ return {
       dap_view.setup({
         winbar = {
           show = true,
-          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "sessions", "disassembly" },
+          sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "sessions" },
           default_section = "breakpoints",
-          base_sections = {
-            breakpoints = {
-              keymap = "B",
-              label = " Breakpoints [B]",
-              short_label = " [B]",
-            },
-            scopes = {
-              keymap = "S",
-              label = "󰂥 Scopes [S]",
-              short_label = "󰂥 [S]",
-            },
-            exceptions = {
-              keymap = "E",
-              label = "󰢃 Exceptions [E]",
-              short_label = "󰢃 [E]",
-            },
-            watches = {
-              keymap = "W",
-              label = "󰛐 Watches [W]",
-              short_label = "󰛐 [W]",
-            },
-            threads = {
-              keymap = "T",
-              label = "󱉯 Threads [T]",
-              short_label = "󱉯 [T]",
-            },
-            repl = {
-              keymap = "R",
-              label = "󰯃 REPL [R]",
-              short_label = "󰯃 [R]",
-            },
-            sessions = {
-              keymap = "K", -- I ran out of mnemonics
-              label = "Sessions [K]",
-              short_label = " [K]",
-            },
-            console = {
-              keymap = "C",
-              label = "󰆍 Console [C]",
-              short_label = "󰆍 [C]",
-            },
-          },
-          custom_sections = {},
           controls = {
             enabled = true,
             position = "right",
