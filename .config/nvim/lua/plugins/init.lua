@@ -33,10 +33,9 @@ return {
   },
   "tpope/vim-sleuth",
   {
-    "RaafatTurki/hex.nvim",
-    event = "VeryLazy",
+    "DamianVCechov/hexview.nvim",
     config = function()
-      require("hex").setup()
+      require("hexview").setup()
     end,
   },
   {

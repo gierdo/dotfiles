@@ -241,6 +241,7 @@ tools=(
   "pysentry-rs"
   "git+https://github.com/oraios/serena"
   "virtualenv"
+  "visidata"
 )
 
 for tool in "${tools[@]}"; do
