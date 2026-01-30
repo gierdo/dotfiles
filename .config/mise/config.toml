@@ -15,6 +15,7 @@ trivy = "0.68.2"
 neovim = "0.11.6"
 cmake = "4.2.3"
 gradle = "9.3"
+glab = "1.82.0"
 
 [settings]
 fetch_remote_versions_cache = "365d"
