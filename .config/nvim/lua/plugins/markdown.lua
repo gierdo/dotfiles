@@ -53,19 +53,6 @@ return {
           min_chars = 2,
         },
 
-        ---
-        ---@param url string
-        follow_url_func = function(url)
-          vim.ui.open(url)
-        end,
-
-        -- Optional, by default when you use `:ObsidianFollowLink` on a link to an image
-        -- file it will be ignored but you can customize this behavior here.
-        ---@param img string
-        follow_img_func = function(img)
-          vim.fn.jobstart({ "xdg-open", img }) -- linux
-        end,
-
         -- Either 'wiki' or 'markdown'.
         preferred_link_style = "markdown",
 
