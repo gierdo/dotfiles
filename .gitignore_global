@@ -5,19 +5,20 @@ compile_commands.json
 .conan
 .envrc
 .factorypath
+.kiro
 .metals
 .mise.toml
+mise.toml
 node_modules
 .nvimlog
 .nvim.lua
 .project
 .python-version
-.settings
 .serena
+.settings
 tags
 .tool-versions
 .vim
-mise.toml
 
 # LaTeX
 *.fdb_latexmk
