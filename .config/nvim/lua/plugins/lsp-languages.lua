@@ -14,41 +14,19 @@ local configure_lsps = function()
   -- This is an attempt to use ty and pyrefly in parallel, without both of them interfering and resulting in double completion, double-go-to-definition etc.
 
   ---@param client vim.lsp.Client
-  local ty_on_init = function(client)
-    client.server_capabilities.callHierarchyProvider = false
-    client.server_capabilities.completionProvider = false
-    client.server_capabilities.inlineCompletionProvider = false
-    client.server_capabilities.inlineValueProvider = false
-    client.server_capabilities.declarationProvider = false
-    client.server_capabilities.definitionProvider = false
-    client.server_capabilities.implementationProvider = false
-    client.server_capabilities.inlayHintProvider = false
-    client.server_capabilities.signatureHelpProvider = false
-    client.server_capabilities.hoverProvider = false
-    client.server_capabilities.referencesProvider = false
-    client.server_capabilities.codeActionProvider = false
-  end
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
-    on_init = { ty_on_init },
     settings = {
       ty = {
-        disableLanguageServices = false,
+        disableLanguageServices = true,
         diagnosticMode = "workspace",
-        experimental = {
-          rename = true,
-        },
       },
     },
   })
 
   ---@param client vim.lsp.Client
-  local pyrefly_on_init = function(client)
-    client.server_capabilities.renameProvider = false
-  end
   vim.lsp.config("pyrefly", {
     capabilities = lsp_capabilities,
-    on_init = { pyrefly_on_init },
     settings = {
       python = {
         pyrefly = {
