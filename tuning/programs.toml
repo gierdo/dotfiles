@@ -65,10 +65,11 @@ argv = [
 type = "installergo"
 name = "Install go dependencies"
 packages = [
+  "github.com/bazelbuild/bazelisk",
   "github.com/Gelio/go-global-update",
   "github.com/google/yamlfmt/cmd/yamlfmt",
   "github.com/jesseduffield/lazydocker",
-  "github.com/bazelbuild/bazelisk",
+  "github.com/pranshuparmar/witr/cmd/witr",
   "golang.org/x/lint/golint",
   "golang.org/x/tools/cmd/goimports",
   "golang.org/x/tools/gopls",
@@ -224,18 +225,13 @@ argv = [
 
 tools=(
   "autopep8"
-  "bandit"
-  "basedpyright"
   "black"
   "cfn-lint"
   "debugpy"
   "flake8"
-  "graph-sitter"
-  "jedi-language-server"
   "podman-compose"
   "poetry"
   "pylint"
-  "pyright"
   "pytype"
   "pysentry-rs"
   "git+https://github.com/oraios/serena"
