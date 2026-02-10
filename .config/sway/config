@@ -36,6 +36,7 @@ input type:pointer {
 set $term wezterm
 
 focus_follows_mouse no
+focus_on_window_activation smart
 
 # Remove titlebar
 for_window [class=".*"] titlebar hide
