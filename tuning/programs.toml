@@ -136,8 +136,7 @@ crates = [
   "pay-respects-module-runtime-rules",
   "ripgrep",
   "tree-sitter-cli",
-  "yazi-fm",
-  "yazi-cli",
+  "yazi-build",
   "zoxide",
 ]
 state = "present"
