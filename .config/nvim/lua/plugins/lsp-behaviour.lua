@@ -260,6 +260,41 @@ return {
       vim.keymap.set({ "n", "x" }, "<leader>xf", function()
         require("rulebook").suppressFormatter()
       end, { desc = "Suppress formatter" })
+
+      vim.api.nvim_create_user_command("OpenDiagnosticLink", function()
+        local line = vim.fn.line(".") - 1
+        local diags = vim.diagnostic.get(0, { lnum = line })
+
+        local items = {}
+
+        for _, d in ipairs(diags) do
+          local lsp = d.user_data and d.user_data.lsp
+          local cd = lsp and lsp.codeDescription
+          if cd and cd.href then
+            table.insert(items, {
+              label = string.format("%s — %s", d.code or "?", d.message),
+              url = cd.href,
+            })
+          end
+        end
+
+        if #items == 0 then
+          return
+        end
+
+        vim.ui.select(items, {
+          prompt = "Open diagnostic link",
+          format_item = function(item)
+            return item.label
+          end,
+        }, function(choice)
+          if choice then
+            vim.ui.open(choice.url)
+          end
+        end)
+      end, { desc = "Open diagnostic link" })
+
+      vim.keymap.set("n", "<leader>xD", "<cmd>OpenDiagnosticLink<CR>", { desc = "Open diagnostic link" })
     end,
   },
   {
