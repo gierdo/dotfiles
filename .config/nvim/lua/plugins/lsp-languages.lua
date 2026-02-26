@@ -14,17 +14,6 @@ local configure_lsps = function()
   -- This is an attempt to use ty and pyrefly in parallel, without both of them interfering and resulting in double completion, double-go-to-definition etc.
 
   ---@param client vim.lsp.Client
-  vim.lsp.config("ty", {
-    capabilities = lsp_capabilities,
-    settings = {
-      ty = {
-        disableLanguageServices = true,
-        diagnosticMode = "workspace",
-      },
-    },
-  })
-
-  ---@param client vim.lsp.Client
   vim.lsp.config("pyrefly", {
     capabilities = lsp_capabilities,
     settings = {
@@ -248,7 +237,6 @@ return {
           "taplo",
           "texlab",
           "ts_ls",
-          "ty",
           "yamlls",
         },
         automatic_enable = true,
