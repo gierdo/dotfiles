@@ -56,7 +56,8 @@ reveal = [
 	{ run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
 ]
 extract = [
-	{ run = "ya pub extract --list %s", desc = "Extract here" },
+	{ run = 'ouch d -y "%*"', desc = "Extract here with ouch", for = "windows" },
+	{ run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
 ]
 download = [
 	{ run = "ya emit download --open %S", desc = "Download and open" },
@@ -107,6 +108,10 @@ prepend_previewers = [
 	{ mime = "application/x-rar",           run = "ouch" },
     { mime = "application/x-xz",            run = "ouch" },
 	{ mime = "application/xz",              run = "ouch" },
+]
+prepend_fetchers = [
+    {id = "git", url = "*", run = "git"},
+    {id = "git", url = "*/", run = "git"},
 ]
 fetchers = [
 	# Mimetype
