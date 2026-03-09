@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BIN_PATH="${HOME}/.local/share/reposense/"
+BIN_JAR="bfg.jar"
+
+BIN_SOURCE_JAR="https://github.com/reposense/RepoSense/releases/download/v4.0/RepoSense.jar"
+
+mkdir -p "$BIN_PATH"
+if [ ! -f "$BIN_PATH/$BIN_JAR" ] || [ "$*" = "--update" ]; then
+  wget -O "${BIN_PATH}/$BIN_JAR" "$BIN_SOURCE_JAR"
+fi
+
+java -jar "${BIN_PATH}/$BIN_JAR" "$@"
