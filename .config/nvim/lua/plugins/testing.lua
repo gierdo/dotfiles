@@ -35,7 +35,6 @@ return {
             end,
           }),
 
-          require("neotest-vim-test")({ ignore_filetypes = { "python", "java", "typescript", "javascript", "go" } }),
           require("neotest-gradle"),
           require("neotest-java")({
             ignore_filetypes = { "kotlin" },
@@ -84,9 +83,6 @@ return {
       "nvim-neotest/neotest-python",
       "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
-      { "nvim-neotest/neotest-vim-test", dependencies = {
-        "vim-test/vim-test",
-      } },
       "Issafalcon/neotest-dotnet",
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
