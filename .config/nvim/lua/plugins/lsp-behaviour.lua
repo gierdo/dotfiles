@@ -315,11 +315,23 @@ return {
           "Variable",
         },
       })
-      vim.keymap.set("n", "<F8>", "<cmd>AerialToggle!<CR>")
+      vim.keymap.set(
+        "n",
+        "<F8>",
+        "<cmd>AerialToggle!<CR>",
+        { desc = "Aerial sidebar, symbol definition and structure" }
+      )
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
+  },
+  {
+    "Sang-it/fluoride",
+    config = function()
+      require("fluoride").setup()
+      vim.keymap.set("n", "<F7>", "<cmd>Fluoride<cr>", { desc = "Fluoride, symbol definition renaming and reordering" })
+    end,
   },
 }

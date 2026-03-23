@@ -14,6 +14,7 @@
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "2d7c2db2507fa3c4956142ee607431ddb2828639" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
+  "fluoride": { "branch": "main", "commit": "e15ff7e0258e98226bc8bb50c657ca9e1c53897f" },
   "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
   "fzf": { "branch": "master", "commit": "14e3995a06e6a92a48d982c45f48595be1199002" },
   "gentags.nvim": { "branch": "main", "commit": "b0f5096a534e8d41b6792c0bd1c9a60e78f11c37" },
