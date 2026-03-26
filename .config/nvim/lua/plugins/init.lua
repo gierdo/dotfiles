@@ -107,6 +107,8 @@ return {
     config = function()
       vim.cmd([[
 			let g:openbrowser_browser_commands = [
+				\ {"name": "brave",
+				\  "args": ["{browser}", "{uri}"]},
 				\ {"name": "xdg-open",
 				\  "args": ["{browser}", "{uri}"]},
 				\ {"name": "x-www-browser",

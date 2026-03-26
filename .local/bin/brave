@@ -1,0 +1,15 @@
+#!/bin/bash
+
+export FLATPAK_PACKAGE=com.brave.Browser
+
+if ! command -v flatpak &>/dev/null; then
+  echo "Please install flatpak"
+  exit 1
+fi
+
+if ! flatpak info "${FLATPAK_PACKAGE}" &>/dev/null; then
+  echo "Please install com.brave.Browser: flatpak install com.brave.Browser"
+  flatpak install "${FLATPAK_PACKAGE}"
+fi
+
+flatpak run "${FLATPAK_PACKAGE}" "$@"

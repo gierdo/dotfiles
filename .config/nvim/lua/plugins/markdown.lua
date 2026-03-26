@@ -147,6 +147,7 @@ return {
     config = function()
       os.execute("systemctl --user start plantuml")
       vim.cmd([[
+      let g:mkdp_browser = "brave"
       let g:mkdp_auto_close = 0
       let g:mkdp_filetypes = ['markdown']
       let g:mkdp_preview_options = {
