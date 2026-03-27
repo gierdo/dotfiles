@@ -16,6 +16,17 @@ replaced with symlinks to the dotfiles file.
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
 
+## System dependencies
+
+The dotfiles have a number of system dependencies that have to be installed for
+everything to fully work.
+
+An incomplete list is
+
+- sway
+- tmux
+- cbonsai, libgr1.2-gtklayershell, libgtk-layer-shell, gr1.2-vte (animated background)
+
 ## Container images
 
 The Repository and related ghcr.io namespace contains container images that are

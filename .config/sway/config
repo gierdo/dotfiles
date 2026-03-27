@@ -62,4 +62,6 @@ include ~/.config/sway/workspace_config
 # include local config, if it exists
 include ~/.sway.local
 
-output "*" bg ~/.dotfiles/themes/wallpaper.png fill
+
+# Start cbonsai as wallpaper on the background layer
+exec_always ~/.dotfiles/.config/sway/scripts/start-wallpaper.sh
