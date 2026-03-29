@@ -4,13 +4,13 @@
 import sys
 
 import gi
+from gi.repository import Gdk, GLib, Gtk, GtkLayerShell, Vte
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Vte", "2.91")
 gi.require_version("GtkLayerShell", "0.1")
 
-from gi.repository import Gdk, GLib, Gtk, GtkLayerShell, Vte
 
 windows = []
 
@@ -20,8 +20,12 @@ def make_window(monitor, cmd):
     GtkLayerShell.init_for_window(win)
     GtkLayerShell.set_monitor(win, monitor)
     GtkLayerShell.set_layer(win, GtkLayerShell.Layer.BACKGROUND)
-    for edge in (GtkLayerShell.Edge.TOP, GtkLayerShell.Edge.BOTTOM,
-                 GtkLayerShell.Edge.LEFT, GtkLayerShell.Edge.RIGHT):
+    for edge in (
+        GtkLayerShell.Edge.TOP,
+        GtkLayerShell.Edge.BOTTOM,
+        GtkLayerShell.Edge.LEFT,
+        GtkLayerShell.Edge.RIGHT,
+    ):
         GtkLayerShell.set_anchor(win, edge, True)
     GtkLayerShell.set_exclusive_zone(win, -1)
 
@@ -33,12 +37,27 @@ def make_window(monitor, cmd):
         return c
 
     # Solarized dark palette (16 colors)
-    palette = [rgba(h) for h in (
-        "#073642", "#dc322f", "#859900", "#b58900",  # black, red, green, yellow
-        "#268bd2", "#d33682", "#2aa198", "#eee8d5",  # blue, magenta, cyan, white
-        "#002b36", "#cb4b16", "#586e75", "#657b83",  # brblack, brred, brgreen, bryellow
-        "#839496", "#6c71c4", "#93a1a1", "#fdf6e3",  # brblue, brmagenta, brcyan, brwhite
-    )]
+    palette = [
+        rgba(h)
+        for h in (
+            "#073642",
+            "#dc322f",
+            "#859900",
+            "#b58900",  # black, red, green, yellow
+            "#268bd2",
+            "#d33682",
+            "#2aa198",
+            "#eee8d5",  # blue, magenta, cyan, white
+            "#002b36",
+            "#cb4b16",
+            "#586e75",
+            "#657b83",  # brblack, brred, brgreen, bryellow
+            "#839496",
+            "#6c71c4",
+            "#93a1a1",
+            "#fdf6e3",  # brblue, brmagenta, brcyan, brwhite
+        )
+    ]
     term.set_colors(rgba("#839496"), rgba("#002b36"), palette)
 
     term.connect("child-exited", lambda *_: win.destroy())
@@ -47,8 +66,16 @@ def make_window(monitor, cmd):
 
     def spawn_once(*_):
         term.spawn_async(
-            Vte.PtyFlags.DEFAULT, None, cmd, None,
-            GLib.SpawnFlags.SEARCH_PATH, None, None, -1, None, None,
+            Vte.PtyFlags.DEFAULT,
+            None,
+            cmd,
+            None,
+            GLib.SpawnFlags.SEARCH_PATH,
+            None,
+            None,
+            -1,
+            None,
+            None,
         )
         return False  # run only once
 
