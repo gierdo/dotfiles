@@ -4,13 +4,13 @@
 import sys
 
 import gi
-from gi.repository import Gdk, GLib, Gtk, GtkLayerShell, Vte
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Vte", "2.91")
 gi.require_version("GtkLayerShell", "0.1")
 
+from gi.repository import Gdk, GLib, Gtk, GtkLayerShell, Vte
 
 windows = []
 
