@@ -2,6 +2,19 @@
   "$schema": "https://opencode.ai/config.json",
   // Theme configuration
   "theme": "solarized",
+  "mcp": {
+    "1mcp": {
+      "command": ["npx",
+        "-y",
+        "@1mcp/agent",
+        "--transport=stdio",
+        "--enable-auth"
+      ],
+      "type": "local",
+      "timeout": 120000,
+      "enabled": true
+    },
+  },
   "provider": {
     "kiro": {
       "name": "Kiro",

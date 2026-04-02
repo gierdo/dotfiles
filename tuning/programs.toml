@@ -82,8 +82,10 @@ state = "latest"
 name = "install npm dependencies"
 type = "installernpm"
 packages = [
+  "@1mcp/agent",
   "bash-language-server",
   "@bufbuild/buf",
+  "bun",
   "concurrently",
   "copy",
   "cross-spawn",
@@ -96,6 +98,7 @@ packages = [
   "libcipm",
   "libnpmpublish",
   "lstat",
+  "@mistweaverco/kulala-ls",
   "mkdirp",
   "neovim",
   "node-gyp",
@@ -109,7 +112,6 @@ packages = [
   "which",
   "yaml-language-server",
   "yarn",
-  "@mistweaverco/kulala-ls",
 ]
 state = "present"
 
