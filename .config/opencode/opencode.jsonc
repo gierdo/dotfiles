@@ -3,6 +3,15 @@
   // Theme configuration
   "theme": "solarized",
   "provider": {
+    "kiro": {
+      "name": "Kiro",
+      "models": {
+        "auto": {
+          "name": "Auto",
+          "family":"claude-sonnet"
+        }
+      }
+    },
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama-cpp",
