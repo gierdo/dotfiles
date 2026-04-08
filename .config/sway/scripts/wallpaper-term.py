@@ -93,7 +93,7 @@ def make_window(monitor, cmd):
 
 
 def main():
-    cmd = sys.argv[1:] or ["cbonsai", "-l", "-i", "-b", "1", "-L", "50"]
+    cmd = sys.argv[1:] or ["cbonsai", "-l", "-i", "-b", "1", "-L", "50", "-t", "0.6"]
 
     display = Gdk.Display.get_default()
 
