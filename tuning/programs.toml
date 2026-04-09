@@ -125,6 +125,7 @@ crates = [
   "atuin",
   "bandwhich",
   "cargo-updater",
+  "ci",
   "eza",
   "fd-find",
   "git-delta",
