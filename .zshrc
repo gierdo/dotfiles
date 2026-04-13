@@ -71,7 +71,6 @@ plugins=(
   mise
   mvn
   npm
-  pipenv
   uv
   rust
   toolbox
