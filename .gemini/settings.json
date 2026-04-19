@@ -1,0 +1,9 @@
+{
+  "ui":{
+  "theme": "Solarized Dark"},
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
+}
