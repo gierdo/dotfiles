@@ -1,9 +1,17 @@
 {
-  "ui":{
-  "theme": "Solarized Dark"},
+  "ui": {
+    "theme": "Solarized Dark"
+  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
+    }
+  },
+  "mcpServers": {
+    "1mcp": {
+      "command": "npx -y @1mcp/agent --transport=stdio --enable-auth",
+      "timeout": 120000,
+      "trust": true
     }
   }
 }
