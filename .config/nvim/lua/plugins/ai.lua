@@ -36,7 +36,7 @@ return {
         -- { "claude_code", "claude" },
       }
 
-      local acp = { opts = { show_presets = false } }
+      local acp = { opts = { show_presets = false }, defaults = { mcpServers = "inherit_from_config" } }
       local first_available
       for _, agent in ipairs(acp_agents) do
         if vim.fn.executable(agent[2]) == 1 then
@@ -55,19 +55,6 @@ return {
         },
         adapters = {
           acp = acp,
-        },
-        mcp = {
-          servers = {
-            ["1mcp"] = {
-              cmd = {
-                "npx",
-                "-y",
-                "@1mcp/agent",
-                "--transport=stdio",
-                "--enable-auth",
-              },
-            },
-          },
         },
       }
     end,
