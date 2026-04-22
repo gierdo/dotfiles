@@ -82,6 +82,13 @@ return {
         interactions = {
           chat = {
             adapter = first_available or "kiro",
+            editor_context = {
+              ["buffer"] = {
+                opts = {
+                  default_param = "diff",
+                },
+              },
+            },
           },
         },
         adapters = {
