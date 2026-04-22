@@ -10,13 +10,7 @@ return {
         "<A-a>",
         "<cmd>CodeCompanionChat Toggle<cr>",
         desc = "CodeCompanion Toggle",
-        mode = { "n", "t", "i" },
-      },
-      {
-        "<A-a>",
-        "<cmd>CodeCompanionChat Add<cr>",
-        desc = "CodeCompanion Add Selection",
-        mode = { "x" },
+        mode = { "n", "t", "i", "x" },
       },
       {
         "<A-i>",
