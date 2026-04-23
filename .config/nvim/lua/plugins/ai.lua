@@ -79,6 +79,14 @@ return {
       end
 
       return {
+        display = {
+          chat = {
+            intro_message = "Using AI for this may turn you into a 🦄 or a 🤡! Which will it be today?",
+            window = {
+              sticky = true,
+            },
+          },
+        },
         interactions = {
           chat = {
             adapter = first_available or "kiro",
