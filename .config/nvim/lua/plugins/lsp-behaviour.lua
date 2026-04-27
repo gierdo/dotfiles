@@ -334,4 +334,38 @@ return {
       vim.keymap.set("n", "<F7>", "<cmd>Fluoride<cr>", { desc = "Fluoride, symbol definition renaming and reordering" })
     end,
   },
+  {
+    "error311/wayfinder.nvim",
+    config = function()
+      require("wayfinder").setup({
+        performance = "fast",
+        layout = {
+          width = 0.95,
+          height = 0.95,
+        },
+        scope = {
+          mode = "package",
+          package_markers = {
+            "package.json",
+            "tsconfig.json",
+            "pyproject.toml",
+            "go.mod",
+            "Cargo.toml",
+            ".git",
+          },
+        },
+        limits = {
+          refs = { max_results = 200 },
+          text = { enabled = true, max_results = 100, timeout_ms = 800 },
+          tests = { max_results = 50, timeout_ms = 700 },
+          git = { enabled = true, max_commits = 25, timeout_ms = 400 },
+        },
+      })
+      vim.keymap.set("n", "<leader>wf", "<Plug>(WayfinderOpen)", { desc = "Wayfinder" })
+      vim.keymap.set("n", "<leader>wtn", "<Plug>(WayfinderTrailNext)", { desc = "Wayfinder Trail Next" })
+      vim.keymap.set("n", "<leader>wtp", "<Plug>(WayfinderTrailPrev)", { desc = "Wayfinder Trail Prev" })
+      vim.keymap.set("n", "<leader>wto", "<Plug>(WayfinderTrailOpen)", { desc = "Wayfinder Trail Open" })
+      vim.keymap.set("n", "<leader>wts", "<Plug>(WayfinderTrailShow)", { desc = "Wayfinder Trail Show" })
+    end,
+  },
 }

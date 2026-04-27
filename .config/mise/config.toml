@@ -2,7 +2,7 @@
 go = "1.26.2"
 node = "25.9.0"
 java = "adoptopenjdk-24.0.1+9"
-awscli = "2.34.35"
+awscli = "2.34.37"
 direnv = "2.37.1"
 lazygit = "0.56.0"
 github-cli = "2.91.0"
