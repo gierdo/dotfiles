@@ -54,7 +54,9 @@ return {
         },
 
         -- Either 'wiki' or 'markdown'.
-        preferred_link_style = "markdown",
+        link = {
+          style = "markdown",
+        },
 
         frontmatter = { enabled = false },
 
