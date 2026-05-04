@@ -5,42 +5,13 @@ local configure_lsps = function()
     capabilities = lsp_capabilities,
   })
 
-  -- I want to use ty and pyrefly, but for different things.
-  --
-  -- e.g.:
-  -- - ty has relatively useless autoimport and less support for pydantic
-  -- - pyrefly has relatively useless renaming, it can't rename functions
-  --
-  -- This is an attempt to use ty and pyrefly in parallel, without both of them interfering and resulting in double completion, double-go-to-definition etc.
   ---@param client vim.lsp.Client
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
     settings = {
       ty = {
-        disableLanguageServices = true,
+        disableLanguageServices = false,
         diagnosticMode = "workspace",
-      },
-    },
-  })
-
-  ---@param client vim.lsp.Client
-  vim.lsp.config("pyrefly", {
-    capabilities = lsp_capabilities,
-    settings = {
-      python = {
-        pyrefly = {
-          disableLanguageServices = false,
-          displayTypeErrors = "force-on",
-        },
-        analysis = {
-          diagnosticMode = "workspace",
-          inlayHints = {
-            callArgumentNames = "all",
-            variableTypes = true,
-            functionReturnTypes = true,
-            pytestParameters = true,
-          },
-        },
       },
     },
   })
@@ -240,7 +211,6 @@ return {
           "lemminx",
           "lua_ls",
           "marksman",
-          "pyrefly",
           "ty",
           "ruff",
           "rust_analyzer",
