@@ -1,5 +1,7 @@
 local lsp_capabilities = require("blink.cmp").get_lsp_capabilities(nil, true)
 
+lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
 local configure_lsps = function()
   vim.lsp.config("*", {
     capabilities = lsp_capabilities,
