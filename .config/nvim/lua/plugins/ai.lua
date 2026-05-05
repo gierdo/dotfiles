@@ -5,21 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    keys = {
-      {
-        "<A-a>",
-        "<cmd>CodeCompanionChat Toggle<cr>",
-        desc = "CodeCompanion Toggle",
-        mode = { "n", "t", "i", "x" },
-      },
-      {
-        "<A-i>",
-        "<cmd>CodeCompanionActions<cr>",
-        desc = "CodeCompanion Actions",
-        mode = { "n", "t", "i", "x" },
-      },
-    },
-    init = function()
+    config = function()
       -- If new buffers are opened or jumps being triggered while focus is on codecompanion, the action should be triggered outside of the codecompanion buffer
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "codecompanion",
@@ -55,54 +41,73 @@ return {
           })
         end,
       })
-    end,
-    opts = function()
-      -- ACP adapters: { adapter_name, executable }
-      -- Add new CLI agents here to have them auto-detected
-      local acp_agents = {
-        { "kiro", "kiro-cli" },
-        { "gemini_cli", "gemini" },
-        -- { "opencode", "opencode" },
-        -- { "codex", "codex" },
-        -- { "claude_code", "claude" },
-      }
 
-      local acp = { opts = { show_presets = false }, defaults = { mcpServers = "inherit_from_config" } }
-      local first_available
-      for _, agent in ipairs(acp_agents) do
-        if vim.fn.executable(agent[2]) == 1 then
-          acp[agent[1]] = agent[1]
-          if not first_available then
-            first_available = agent[1]
+      local opts = function()
+        -- ACP adapters: { adapter_name, executable }
+        -- Add new CLI agents here to have them auto-detected
+        local acp_agents = {
+          { "kiro", "kiro-cli" },
+          { "gemini_cli", "gemini" },
+          -- { "opencode", "opencode" },
+          -- { "codex", "codex" },
+          -- { "claude_code", "claude" },
+        }
+
+        local acp = { opts = { show_presets = false }, defaults = { mcpServers = "inherit_from_config" } }
+        local first_available
+        for _, agent in ipairs(acp_agents) do
+          if vim.fn.executable(agent[2]) == 1 then
+            acp[agent[1]] = agent[1]
+            if not first_available then
+              first_available = agent[1]
+            end
           end
         end
-      end
 
-      return {
-        display = {
-          chat = {
-            intro_message = "Using AI for this may turn you into a 🦄 or a 🤡! Which will it be today?",
-            window = {
-              sticky = true,
+        return {
+          display = {
+            chat = {
+              intro_message = "Using AI for this may turn you into a 🦄 or a 🤡! Which will it be today?",
+              window = {
+                sticky = true,
+              },
             },
           },
-        },
-        interactions = {
-          chat = {
-            adapter = first_available or "kiro",
-            editor_context = {
-              ["buffer"] = {
-                opts = {
-                  default_param = "diff",
+          interactions = {
+            chat = {
+              adapter = first_available or "kiro",
+              editor_context = {
+                ["buffer"] = {
+                  opts = {
+                    default_param = "diff",
+                  },
                 },
               },
             },
           },
-        },
-        adapters = {
-          acp = acp,
-        },
-      }
+          prompt_library = {
+            markdown = {
+              dirs = {
+                "~/.dotfiles/.config/codecompanion/prompts",
+              },
+            },
+          },
+          adapters = {
+            acp = acp,
+          },
+        }
+      end
+
+      require("codecompanion").setup(opts())
+
+      vim.keymap.set({ "n", "t", "i" }, "<A-a>", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "CodeCompanion Toggle" })
+      vim.keymap.set({ "x" }, "<A-a>", "<cmd>CodeCompanionChat Add<cr>", { desc = "CodeCompanion add selection" })
+      vim.keymap.set(
+        { "n", "t", "i", "x" },
+        "<A-i>",
+        "<cmd>CodeCompanionActions<cr>",
+        { desc = "CodeCompanion Actions" }
+      )
     end,
   },
 }
