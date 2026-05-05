@@ -46,7 +46,55 @@ return {
       "folke/which-key.nvim",
     },
     config = function()
-      require("todo-comments").setup()
+      require("todo-comments").setup({
+        keywords = {
+          FIX = { icon = "", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+          TODO = { icon = "󱑀", color = "info" },
+          HACK = { icon = "", color = "warning" },
+          WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+          PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          NOTE = { icon = "󱓧", color = "hint", alt = { "INFO" } },
+          TEST = { icon = "󰙨", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+          TRACE = { icon = "", color = "warning", alt = { "TRACK", "INVESTIGATION" } },
+        },
+        signs = true,
+        sign_priority = 8,
+        gui_style = { fg = "BOLD", bg = "BOLD" },
+        merge_keywords = true,
+        highlight = {
+          multiline = true,
+          multiline_pattern = "^.",
+          multiline_context = 15,
+          before = "fg",
+          keyword = "bg",
+          after = "fg",
+          pattern = [[.*<(KEYWORDS)\s*(\(.*\))?:]],
+          comments_only = true,
+          max_line_len = 200,
+          exclude = {},
+        },
+        colors = {
+          error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+          warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
+          info = { "DiagnosticInfo", "#0D2A6B" },
+          hint = { "DiagnosticHint", "#10B981" },
+          default = { "Identifier", "#7C3AED" },
+          test = { "Identifier", "#FF00FF" },
+        },
+        search = {
+          command = "rg",
+          args = {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+          },
+          -- regex that will be used to match keywords.
+          -- don't replace the (KEYWORDS) placeholder
+          pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+        },
+      })
 
       local wk = require("which-key")
       wk.add({
