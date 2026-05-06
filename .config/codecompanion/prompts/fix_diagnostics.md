@@ -20,6 +20,6 @@ File context: #{buffer}
 
 The programming language is ${context.filetype}. This is a list of the diagnostic messages:
 
-${lsp.diagnostics}
+#{diagnostics}
 
 Please fix the underlying issues.
