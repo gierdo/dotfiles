@@ -76,6 +76,7 @@ plugins=(
   toolbox
   universalarchive
   virtualenv
+  vi-mode
 )
 
 # User configuration
