@@ -274,11 +274,6 @@ return {
     end,
   },
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
-  {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     config = function()

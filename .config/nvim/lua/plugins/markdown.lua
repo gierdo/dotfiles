@@ -324,4 +324,18 @@ return {
       { "<leader>mp", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
     },
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      pipe_table = {
+        enabled = false,
+      },
+    },
+  },
+  {
+    "ice345/markdown-table-wrap.nvim",
+    ft = "markdown",
+    opts = {},
+  },
 }
