@@ -2,7 +2,7 @@
 go = "1.26.3"
 node = "26.1.0"
 java = "adoptopenjdk-24.0.1+9"
-awscli = "2.34.48"
+awscli = "2.34.53"
 direnv = "2.37.1"
 lazygit = "0.56.0"
 github-cli = "2.92.0"
@@ -12,9 +12,9 @@ yq = "4.53.2"
 eza = "0.23.4"
 dotnet = "10.0.300"
 neovim = "0.12.2"
-cmake = "4.3.2"
+cmake = "4.3.3"
 gradle = "9.5"
-glab = { version = "1.97.0", exe = "glab" }
+glab = { version = "1.99.0", exe = "glab" }
 
 [settings]
 fetch_remote_versions_cache = "365d"
