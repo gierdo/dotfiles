@@ -11,4 +11,6 @@ else
   echo "Update plantuml with --update"
 fi
 
+export PLANTUML_LIMIT_SIZE=256000
+
 java -jar "${PLANTUML_PATH}/$PLANTUML_JAR" "$@"
