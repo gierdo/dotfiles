@@ -8,12 +8,56 @@ local configure_lsps = function()
   })
 
   ---@param client vim.lsp.Client
+  local ty_on_init = function(client)
+    client.server_capabilities.callHierarchyProvider = false
+    client.server_capabilities.completionProvider = false
+    client.server_capabilities.inlineCompletionProvider = false
+    client.server_capabilities.inlineValueProvider = false
+    client.server_capabilities.declarationProvider = false
+    client.server_capabilities.definitionProvider = false
+    client.server_capabilities.implementationProvider = false
+    client.server_capabilities.inlayHintProvider = false
+    client.server_capabilities.signatureHelpProvider = false
+    client.server_capabilities.hoverProvider = false
+    client.server_capabilities.referencesProvider = false
+    client.server_capabilities.codeActionProvider = false
+  end
   vim.lsp.config("ty", {
     capabilities = lsp_capabilities,
+    on_init = { ty_on_init },
     settings = {
       ty = {
         disableLanguageServices = false,
         diagnosticMode = "workspace",
+        experimental = {
+          rename = true,
+        },
+      },
+    },
+  })
+
+  ---@param client vim.lsp.Client
+  local pyrefly_on_init = function(client)
+    client.server_capabilities.renameProvider = false
+  end
+  vim.lsp.config("pyrefly", {
+    capabilities = lsp_capabilities,
+    on_init = { pyrefly_on_init },
+    settings = {
+      python = {
+        pyrefly = {
+          disableLanguageServices = false,
+          displayTypeErrors = "force-on",
+        },
+        analysis = {
+          diagnosticMode = "workspace",
+          inlayHints = {
+            callArgumentNames = "all",
+            variableTypes = true,
+            functionReturnTypes = true,
+            pytestParameters = true,
+          },
+        },
       },
     },
   })
@@ -213,6 +257,7 @@ return {
           "lemminx",
           "lua_ls",
           "marksman",
+          "pyrefly",
           "ty",
           "ruff",
           "rust_analyzer",
