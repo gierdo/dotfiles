@@ -47,12 +47,6 @@ return {
           },
         },
 
-        completion = { ---@diagnostic disable-line: missing-fields
-          nvim_cmp = false,
-          blink = true,
-          min_chars = 2,
-        },
-
         -- Either 'wiki' or 'markdown'.
         link = {
           style = "markdown",
