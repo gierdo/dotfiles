@@ -76,6 +76,22 @@ return {
           interactions = {
             chat = {
               adapter = first_available or "kiro",
+              opts = {
+                prompt_decorator = function(content, adapter)
+                  -- The ACP adapter doesn't allow extending or overriding the system prompt. We have to inject what we want in the first user prompt.
+                  if adapter.type ~= "acp" or adapter._cc_preprompt_sent then
+                    return content
+                  end
+                  adapter._cc_preprompt_sent = true
+                  local f = io.open(vim.fn.expand("~/.dotfiles/.config/codecompanion/system_prompt.md"), "r")
+                  if not f then
+                    return content
+                  end
+                  local prompt = f:read("*a")
+                  f:close()
+                  return prompt .. "\n\n---\n\n" .. content
+                end,
+              },
               editor_context = {
                 ["buffer"] = {
                   opts = {
