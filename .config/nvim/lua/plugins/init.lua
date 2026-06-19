@@ -1,4 +1,12 @@
 return {
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000, -- high priority required, luarocks.nvim should run as the first plugin in your config
+    lazy = false,
+    opts = {
+      rocks = { "luautf8", "dkjson" }, -- specifies a list of rocks to install as dependencies for other plugins
+    },
+  },
   { "nvim-lua/plenary.nvim", lazy = true }, -- lua base library
   {
     "folke/which-key.nvim",
@@ -276,6 +284,11 @@ return {
       { "e", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "o", "x" } },
       { "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "o", "x" } },
       { "ge", "<cmd>lua require('spider').motion('ge')<CR>", mode = { "n", "o", "x" } },
+    },
+    opts = {
+      rocks = {
+        "luautf8",
+      },
     },
   },
   {

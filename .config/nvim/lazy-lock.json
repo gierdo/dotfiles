@@ -35,6 +35,7 @@
   "lensline.nvim": { "branch": "main", "commit": "93c14465c742511a645bb454db33ddd96f23bf76" },
   "lua-json5": { "branch": "master", "commit": "713407f19e6155579a6594d56e6cfe616fddb39c" },
   "lualine.nvim": { "branch": "master", "commit": "221ce6b2d999187044529f49da6554a92f740a96" },
+  "luarocks.nvim": { "branch": "main", "commit": "1db9093915eb16ba2473cfb8d343ace5ee04130a" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "markdown-table-mode.nvim": { "branch": "main", "commit": "0b768b58ec45afb7cb091175e837b7f5461663af" },
   "markdown.nvim": { "branch": "master", "commit": "093be911d90de03877f3009de36081c1a6242d51" },
