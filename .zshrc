@@ -155,7 +155,7 @@ fi
 if command -v nvim 1>/dev/null 2>&1; then
   # `uv run nvim` is required for the virtualenv setup for python lsp's and nvim python bindings
   alias vim='nvim'
-  alias vimdiff='nvim -n -c "DiffviewOpen"'
+  alias vimdiff='nvim -n -c "CodeDiff"'
   export MANPAGER='nvim +Man!'
 fi
 

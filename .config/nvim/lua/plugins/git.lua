@@ -6,34 +6,19 @@ return {
     end,
   },
   {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
     keys = {
-      { "<leader>gv", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
-      { "<leader>gc", "<cmd>DiffviewClose<CR>", desc = "Close Diffview" },
-      { "<leader>gf", "<cmd>DiffviewToggleFiles<CR>", desc = "Toggle file panel" },
+      { "<leader>gv", "<cmd>CodeDiff<CR>", desc = "Open CodeDiff" },
+      { "<leader>gc", "<cmd>tabclose<CR>", desc = "Close CodeDiff" },
+      { "<leader>gf", "<cmd>CodeDiff history<CR>", desc = "File history" },
     },
-    config = function()
-      require("diffview").setup({
-        enhanced_diff_hl = true,
-        use_icons = true,
-        view = {
-          layout = "diff2_horizontal",
-          disable_diagnostics = true,
-          winbar_info = true,
-        },
-        merge_tool = {
-          layout = "diff3_mixed",
-          disable_diagnostics = true,
-          winbar_info = true,
-        },
-        file_history = {
-          layout = "diff2_horizontal",
-          disable_diagnostics = true,
-          winbar_info = true,
-        },
-      })
-    end,
+    opts = {
+      diff = {
+        layout = "side-by-side",
+        disable_inlay_hints = true,
+      },
+    },
   },
   {
     "FabijanZulj/blame.nvim",
@@ -49,7 +34,7 @@ return {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
+      "esmuellert/codediff.nvim", -- optional - Diff integration
       "nvim-telescope/telescope.nvim", -- optional
     },
     config = true,
@@ -116,7 +101,7 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
+      "sindrets/diffview.nvim", -- Needed as transitive dependency, not active stand-alone
       "stevearc/dressing.nvim",
       "nvim-tree/nvim-web-devicons",
     },

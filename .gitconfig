@@ -1,18 +1,18 @@
 # vim: set ft=ini:
 [mergetool]
   keepBackup = false
-[mergetool "diffview-merge"]
-  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
-[difftool "diffview"]
-  cmd = nvim -n -c "DiffviewOpen"
+[mergetool "codediff-merge"]
+  cmd = nvim -n -c "CodeDiff" "$MERGE"
+[difftool "codediff"]
+  cmd = nvim -n -c "CodeDiff"
 [merge]
-  tool = diffview-merge
+  tool = codediff-merge
 # Custom syntax-aware merge driver
 [merge "mergiraf"]
   name = mergiraf
   driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [diff]
-  tool = diffview
+  tool = codediff
   submodule = diff
   colorMoved = default
 [diff "lfs"]
