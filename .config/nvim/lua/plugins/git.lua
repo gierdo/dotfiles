@@ -96,32 +96,4 @@ return {
       })
     end,
   },
-  {
-    "harrisoncramer/gitlab.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim", -- Needed as transitive dependency, not active stand-alone
-      "stevearc/dressing.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-    build = function()
-      require("gitlab.server").build(true)
-    end, -- Builds the Go binary
-    config = function()
-      local gitlab = require("gitlab")
-      gitlab.setup()
-
-      vim.api.nvim_create_user_command("GitLabChooseMR", function()
-        gitlab.choose_merge_request()
-      end, {
-        desc = "Choose open GitLab merge request for local review",
-      })
-      vim.api.nvim_create_user_command("GitLabReviewMR", function()
-        gitlab.review()
-      end, {
-        desc = "Open merge request for current branch for local review",
-      })
-    end,
-  },
 }
