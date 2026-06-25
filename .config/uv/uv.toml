@@ -1,0 +1,2 @@
+keyring-provider = "subprocess"
+preview-features = ["native-auth"]

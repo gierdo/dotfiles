@@ -420,6 +420,13 @@ path = "{{ home_dir }}/.config/pypoetry/config.toml"
 type = "file"
 state= "link"
 force = true
+src = "{{ home_dir }}/.dotfiles/.config/uv/uv.toml"
+path = "{{ home_dir }}/.config/uv/uv.toml"
+
+[[jobs]]
+type = "file"
+state= "link"
+force = true
 src = "{{ home_dir }}/.dotfiles/.Xdefaults"
 path = "{{ home_dir }}/.Xdefaults"
 

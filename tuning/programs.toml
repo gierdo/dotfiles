@@ -240,6 +240,7 @@ tools=(
   "git+https://github.com/oraios/serena"
   "virtualenv"
   "visidata"
+  "keyring"
 )
 
 for tool in "${tools[@]}"; do
