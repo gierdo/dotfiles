@@ -18,6 +18,9 @@ return {
         layout = "side-by-side",
         disable_inlay_hints = true,
       },
+      highlights = {
+        line_delete = "#4a3536",
+      },
     },
   },
   {
