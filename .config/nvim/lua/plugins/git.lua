@@ -19,6 +19,7 @@ return {
         disable_inlay_hints = true,
       },
       highlights = {
+        line_insert = "#2b3d32",
         line_delete = "#4a3536",
       },
     },
