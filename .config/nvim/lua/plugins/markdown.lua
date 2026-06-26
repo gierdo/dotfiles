@@ -36,6 +36,8 @@ return {
         auto_format = true,
         default_alignment = "left",
         confirm_destructive = true,
+        auto_wrap = true,
+        width_mode = "segment",
         keymaps = {
           enabled = true,
           prefix = "<localleader>t",
