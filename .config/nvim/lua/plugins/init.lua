@@ -24,6 +24,11 @@ return {
     end,
   },
   {
+    "nemanjamalesija/smart-paste.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
+  {
     "scrooloose/nerdcommenter",
     event = "VeryLazy",
     config = function()
