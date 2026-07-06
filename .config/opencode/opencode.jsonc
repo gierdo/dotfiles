@@ -51,4 +51,7 @@
     }
   },
   "autoupdate": true,
+  "plugin": [
+    "opencode-antigravity-auth"
+  ],
 }

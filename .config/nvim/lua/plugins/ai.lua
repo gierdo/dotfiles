@@ -47,8 +47,7 @@ return {
         -- Add new CLI agents here to have them auto-detected
         local acp_agents = {
           { "kiro", "kiro-cli" },
-          { "gemini_cli", "gemini" },
-          -- { "opencode", "opencode" },
+          { "opencode", "opencode" },
           -- { "codex", "codex" },
           -- { "claude_code", "claude" },
         }
