@@ -340,4 +340,13 @@ return {
       vim.lsp.enable("jdtls")
     end,
   },
+  {
+    -- Python import rewrite-sidecar after refactoring
+    "AlexanderFarkas/pyimp.nvim",
+    ft = "python",
+    build = "./scripts/install.sh",
+    config = function()
+      require("pyimp").setup()
+    end,
+  },
 }
