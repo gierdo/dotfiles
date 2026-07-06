@@ -8,6 +8,27 @@ return {
   {
     "esmuellert/codediff.nvim",
     cmd = "CodeDiff",
+    init = function()
+      vim.api.nvim_create_autocmd("User", {
+        -- lensline distorts vertical space by adding virtual line breaks, which fuddles up vertical sync in the diff
+        pattern = "CodeDiffOpen",
+        callback = function()
+          local ok, lensline = pcall(require, "lensline")
+          if ok then
+            lensline.hide()
+          end
+        end,
+      })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "CodeDiffClose",
+        callback = function()
+          local ok, lensline = pcall(require, "lensline")
+          if ok then
+            lensline.show()
+          end
+        end,
+      })
+    end,
     keys = {
       { "<leader>gv", "<cmd>CodeDiff<CR>", desc = "Open CodeDiff" },
       { "<leader>gc", "<cmd>tabclose<CR>", desc = "Close CodeDiff" },
