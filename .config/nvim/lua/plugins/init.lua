@@ -81,7 +81,7 @@ return {
           before = "fg",
           keyword = "bg",
           after = "fg",
-          pattern = [[.*<(KEYWORDS)\s*(\(.*\))?:]],
+          pattern = [[.*<(KEYWORDS)\s*%(\(.*\)|\[.*\]|\{.*\})?:]],
           comments_only = true,
           max_line_len = 200,
           exclude = {},
@@ -105,7 +105,7 @@ return {
           },
           -- regex that will be used to match keywords.
           -- don't replace the (KEYWORDS) placeholder
-          pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+          pattern = [[\b(KEYWORDS)(\(.*\)|\[.*\]|\{.*\})?:]], -- match e.g. TODO(owner):
         },
       })
 
