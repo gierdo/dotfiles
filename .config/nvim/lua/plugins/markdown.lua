@@ -48,6 +48,16 @@ return {
     },
   },
   {
+    "bngarren/checkmate.nvim",
+    ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
+    opts = {
+      files = { "*.md" },
+      ui = {
+        picker = "telescope",
+      },
+    },
+  },
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -95,15 +105,6 @@ return {
       vim.g.vim_markdown_auto_insert_bullets = 0
       vim.g.vim_markdown_new_list_item_indent = 0
     end,
-  },
-  {
-    "Kicamon/markdown-table-mode.nvim",
-    config = function()
-      require("markdown-table-mode").setup()
-    end,
-    keys = {
-      { "<leader>mt", "<cmd>Mtm<cr>", desc = "Toggle markdown table mode" },
-    },
   },
   {
     "weirongxu/plantuml-previewer.vim",
