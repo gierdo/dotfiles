@@ -161,6 +161,7 @@ plugins=(
   "yazi-rs/plugins:full-border"
   "yazi-rs/plugins:git"
   "yazi-rs/plugins:mount"
+  "yazi-rs/plugins:mime-ext"
 )
 
 cd &&for plugin in "${plugins[@]}"; do

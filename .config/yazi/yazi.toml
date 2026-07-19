@@ -1,6 +1,7 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+#:schema https://yazi-rs.github.io/schemas/yazi.json
 
 [mgr]
 ratio          = [ 1, 4, 3 ]
@@ -110,14 +111,10 @@ prepend_previewers = [
 	{ mime = "application/xz",              run = "ouch" },
 ]
 prepend_fetchers = [
-    {id = "git", url = "*", run = "git"},
-    {id = "git", url = "*/", run = "git"},
-]
-fetchers = [
-	# Mimetype
-	{ id = "mime", url = "*/",         run = "mime.dir", prio = "high" },
-	{ id = "mime", url = "local://*",  run = "mime.local", prio = "high" },
-	{ id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
+    {id = "git", url = "*", run = "git", group="git"},
+    {id = "git", url = "*/", run = "git", group="git"},
+    {id = "mime", url = "local://*", run = "mime-ext.local", prio="high", group="mime"},
+    {id = "mime", url = "remote://*", run = "mime-ext.remote", prio="high", group="mime"},
 ]
 spotters = [
 	{ url = "*/", run = "folder" },

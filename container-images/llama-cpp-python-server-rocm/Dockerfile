@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   pkg-config \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-ARG ROCM_VERSION=7.0.2
+ARG ROCM_VERSION=7.2.4
 
 RUN mkdir --parents --mode=0755 /etc/apt/keyrings \
   && wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | \
