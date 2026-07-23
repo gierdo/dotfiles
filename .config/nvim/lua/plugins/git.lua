@@ -65,12 +65,6 @@ return {
     config = true,
   },
   {
-    "akinsho/git-conflict.nvim",
-    config = {
-      disable_diagnostics = true,
-    },
-  },
-  {
     "oribarilan/lensline.nvim",
     brnach = "release/1.x",
     event = "LspAttach",
