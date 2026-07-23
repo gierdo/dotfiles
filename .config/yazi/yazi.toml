@@ -153,7 +153,7 @@ previewers = [
 	{ mime = "text/*", run = "code" },
 	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
 	# JSON
-	{ mime = "application/{json,ndjson}", run = "json" },
+	{ mime = "application/{json,ndjson}", run = "code" },
 	# Image
 	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
 	{ mime = "image/svg+xml", run = "svg" },

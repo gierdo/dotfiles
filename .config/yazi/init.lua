@@ -1,4 +1,8 @@
 require("git"):setup()
+
+-- Fall back to full mimetime resolution (slower) if extension based does not resolve
+require("mime-ext.local"):setup({ fallback_file1 = true })
+
 require("full-border"):setup({
   -- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
   type = ui.Border.PLAIN,
