@@ -24,6 +24,7 @@
   open = "!f() { open $(git config remote.${1:-origin}.url | sed -E 's/:([^\\/])/\\/\\1/g' | sed -e 's/ssh:\\/\\///g' | sed -e 's/git@/https:\\/\\//g' | sed -e 's/\\.git$//g'); }; f"
   worktree-add = "!f() { git worktree add -b \"$1\" \"worktrees/$1\"; }; f"
   worktree-checkout = "!f() { git worktree add \"worktrees/$1\" \"$1\"; }; f"
+  prune-gone = "!f() { git fetch -p && git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}' | xargs -r git branch -D; }; f"
 [push]
   default = current
 [gui]
