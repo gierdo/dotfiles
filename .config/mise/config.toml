@@ -2,7 +2,7 @@
 go = "1.26.5"
 node = "26.5.0"
 java = "adoptopenjdk-24.0.1+9"
-awscli = "2.36.6"
+awscli = "2.36.8"
 direnv = "2.37.1"
 lazygit = "0.56.0"
 github-cli = "2.96.0"
@@ -13,7 +13,7 @@ eza = "0.23.5"
 dotnet = "10.0.302"
 neovim = "0.12.4"
 cmake = "4.4.0"
-gradle = "9.7"
+gradle = "9.6"
 glab = { version = "1.109.0", exe = "glab" }
 
 [settings]
