@@ -70,6 +70,7 @@ return {
               window = {
                 sticky = true,
               },
+              show_reasoning = false,
             },
           },
           interactions = {
