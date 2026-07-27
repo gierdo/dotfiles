@@ -11,6 +11,9 @@
 [merge "mergiraf"]
   name = mergiraf
   driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+[merge "weave"]
+  name = Entity-level semantic merge
+  driver = weave-driver %O %A %B %L %P
 [diff]
   tool = codediff
   submodule = diff

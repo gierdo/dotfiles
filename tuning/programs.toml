@@ -60,6 +60,35 @@ argv = [
   'meson setup build --prefix ${HOME}/.local && cd build && ninja install'
 ]
 
+[[jobs]]
+name = "weave: repository"
+type = "git"
+clone = true
+dest = "{{ home_dir }}/workspace/other/weave"
+repo = "https://github.com/Ataraxy-Labs/weave.git"
+
+[[jobs]]
+name = "weave: install"
+needs = ["weave: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/weave"
+command = "bash"
+argv = [
+  "-c",
+  'cargo install --path crates/weave-cli'
+]
+
+[[jobs]]
+name = "weave-driver: install"
+needs = ["weave: repository"]
+type = "command"
+chdir = "{{ home_dir }}/workspace/other/weave"
+command = "bash"
+argv = [
+  "-c",
+  'cargo install --path crates/weave-driver'
+]
+
 
 [[jobs]]
 type = "installergo"
