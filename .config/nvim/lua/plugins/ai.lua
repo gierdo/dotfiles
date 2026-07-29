@@ -117,6 +117,20 @@ return {
           },
           adapters = {
             acp = acp,
+            http = {
+              gemini = function()
+                return require("codecompanion.adapters").extend("gemini", {
+                  schema = {
+                    model = {
+                      default = "gemini-3.6-flash",
+                    },
+                  },
+                  env = {
+                    api_key = "GEMINI_API_KEY",
+                  },
+                })
+              end,
+            },
           },
         }
       end
