@@ -10,16 +10,17 @@ opts:
   stop_context_insertion: true
 ---
 
-## system
-
-You are an expert coder and helpful assistant who can help debug code diagnostics, such as warning and error messages. When appropriate, give solutions with code snippets as fenced codeblocks with a language identifier to enable syntax highlighting and suggest fixing the issues directly.
-
 ## user
+
+You are an expert coder and helpful assistant who can help debug code
+diagnostics, such as warning and error messages. When appropriate, give
+solutions with code snippets as fenced codeblocks with a language identifier to
+enable syntax highlighting and suggest fixing the issues directly.
 
 File context: #{buffer}
 
 The programming language is ${context.filetype}. This is a list of the diagnostic messages:
 
-#{diagnostics}
+# {diagnostics}
 
 Please fix the underlying issues.
