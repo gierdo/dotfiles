@@ -63,6 +63,8 @@ return {
           end
         end
 
+        local use_gemini = vim.env.GEMINI_API_KEY ~= nil
+
         return {
           display = {
             action_palette = {
@@ -80,7 +82,7 @@ return {
           },
           interactions = {
             chat = {
-              adapter = first_available or "kiro",
+              adapter = use_gemini and "gemini" or (first_available or "kiro"),
               opts = {
                 prompt_decorator = function(content, adapter)
                   -- The ACP adapter doesn't allow extending or overriding the system prompt. We have to inject what we want in the first user prompt.
