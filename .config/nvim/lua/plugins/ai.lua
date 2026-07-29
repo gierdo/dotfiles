@@ -46,19 +46,32 @@ return {
         -- ACP adapters: { adapter_name, executable }
         -- Add new CLI agents here to have them auto-detected
         local acp_agents = {
-          { "kiro", "kiro-cli" },
-          { "opencode", "opencode" },
-          -- { "codex", "codex" },
-          -- { "claude_code", "claude" },
+          { name = "kiro", executable = "kiro-cli" },
+          {
+            name = "agy-acp",
+            executable = "agy-acp",
+            adapter = function()
+              return require("codecompanion.adapters.acp").extend("kiro", {
+                name = "agy-acp",
+                formatted_name = "Antigravity",
+                commands = {
+                  default = { "agy-acp" },
+                },
+              })
+            end,
+          },
+          { name = "opencode", executable = "opencode" },
+          -- { name = "codex", executable = "codex" },
+          -- { name = "claude_code", executable = "claude" },
         }
 
         local acp = { opts = { show_presets = false }, defaults = { mcpServers = "inherit_from_config" } }
         local first_available
         for _, agent in ipairs(acp_agents) do
-          if vim.fn.executable(agent[2]) == 1 then
-            acp[agent[1]] = agent[1]
+          if vim.fn.executable(agent.executable) == 1 then
+            acp[agent.name] = agent.adapter or agent.name
             if not first_available then
-              first_available = agent[1]
+              first_available = agent.name
             end
           end
         end
