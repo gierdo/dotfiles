@@ -65,6 +65,11 @@ return {
 
         return {
           display = {
+            action_palette = {
+              opts = {
+                show_preset_prompts = false,
+              },
+            },
             chat = {
               intro_message = "Using AI for this may turn you into a 🦄 or a 🤡! Which will it be today?",
               window = {

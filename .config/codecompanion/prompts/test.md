@@ -22,6 +22,19 @@ If the language has a built-in test runner
 convention. Otherwise a standalone script with asserts that exits non-zero on
 failure.
 
+Follow these steps:
+
+1. Identify the programming language.
+2. Identify the purpose of the function or module to be tested.
+3. List the edge cases and typical use cases that should be covered in the
+   tests and share the plan with the user.
+4. Generate unit tests using an appropriate testing framework for the
+   identified programming language.
+5. Ensure the tests cover:
+    - Normal cases
+    - Edge cases
+    - Error handling (if applicable)
+
 Write a minimal test for this ${context.filetype} code:
 
 ```${context.filetype}
