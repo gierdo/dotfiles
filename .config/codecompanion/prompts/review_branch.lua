@@ -18,10 +18,9 @@ function M.target_branch(args)
   return _branch
 end
 
-function M.diff(args)
+function M.merge_base(args)
   local target = _branch or "main"
-  local base = vim.system({ "git", "merge-base", "HEAD", target }, { text = true }):wait().stdout:gsub("%s+$", "")
-  return vim.system({ "git", "diff", "--no-ext-diff", base .. "..HEAD" }, { text = true }):wait().stdout
+  return vim.system({ "git", "merge-base", "HEAD", target }, { text = true }):wait().stdout:gsub("%s+$", "")
 end
 
 return M
