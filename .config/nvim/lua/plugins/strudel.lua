@@ -7,10 +7,13 @@ return {
       "mise trust",
       "mise install",
       "mise exec -- npm ci",
-      [[sed -i 's|local cmd = "node "|local cmd = "mise exec -C " .. plugin_root .. " -- node "|' lua/strudel/init.lua]],
-      "true",
+      [[mkdir -p .bin]],
+      [[printf '#!/bin/sh\nexec mise exec -C "%s" -- node "$@"\n' "$(pwd)" > .bin/node]],
+      [[chmod +x .bin/node]],
     }, " && "),
     config = function()
+      local plugin_root = vim.fn.stdpath("data") .. "/lazy/strudel.nvim"
+      vim.env.PATH = plugin_root .. "/.bin:" .. vim.env.PATH
       require("strudel").setup()
     end,
   },
