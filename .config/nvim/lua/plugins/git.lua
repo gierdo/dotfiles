@@ -115,4 +115,121 @@ return {
       })
     end,
   },
+  {
+    "emrearmagan/atlas.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "MeanderingProgrammer/render-markdown.nvim",
+      -- "esmuellert/codediff.nvim",
+    },
+    opts = {
+      pulls = {
+        diff = {
+          -- Any command that accepts explicit <base>...<head> Git revisions.
+          open_cmd = "AtlasDiff", -- default; for example "DiffviewOpen" or "CodeDiff".
+
+          -- AtlasDiff options; external viewers use their own configuration.
+          layout = "side-by-side", -- "inline" or "side-by-side".
+          compact = true, -- Start with only changed hunks and surrounding context visible.
+          explorer = {
+            grouped = true, -- Group changed files by directory.
+            hidden = false,
+            show_commits = true, -- Initially show commits below changed files.
+            width = 40,
+            initial_focus = "explorer", -- "explorer" or "diff".
+            ignore = { ".git/**", ".jj/**" },
+          },
+        },
+        providers = {
+          gitlab = {
+            base_url = vim.env.GITLAB_URL or "https://gitlab.com",
+            token = vim.env.GITLAB_TOKEN,
+            cache_ttl = 300,
+
+            ---@type AtlasGitLabPullsViewConfig[]
+            views = {
+              {
+                name = "Assigned",
+                key = "1",
+                scope = "assigned_to_me",
+              },
+              {
+                name = "Reviewing",
+                key = "3",
+                scope = "all",
+                extra_params = { reviewer_username = vim.env.GITLAB_USERNAME },
+              },
+              -- Single project
+              {
+                name = "GitLab",
+                key = "G",
+                project = "gitlab-org/gitlab",
+              },
+              -- Whole group, all projects under it
+              {
+                name = "GitLab Org",
+                key = "O",
+                group = "gitlab-org",
+              },
+            },
+
+            bookmarks = {
+              key = "S", -- default
+              label = "Search", -- default
+              items = {
+                ["Reviewing"] = { scope = "all", extra_params = { reviewer_username = vim.env.GITLAB_USERNAME } },
+                ["Merged by me"] = { scope = "all", state = "merged", author_username = vim.env.GITLAB_USERNAME },
+              },
+            },
+          },
+        },
+      },
+      issues = {
+        providers = {
+          gitlab = {
+            base_url = vim.env.GITLAB_URL or "https://gitlab.com",
+            token = vim.env.GITLAB_TOKEN,
+            cache_ttl = 300,
+
+            ---@type AtlasGitLabIssuesViewConfig[]
+            views = {
+              {
+                name = "Assigned",
+                key = "1",
+                scope = "assigned_to_me",
+                state = "opened",
+              },
+              {
+                name = "Created",
+                key = "2",
+                scope = "created_by_me",
+                state = "opened",
+              },
+              {
+                name = "All open",
+                key = "3",
+                scope = "all",
+                state = "opened",
+                -- Anything not covered by the explicit fields below can be passed via `extra_params`.
+                extra_params = { ["not[labels]"] = "wontfix" },
+              },
+            },
+
+            bookmarks = {
+              key = "S", -- default
+              label = "Search", -- default
+              items = {
+                ["No labels"] = {
+                  scope = "all",
+                  state = "opened",
+                  extra_params = { ["not[labels]"] = "*" },
+                },
+                ["Closed"] = { scope = "created_by_me", state = "closed" },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }
