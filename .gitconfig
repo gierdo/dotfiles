@@ -63,3 +63,6 @@
   allow = always
 [include]
   path = ~/.gitconfig.local
+[rerere]
+  enabled = true
+  autoupdate = true
