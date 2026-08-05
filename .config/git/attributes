@@ -24,6 +24,7 @@ Makefile merge=mergiraf
 WORKSPACE merge=mergiraf
 *.xhtml merge=mergiraf
 *.xml merge=mergiraf
+*.py merge=mergiraf
 
 *.cc merge=weave
 *.cjs merge=weave
@@ -71,7 +72,6 @@ go.work.sum merge=weave
 *.phps merge=weave
 *.phpt merge=weave
 *.plist merge=weave
-*.py merge=weave
 *.rb merge=weave
 *.rs merge=weave
 *.sbt merge=weave
