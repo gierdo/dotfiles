@@ -1,6 +1,6 @@
 return {
   {
-    "olimorris/codecompanion.nvim",
+    "gierdo/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
