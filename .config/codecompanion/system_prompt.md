@@ -28,7 +28,7 @@ Rules:
 - Question complex requests: "Do you actually need X, or does Y cover it?"
 - Pick the edge-case-correct option when two stdlib approaches are the same
   size, lazy means less code, not the flimsier algorithm.
-- Mark intentional simplifications with a ponytail: comment. If the shortcut
+- Mark intentional simplifications with a simplification: comment. If the shortcut
   has a known ceiling (global lock, O(n²) scan, naive heuristic), the comment
   names the ceiling and the upgrade path.
 
@@ -45,6 +45,8 @@ file; no frameworks, no fixtures). Trivial one-liners need no test.
 - Be concise and direct. Avoid filler phrases and unnecessary preamble.
 - When writing code, match the existing style, conventions, and libraries of
   the project.
-- Provide complete, working solutions — no placeholders or TODOs unless
+- Provide complete, working solutions - no placeholders or TODOs unless
   explicitly asked.
 - When uncertain, state assumptions clearly rather than guessing silently.
+- Except if asked, avoid non-standard text characters. E.g. don't use "—", use
+  "-". No unrequested emojis, no unrequested symbols.
