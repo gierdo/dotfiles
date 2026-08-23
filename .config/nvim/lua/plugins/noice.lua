@@ -9,6 +9,8 @@ return {
         background_colour = "#000000",
       })
 
+      local MIN_PROGRESS_DURATION = 2.0 -- minimum progress duration to display lsp notifications (in seconds)
+
       require("noice").setup({
         cmdline = {
           enabled = true,
@@ -175,6 +177,43 @@ return {
         views = {}, ---@see section on views
         ---@type NoiceRouteConfig[]
         routes = {
+          {
+            filter = {
+              event = "lsp",
+              kind = "progress",
+              cond = function(message)
+                local progress = vim.tbl_get(message.opts, "progress")
+                if not progress or not progress.id then
+                  return true
+                end
+                local now = (vim.uv or vim.loop).hrtime() / 1e9
+                local id = progress.id
+
+                local progress_starts = _G._noice_progress_starts or {}
+                _G._noice_progress_starts = progress_starts
+
+                local start_time = progress_starts[id]
+                if not start_time then
+                  start_time = now
+                  progress_starts[id] = now
+                end
+
+                -- Lazy cleanup: prune entries older than 5 minutes to prevent leaks from tasks without 'end'
+                for k, t in pairs(progress_starts) do
+                  if now - t > 300 then
+                    progress_starts[k] = nil
+                  end
+                end
+
+                local elapsed = now - start_time
+                if progress.kind == "end" then
+                  progress_starts[id] = nil
+                end
+                return elapsed < MIN_PROGRESS_DURATION
+              end,
+            },
+            opts = { skip = true },
+          },
           {
             filter = {
               event = "msg_show",
