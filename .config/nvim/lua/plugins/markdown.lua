@@ -72,7 +72,7 @@ return {
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     config = function()
-      os.execute("systemctl --user start plantuml")
+      vim.system({ "systemctl", "--user", "start", "plantuml" })
       vim.cmd([[
       let g:mkdp_browser = "brave"
       let g:mkdp_auto_close = 0

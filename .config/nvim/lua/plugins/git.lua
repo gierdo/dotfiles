@@ -66,7 +66,7 @@ return {
   },
   {
     "oribarilan/lensline.nvim",
-    brnach = "release/1.x",
+    branch = "release/1.x",
     event = "LspAttach",
     config = function()
       require("lensline").setup({
