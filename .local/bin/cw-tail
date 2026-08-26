@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Interactive CloudWatch Log Tailing using fzf
+# Usage: cw-tail [aws logs tail arguments...]
+# Example: cw-tail --since 15m --filter-pattern "ERROR"
+
+set -euo pipefail
+
+echo "Fetching CloudWatch Log Groups..." >&2
+
+LOG_GROUPS=$(aws logs describe-log-groups --query "logGroups[*].logGroupName" --output text | tr '\t' '\n' | sort)
+
+if [[ -z "$LOG_GROUPS" ]]; then
+  echo "No log groups found or AWS credentials expired." >&2
+  exit 1
+fi
+
+SELECTED_GROUP=$(echo "$LOG_GROUPS" | fzf \
+  --header "Select CloudWatch Log Group (ESC/Ctrl-C to cancel)" \
+  --preview "echo 'Tail Options: $@'" \
+  --preview-window="up:1:wrap")
+
+if [[ -n "$SELECTED_GROUP" ]]; then
+  HAS_SINCE=false
+  for arg in "$@"; do
+    if [[ "$arg" == "--since" ]]; then
+      HAS_SINCE=true
+      break
+    fi
+  done
+
+  # Per default, tail back 4h
+  TAIL_ARGS=()
+  if [[ "$HAS_SINCE" == "false" ]]; then
+    TAIL_ARGS+=("--since" "4h")
+  fi
+
+  echo "Tailing log group: $SELECTED_GROUP"
+  exec aws logs tail "$SELECTED_GROUP" --follow "${TAIL_ARGS[@]}" "$@"
+else
+  echo "Cancelled."
+fi
