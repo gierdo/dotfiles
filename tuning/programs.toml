@@ -171,6 +171,7 @@ crates = [
   "tree-sitter-cli",
   "yazi-build",
   "zoxide",
+  "engram_mcp",
 ]
 state = "present"
 
