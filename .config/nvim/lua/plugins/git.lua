@@ -123,6 +123,15 @@ return {
       -- "esmuellert/codediff.nvim",
     },
     opts = {
+      -- Shared authentication and endpoints live at the top level now.
+      providers = {
+        ---@type AtlasGitLabConfig
+        gitlab = {
+          base_url = vim.env.GITLAB_URL or "https://gitlab.com",
+          token = vim.env.GITLAB_TOKEN,
+          cache_ttl = 300,
+        },
+      },
       pulls = {
         diff = {
           -- Any command that accepts explicit <base>...<head> Git revisions.
@@ -140,92 +149,86 @@ return {
             ignore = { ".git/**", ".jj/**" },
           },
         },
-        providers = {
-          gitlab = {
-            base_url = vim.env.GITLAB_URL or "https://gitlab.com",
-            token = vim.env.GITLAB_TOKEN,
-            cache_ttl = 300,
-
-            ---@type AtlasGitLabPullsViewConfig[]
-            views = {
-              {
-                name = "Assigned",
-                key = "1",
-                scope = "assigned_to_me",
-              },
-              {
-                name = "Reviewing",
-                key = "3",
-                scope = "all",
-                extra_params = { reviewer_username = vim.env.GITLAB_USERNAME },
-              },
-              -- Single project
-              {
-                name = "GitLab",
-                key = "G",
-                project = "gitlab-org/gitlab",
-              },
-              -- Whole group, all projects under it
-              {
-                name = "GitLab Org",
-                key = "O",
-                group = "gitlab-org",
-              },
+        ---@type AtlasGitLabPullsConfig
+        gitlab = {
+          ---@type AtlasGitLabPullsViewConfig[]
+          views = {
+            {
+              name = "Assigned",
+              key = "1",
+              scope = "assigned_to_me",
             },
+            {
+              name = "Reviewing",
+              key = "3",
+              scope = "reviews_for_me",
+            },
+            -- Single project
+            {
+              name = "GitLab",
+              key = "G",
+              project = "gitlab-org/gitlab",
+            },
+            -- Whole group, all projects under it
+            {
+              name = "GitLab Org",
+              key = "O",
+              group = "gitlab-org",
+            },
+          },
 
-            bookmarks = {
-              key = "S", -- default
-              label = "Search", -- default
-              items = {
-                ["Reviewing"] = { scope = "all", extra_params = { reviewer_username = vim.env.GITLAB_USERNAME } },
-                ["Merged by me"] = { scope = "all", state = "merged", author_username = vim.env.GITLAB_USERNAME },
+          bookmarks = {
+            key = "S", -- default
+            label = "Search", -- default
+            items = {
+              ["Reviewing"] = { scope = "reviews_for_me" },
+              -- `state` is not a first-class pulls field; pass it via extra_params.
+              ["Merged by me"] = {
+                scope = "all",
+                author_username = vim.env.GITLAB_USERNAME,
+                extra_params = { state = "merged" },
               },
             },
           },
         },
       },
       issues = {
-        providers = {
-          gitlab = {
-            base_url = vim.env.GITLAB_URL or "https://gitlab.com",
-            token = vim.env.GITLAB_TOKEN,
-            cache_ttl = 300,
+        ---@type AtlasGitLabIssuesConfig
+        gitlab = {
+          ---@type AtlasGitLabIssuesViewConfig[]
+          views = {
+            {
+              name = "Assigned",
+              key = "1",
+              scope = "assigned_to_me",
+              state = "opened",
+            },
+            {
+              name = "Created",
+              key = "2",
+              scope = "created_by_me",
+              state = "opened",
+            },
+            {
+              name = "All open",
+              key = "3",
+              scope = "all",
+              state = "opened",
+              -- Anything not covered by the explicit fields below can be passed via `extra_params`.
+              extra_params = { ["not[labels]"] = "wontfix" },
+            },
+          },
 
-            ---@type AtlasGitLabIssuesViewConfig[]
-            views = {
-              {
-                name = "Assigned",
-                key = "1",
-                scope = "assigned_to_me",
-                state = "opened",
-              },
-              {
-                name = "Created",
-                key = "2",
-                scope = "created_by_me",
-                state = "opened",
-              },
-              {
-                name = "All open",
-                key = "3",
+          bookmarks = {
+            key = "S", -- default
+            label = "Search", -- default
+            items = {
+              ["No labels"] = {
                 scope = "all",
                 state = "opened",
-                -- Anything not covered by the explicit fields below can be passed via `extra_params`.
-                extra_params = { ["not[labels]"] = "wontfix" },
+                extra_params = { ["not[labels]"] = "*" },
               },
-            },
-
-            bookmarks = {
-              key = "S", -- default
-              label = "Search", -- default
-              items = {
-                ["No labels"] = {
-                  scope = "all",
-                  state = "opened",
-                  extra_params = { ["not[labels]"] = "*" },
-                },
-                ["Closed"] = { scope = "created_by_me", state = "closed" },
-              },
+              ["Closed"] = { scope = "created_by_me", state = "closed" },
             },
           },
         },
