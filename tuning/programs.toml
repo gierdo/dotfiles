@@ -57,36 +57,7 @@ chdir = "{{ home_dir }}/workspace/other/rofi"
 command = "bash"
 argv = [
   "-c",
-  'meson setup build --prefix ${HOME}/.local && cd build && ninja install'
-]
-
-[[jobs]]
-name = "weave: repository"
-type = "git"
-clone = true
-dest = "{{ home_dir }}/workspace/other/weave"
-repo = "https://github.com/Ataraxy-Labs/weave.git"
-
-[[jobs]]
-name = "weave: install"
-needs = ["weave: repository"]
-type = "command"
-chdir = "{{ home_dir }}/workspace/other/weave"
-command = "bash"
-argv = [
-  "-c",
-  'cargo install --path crates/weave-cli'
-]
-
-[[jobs]]
-name = "weave-driver: install"
-needs = ["weave: repository"]
-type = "command"
-chdir = "{{ home_dir }}/workspace/other/weave"
-command = "bash"
-argv = [
-  "-c",
-  'cargo install --path crates/weave-driver'
+  'meson setup --reconfigure build --prefix ${HOME}/.local && cd build && ninja install'
 ]
 
 
@@ -175,6 +146,26 @@ crates = [
 ]
 state = "present"
 
+[[jobs]]
+name = "install git-rust dependencies"
+type = "command"
+command = "bash"
+needs = ["install rust dependencies"]
+argv = [
+"-c",
+'''\
+
+dependencies=(
+  "https://github.com/gierdo/valv-cli.git"
+  "https://github.com/Ataraxy-Labs/weave.git weave-cli"
+  "https://github.com/Ataraxy-Labs/weave.git weave-driver"
+)
+
+cd && for dependency in "${dependencies[@]}"; do
+  cargo install --git $dependency || true
+done
+'''
+]
 
 [[jobs]]
 name = "install yazi plugins"
@@ -192,6 +183,7 @@ plugins=(
   "yazi-rs/plugins:git"
   "yazi-rs/plugins:mount"
   "yazi-rs/plugins:mime-ext"
+  "gierdo/valv-cli:valv"
 )
 
 cd &&for plugin in "${plugins[@]}"; do
