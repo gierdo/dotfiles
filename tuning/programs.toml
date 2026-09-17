@@ -64,6 +64,7 @@ argv = [
 [[jobs]]
 type = "installergo"
 name = "Install go dependencies"
+needs = ["install mise plugins and tools"]
 packages = [
   "github.com/bazelbuild/bazelisk",
   "github.com/Gelio/go-global-update",
@@ -81,6 +82,7 @@ state = "latest"
 [[jobs]]
 name = "install npm dependencies"
 type = "installernpm"
+needs = ["install mise plugins and tools"]
 packages = [
   "@1mcp/agent",
   "bash-language-server",
