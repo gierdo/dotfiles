@@ -240,6 +240,15 @@ return {
             opts = { skip = true },
           },
           {
+            -- Silence pygls errors of non-compliant lsps
+            filter = {
+              event = "notify",
+              kind = "error",
+              find = "pygls.uris.to_fs_path",
+            },
+            opts = { skip = true },
+          },
+          {
             filter = {
               event = "msg_show",
               kind = "",
