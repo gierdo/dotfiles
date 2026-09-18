@@ -160,20 +160,8 @@ return {
             },
             {
               name = "Reviewing",
-              key = "3",
+              key = "2",
               scope = "reviews_for_me",
-            },
-            -- Single project
-            {
-              name = "GitLab",
-              key = "G",
-              project = "gitlab-org/gitlab",
-            },
-            -- Whole group, all projects under it
-            {
-              name = "GitLab Org",
-              key = "O",
-              group = "gitlab-org",
             },
           },
 
