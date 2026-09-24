@@ -33,16 +33,49 @@ The Repository and related ghcr.io namespace contains container images that are
 used by services defined in this repository.
 See [here](container-images).
 
-## Orchestration: tuning
+## Dotfiles Management: chezmoi
 
-The dotfiles configuration is set up with `tuning`.
+This dotfiles repository is managed with [chezmoi](https://www.chezmoi.io/) and
+is (smoewhat - as untested) compatible with both **Linux** and **macOS**.
 
-Assuming that rust is set up, `cargo` being available, and the dotfiles
-respository is cloned (recursively) to `~/.dotfiles`
+### Quick Start (New Machine)
+
+`chezmoi` installation is handled by the dotfiles itself through `mise`, but on
+a fresh machine, we have a little chicken-and-egg problem.
+
+So, on a fresh machine, you have to install `chezmoi` to bootstrap the system
+however you want.
+
+1. **Install chezmoi & initialize**:
+   - **macOS:** `brew install chezmoi`
+   - **Linux:** `sh -c "$(curl -fsLS https://get.chezmoi.io)"` or `mise use -g chezmoi` or package manager
+
+2. **Clone & Apply**:
+
+   ```bash
+   chezmoi init --apply gierdo
+   # or with existing local clone:
+   chezmoi init --apply --source ~/.dotfiles
+   ```
+
+### Daily Usage
+
+- Check status: `chezmoi status`
+- Review diffs: `chezmoi diff`
+- Apply changes: `chezmoi apply`
+- Edit a config: `chezmoi edit ~/.zshrc` (or edit files in `dot_...` directly)
+- Re-run lifecycle install scripts: `chezmoi apply --force`
+
+### Environment-Specific Configurations
+
+Configurations that depend on your physical workstation (such as Sway workspace assignments and Kanshi display profiles) default to `home`.
+
+To apply `work` configs:
 
 ```bash
-cargo install --locked tuning
-tuning
+chezmoi apply --override-data '{"environment":"work"}'
+# or via environment variable:
+CHEZMOI_ENV=work chezmoi apply
 ```
 
 ## llama - local coding assistant

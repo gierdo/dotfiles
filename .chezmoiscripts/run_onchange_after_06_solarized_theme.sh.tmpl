@@ -1,0 +1,85 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+THEMES_DIR="${HOME}/.themes"
+ICONS_DIR="${HOME}/.icons"
+
+# Theme files hash:
+# {{ include "dot_config/Kvantum/Solarized-Dark/Solarized-Dark.kvconfig" | sha256sum }}
+# {{ include "dot_config/Kvantum/Solarized-Dark/Solarized-Dark.svg" | sha256sum }}
+# {{ include "dot_config/gtk-4.0/gtk.css" | sha256sum }}
+# {{ include "dot_config/gtk-3.0/settings.ini" | sha256sum }}
+# {{ include "dot_config/gtk-4.0/settings.ini" | sha256sum }}
+# {{ include "dot_gtkrc-2.0" | sha256sum }}
+# {{ include "dot_xsettingsd" | sha256sum }}
+
+
+
+mkdir -p "$THEMES_DIR" "$ICONS_DIR"
+
+tmp_dir="$(mktemp -d)"
+trap 'rm -rf "$tmp_dir"' EXIT
+
+# 1. Install adw-gtk3 dark theme
+if [ ! -d "${THEMES_DIR}/adw-gtk3-dark" ]; then
+  echo "Installing adw-gtk3 dark theme..."
+  adw_archive="${tmp_dir}/adw-gtk3.tar.xz"
+  if curl -fLo "$adw_archive" "https://github.com/lassekongo83/adw-gtk3/releases/download/v5.3/adw-gtk3v5.3.tar.xz"; then
+    tar -xf "$adw_archive" -C "$THEMES_DIR"
+    rm -f "$adw_archive"
+  fi
+fi
+
+# 2. Install rtl88 Solarized GTK themes and icons
+if [ ! -d "${ICONS_DIR}/Solarized-Cyan-gtk-theme-iconpack" ] || [ ! -d "${THEMES_DIR}/Solarized-Dark-Cyan-GTK" ]; then
+  echo "Installing Solarized GTK themes and icon packs..."
+  rtl88_archive="${tmp_dir}/rtl88-Themes-1.0.tar.gz"
+  if curl -fLo "$rtl88_archive" "https://github.com/rtlewis88/rtl88-Themes/archive/refs/tags/1.0.tar.gz"; then
+    tar -xzf "$rtl88_archive" -C "$tmp_dir"
+    if [ -f "${tmp_dir}/rtl88-Themes-1.0/Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz" ]; then
+      tar -xzf "${tmp_dir}/rtl88-Themes-1.0/Solarized-Colors-gtk-theme-iconpack_1.0.tar.gz" -C "$ICONS_DIR"
+    fi
+    if [ -f "${tmp_dir}/rtl88-Themes-1.0/solarized-dark-gtk-theme-colorpack_1.3.tar.gz" ]; then
+      tar -xzf "${tmp_dir}/rtl88-Themes-1.0/solarized-dark-gtk-theme-colorpack_1.3.tar.gz" -C "$THEMES_DIR"
+    fi
+    rm -f "$rtl88_archive"
+  fi
+fi
+
+# 3. Configure desktop interface preferences via gsettings
+if command -v gsettings >/dev/null 2>&1; then
+  gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' || true
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
+  gsettings set org.gnome.desktop.interface icon-theme 'Solarized-Cyan-gtk-theme-iconpack' || true
+  gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita' || true
+  gsettings set org.gnome.desktop.interface font-name 'Cantarell 11' || true
+fi
+
+# 4. Configure Flatpak overrides
+if command -v flatpak >/dev/null 2>&1; then
+  flatpak override --user --filesystem="$HOME/.icons/:ro" || true
+  flatpak override --user --filesystem="$HOME/.themes/:ro" || true
+  flatpak override --user --filesystem="$HOME/.dotfiles/:ro" || true
+  flatpak override --user --env=GTK_THEME=adw-gtk3-dark || true
+  flatpak override --user --filesystem=xdg-config/gtk-3.0:ro || true
+  flatpak override --user --filesystem=xdg-config/gtk-4.0:ro || true
+fi
+
+# 5. Configure Kvantum
+if command -v kvantummanager >/dev/null 2>&1; then
+  kvantummanager --set Solarized-Dark || true
+  if command -v flatpak >/dev/null 2>&1; then
+    flatpak override --user --filesystem=xdg-config/Kvantum:ro || true
+    flatpak override --user --env=QT_STYLE_OVERRIDE=kvantum || true
+    flatpak override --user --env=QT_SCALE_FACTOR=1.2 || true
+  fi
+fi
+
+# 6. Reload xsettingsd if running
+if command -v pkill >/dev/null 2>&1; then
+  pkill -HUP xsettingsd || true
+fi
+{{ end -}}
+
+

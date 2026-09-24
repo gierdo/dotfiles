@@ -1,0 +1,51 @@
+[".oh-my-zsh"]
+    type = "git-repo"
+    url = "https://github.com/ohmyzsh/ohmyzsh.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/themes/powerlevel10k"]
+    type = "git-repo"
+    url = "https://github.com/romkatv/powerlevel10k.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/fzf-tab"]
+    type = "git-repo"
+    url = "https://github.com/Aloxaf/fzf-tab.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-completions"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-completions.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-autoswitch-virtualenv"]
+    type = "git-repo"
+    url = "https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/forgit"]
+    type = "git-repo"
+    url = "https://github.com/wfxr/forgit.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/evalcache"]
+    type = "git-repo"
+    url = "https://github.com/mroth/evalcache.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/nix-zsh-completions"]
+    type = "git-repo"
+    url = "https://github.com/spwhitt/nix-zsh-completions.git"
+    refreshPeriod = "168h"
+
+{{ if eq .chezmoi.os "linux" }}
+[".oh-my-zsh/custom/plugins/flatpak-zsh-completion"]
+    type = "git-repo"
+    url = "https://github.com/bilelmoussaoui/flatpak-zsh-completion.git"
+    refreshPeriod = "168h"
+{{ end }}

@@ -1,0 +1,44 @@
+# General repository documentation & metadata
+README.md
+LICENSE
+container-images/**
+gists/**
+tags
+themes/**
+zsh-plugins/**
+oh-my-zsh/**
+.mypy_cache/**
+
+# Environment-specific configuration fragments
+.config/sway/workspace_config.*
+.config/kanshi/*.config
+
+# Linux-only applications, Wayland desktop, systemd, and display managers
+{{ if ne .chezmoi.os "linux" }}
+.config/sway/**
+.config/swaylock/**
+.config/kanshi/**
+.config/i3status-rust/**
+.config/foot/**
+.config/rofi/**
+.config/dunst/**
+.config/systemd/**
+.config/containers/**
+.config/alsa-card-profile/**
+.config/gtk-4.0/**
+.config/gtk-3.0/**
+.config/Kvantum/**
+.config/xdg-desktop-portal/**
+.config/xdg-desktop-portal-wlr/**
+.config/electron-flags.conf
+.gtkrc-2.0
+.Xdefaults
+.xinitrc
+.xprofile
+.xsettingsd
+{{ end }}
+
+# macOS-only applications and configurations
+{{ if ne .chezmoi.os "darwin" }}
+.config/aerospace/**
+{{ end }}

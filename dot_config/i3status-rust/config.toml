@@ -1,0 +1,135 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "solarized-dark"
+
+[icons]
+icons = "material-nf"
+
+[icons.overrides]
+unlock = "󰿆"
+lock = "󰥿"
+
+[[block]]
+block = "memory"
+format = "$icon $mem_total_used_percents.eng(w:2)"
+format_alt = "$icon_swap $swap_used_percents.eng(w:2)"
+interval = 5
+[block.theme_overrides]
+idle_bg = { link = "info_bg" }
+idle_fg = { link = "info_fg" }
+
+[[block]]
+block = "cpu"
+interval = 5
+[block.theme_overrides]
+idle_bg = { link = "info_bg" }
+idle_fg = { link = "info_fg" }
+
+
+# I only have machines with amd gpu
+[[block]]
+block = "amd_gpu"
+format = " $icon $utilization "
+format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
+interval = 5
+[block.theme_overrides]
+idle_bg = { link = "info_bg" }
+idle_fg = { link = "info_fg" }
+
+[[block]]
+block = "net"
+device = "eth.*"
+missing_format = ""
+inactive_format = ""
+[[block.click]]
+button = "left"
+cmd = "xterm -e nmtui"
+
+[[block]]
+block = "net"
+device = "wlan.*"
+missing_format = ""
+inactive_format = ""
+[[block.click]]
+button = "left"
+cmd = "xterm -e nmtui"
+
+[[block]]
+block = "battery"
+format = "$icon  $percentage"
+full_format = "$icon  $percentage"
+empty_format = "$icon  $percentage"
+missing_format = ""
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "used"
+warning = 80.0
+alert = 95.0
+format = "/ $icon $percentage"
+format_alt = "/ $icon $free available"
+interval = 10
+
+[[block]]
+block = "disk_space"
+path = "~"
+info_type = "used"
+warning = 80.0
+alert = 95.0
+format = "home $icon $percentage"
+format_alt = "home $icon $free available"
+interval = 10
+
+[[block]]
+block = "toggle"
+icon_on = "lock"
+icon_off = "unlock"
+format = "$icon"
+# The toggling script has to override the command_on/off actions with
+# block.click to work propperly for the deactivation
+command_state = "~/.local/bin/toggle-autolock -s"
+command_on = "~/.local/bin/toggle-autolock -s"
+command_off = "~/.local/bin/toggle-autolock -s"
+interval = 1
+[[block.click]]
+button = "left"
+cmd = "~/.local/bin/toggle-autolock"
+[block.theme_overrides]
+idle_bg = { link = "warning_bg" }
+idle_fg = { link = "warning_fg" }
+
+[[block]]
+block = "notify"
+format = " $icon"
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+device_kind = "sink"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[block.theme_overrides]
+idle_bg = { link = "good_bg" }
+idle_fg = { link = "good_fg" }
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+device_kind = "source"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[block.theme_overrides]
+idle_bg = { link = "good_bg" }
+idle_fg = { link = "good_fg" }
+
+[[block]]
+block = "time"
+interval = 5
+format = "$timestamp.datetime(f:'%a %d/%m %R')"
+[block.theme_overrides]
+idle_bg = { link = "warning_bg" }
+idle_fg = { link = "warning_fg" }

@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+FONT_DIR="${HOME}/Library/Fonts"
+{{ else -}}
+FONT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/fonts/NerdFonts"
+{{ end -}}
+
+mkdir -p "$FONT_DIR"
+
+fonts=(
+  "0xProto"
+  "3270"
+  "Agave"
+  "AnonymousPro"
+  "Arimo"
+  "AurulentSansMono"
+  "BigBlueTerminal"
+  "BitstreamVeraSansMono"
+  "CascadiaCode"
+  "CascadiaMono"
+  "CodeNewRoman"
+  "ComicShannsMono"
+  "CommitMono"
+  "Cousine"
+  "D2Coding"
+  "DaddyTimeMono"
+  "DejaVuSansMono"
+  "DepartureMono"
+  "DroidSansMono"
+  "EnvyCodeR"
+  "FantasqueSansMono"
+  "FiraCode"
+  "FiraMono"
+  "GeistMono"
+  "Go-Mono"
+  "Gohu"
+  "Hack"
+  "Hasklig"
+  "HeavyData"
+  "Hermit"
+  "iA-Writer"
+  "IBMPlexMono"
+  "Inconsolata"
+  "InconsolataGo"
+  "InconsolataLGC"
+  "IntelOneMono"
+  "Iosevka"
+  "IosevkaTerm"
+  "IosevkaTermSlab"
+  "JetBrainsMono"
+  "Lekton"
+  "LiberationMono"
+  "Lilex"
+  "MartianMono"
+  "Meslo"
+  "Monaspace"
+  "Monofur"
+  "Monoid"
+  "Mononoki"
+  "MPlus"
+  "Noto"
+  "OpenDyslexic"
+  "Overpass"
+  "ProFont"
+  "ProggyClean"
+  "Recursive"
+  "RobotoMono"
+  "ShareTechMono"
+  "SourceCodePro"
+  "SpaceMono"
+  "Terminus"
+  "Tinos"
+  "Ubuntu"
+  "UbuntuMono"
+  "UbuntuSans"
+  "VictorMono"
+  "ZedMono"
+)
+
+tmp_dir="$(mktemp -d)"
+trap 'rm -rf "$tmp_dir"' EXIT
+
+installed_any=false
+
+shopt -s nullglob nocaseglob
+for font in "${fonts[@]}"; do
+  matches=("$FONT_DIR"/*"$font"*)
+  if [ "${#matches[@]}" -gt 0 ]; then
+    continue
+  fi
+
+  echo "Installing Nerd Font: $font"
+  archive="$tmp_dir/${font}.tar.xz"
+  if curl -fLo "$archive" "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${font}.tar.xz"; then
+    tar -xf "$archive" -C "$FONT_DIR"
+    rm -f "$archive"
+    installed_any=true
+  else
+    echo "Warning: Failed to download $font" >&2
+  fi
+done
+
+{{ if eq .chezmoi.os "linux" -}}
+if [ "$installed_any" = true ] && command -v fc-cache >/dev/null 2>&1; then
+  fc-cache -f "$FONT_DIR" || true
+fi
+{{ end -}}
