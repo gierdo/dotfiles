@@ -1,3 +1,25 @@
+[packages.apt]
+packages = [
+  "tmux",
+  "sway",
+  "swayidle",
+  "swaylock",
+  "swaybg",
+  # general build dependencies
+  "build-essential",
+  "cmake",
+  "bison",
+  "meson",
+  # git secret helper
+  "libsecret-1-dev",
+  # Animated backgreound
+  "cbonsai",
+  "gir1.2-gtklayershell",
+  "libgtk-layer-shell0",
+  "gir1.2-vte",
+  "python3-gi"
+]
+
 [packages.cargo]
 crates = [
   "atuin",

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" -}}
+if command -v apt-get >/dev/null 2>&1; then
+  apt_packages=(
+    {{- range .packages.apt.packages }}
+    {{ . | quote }}
+    {{- end }}
+  )
+  sudo apt-get install -y "${apt_packages[@]}"
+fi
+{{ else if eq .chezmoi.os "darwin" -}}
+brew install ripgrep
+{{ end -}}
+
+# Install Rust via rustup
+if ! command -v rustup >/dev/null 2>&1 && [ ! -x "$HOME/.cargo/bin/rustup" ]; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi

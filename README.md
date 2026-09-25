@@ -21,11 +21,7 @@ free to copy, suggest, do whatever you like with it.
 The dotfiles have a number of system dependencies that have to be installed for
 everything to fully work.
 
-An incomplete list is
-
-- sway
-- tmux
-- cbonsai, libgr1.2-gtklayershell, libgtk-layer-shell, gr1.2-vte (animated background)
+An incomplete list is set up automatically on debian-based linux systems
 
 ## Container images
 
@@ -48,7 +44,8 @@ however you want.
 
 1. **Install chezmoi & initialize**:
    - **macOS:** `brew install chezmoi`
-   - **Linux:** `sh -c "$(curl -fsLS https://get.chezmoi.io)"` or `mise use -g chezmoi` or package manager
+   - **Linux:** `sh -c "$(curl -fsLS https://get.chezmoi.io)"` or `mise use -g
+     chezmoi` or package manager
 
 2. **Clone & Apply**:
 
@@ -68,7 +65,8 @@ however you want.
 
 ### Environment-Specific Configurations
 
-Configurations that depend on your physical workstation (such as Sway workspace assignments and Kanshi display profiles) default to `home`.
+Configurations that depend on your physical workstation (such as Sway workspace
+assignments and Kanshi display profiles) default to `home`.
 
 To apply `work` configs:
 
