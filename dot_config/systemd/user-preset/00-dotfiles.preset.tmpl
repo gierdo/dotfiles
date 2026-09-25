@@ -1,0 +1,6 @@
+{{- range glob (joinPath .chezmoi.sourceDir "dot_config/systemd/user/*") }}
+{{- $name := base . }}
+{{- if not (hasSuffix ".target" $name) }}
+enable {{ $name }}
+{{- end }}
+{{- end }}
