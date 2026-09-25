@@ -38,14 +38,14 @@
     url = "https://github.com/mroth/evalcache.git"
     refreshPeriod = "168h"
 
-[".oh-my-zsh/custom/plugins/nix-zsh-completions"]
-    type = "git-repo"
-    url = "https://github.com/spwhitt/nix-zsh-completions.git"
-    refreshPeriod = "168h"
-
 {{ if eq .chezmoi.os "linux" }}
 [".oh-my-zsh/custom/plugins/flatpak-zsh-completion"]
     type = "git-repo"
     url = "https://github.com/bilelmoussaoui/flatpak-zsh-completion.git"
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/nix-zsh-completions"]
+    type = "git-repo"
+    url = "https://github.com/spwhitt/nix-zsh-completions.git"
     refreshPeriod = "168h"
 {{ end }}
