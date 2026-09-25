@@ -1,0 +1,12 @@
+[Unit]
+Description=Alternate window layouts in sway
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=-/bin/bash -c '%h/.local/bin/sway_alternate_layouts'
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=sway-session.target

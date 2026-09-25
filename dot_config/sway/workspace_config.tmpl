@@ -1,0 +1,2 @@
+{{- $env := env "CHEZMOI_ENV" | default .environment | default "home" -}}
+{{ include (printf "dot_config/sway/workspace_config.%s" $env) -}}
