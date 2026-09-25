@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 1. Install Go tools
+if command -v go >/dev/null 2>&1; then
+  go_packages=(
+    {{- range .packages.go.packages }}
+    {{ . | quote }}
+    {{- end }}
+  )
+  for pkg in "${go_packages[@]}"; do
+    go install "$pkg" || true
+  done
+fi
+
+# 2. Install NPM packages
+if command -v npm >/dev/null 2>&1; then
+  npm_packages=(
+    {{- range .packages.npm.packages }}
+    {{ . | quote }}
+    {{- end }}
+  )
+  npm install -g "${npm_packages[@]}" || true
+fi
+
+# 3. Install UV & Python CLI tools
+if ! command -v uv >/dev/null 2>&1; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh || true
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  python_tools=(
+    {{- range .packages.uv.tools }}
+    {{ . | quote }}
+    {{- end }}
+  )
+  for tool in "${python_tools[@]}"; do
+    uv tool install --force "$tool" || true
+  done
+fi

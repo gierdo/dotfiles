@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v ya >/dev/null 2>&1; then
+  plugins=(
+    {{- range .packages.yazi.plugins }}
+    {{ . | quote }}
+    {{- end }}
+  )
+
+  for plugin in "${plugins[@]}"; do
+    ya pkg add "$plugin" || true
+  done
+fi

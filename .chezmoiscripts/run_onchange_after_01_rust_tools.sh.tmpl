@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install / update Cargo crates
+if command -v cargo >/dev/null 2>&1; then
+  crates=(
+    {{- range .packages.cargo.crates }}
+    {{ . | quote }}
+    {{- end }}
+  )
+
+  for crate in "${crates[@]}"; do
+    cargo install "$crate" || true
+  done
+
+  # Git cargo dependencies
+  git_crates=(
+    {{- range .packages.cargo.git_crates }}
+    {{ . | quote }}
+    {{- end }}
+  )
+
+  for dep in "${git_crates[@]}"; do
+    cargo install --git $dep || true
+  done
+fi

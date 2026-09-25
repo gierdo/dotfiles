@@ -1,0 +1,43 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v dragon >/dev/null 2>&1; then
+  echo "Building and installing dragon..."
+  build_dir="$(mktemp -d)"
+  if git clone --depth 1 https://github.com/mwh/dragon.git "$build_dir/dragon"; then
+    mkdir -p "$HOME/.local/bin" "$HOME/.local/share/man/man1"
+    make -C "$build_dir/dragon" PREFIX="$HOME/.local" install || {
+      make -C "$build_dir/dragon"
+      cp "$build_dir/dragon/dragon" "$HOME/.local/bin/"
+    }
+  fi
+  rm -rf "$build_dir"
+fi
+
+if ! command -v rofi >/dev/null 2>&1; then
+  echo "Building and installing rofi-wayland..."
+  build_dir="$(mktemp -d)"
+  if git clone --depth 1 https://github.com/lbonn/rofi.git "$build_dir/rofi"; then
+    if command -v meson >/dev/null 2>&1 && command -v ninja >/dev/null 2>&1; then
+      meson setup "$build_dir/rofi/build" "$build_dir/rofi" --prefix "$HOME/.local"
+      ninja -C "$build_dir/rofi/build" install
+    fi
+  fi
+  rm -rf "$build_dir"
+fi
+
+if ! command -v git-credential-libsecret >/dev/null 2>&1; then
+  libsecret_src="/usr/share/doc/git/contrib/credential/libsecret"
+  if [ -d "$libsecret_src" ]; then
+    echo "Building and installing git-credential-libsecret..."
+    build_dir="$(mktemp -d)"
+    cp -r "$libsecret_src"/* "$build_dir/"
+    if make -C "$build_dir"; then
+      mkdir -p "$HOME/.local/bin"
+      cp "$build_dir/git-credential-libsecret" "$HOME/.local/bin/"
+    fi
+    rm -rf "$build_dir"
+  fi
+fi
+{{ end -}}
