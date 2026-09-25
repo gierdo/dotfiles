@@ -1,8 +1,4 @@
-if [ -d "$HOME/.oh-my-zsh" ]; then
-  export ZSH="$HOME/.oh-my-zsh"
-elif [ -d "$HOME/.dotfiles/oh-my-zsh" ]; then
-  export ZSH="$HOME/.dotfiles/oh-my-zsh"
-fi
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set shell variable to zsh
 export SHELL=zsh
@@ -18,8 +14,6 @@ fi
 
 if [ -f "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme" ]; then
   source "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
-elif [ -f "$HOME/.dotfiles/themes/powerlevel10k/powerlevel10k.zsh-theme" ]; then
-  source "$HOME/.dotfiles/themes/powerlevel10k/powerlevel10k.zsh-theme"
 fi
 
 # Set list of themes to load
@@ -106,21 +100,18 @@ _load_zsh_plugin() {
   local file="$2"
   if [ -f "$HOME/.oh-my-zsh/custom/plugins/$name/$file" ]; then
     source "$HOME/.oh-my-zsh/custom/plugins/$name/$file"
-  elif [ -f "$HOME/.dotfiles/zsh-plugins/$name/$file" ]; then
-    source "$HOME/.dotfiles/zsh-plugins/$name/$file"
   fi
 }
 
-[ -d "$HOME/.dotfiles/zsh-plugins/custom-completions" ] && fpath=(~/.dotfiles/zsh-plugins/custom-completions $fpath)
 [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-completions/src" ] && fpath=(~/.oh-my-zsh/custom/plugins/zsh-completions/src $fpath)
-[ -d "$HOME/.dotfiles/zsh-plugins/zsh-completions/src" ] && fpath=(~/.dotfiles/zsh-plugins/zsh-completions/src $fpath)
 
 fpath=(/usr/share/zsh/vendor-completions $fpath)
 fpath=(~/.zfunc $fpath)
 fpath=(~/.local/share/zsh/site-functions $fpath)
 
-[ -f "$HOME/.dotfiles/zsh-plugins/custom-hooks/directory-hook.zsh" ] && source ~/.dotfiles/zsh-plugins/custom-hooks/directory-hook.zsh
-[ -f "$HOME/.dotfiles/zsh-plugins/custom-fzf/fzf.zsh" ] && source ~/.dotfiles/zsh-plugins/custom-fzf/fzf.zsh
+for f in ~/.config/zsh/*.zsh(N); do
+  source "$f"
+done
 
 _load_zsh_plugin "fzf-tab" "fzf-tab.plugin.zsh"
 _load_zsh_plugin "evalcache" "evalcache.plugin.zsh"
@@ -137,8 +128,6 @@ fi
 _load_zsh_plugin "forgit" "forgit.plugin.zsh"
 if [ -d "$HOME/.oh-my-zsh/custom/plugins/forgit/bin" ]; then
   export PATH="$HOME/.oh-my-zsh/custom/plugins/forgit/bin:$PATH"
-elif [ -d "$HOME/.dotfiles/zsh-plugins/forgit/bin" ]; then
-  export PATH="$HOME/.dotfiles/zsh-plugins/forgit/bin:$PATH"
 fi
 
 # Allow completing of sbin entries for sudo
