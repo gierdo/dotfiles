@@ -1,0 +1,7 @@
+{{- $environment := env "CHEZMOI_ENV" -}}
+{{- if not $environment -}}
+{{-   $environment = promptStringOnce . "environment" "environment" "home" -}}
+{{- end -}}
+
+[data]
+    environment = {{ $environment | quote }}

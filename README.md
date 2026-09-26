@@ -68,7 +68,15 @@ however you want.
 Configurations that depend on your physical workstation (such as Sway workspace
 assignments and Kanshi display profiles) default to `home`.
 
-To apply `work` configs:
+To switch and **persist** the environment across runs:
+
+```bash
+chezmoi init --promptString environment=work --apply
+# or via environment variable:
+CHEZMOI_ENV=work chezmoi init --apply
+```
+
+For temporary (one-off, non-persisted) runs:
 
 ```bash
 chezmoi apply --override-data '{"environment":"work"}'
