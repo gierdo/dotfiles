@@ -10,6 +10,8 @@ if command -v apt-get >/dev/null 2>&1; then
   )
   echo "I have to elevate permissions for the system-wide installation of packages with apt."
   sudo apt-get install -y "${apt_packages[@]}"
+else
+  echo "You are running a linux distribution with unsupported package management. Please make sure to install the system dependencies yourself."
 fi
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install ripgrep
