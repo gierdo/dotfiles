@@ -9,7 +9,10 @@ packages = [
   "build-essential",
   "cmake",
   "bison",
+  "flex",
   "meson",
+  "ninja-build",
+  "pkg-config",
   # git secret helper
   "libsecret-1-dev",
   # Animated backgreound
@@ -17,7 +20,39 @@ packages = [
   "gir1.2-gtklayershell",
   "libgtk-layer-shell0",
   "gir1.2-vte",
-  "python3-gi"
+  "python3-gi",
+  # cargo build dependencies & C bindings
+  "libbz2-dev",
+  "libdbus-1-dev",
+  "liblzma-dev",
+  "libpcap-dev",
+  "libpulse-dev",
+  "libsensors-dev",
+  "libsqlite3-dev",
+  "libssh2-1-dev",
+  "libssl-dev",
+  "zlib1g-dev",
+  # dragon build dependencies
+  "libgtk-3-dev",
+  # rofi-wayland build dependencies
+  "libcairo2-dev",
+  "libgdk-pixbuf-2.0-dev",
+  "libglib2.0-dev",
+  "libpango1.0-dev",
+  "libstartup-notification0-dev",
+  "libwayland-dev",
+  "libxcb1-dev",
+  "libxcb-cursor-dev",
+  "libxcb-ewmh-dev",
+  "libxcb-icccm4-dev",
+  "libxcb-keysyms1-dev",
+  "libxcb-randr0-dev",
+  "libxcb-util-dev",
+  "libxcb-xinerama0-dev",
+  "libxcb-xkb-dev",
+  "libxkbcommon-dev",
+  "libxkbcommon-x11-dev",
+  "wayland-protocols",
 ]
 
 [packages.cargo]

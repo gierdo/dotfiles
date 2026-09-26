@@ -8,6 +8,7 @@ if command -v apt-get >/dev/null 2>&1; then
     {{ . | quote }}
     {{- end }}
   )
+  echo "I have to elevate permissions for the system-wide installation of packages with apt."
   sudo apt-get install -y "${apt_packages[@]}"
 fi
 {{ else if eq .chezmoi.os "darwin" -}}
