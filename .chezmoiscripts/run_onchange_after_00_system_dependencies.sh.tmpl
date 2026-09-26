@@ -14,7 +14,16 @@ else
   echo "You are running a linux distribution with unsupported package management. Please make sure to install the system dependencies yourself."
 fi
 {{ else if eq .chezmoi.os "darwin" -}}
-brew install ripgrep
+if command -v brew >/dev/null 2>&1; then
+  brew_packages=(
+    {{- range .packages.brew.packages }}
+    {{ . | quote }}
+    {{- end }}
+  )
+  brew install "${brew_packages[@]}"
+else
+  echo "Homebrew is not installed. Please make sure to install Homebrew and the dependencies yourself."
+fi
 {{ end -}}
 
 # Install Rust via rustup

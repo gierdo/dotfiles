@@ -55,6 +55,11 @@ packages = [
   "wayland-protocols",
 ]
 
+[packages.brew]
+packages = [
+  "ripgrep",
+]
+
 [packages.cargo]
 crates = [
   "atuin",
