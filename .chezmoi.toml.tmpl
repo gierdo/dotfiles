@@ -1,6 +1,6 @@
 {{- $environment := env "CHEZMOI_ENV" -}}
 {{- if not $environment -}}
-{{-   $environment = promptStringOnce . "environment" "environment" "home" -}}
+{{-   $environment = promptChoiceOnce . "environment" "Select environment" (list "home" "work") "home" -}}
 {{- end -}}
 
 [data]

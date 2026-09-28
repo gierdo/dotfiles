@@ -71,7 +71,7 @@ assignments and Kanshi display profiles) default to `home`.
 To switch and **persist** the environment across runs:
 
 ```bash
-chezmoi init --promptString environment=work --apply
+chezmoi init --promptChoice environment=work --apply
 # or via environment variable:
 CHEZMOI_ENV=work chezmoi init --apply
 ```
