@@ -90,7 +90,7 @@ git_crates = [
   "https://github.com/gierdo/valv-cli.git",
   "https://github.com/Ataraxy-Labs/weave.git weave-cli",
   "https://github.com/Ataraxy-Labs/weave.git weave-driver",
-  "https://github.com/greshake/i3status-rust.git i3status-rs --locked",
+  "https://github.com/greshake/i3status-rust.git i3status-rs",
 ]
 
 [packages.go]
