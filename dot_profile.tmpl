@@ -36,8 +36,15 @@ fi
 PATH="$PATH:$HOME/.npmpath/bin"
 export NODE_PATH="$HOME/.npmpath/lib/node_modules"
 
-if [ -d "/usr/lib/ccache" ]; then
-  PATH="$PATH:/usr/lib/ccache"
+# sccache setup for C/C++ and Rust
+if command -v sccache >/dev/null 2>&1; then
+  export RUSTC_WRAPPER=sccache
+  if [ -d "$HOME/.local/lib/sccache" ]; then
+    PATH="$HOME/.local/lib/sccache:$PATH"
+  fi
+  export CMAKE_C_COMPILER_LAUNCHER=sccache
+  export CMAKE_CXX_COMPILER_LAUNCHER=sccache
+  export CMAKE_CUDA_COMPILER_LAUNCHER=sccache
 fi
 
 export ANDROID_HOME=~/.android-sdks
