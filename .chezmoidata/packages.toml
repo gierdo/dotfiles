@@ -53,6 +53,8 @@ packages = [
   "libxkbcommon-dev",
   "libxkbcommon-x11-dev",
   "wayland-protocols",
+  # Random other stuff
+  "jq",
 ]
 
 [packages.brew]
@@ -69,6 +71,7 @@ crates = [
   "eza",
   "fd-find",
   "git-delta",
+  "hurl",
   "jj-cli",
   "lazyjj",
   "mergiraf",

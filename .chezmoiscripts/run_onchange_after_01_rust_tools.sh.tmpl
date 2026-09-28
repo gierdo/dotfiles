@@ -10,7 +10,7 @@ if command -v cargo >/dev/null 2>&1; then
   )
 
   for crate in "${crates[@]}"; do
-    cargo install "$crate" || true
+    cargo install --locked "$crate" || true
   done
 
   # Git cargo dependencies
@@ -21,6 +21,6 @@ if command -v cargo >/dev/null 2>&1; then
   )
 
   for dep in "${git_crates[@]}"; do
-    cargo install --git $dep || true
+    cargo install --locked --git $dep || true
   done
 fi
