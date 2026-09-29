@@ -1,7 +1,7 @@
 [tools]
 go = "1.27.1"
 node = "26.8.1"
-java = "adoptopenjdk-24.0.1+9"
+java = "24.0.2"
 awscli = "2.37.4"
 direnv = "2.37.1"
 lazygit = "0.56.0"

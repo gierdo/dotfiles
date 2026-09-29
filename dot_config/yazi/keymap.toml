@@ -9,7 +9,7 @@ keymap = [
     { on = [ "u", "v" ], run = "plugin valv", desc = "Valv vault manager" },
     { on = "M", run = "plugin mount", desc = "[m]ount partitions, [u]nmount partitions, [e]ject disks" },
 
-    { on = "<C-d>", run = 'shell -- dragon -x -T "$@"', desc = "Hand over to dragon for drag and drop" },
+    { on = "<C-d>", run = 'shell -- dragon -x -T %s', desc = "Hand over to dragon for drag and drop" },
 
     { on = "C", run = "plugin ouch",            desc = "Compress with ouch" },
 
@@ -69,7 +69,7 @@ keymap = [
 	{ on = "O",         run = "open --interactive",          desc = "Open selected files interactively" },
 	{ on = "<Enter>",   run = "open",                        desc = "Open selected files" },
 	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
-	{ on = "y",         run = [ 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ],                        desc = "Yank selected files (copy)" },
+	{ on = "y",         run = [ 'shell -- for path in %s; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ],                        desc = "Yank selected files (copy)" },
 	{ on = "x",         run = "yank --cut",                  desc = "Yank selected files (cut)" },
 	{ on = "p",         run = "paste",                       desc = "Paste yanked files" },
 	{ on = "P",         run = "paste --force",               desc = "Paste yanked files (overwrite if the destination exists)" },
