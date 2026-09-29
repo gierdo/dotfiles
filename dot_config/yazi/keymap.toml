@@ -69,7 +69,7 @@ keymap = [
 	{ on = "O",         run = "open --interactive",          desc = "Open selected files interactively" },
 	{ on = "<Enter>",   run = "open",                        desc = "Open selected files" },
 	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
-	{ on = "y",         run = [ 'shell -- for path in %s; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ],                        desc = "Yank selected files (copy)" },
+	{ on = "y",         run = [ 'shell --orphan -- m=$(file -Lb --mime-type %h); case "$m" in image/*) wl-copy -t "$m" < %h;; *) for path in %s; do echo "file://$path"; done | wl-copy -t text/uri-list;; esac', "yank" ],                        desc = "Yank selected files (copy)" },
 	{ on = "x",         run = "yank --cut",                  desc = "Yank selected files (cut)" },
 	{ on = "p",         run = "paste",                       desc = "Paste yanked files" },
 	{ on = "P",         run = "paste --force",               desc = "Paste yanked files (overwrite if the destination exists)" },
