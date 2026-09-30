@@ -100,7 +100,7 @@ packages = [
   "github.com/google/yamlfmt/cmd/yamlfmt@latest",
   "github.com/jesseduffield/lazydocker@latest",
   "github.com/pranshuparmar/witr/cmd/witr@latest",
-  "github.com/FiloSottile/age/cmd/...@latest",
+  "filippo.io/age/cmd/...@latest",
   "golang.org/x/lint/golint@latest",
   "golang.org/x/tools/cmd/goimports@latest",
   "golang.org/x/tools/gopls@latest",
