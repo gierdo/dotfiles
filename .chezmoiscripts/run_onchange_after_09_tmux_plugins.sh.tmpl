@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Re-run when the tmux plugin list changes.
+# @plugin hash: {{ regexFindAll "(?m)^set -g @plugin.*$" (include "dot_tmux.conf") -1 | join "\n" | sha256sum }}
+
+tpm="${HOME}/.tmux/plugins/tpm"
+[ -x "${tpm}/bin/install_plugins" ] || exit 0
+
+# tpm reads config from a running server; start a throwaway one if needed.
+tmux start-server
+tmux new-session -d -s __chezmoi_tpm 2>/dev/null || true
+
+"${tpm}/bin/install_plugins"
+"${tpm}/bin/update_plugins" all
+
+tmux kill-session -t __chezmoi_tpm 2>/dev/null || true
