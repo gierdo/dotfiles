@@ -2,6 +2,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Rerun once per week to update external dependencies regularly
+# @week: {{ now.Year }}-W{{ printf "%02d" (div (add now.YearDay 6) 7) }}
+
 if ! command -v dragon >/dev/null 2>&1; then
   echo "Building and installing dragon..."
   build_dir="$(mktemp -d)"
