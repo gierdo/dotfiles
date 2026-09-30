@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Re-run when the tmux plugin list changes.
+# Re-run when the tmux plugin list changes, or once per week (matching the
+# externals refreshPeriod) so plugins get pulled even without a config change.
 # @plugin hash: {{ regexFindAll "(?m)^set -g @plugin.*$" (include "dot_tmux.conf") -1 | join "\n" | sha256sum }}
+# @week: {{ now | date "2006-W02" }}
 
 tpm="${HOME}/.tmux/plugins/tpm"
 [ -x "${tpm}/bin/install_plugins" ] || exit 0
