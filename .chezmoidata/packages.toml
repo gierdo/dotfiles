@@ -101,6 +101,7 @@ packages = [
   "github.com/jesseduffield/lazydocker@latest",
   "github.com/pranshuparmar/witr/cmd/witr@latest",
   "filippo.io/age/cmd/...@latest",
+  "github.com/foxboron/age-plugin-tpm/cmd/age-plugin-tpm@latest",
   "golang.org/x/lint/golint@latest",
   "golang.org/x/tools/cmd/goimports@latest",
   "golang.org/x/tools/gopls@latest",
