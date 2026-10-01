@@ -283,13 +283,4 @@ return {
       disabled = false,
     },
   },
-  {
-    "abhinandh-s/age.nvim",
-    cmd = { "Age" },
-    config = function()
-      require("age").setup({
-        key_file = vim.fn.expand("~/.config/sops/age/keys.txt"),
-      })
-    end,
-  },
 }
