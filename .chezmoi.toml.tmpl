@@ -3,11 +3,11 @@
 {{-   $environment = promptChoiceOnce . "environment" "Select environment" (list "home" "work") "home" -}}
 {{- end -}}
 
-{{- if stat (joinPath .chezmoi.homeDir ".keys" "age-identity.txt") }}
+{{- if stat (joinPath .chezmoi.homeDir ".config" "sops" "age" "keys.txt") }}
 encryption = "age"
 
 [age]
-    identity = {{ (joinPath .chezmoi.homeDir ".keys" "age-identity.txt") | quote }}
+    identity = {{ (joinPath .chezmoi.homeDir ".config" "sops" "age" "keys.txt") | quote }}
     recipients = ["age1tag1qd7qg6v8r2k8g4yzc6e7qk3d4vtmyslck8wydrlrcy5qm9e3zazf2epdeu0", "age1tag1qdf7ede6fsj5vuggcs72488fuywxgsjcj57chyyh4qk03pwr75ynjjzjj3j"]
 {{- end }}
 

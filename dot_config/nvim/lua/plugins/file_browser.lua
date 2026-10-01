@@ -269,4 +269,27 @@ return {
     },
     config = true,
   },
+  {
+    "alker0/chezmoi.vim",
+    setup = function()
+      -- This option is required.
+      vim.g["chezmoi#use_tmp_buffer"] = true
+    end,
+  },
+  {
+    "trixnz/sops.nvim",
+    lazy = false,
+    opts = {
+      disabled = false,
+    },
+  },
+  {
+    "abhinandh-s/age.nvim",
+    cmd = { "Age" },
+    config = function()
+      require("age").setup({
+        key_file = vim.fn.expand("~/.config/sops/age/keys.txt"),
+      })
+    end,
+  },
 }
