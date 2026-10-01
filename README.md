@@ -16,6 +16,11 @@ replaced with symlinks to the dotfiles file.
 If this setup should be helpful to anybody else, please feel
 free to copy, suggest, do whatever you like with it.
 
+**The content is specific to my configuration and usage of my machines. Feel
+free to use it in whatever way you want, but you should probably at least fork
+it for you, so that you can add your own configuration and state. Also look
+[at the crypcryptography section](#cryptography).**
+
 ## System dependencies
 
 The dotfiles have a number of system dependencies that have to be installed for
@@ -32,7 +37,7 @@ See [here](container-images).
 ## Dotfiles Management: chezmoi
 
 This dotfiles repository is managed with [chezmoi](https://www.chezmoi.io/) and
-is (smoewhat - as untested) compatible with both **Linux** and **macOS**.
+is (somewhat - as untested) compatible with both **Linux** and **macOS**.
 
 ### Quick Start (New Machine)
 
@@ -62,6 +67,23 @@ however you want.
 - Apply changes: `chezmoi apply`
 - Edit a config: `chezmoi edit ~/.zshrc` (or edit files in `dot_...` directly)
 - Re-run lifecycle install scripts: `chezmoi apply --force`
+
+### Cryptography
+
+A few files managed here do not contain **abstract configuration**, but
+**state**, e.g. my spell check additions for vim.
+
+If you are not me, I don't want you to get my spell check additions 😄
+This is one of the reasons for the repository being set up with [`chezmoi`
+encrpytion using age](https://www.chezmoi.io/user-guide/encryption/age/).
+The [config
+template](https://github.com/gierdo/dotfiles/blob/master/.chezmoi.toml.tmpl)
+sets it up on init, if there is an `age` identity in
+`~/.config/sops/age/keys.txt`, but unless you have my identity, which you
+won't have, you won't be able to decrypt my state.
+
+This is one of the reasons for why it's probably a good idea for you not to
+simply use my dotfiles repo directly 😃
 
 ### Environment-Specific Configurations
 
