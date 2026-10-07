@@ -1,0 +1,39 @@
+#!/bin/sh
+# Launch kitty, installing it on first run.
+# Install logic inlined from the official installer (no curl|sh of untrusted
+# code): https://sw.kovidgoyal.net/kitty/binary/
+# simplification: Linux-only, released-version-only. Upgrade path: port the
+# macOS/nightly/version branches from the upstream installer.sh if needed.
+set -eu
+
+DEST="${HOME}/.local/kitty.app"
+KITTY="${DEST}/bin/kitty"
+
+install_kitty() {
+    case "$(uname -m)" in
+        amd64|x86_64) arch=x86_64 ;;
+        aarch64*|armv8*) arch=arm64 ;;
+        *) echo "kitty binaries not available for $(uname -m)" >&2; exit 1 ;;
+    esac
+
+    version=$(curl -fsSL https://sw.kovidgoyal.net/kitty/current-version.txt)
+    [ -n "$version" ] || { echo "Could not get kitty release version" >&2; exit 1; }
+    url="https://github.com/kovidgoyal/kitty/releases/download/v${version}/kitty-${version}-${arch}.txz"
+
+    tdir=$(mktemp -d /tmp/kitty-install-XXXXXXXXXXXX)
+    trap 'rm -rf "$tdir"' EXIT
+
+    echo "Downloading kitty ${version} from: $url"
+    curl -fL "$url" > "$tdir/kitty.txz" || { echo "Failed to download $url" >&2; exit 1; }
+
+    mkdir "$tdir/mp"
+    tar -C "$tdir/mp" -xJof "$tdir/kitty.txz" || { echo "Failed to extract kitty tarball" >&2; exit 1; }
+
+    echo "Installing to $DEST"
+    rm -rf "$DEST"
+    mv "$tdir/mp" "$DEST" || { echo "Failed to move kitty.app to $DEST" >&2; exit 1; }
+}
+
+[ -x "$KITTY" ] || install_kitty
+
+exec "$KITTY" "$@"

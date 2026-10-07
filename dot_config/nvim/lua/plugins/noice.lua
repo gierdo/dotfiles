@@ -249,6 +249,15 @@ return {
             opts = { skip = true },
           },
           {
+            -- Silence temporary-file not present anymore errors
+            filter = {
+              event = "notify",
+              kind = "error",
+              find = "No such file or directory",
+            },
+            opts = { skip = true },
+          },
+          {
             filter = {
               event = "msg_show",
               kind = "",
