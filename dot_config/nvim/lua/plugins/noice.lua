@@ -258,6 +258,15 @@ return {
             opts = { skip = true },
           },
           {
+            -- Silence useless inlay hint errors
+            filter = {
+              event = "msg_show",
+              kind = "emsg",
+              find = "ns=nvim.lsp.inlayhint",
+            },
+            opts = { skip = true },
+          },
+          {
             filter = {
               event = "msg_show",
               kind = "",
