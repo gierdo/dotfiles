@@ -252,6 +252,10 @@ return {
   },
   {
     "mrjones2014/smart-splits.nvim",
+
+    dependencies = {
+      { "smart-splits-nvim/backend-tmux", main = "smart-splits-backend-tmux" },
+    },
     config = function()
       require("smart-splits").setup({
         ignored_buftypes = {
@@ -270,17 +274,14 @@ return {
           at_edge = "wrap",
           same_row = false,
         },
+        mux = {
+          backend = "smart-splits-backend-tmux",
+        },
         swap = {
           move_cursor = false,
         },
-        log = {
-          level = "warn",
-        },
       })
-      -- recommended mappings
-      -- resizing splits
-      -- these keymaps will also accept a range,
-      -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+      -- resizing splits, these accept a count, so `10<A-h>` resizes by 10 * config.resize.amount
       vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
       vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
       vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
