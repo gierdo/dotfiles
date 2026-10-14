@@ -1,5 +1,9 @@
 export ZSH="$HOME/.oh-my-zsh"
 
+# Initialize zsh completion system early
+
+autoload -Uz compinit && compinit
+
 # Set shell variable to zsh
 export SHELL=zsh
 
