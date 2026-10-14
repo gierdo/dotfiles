@@ -172,15 +172,6 @@ if command -v ast-grep 1>/dev/null 2>&1; then
   _evalcache ast-grep completions
 fi
 
-
-if [ -d "$HOME/.local/share/nvim/lazy/fzf/bin" ]; then
-  export PATH="$HOME/.local/share/nvim/lazy/fzf/bin:$PATH"
-fi
-
-if [ -f "$HOME/.fzf.zsh" ]; then
-  source ~/.fzf.zsh
-fi
-
 if command -v atuin 1>/dev/null 2>&1; then
   _evalcache atuin init zsh
 fi
@@ -195,47 +186,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 fi
-
-# # TODO:  <12-02-24, gierdo> # split up in sane modules
-
-# Get cdk completions and always use cdk from the project context, if available
-_cdk_yargs_completions()
-{
-  local reply
-  local si=$IFS
-  IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" cdk --get-yargs-completions "${words[@]}"))
-  IFS=$si
-  _describe 'values' reply
-}
-compdef _cdk_yargs_completions cdk
-
-cdk() { npx -- cdk "$@" }
-
-if command -v flatpak 1>/dev/null 2>&1; then
-  _load_zsh_plugin "flatpak-zsh-completion" "flatpak.plugin.zsh"
-fi
-
-# Generic Aliases
-alias fucking='sudo '
-
-alias :q='exit'
-alias :wq='exit'
-
-alias kubectl-show-ns='kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n'
-alias ctop_podman='podman run --rm -ti \
-  --name=ctop \
-  --volume $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock:ro \
-  quay.io/vektorlab/ctop:latest'
-
-alias ctop='docker run --rm -ti \
-  --name=ctop \
-  --volume /var/run/docker.sock:/var/run/docker.sock:ro \
-  quay.io/vektorlab/ctop:latest'
-
-alias dive='podman run -ti --rm  -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock wagoodman/dive'
-
-alias bazel='bazelisk'
 
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
