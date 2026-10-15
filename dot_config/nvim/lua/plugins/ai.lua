@@ -57,6 +57,7 @@ return {
                 commands = {
                   default = { "agy-acp" },
                 },
+                defaults = { mcpServers = "inherit_from_config" },
               })
             end,
           },
@@ -65,11 +66,18 @@ return {
           -- { name = "claude_code", executable = "claude" },
         }
 
-        local acp = { opts = { show_presets = false }, defaults = { mcpServers = "inherit_from_config" } }
+        local acp = { opts = { show_presets = false } }
         local first_available
         for _, agent in ipairs(acp_agents) do
           if vim.fn.executable(agent.executable) == 1 then
-            acp[agent.name] = agent.adapter or agent.name
+            -- mcpServers must be set on the resolved adapter, not the shared acp.defaults table,
+            -- otherwise the preset's own default ({}) wins and nothing is forwarded to the agent.
+            acp[agent.name] = agent.adapter
+              or function()
+                return require("codecompanion.adapters.acp").extend(agent.name, {
+                  defaults = { mcpServers = "inherit_from_config" },
+                })
+              end
             if not first_available then
               first_available = agent.name
             end
@@ -91,6 +99,17 @@ return {
                 sticky = true,
               },
               show_reasoning = false,
+            },
+          },
+          mcp = {
+            opts = { default_servers = { "nvim-editor-mcp" } },
+            servers = {
+              ["nvim-editor-mcp"] = {
+                cmd = { "nvim-editor-mcp" },
+                tool_defaults = {
+                  require_approval_before = true,
+                },
+              },
             },
           },
           interactions = {
