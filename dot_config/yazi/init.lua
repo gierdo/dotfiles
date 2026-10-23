@@ -4,8 +4,8 @@ require("git"):setup()
 require("mime-ext.local"):setup({ fallback_file1 = true })
 
 require("full-border"):setup({
-  -- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
-  type = ui.Border.PLAIN,
+  -- Available values: "plain", "rounded"
+  set = "plain",
 })
 
 Status:children_add(function()
