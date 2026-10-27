@@ -151,6 +151,7 @@ tools = [
   "flake8",
   "git+https://github.com/oraios/serena",
   "keyring",
+  "neovim-remote",
   "podman-compose",
   "poetry",
   "pylint",
