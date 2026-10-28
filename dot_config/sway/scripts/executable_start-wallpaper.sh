@@ -8,7 +8,7 @@ SCRIPT="$(dirname "$0")/wallpaper-term.py"
 swaybg -m solid_color -c '#002b36' &
 BG_PID=$!
 
-uv run --no-project --no-managed-python "$SCRIPT" "$@" &
+uv run --script "$SCRIPT" "$@" &
 PID=$!
 sleep 1
 

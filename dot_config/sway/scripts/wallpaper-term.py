@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+#
+# /// script
+# requires-python = "==3.15.*"
+# dependencies = [
+#     "pygobject>=3.58.1",
+# ]
+# ///
+
 """Runs a command in a VTE terminal on the Wayland background layer."""
 
 import sys
