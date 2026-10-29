@@ -1,0 +1,110 @@
+#!/usr/bin/env node
+// MCP stdio proxy for a child server. Two transforms on tools/list:
+//   1. Prefix tool names ("browser_click" -> "<prefix>browser_click").
+//      Pass "-" as the prefix to disable prefixing (schema fix only).
+//   2. Sanitize each tool's inputSchema so it is accepted by the
+//      Bedrock/Anthropic tool API, which rejects oneOf/allOf/anyOf at the
+//      top level of a schema. We drop those keywords and fold any "required"
+//      branches into the schema description so the model keeps the hint.
+// Usage: mcp-schema-proxy <prefix|-> -- <command> [args...]
+//
+// "engram": {
+//   "type": "stdio",
+//   "command": "mcp-schema-proxy",
+//   "args": [
+//     "-",
+//     "--",
+//     "engram"
+//   ]
+// },
+//
+
+import { spawn } from "node:child_process";
+import { createInterface } from "node:readline";
+
+// Fail loudly on unsupported node rather than dying on a cryptic error later.
+const major = Number(process.versions.node.split(".")[0]);
+if (major < 18) {
+  process.stderr.write(
+    `mcp-schema-proxy requires Node >=18, got ${process.versions.node}\n`,
+  );
+  process.exit(1);
+}
+
+const sepIdx = process.argv.indexOf("--");
+if (sepIdx < 3 || sepIdx === process.argv.length - 1) {
+  process.stderr.write(
+    "Usage: mcp-schema-proxy <prefix|-> -- <command> [args...]\n",
+  );
+  process.exit(1);
+}
+
+// "-" means no prefix; sanitization still runs.
+const PREFIX = process.argv[2] === "-" ? "" : process.argv[2];
+const cmd = process.argv[sepIdx + 1];
+const args = process.argv.slice(sepIdx + 2);
+
+const child = spawn(cmd, args, {
+  stdio: ["pipe", "pipe", "inherit"],
+});
+
+child.on("exit", (code) => process.exit(code ?? 1));
+
+// client (kiro) -> child: strip prefix from tool calls
+const clientRl = createInterface({ input: process.stdin, crlfDelay: Infinity });
+clientRl.on("line", (line) => {
+  try {
+    const msg = JSON.parse(line);
+    if (msg.method === "tools/call" && msg.params?.name?.startsWith(PREFIX)) {
+      msg.params.name = msg.params.name.slice(PREFIX.length);
+    }
+    child.stdin.write(JSON.stringify(msg) + "\n");
+  } catch {
+    child.stdin.write(line + "\n");
+  }
+});
+clientRl.on("close", () => child.kill());
+
+// Strip top-level oneOf/allOf/anyOf from a tool input schema (Bedrock rejects
+// them), folding any {required:[...]} branches into the description so the
+// model still sees the constraint.
+function sanitizeSchema(schema) {
+  if (!schema || typeof schema !== "object") return schema;
+  const combinators = ["anyOf", "oneOf", "allOf"];
+  const present = combinators.filter((k) => Array.isArray(schema[k]));
+  if (present.length === 0) return schema;
+
+  const groups = [];
+  for (const k of present) {
+    for (const branch of schema[k]) {
+      if (branch && Array.isArray(branch.required) && branch.required.length) {
+        groups.push(branch.required.join(" + "));
+      }
+    }
+    delete schema[k];
+  }
+  if (groups.length) {
+    const hint = `Requires one of: ${groups.join(" OR ")}.`;
+    schema.description = schema.description
+      ? `${schema.description} ${hint}`
+      : hint;
+  }
+  return schema;
+}
+
+// child -> client (kiro): prefix tool names + sanitize input schemas
+const childRl = createInterface({ input: child.stdout, crlfDelay: Infinity });
+childRl.on("line", (line) => {
+  try {
+    const msg = JSON.parse(line);
+    if (msg.result?.tools) {
+      for (const tool of msg.result.tools) {
+        tool.name = PREFIX + tool.name;
+        tool.inputSchema = sanitizeSchema(tool.inputSchema);
+      }
+    }
+    process.stdout.write(JSON.stringify(msg) + "\n");
+  } catch {
+    process.stdout.write(line + "\n");
+  }
+});
