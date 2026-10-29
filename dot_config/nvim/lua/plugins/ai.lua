@@ -4,6 +4,10 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      {
+        "gierdo/hive.nvim",
+        branch = "feat/acp-adapter",
+      },
     },
     config = function()
       -- If new buffers are opened or jumps being triggered while focus is on codecompanion, the action should be triggered outside of the codecompanion buffer
@@ -87,6 +91,18 @@ return {
         local use_gemini = vim.env.GEMINI_API_KEY ~= nil
 
         return {
+          extensions = {
+            hive = {
+              enabled = true,
+              opts = {
+                agents = {
+                  -- Subagents/advisors delegate to the detected ACP agent (bare adapter name)
+                  small_model = first_available or "kiro",
+                  big_model = first_available or "kiro",
+                },
+              },
+            },
+          },
           display = {
             action_palette = {
               opts = {

@@ -28,6 +28,7 @@
   "go.nvim": { "branch": "master", "commit": "5622d97078b30d853a0dfaf8cba204263a60c99a" },
   "grug-far.nvim": { "branch": "main", "commit": "91b7e58b6ffc6ddad5acb7a7c1df21257724449e" },
   "hexview.nvim": { "branch": "main", "commit": "413b73a2177a8d48b1af6658d2741584da209ece" },
+  "hive.nvim": { "branch": "feat/acp-adapter", "commit": "4b489bd406a7a6773d31cf9a051a8665f5e4e7a1" },
   "hurl.nvim": { "branch": "main", "commit": "19f06cc31bb2cb20da244d192b30b847395d67ed" },
   "img-clip.nvim": { "branch": "main", "commit": "99848daf801789dbebe2192b475eb887d375002c" },
   "incline.nvim": { "branch": "main", "commit": "debd628e9395f7a9da57bdc31ce75ca6b40a880b" },
