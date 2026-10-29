@@ -101,17 +101,18 @@ return {
               show_reasoning = false,
             },
           },
-          mcp = {
-            opts = { default_servers = { "nvim-editor-mcp" } },
-            servers = {
-              ["nvim-editor-mcp"] = {
-                cmd = { "nvim-editor-mcp" },
-                tool_defaults = {
-                  require_approval_before = true,
-                },
-              },
-            },
-          },
+          -- If used agents support mcp through acp, they can be configured here
+          -- mcp = {
+          --   opts = { default_servers = { "nvim-editor-mcp" } },
+          --   servers = {
+          --     ["nvim-editor-mcp"] = {
+          --       cmd = { "nvim-editor-mcp" },
+          --       tool_defaults = {
+          --         require_approval_before = true,
+          --       },
+          --     },
+          --   },
+          -- },
           interactions = {
             chat = {
               adapter = use_gemini and "gemini" or (first_available or "kiro"),
