@@ -6,6 +6,7 @@ packages = [
   "swaylock",
   "swaybg",
   "wl-clipboard",
+  "slurp",
   # general build dependencies
   "build-essential",
   "cmake",
