@@ -4,6 +4,7 @@ interaction: chat
 description: Generate tests for new code in the branch against a merge base
 opts:
   alias: test_branch
+  is_slash_cmd: true
   auto_submit: true
   stop_context_insertion: true
 ---

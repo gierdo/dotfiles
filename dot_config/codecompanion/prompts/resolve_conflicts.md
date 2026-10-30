@@ -4,6 +4,7 @@ interaction: chat
 description: "Resolve an in-progress git merge/rebase conflict"
 opts:
   alias: resolve_conflicts
+  is_slash_cmd: true
   auto_submit: false
   stop_context_insertion: true
 ---

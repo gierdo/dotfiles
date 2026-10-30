@@ -4,6 +4,7 @@ interaction: chat
 description: Generate a conventional commit message for staged changes
 opts:
   alias: commit
+  is_slash_cmd: true
   auto_submit: true
   stop_context_insertion: true
 ---

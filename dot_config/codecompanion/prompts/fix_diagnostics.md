@@ -4,7 +4,7 @@ interaction: chat
 description: Fix the LSP diagnostics for the selected code
 opts:
   alias: lsp_fix
-  is_slash_cmd: false
+  is_slash_cmd: true
   modes:
     - v
   stop_context_insertion: true

@@ -4,7 +4,7 @@ interaction: chat
 description: Write the minimal test for selected code
 opts:
   alias: test
-  is_slash_cmd: false
+  is_slash_cmd: true
   modes:
     - v
   stop_context_insertion: true

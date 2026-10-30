@@ -4,7 +4,7 @@ interaction: chat
 description: Review code as a skeptical senior
 opts:
   alias: review
-  is_slash_cmd: false
+  is_slash_cmd: true
   modes:
     - v
   stop_context_insertion: true
