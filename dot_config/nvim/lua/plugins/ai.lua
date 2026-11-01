@@ -4,10 +4,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      {
-        "gierdo/hive.nvim",
-        branch = "feat/acp-adapter",
-      },
     },
     config = function()
       -- If new buffers are opened or jumps being triggered while focus is on codecompanion, the action should be triggered outside of the codecompanion buffer
@@ -91,18 +87,6 @@ return {
         local use_gemini = vim.env.GEMINI_API_KEY ~= nil
 
         return {
-          extensions = {
-            hive = {
-              enabled = true,
-              opts = {
-                agents = {
-                  -- Subagents/advisors delegate to the detected ACP agent (bare adapter name)
-                  small_model = first_available or "kiro",
-                  big_model = first_available or "kiro",
-                },
-              },
-            },
-          },
           display = {
             action_palette = {
               opts = {
@@ -133,51 +117,18 @@ return {
             chat = {
               adapter = use_gemini and "gemini" or (first_available or "kiro"),
               opts = {
-                -- ACP adapters drop system-role messages, so the system prompt
-                -- must be prepended to the first user prompt. A Hive agent can
-                -- carry its own prompt (its markdown body); when one is active it
-                -- replaces the shared default. The "already injected" flag is
-                -- keyed per chat buffer, not per adapter, so switching agents
-                -- (a different ACP chat buffer) injects that agent's prompt once.
                 prompt_decorator = function(content, adapter)
-                  if adapter.type ~= "acp" then
+                  -- The ACP adapter doesn't allow extending or overriding the system prompt. We have to inject what we want in the first user prompt.
+                  if adapter.type ~= "acp" or adapter._cc_preprompt_sent then
                     return content
                   end
-
-                  local chat = require("codecompanion").last_chat()
-                  local bufnr = chat and chat.bufnr
-                  if not bufnr then
+                  adapter._cc_preprompt_sent = true
+                  local f = io.open(vim.fn.expand("~/.config/codecompanion/system_prompt.md"), "r")
+                  if not f then
                     return content
                   end
-
-                  adapter._cc_preprompt_sent = adapter._cc_preprompt_sent or {}
-                  if adapter._cc_preprompt_sent[bufnr] then
-                    return content
-                  end
-                  adapter._cc_preprompt_sent[bufnr] = true
-
-                  -- Prefer the active Hive agent's own prompt; fall back to the
-                  -- shared default file.
-                  local prompt
-                  local ok, hive = pcall(require, "hive.agents")
-                  if ok then
-                    local agent = hive.active(bufnr)
-                    if agent then
-                      local p = hive.resolve_system_prompt(agent, chat)
-                      if p and p ~= "" then
-                        prompt = p
-                      end
-                    end
-                  end
-                  if not prompt then
-                    local f = io.open(vim.fn.expand("~/.config/codecompanion/system_prompt.md"), "r")
-                    if not f then
-                      return content
-                    end
-                    prompt = f:read("*a")
-                    f:close()
-                  end
-
+                  local prompt = f:read("*a")
+                  f:close()
                   return prompt .. "\n\n---\n\n" .. content
                 end,
               },
