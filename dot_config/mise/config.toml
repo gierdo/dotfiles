@@ -17,6 +17,7 @@ gradle = "9.8"
 glab = { version = "1.124.0", exe = "glab" }
 chezmoi = "2.73.3"
 sops = "3.13.3"
+herdr = "0.9.5"
 
 [settings]
 fetch_remote_versions_cache = "365d"
