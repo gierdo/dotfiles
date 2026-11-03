@@ -5,7 +5,7 @@ config.enable_wayland = true
 config.exit_behavior = "Close"
 config.enable_tab_bar = false
 
-config.default_prog = { "tmux" }
+config.default_prog = { "herdr" }
 
 config.color_scheme = "Solarized Dark - Patched"
 
@@ -18,5 +18,7 @@ config.font_size = 13.0
 config.adjust_window_size_when_changing_font_size = false
 config.warn_about_missing_glyphs = false
 config.mux_enable_ssh_agent = false
+
+config.window_close_confirmation = "NeverPrompt"
 
 return config

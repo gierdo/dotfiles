@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v herdr >/dev/null 2>&1; then
+  plugins=(
+    {{- range .packages.herdr.plugins }}
+    {{ . | quote }}
+    {{- end }}
+  )
+
+  for plugin in "${plugins[@]}"; do
+    herdr plugin install "$plugin" -y || true
+  done
+fi
