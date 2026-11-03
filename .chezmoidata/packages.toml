@@ -176,7 +176,6 @@ plugins = [
 
 [packages.herdr]
 plugins = [
-  "ChmaraX/herdr-nvim",
   "jeffarese/herdr-bar",
   "lmilojevicc/herdr-splits.nvim",
   "njs14/herdr-kiro-pulse",
