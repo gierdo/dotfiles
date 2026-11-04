@@ -1,9 +1,11 @@
 name: feature-implementation
-version: 1
+version: 2
 description: >-
-  Drive a feature from specification through validation. Linear happy path with
+  Drive a feature from orientation through integration. Linear happy path with
   explicit refinement loops: a later state may send work back to an earlier one
-  when it uncovers a gap the earlier state should have closed.
+  when it uncovers a gap the earlier state should have closed. Mechanical
+  verification gates entry to behavioral review, so the reviewer always reasons
+  about confirmed-green code.
 
 # ---------------------------------------------------------------------------
 # Execution model
@@ -31,12 +33,22 @@ inputs:
     required: true
 
 artifacts:
+  context:
+    path: "specs/{task}/context.md"
+    description: >-
+      Orientation findings: affected components, existing/overlapping behavior,
+      constraints, and the project's actual build/test/lint/verify commands.
   spec:
     path: "specs/{task}/spec.md"
     description: "Requirements, scope, and acceptance criteria."
   plan:
     path: "specs/{task}/plan.md"
     description: "Ordered, verifiable implementation steps mapped to criteria."
+  progress:
+    path: "specs/{task}/progress.md"
+    description: >-
+      Checklist mirroring the plan's steps. The unit of implementation progress;
+      lets a mid-plan handoff resume at the first unchecked step.
   review:
     path: "specs/{task}/review.md"
     description: "Behavioral review findings against spec and plan."
@@ -46,19 +58,43 @@ artifacts:
       Append-only record of each state entry/exit and the transition taken,
       with a one-line reason. The audit trail for loops.
 
-initial: specification
+initial: orientation
 
 states:
+  orientation:
+    goal: >-
+      Understand the problem in its real context before specifying anything.
+      Read the affected code, confirm the feature (or part of it) does not
+      already exist, and capture constraints. Critically, discover and record
+      the project's actual build, test, lint, and verification commands — later
+      gates depend on knowing how to run them. Record open questions explicitly.
+    produces: [context]
+    exit_gate: >-
+      The affected components and existing/overlapping behavior are identified,
+      the concrete verification commands are recorded, and relevant constraints
+      and open questions are captured.
+    transitions:
+      - when: "exit_gate holds"
+        to: specification
+        reason: "oriented: enough context to specify against"
+
   specification:
     goal: >-
       Capture what the feature must do: requirements, scope boundaries, and
-      concrete acceptance criteria. Record open questions explicitly instead of
-      guessing. Resolve them with the user before leaving this state.
+      concrete acceptance criteria, grounded in the orientation context. Record
+      open questions explicitly instead of guessing. Resolve them with the user
+      before leaving this state.
+    consumes: [context]
     produces: [spec]
     exit_gate: >-
       The spec states testable acceptance criteria, scope boundaries are
       explicit, and there are no unresolved open questions.
     transitions:
+      - when: >-
+          Specification exposed a gap in orientation that must be investigated
+          in the codebase before requirements can be settled.
+        to: orientation
+        reason: "refinement: spec surfaced a context gap"
       - when: "exit_gate holds"
         to: planning
         reason: "spec is complete enough to plan against"
@@ -68,12 +104,14 @@ states:
       Decompose the spec into an ordered sequence of implementation steps. Each
       step must be independently verifiable and trace to at least one acceptance
       criterion. Identify affected components, risks, and the verification
-      approach before writing code.
-    consumes: [spec]
-    produces: [plan]
+      approach before writing code. Seed the progress checklist with one entry
+      per plan step.
+    consumes: [context, spec]
+    produces: [plan, progress]
     exit_gate: >-
       Every plan step maps to an acceptance criterion, every criterion is
-      covered by at least one step, and the verification approach is defined.
+      covered by at least one step, the verification approach is defined, and
+      the progress checklist mirrors the plan steps.
     transitions:
       - when: >-
           Planning exposed a missing, ambiguous, or contradictory requirement
@@ -86,16 +124,19 @@ states:
 
   implementation:
     goal: >-
-      Execute the plan steps in order. Keep the build compiling and the test
-      suite green as you go. Add or update tests for new behavior. Do not expand
-      scope beyond the plan; if the plan is wrong, loop back rather than
-      improvising.
-    consumes: [spec, plan]
+      Execute the plan steps in order, working the first unchecked item in the
+      progress checklist. Keep the build compiling and the test suite green as
+      you go. Add or update tests for new behavior. Check off each step in the
+      progress artifact as it lands, so a handoff resumes mid-plan rather than
+      restarting. Do not expand scope beyond the plan; if the plan is wrong,
+      loop back rather than improvising.
+    consumes: [context, spec, plan, progress]
+    produces: [progress]
     exit_gate: >-
-      All plan steps are implemented, the build succeeds, all tests pass, and
-      every piece of non-trivial new behavior has at least one runnable check
-      that fails if that behavior breaks (a green suite that does not exercise
-      the new behavior does not satisfy this gate).
+      Every step in the progress checklist is complete, and every piece of
+      non-trivial new behavior has at least one runnable check that fails if
+      that behavior breaks. (Full-suite confirmation happens in verification;
+      this gate is about completeness of the work and its checks.)
     transitions:
       - when: >-
           A plan step proved infeasible, wrong, or incomplete, but the
@@ -108,52 +149,78 @@ states:
         to: specification
         reason: "refinement: implementation invalidated a requirement"
       - when: "exit_gate holds"
+        to: verification
+        reason: "all plan steps implemented with checks"
+
+  verification:
+    goal: >-
+      Run the project's full mechanical verification suite using the commands
+      recorded during orientation (build, tests, lint, and any project-specific
+      checks). This state is mechanical only — no behavioral judgment — and it
+      gates entry to review so the reviewer always reasons about confirmed-green
+      code.
+    consumes: [context]
+    exit_gate: >-
+      The full suite runs and passes with no errors or warnings. If the suite
+      cannot be run at all, this gate is not passed; record the blocker and
+      surface it rather than advancing.
+    transitions:
+      - when: "A check errored, failed, or could not be run."
+        to: implementation
+        reason: "verification failed"
+      - when: "exit_gate holds"
         to: review
-        reason: "implementation complete and green"
+        reason: "suite green; safe to review behavior"
 
   review:
     goal: >-
       Review the diff behaviorally against the spec and plan: does it do what
       the acceptance criteria require, are edge cases handled, is the change
-      coherent? Record findings as actionable items.
-    consumes: [spec, plan]
+      coherent? The code is already confirmed green, so focus on behavior and
+      design, not mechanical status. Record findings as actionable items.
+    consumes: [context, spec, plan]
     produces: [review]
     exit_gate: >-
       The review found no defects that block acceptance, or all such defects
-      have been resolved.
+      have been resolved, and every acceptance criterion is demonstrably met by
+      the running software.
     transitions:
       - when: "The review found defects that must be fixed in the implementation."
         to: implementation
-        reason: "review found defects"
+        reason: "review found defects; fix then re-verify before re-review"
       - when: >-
           The review found that the spec or plan themselves are wrong or
           incomplete.
         to: planning
         reason: "refinement: review surfaced a spec/plan gap"
       - when: "exit_gate holds"
-        to: validation
-        reason: "review passed"
+        to: integration
+        reason: "review passed and criteria met"
 
-  validation:
+  integration:
     goal: >-
-      Run the full verification suite the project defines (build, tests, lint,
-      and any project-specific checks). Confirm every acceptance criterion in
-      the spec is actually met by the running software, not just claimed.
-    consumes: [spec]
+      Land the work the way this repository expects: commit and/or open a PR per
+      the project's git conventions, update docs or changelog if the project
+      keeps them, and clean up any temporary artifacts created during the run.
+      Respect git-safety: do not push to protected branches or perform
+      destructive operations without explicit user confirmation.
+    consumes: [context, spec]
     exit_gate: >-
-      The full suite passes with no errors or warnings, and every acceptance
-      criterion is demonstrably met.
+      The change is committed (and a PR opened if that is the project's flow),
+      any required docs/changelog updates are made, and no stray temporary
+      artifacts remain. If the user opted out of integration for this run, the
+      gate holds vacuously.
     transitions:
-      - when: "Validation failed: a check errored or a criterion is not met."
+      - when: "A problem surfaced while landing that requires a code change."
         to: implementation
-        reason: "validation failed"
+        reason: "integration surfaced a defect; fix then re-verify"
       - when: "exit_gate holds"
         to: done
-        reason: "all criteria met and suite green"
+        reason: "work landed per project conventions"
 
   done:
     terminal: true
-    goal: "Feature is specified, implemented, reviewed, and validated."
+    goal: "Feature is oriented, specified, implemented, verified, reviewed, and integrated."
 
 # ---------------------------------------------------------------------------
 # Herdr integration (optional execution layer)
@@ -161,7 +228,7 @@ states:
 # When running under Herdr, a runner may map states to panes so long-running
 # signal (a test watcher, a build tail) stays live across loop iterations:
 #   - a persistent "verify" pane running the test/build watcher feeds the
-#     implementation and validation exit_gates with real status;
+#     implementation and verification exit_gates with real status;
 #   - entering `review` can start a reviewer agent in a sibling pane.
 # The mapping is advisory; the state machine above is the source of truth.
 # ---------------------------------------------------------------------------
@@ -169,7 +236,7 @@ herdr:
   suggested_panes:
     - role: verify
       lifecycle: persistent
-      purpose: "Live build/test status for implementation and validation gates."
+      purpose: "Live build/test status for the implementation and verification gates."
     - role: review
       lifecycle: on-enter-review
       purpose: "Hosts a reviewer agent during the review state."
