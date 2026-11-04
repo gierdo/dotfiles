@@ -1,4 +1,4 @@
-name: code-review
+name: merge-review
 version: 1
 description: >-
   Review a change you did not author (a PR/MR, a branch diff, a patch) against
@@ -42,14 +42,24 @@ inputs:
       What is under review: a PR/MR reference, a branch or commit range, or a
       patch file. Recorded in the scope artifact so the review is reproducible.
     required: true
+  base_branch:
+    description: >-
+      The merge target: the branch the change is intended to be merged into
+      (e.g. main, master, develop). The review diff is computed against the
+      merge base of this branch and the change, so only the change's own commits
+      are reviewed - not commits the base branch gained in the meantime. Ask the
+      user for this when the workflow is launched; do not assume a default.
+    required: true
 
 artifacts:
   scope:
     path: "reviews/{task}/scope.md"
     description: >-
       What is being reviewed and against what: the target (PR/range/patch), the
-      change's stated intent, the acceptance criteria or standards it is judged
-      by, and the boundary of what is in and out of scope for this review.
+      merge target (base branch) and the resolved merge-base commit SHA, the
+      exact `git diff` command used to produce the review diff, the change's
+      stated intent, the acceptance criteria or standards it is judged by, and
+      the boundary of what is in and out of scope for this review.
   findings:
     path: "reviews/{task}/findings.md"
     description: >-
@@ -69,16 +79,42 @@ states:
   scope:
     goal: >-
       Establish what is under review and the yardstick to judge it by. Identify
-      the target precisely (PR/MR id, commit range, or patch), capture the
+      the target precisely (PR/MR id, commit range, or patch), and establish the
+      merge target: ask the user for the base branch (the branch the change
+      merges into) if it was not supplied as an input. Resolve the diff against
+      the merge base so only the change's own commits are reviewed, never
+      commits the base branch gained since the change forked. Capture the
       change's stated intent, and record the acceptance criteria or project
       standards it must meet. Make the review boundary explicit: large changes
       may be reviewed in parts, but say which parts. Resolve any ambiguity about
       intent with the author or user before judging the code.
+
+      Run these commands and record their output in the scope artifact
+      (substitute {base_branch} and the change ref - a branch name, or HEAD for
+      the checked-out change):
+
+        # make sure the base branch ref is present and current
+        git fetch origin {base_branch}
+
+        # resolve the merge base: the commit where the change forked from base
+        git merge-base origin/{base_branch} {change_ref}
+
+        # the review diff - three-dot against the base branch is equivalent and
+        # the form to record; it diffs the change against the merge base:
+        git diff origin/{base_branch}...{change_ref}
+
+        # the commits under review, for the scope boundary:
+        git log --oneline origin/{base_branch}..{change_ref}
+
+      Record the resolved merge-base SHA and the exact diff command in the scope
+      artifact so the review is reproducible and later states diff identically.
     produces: [scope]
     exit_gate: >-
-      The target is unambiguously identified, the change's intent is stated, the
-      criteria/standards to judge against are written down, and the in/out-of
-      scope boundary is explicit.
+      The target is unambiguously identified, the merge target (base branch) is
+      known, the merge-base commit SHA is resolved and recorded, the exact
+      `git diff` command against the base branch is written in the scope
+      artifact, the change's intent is stated, the criteria/standards to judge
+      against are written down, and the in/out-of scope boundary is explicit.
     transitions:
       - when: "exit_gate holds"
         to: understand
@@ -87,10 +123,13 @@ states:
   understand:
     goal: >-
       Build an accurate mental model of the change before judging it. Read the
-      full diff in context (not just the changed lines), trace how the change
-      fits the surrounding code, and understand the author's approach on its own
-      terms. Note questions, but do not yet record them as findings - the aim
-      here is comprehension, not verdicts.
+      full diff in context (not just the changed lines) using the exact
+      `git diff origin/{base_branch}...{change_ref}` command recorded in the
+      scope artifact, so you review the change's own commits against the merge
+      base and nothing else. Trace how the change fits the surrounding code, and
+      understand the author's approach on its own terms. Note questions, but do
+      not yet record them as findings - the aim here is comprehension, not
+      verdicts.
     consumes: [scope]
     exit_gate: >-
       The change is understood well enough to assess it fairly: its approach,
