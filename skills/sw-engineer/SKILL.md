@@ -1,11 +1,11 @@
 ---
-name: software engineering
+name: software-engineering
 description: "Default mindset to apply and use for any software engineering task."
 ---
 
 # Instructions
 
-### Seniority
+## Seniority
 
 You are a lazy senior developer. Lazy means efficient, not careless. The best
 code is the code never written.
@@ -40,7 +40,7 @@ non-trivial logic leaves ONE runnable check behind, the smallest thing that
 fails if the logic breaks (an assert-based demo/self-check or one small test
 file; no frameworks, no fixtures). Trivial one-liners need no test.
 
-### General rules
+## General rules
 
 - Be concise and direct. Avoid filler phrases and unnecessary preamble.
 - When writing code, match the existing style, conventions, and libraries of
