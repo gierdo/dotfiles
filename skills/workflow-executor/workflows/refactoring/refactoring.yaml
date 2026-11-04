@@ -1,0 +1,230 @@
+name: refactoring
+version: 1
+description: >-
+  Improve the internal structure of code without changing its observable
+  behavior. The invariant is behavior preservation: establish a trustworthy
+  behavioral baseline first, apply structure-only transforms in small verified
+  steps, and prove at the end that behavior is unchanged. Explicit refinement
+  loops: a transform that changes behavior or a baseline too thin to prove
+  preservation sends work back.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the artifacts and the workspace to decide whether the condition holds.
+#
+# The governing invariant of this workflow is BEHAVIOR PRESERVATION. Every gate
+# is ultimately in service of: observable behavior after == observable behavior
+# before. A change that alters behavior is not a refactoring; it is a feature
+# or a fix and belongs in a different workflow.
+#
+# State lives in files on disk (see `artifacts`), not in agent memory or any
+# harness session store. That is what lets a loop resume, a different agent
+# pick up mid-flow, and the same workflow run under any harness.
+#
+# `{task}` is a slug for the refactoring, supplied when the workflow starts. It
+# namespaces this run's artifacts so concurrent work does not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying this refactoring (e.g. extract-auth-service).
+    required: true
+
+artifacts:
+  goal:
+    path: "refactors/{task}/goal.md"
+    description: >-
+      Why this refactoring is worth doing: the structural problem (duplication,
+      tangled responsibilities, poor naming, dead code), the target shape, the
+      scope boundary, and the explicit statement that observable behavior must
+      not change. Records what "observable behavior" means here (public API,
+      outputs, side effects, performance envelope if relevant).
+  baseline:
+    path: "refactors/{task}/baseline.md"
+    description: >-
+      The safety net that lets the refactoring be proven behavior-preserving:
+      which existing tests cover the code under change, what gaps were found,
+      and which characterization tests were added to close them. Records the
+      green baseline (suite state and any captured outputs) that the end state
+      is checked against.
+  plan:
+    path: "refactors/{task}/plan.md"
+    description: >-
+      The transformation decomposed into small, individually behavior-preserving
+      steps, ordered so the suite can stay green after each one. Each step names
+      the transform and how it is verified.
+  log:
+    path: "refactors/{task}/workflow-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops.
+
+initial: goal
+
+states:
+  goal:
+    goal: >-
+      Pin down what structural improvement is being made and, just as
+      importantly, what must not change. State the structural problem and target
+      shape, draw the scope boundary, and define "observable behavior" for this
+      code concretely (public interfaces, outputs, side effects, and any
+      performance characteristics that count). Confirm this is genuinely a
+      refactoring and not a behavior change in disguise.
+    produces: [goal]
+    exit_gate: >-
+      The structural goal and target shape are stated, the scope is bounded,
+      "observable behavior" is concretely defined, and it is confirmed that no
+      observable behavior is intended to change.
+    transitions:
+      - when: >-
+          Clarifying the goal revealed the work actually requires changing
+          observable behavior - it is a feature or a fix, not a refactoring.
+        to: abort
+        reason: "not a refactoring: behavior change is required"
+      - when: "exit_gate holds"
+        to: characterize
+        reason: "structural goal and preservation boundary are clear"
+
+  characterize:
+    goal: >-
+      Establish a behavioral safety net before touching structure. Identify the
+      tests that already cover the code in scope, find the gaps, and add
+      characterization tests that lock in the current observable behavior
+      (including edge cases the refactoring must not disturb). Run the suite and
+      record a green baseline. Do not change production code here except as
+      needed to make it testable without altering behavior.
+    consumes: [goal]
+    produces: [baseline]
+    exit_gate: >-
+      The observable behavior in scope is covered by tests that currently pass,
+      the coverage is sufficient to detect a behavior change introduced by the
+      refactoring, and a green baseline is recorded.
+    transitions:
+      - when: >-
+          Characterizing the code revealed the goal's scope or its definition of
+          observable behavior is wrong or incomplete and must be corrected.
+        to: goal
+        reason: "refinement: characterization exposed a goal/scope gap"
+      - when: "exit_gate holds"
+        to: plan
+        reason: "a trustworthy behavioral baseline exists"
+
+  plan:
+    goal: >-
+      Decompose the refactoring into small steps, each one individually
+      behavior-preserving and leaving the suite green. Order them so the code
+      compiles and tests pass between steps (prefer many reversible small moves
+      over one large rewrite). For each step, state the transform and how it is
+      verified against the baseline.
+    consumes: [goal, baseline]
+    produces: [plan]
+    exit_gate: >-
+      The refactoring is broken into ordered, individually verifiable,
+      behavior-preserving steps that together reach the target shape, each
+      traceable to the baseline it must not disturb.
+    transitions:
+      - when: >-
+          Planning showed the baseline is too thin to keep a step safe - some
+          step could change behavior undetected without more coverage.
+        to: characterize
+        reason: "refinement: plan needs a stronger baseline"
+      - when: >-
+          Planning revealed the target shape or scope in the goal is wrong or
+          unachievable without a behavior change.
+        to: goal
+        reason: "refinement: plan invalidated the goal"
+      - when: "exit_gate holds"
+        to: transform
+        reason: "a safe, incremental plan exists"
+
+  transform:
+    goal: >-
+      Apply the plan steps in order. After each step, run the suite and confirm
+      it stays green - a red suite means the step changed behavior and must be
+      reverted or corrected before moving on. Keep each commit a single
+      behavior-preserving transform. Do not slip in behavior changes or
+      out-of-scope cleanup; if a step is wrong, loop back rather than improvising.
+    consumes: [goal, baseline, plan]
+    exit_gate: >-
+      All plan steps are applied, the target structural shape is reached, the
+      build succeeds, and the full suite (baseline plus characterization tests)
+      passes with no behavior change observed at any step.
+    transitions:
+      - when: >-
+          A step changed observable behavior or proved unsafe, but the plan's
+          overall approach still holds - the step needs reworking.
+        to: plan
+        reason: "refinement: a transform step was unsafe or wrong"
+      - when: >-
+          Transforming revealed the goal's target shape or preservation
+          definition is itself wrong.
+        to: goal
+        reason: "refinement: transformation invalidated the goal"
+      - when: "exit_gate holds"
+        to: verify
+        reason: "target shape reached with the suite green throughout"
+
+  verify:
+    goal: >-
+      Prove behavior is preserved, independently of the act of transforming. Run
+      the full verification suite the project defines (build, tests, lint, and
+      any project-specific checks) and compare against the recorded baseline.
+      Confirm the public interface, outputs, and side effects match the baseline
+      and that no characterization test was weakened or deleted to pass.
+    consumes: [goal, baseline]
+    exit_gate: >-
+      The full suite passes with no errors or warnings, observable behavior
+      matches the recorded baseline, no baseline/characterization test was
+      weakened to achieve it, and the structural goal is met.
+    transitions:
+      - when: >-
+          Verification failed: a check errored, behavior diverged from the
+          baseline, or a test was weakened to pass.
+        to: transform
+        reason: "verification failed or behavior diverged"
+      - when: "exit_gate holds"
+        to: done
+        reason: "behavior preserved and structural goal met"
+
+  abort:
+    terminal: true
+    goal: >-
+      Stopped: the work requires an observable behavior change, so it is not a
+      refactoring. Hand off to the appropriate workflow (feature-implementation
+      or bug-fix) with what was learned recorded in the goal artifact.
+
+  done:
+    terminal: true
+    goal: "Structure improved to the target shape with observable behavior provably unchanged."
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes so the green/red
+# signal that guards behavior preservation stays live across every step:
+#   - a persistent "verify" pane running the suite on a watcher gives the
+#     characterize, transform, and verify gates real status after each step;
+#   - a "baseline" pane can hold the recorded baseline output for diffing
+#     against current behavior.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  suggested_panes:
+    - role: verify
+      lifecycle: persistent
+      purpose: "Runs the suite after each transform step for the preservation gates."
+    - role: baseline
+      lifecycle: on-enter-characterize
+      purpose: "Holds the recorded baseline behavior for diffing during transform/verify."

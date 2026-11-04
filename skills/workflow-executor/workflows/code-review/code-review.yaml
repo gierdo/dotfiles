@@ -1,0 +1,206 @@
+name: code-review
+version: 1
+description: >-
+  Review a change you did not author (a PR/MR, a branch diff, a patch) against
+  its stated intent and the project's standards, and deliver actionable
+  findings. Linear happy path with explicit refinement loops: assessment can
+  send work back to understanding when context is missing, and triage loops
+  while the author responds to findings.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the diff, the artifacts, and the workspace to decide whether it holds.
+#
+# This workflow REVIEWS a change; it does not author one. The agent reads and
+# reasons about the diff and writes review artifacts. It does not modify the
+# code under review - fixes are the author's job. The only writes are to the
+# review artifacts on disk (and, at the end, posting the review).
+#
+# State lives in files on disk (see `artifacts`), not in agent memory or any
+# harness session store. That is what lets a loop resume, a different agent
+# pick up mid-flow, and the same workflow run under any harness.
+#
+# `{task}` is a slug for the review, supplied when the workflow starts. It
+# namespaces this run's artifacts so concurrent reviews do not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying this review (e.g. pr-1234-pagination).
+    required: true
+  target:
+    description: >-
+      What is under review: a PR/MR reference, a branch or commit range, or a
+      patch file. Recorded in the scope artifact so the review is reproducible.
+    required: true
+
+artifacts:
+  scope:
+    path: "reviews/{task}/scope.md"
+    description: >-
+      What is being reviewed and against what: the target (PR/range/patch), the
+      change's stated intent, the acceptance criteria or standards it is judged
+      by, and the boundary of what is in and out of scope for this review.
+  findings:
+    path: "reviews/{task}/findings.md"
+    description: >-
+      The review itself: findings as actionable items, each with a location, a
+      severity (blocker / major / minor / nit / question), the reason it
+      matters, and a suggested direction. Also records what was checked and
+      found correct, so silence is not mistaken for an unreviewed area.
+  log:
+    path: "reviews/{task}/workflow-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops.
+
+initial: scope
+
+states:
+  scope:
+    goal: >-
+      Establish what is under review and the yardstick to judge it by. Identify
+      the target precisely (PR/MR id, commit range, or patch), capture the
+      change's stated intent, and record the acceptance criteria or project
+      standards it must meet. Make the review boundary explicit: large changes
+      may be reviewed in parts, but say which parts. Resolve any ambiguity about
+      intent with the author or user before judging the code.
+    produces: [scope]
+    exit_gate: >-
+      The target is unambiguously identified, the change's intent is stated, the
+      criteria/standards to judge against are written down, and the in/out-of
+      scope boundary is explicit.
+    transitions:
+      - when: "exit_gate holds"
+        to: understand
+        reason: "scope and yardstick are established"
+
+  understand:
+    goal: >-
+      Build an accurate mental model of the change before judging it. Read the
+      full diff in context (not just the changed lines), trace how the change
+      fits the surrounding code, and understand the author's approach on its own
+      terms. Note questions, but do not yet record them as findings - the aim
+      here is comprehension, not verdicts.
+    consumes: [scope]
+    exit_gate: >-
+      The change is understood well enough to assess it fairly: its approach,
+      the code paths it touches, and how it relates to the stated intent are
+      clear, with no comprehension gap that would make a finding a guess.
+    transitions:
+      - when: >-
+          Understanding the change revealed that the scope or stated intent is
+          itself wrong, missing, or ambiguous and must be settled before
+          judging.
+        to: scope
+        reason: "refinement: understanding exposed a scope/intent gap"
+      - when: "exit_gate holds"
+        to: assess
+        reason: "the change is understood well enough to assess"
+
+  assess:
+    goal: >-
+      Judge the change against the criteria from scope. Assess behavioral
+      correctness against the stated intent, edge cases and error handling,
+      security and input validation at trust boundaries, test coverage of the
+      new behavior, and coherence/readability. Record each issue in the findings
+      artifact with location, severity, reason, and a suggested direction. Also
+      record the areas you checked and found sound. Judge the change as written;
+      do not fix it.
+    consumes: [scope]
+    produces: [findings]
+    exit_gate: >-
+      Every in-scope part of the change has been assessed against the criteria,
+      and every issue found is recorded as an actionable finding with a
+      severity.
+    transitions:
+      - when: >-
+          Assessment hit a comprehension gap - a part of the change cannot be
+          judged without understanding it better first.
+        to: understand
+        reason: "refinement: assessment needs deeper understanding"
+      - when: "exit_gate holds"
+        to: triage
+        reason: "assessment complete; findings recorded"
+
+  triage:
+    goal: >-
+      Turn the raw findings into a review decision. Separate blockers and majors
+      from minors, nits, and open questions. Decide the overall verdict: approve,
+      approve-with-comments, or request-changes. Make sure each blocking finding
+      is specific enough for the author to act on without a follow-up round.
+    consumes: [scope, findings]
+    produces: [findings]
+    exit_gate: >-
+      Findings are prioritized, each blocking finding is actionable, and a clear
+      overall verdict is recorded in the findings artifact.
+    transitions:
+      - when: >-
+          Triage revealed that a finding rests on a misunderstanding of the
+          change rather than a real defect.
+        to: understand
+        reason: "refinement: a finding was based on a misread"
+      - when: >-
+          Triage revealed the judging criteria themselves are wrong or
+          incomplete, so findings cannot be prioritized fairly.
+        to: scope
+        reason: "refinement: triage surfaced a criteria gap"
+      - when: "exit_gate holds"
+        to: deliver
+        reason: "findings triaged and a verdict reached"
+
+  deliver:
+    goal: >-
+      Communicate the review to the author. Post the findings and verdict to the
+      review channel the project uses (PR/MR comments via the appropriate CLI,
+      or the agreed-on location), grouped by severity and each tied to its
+      location. Keep it respectful and specific. Delivering the review is the
+      terminal act; the author owns any fixes.
+    consumes: [scope, findings]
+    exit_gate: >-
+      The findings and verdict have been delivered to the author through the
+      project's review channel, and the delivery is recorded in the log.
+    transitions:
+      - when: >-
+          Before or during delivery, the author pushed changes or responded such
+          that at least one finding must be re-judged against new code.
+        to: understand
+        reason: "loop: author responded; re-review the updated change"
+      - when: "exit_gate holds"
+        to: done
+        reason: "review delivered"
+
+  done:
+    terminal: true
+    goal: "The change has been reviewed and the findings and verdict delivered."
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes so the diff and
+# any supporting signal stay live across loop iterations:
+#   - a persistent "diff" pane showing the change under review (and the project
+#     build/test status) gives the assess state real context across loops;
+#   - a sibling pane can host the author's agent or a second reviewer.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  suggested_panes:
+    - role: diff
+      lifecycle: persistent
+      purpose: "Live view of the change under review and build/test status."
+    - role: author
+      lifecycle: on-enter-deliver
+      purpose: "Hosts the author's agent for discussing findings during delivery."

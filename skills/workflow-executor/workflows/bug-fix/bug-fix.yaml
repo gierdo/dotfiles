@@ -1,0 +1,206 @@
+name: bug-fix
+version: 1
+description: >-
+  Drive a bug from report to a verified fix, root-cause first. The spine is:
+  reproduce it reliably, diagnose the true cause, fix the cause (not the
+  symptom), and prove the fix with the reproduction plus a regression test.
+  Explicit refinement loops: a fix that does not hold returns to diagnosis, and
+  a diagnosis that cannot be pinned returns to reproduction.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the artifacts and the workspace to decide whether the condition holds.
+#
+# State lives in files on disk (see `artifacts`), not in agent memory or any
+# harness session store. That is what lets a loop resume, a different agent
+# pick up mid-flow, and the same workflow run under any harness.
+#
+# `{task}` is a slug for the bug, supplied when the workflow starts. It
+# namespaces this run's artifacts so concurrent fixes do not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying this bug (e.g. login-500-on-empty-email).
+    required: true
+
+artifacts:
+  report:
+    path: "fixes/{task}/report.md"
+    description: >-
+      The bug as understood: observed behavior, expected behavior, environment,
+      and the exact steps or inputs that trigger it. The definition of "fixed"
+      derives from here.
+  repro:
+    path: "fixes/{task}/repro.md"
+    description: >-
+      A reliable, minimal reproduction: the smallest steps/inputs that trigger
+      the bug on demand, and ideally a failing automated test (its path noted
+      here) that red-greens the fix. This artifact is the objective signal the
+      later gates judge against.
+  diagnosis:
+    path: "fixes/{task}/diagnosis.md"
+    description: >-
+      The root cause: the specific code/behavior responsible, the evidence that
+      proves it (not a hypothesis), the blast radius, and the intended fix
+      approach.
+  log:
+    path: "fixes/{task}/workflow-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops.
+
+initial: triage
+
+states:
+  triage:
+    goal: >-
+      Capture the bug precisely: observed vs expected behavior, environment, and
+      the exact trigger (steps, inputs, data). Resolve ambiguity in the report
+      with the user instead of guessing. Confirm it is a bug (a gap between
+      documented/intended and actual behavior), not a misunderstanding.
+    produces: [report]
+    exit_gate: >-
+      Observed and expected behavior are stated, the trigger is described
+      concretely enough to attempt reproduction, and it is confirmed to be a
+      genuine defect.
+    transitions:
+      - when: "exit_gate holds"
+        to: reproduce
+        reason: "the bug is captured clearly enough to reproduce"
+
+  reproduce:
+    goal: >-
+      Make the bug happen on demand. Reduce it to the smallest reliable
+      reproduction and, wherever the project allows, capture it as a failing
+      automated test. Record the reproduction so the fix can later be proven
+      against it. Do not attempt a fix yet - a bug you cannot reproduce is a bug
+      you cannot prove fixed.
+    consumes: [report]
+    produces: [repro]
+    exit_gate: >-
+      The bug reproduces reliably from the recorded steps (ideally via a test
+      that currently fails for the reported reason), with no flakiness that
+      would mask whether a later fix worked.
+    transitions:
+      - when: >-
+          Attempting reproduction showed the report is wrong, incomplete, or
+          describes expected behavior - the trigger or the expectation must be
+          corrected before proceeding.
+        to: triage
+        reason: "refinement: reproduction contradicted the report"
+      - when: "exit_gate holds"
+        to: diagnose
+        reason: "the bug reproduces reliably"
+
+  diagnose:
+    goal: >-
+      Find the true root cause, not a symptom. Trace from the reproduction to
+      the specific code or behavior responsible, and gather evidence that proves
+      it is the cause (e.g. the failure disappears when that cause is neutralized
+      and reappears when restored). Record the root cause, its blast radius, and
+      the intended fix approach. Do not change code to fix yet; instrumentation
+      to prove the cause is fine.
+    consumes: [report, repro]
+    produces: [diagnosis]
+    exit_gate: >-
+      The root cause is identified with evidence (not a hypothesis), its blast
+      radius is understood, and a fix approach that addresses the cause rather
+      than the symptom is chosen.
+    transitions:
+      - when: >-
+          Diagnosis needs a better or different reproduction to isolate the
+          cause (the current repro is too broad, flaky, or does not exercise the
+          suspected path).
+        to: reproduce
+        reason: "refinement: diagnosis needs a sharper reproduction"
+      - when: "exit_gate holds"
+        to: fix
+        reason: "root cause is proven and a fix approach is chosen"
+
+  fix:
+    goal: >-
+      Implement the chosen fix at the root cause. Keep the change minimal and
+      scoped to the cause; resist refactoring or fixing unrelated issues in the
+      same change. Turn the reproduction into a regression test (or confirm the
+      existing failing test now passes) and keep the rest of the suite green. If
+      the fix forces the diagnosis to change, loop back rather than patching
+      around it.
+    consumes: [report, repro, diagnosis]
+    exit_gate: >-
+      The fix addresses the root cause, the reproduction no longer triggers the
+      bug, a regression test covers it and passes, the build succeeds, and the
+      full existing suite stays green.
+    transitions:
+      - when: >-
+          Implementing the fix proved the diagnosis wrong or incomplete - the
+          change does not actually stop the reproduction, or it revealed a
+          different cause.
+        to: diagnose
+        reason: "refinement: the fix invalidated the diagnosis"
+      - when: >-
+          The fix revealed the bug as reported is only one facet of a broader
+          defect, so the report/expectation itself must be revisited.
+        to: triage
+        reason: "refinement: the fix exposed a deeper reporting gap"
+      - when: "exit_gate holds"
+        to: verify
+        reason: "fix implemented and reproduction no longer triggers"
+
+  verify:
+    goal: >-
+      Prove the fix independently of the act of writing it. Run the full
+      verification suite the project defines (build, tests, lint, and any
+      project-specific checks). Confirm the original reported trigger no longer
+      produces the bug, the new regression test guards it, and no existing
+      behavior regressed.
+    consumes: [report, repro]
+    exit_gate: >-
+      The full suite passes with no errors or warnings, the original reported
+      scenario is demonstrably fixed, and the regression test fails without the
+      fix and passes with it.
+    transitions:
+      - when: >-
+          Verification failed: a check errored, the original scenario still
+          reproduces, or an unrelated behavior regressed.
+        to: fix
+        reason: "verification failed"
+      - when: "exit_gate holds"
+        to: done
+        reason: "fix verified and regression guarded"
+
+  done:
+    terminal: true
+    goal: "The bug is reproduced, root-caused, fixed, and verified with a regression test."
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes so long-running
+# signal stays live across loop iterations:
+#   - a persistent "verify" pane running the reproduction / regression test on
+#     a watcher feeds the fix and verify exit_gates with real red/green status;
+#   - a "diagnose" pane can host instrumentation, a debugger, or log tails
+#     while the cause is isolated.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  suggested_panes:
+    - role: verify
+      lifecycle: persistent
+      purpose: "Runs the reproduction/regression test for the fix and verify gates."
+    - role: diagnose
+      lifecycle: on-enter-diagnose
+      purpose: "Hosts instrumentation, debugger, or log tails during diagnosis."
