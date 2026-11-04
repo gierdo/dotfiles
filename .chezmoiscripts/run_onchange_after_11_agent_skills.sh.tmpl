@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Track changes across all skill files:
+{{- range glob (joinPath .chezmoi.sourceDir "skills/**") }}
+{{- if not (stat .).isDir }}
+# {{ . | trimPrefix (printf "%s/" $.chezmoi.sourceDir) }}: {{ include . | sha256sum }}
+{{- end }}
+{{- end }}
+
+SKILLS_SRC="{{ .chezmoi.sourceDir }}/skills"
+
+TARGET_DIRS=(
+  "${HOME}/.gemini/config/skills"
+  "${HOME}/.codex/skills"
+  "${HOME}/.config/opencode/skills"
+  "${HOME}/.kiro/skills"
+)
+
+for target in "${TARGET_DIRS[@]}"; do
+  mkdir -p "$target"
+  for skill_dir in "${SKILLS_SRC}"/*/; do
+    [ -d "$skill_dir" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    rm -rf "${target:?}/${skill_name}"
+    cp -r "$skill_dir" "${target}/${skill_name}"
+  done
+done
