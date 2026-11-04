@@ -1,6 +1,6 @@
 ---
 name: workflow-executor
-description: "Execute a multi-step task workflow defined as a declarative state machine with refinement loops. Use when the user asks to run, start, or follow a named workflow (e.g. feature-implementation), or when a task has distinct phases (specification, planning, implementation, review, validation) that can loop back on each other. Workflow definitions live in this skill's workflows/ subdirectory."
+description: "Execute a multi-step task workflow defined as a declarative state machine with refinement loops. Use when the user asks to run, start, or follow a named workflow (e.g. feature-implementation). Read available workflows with 'ls <this-skill-dir>/workflows/'"
 ---
 
 # Workflow executor
