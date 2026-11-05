@@ -115,6 +115,18 @@ split_horizontal = "prefix+\""
 # close_workspace = "prefix+shift+d"
 # previous_workspace = "" # optional, unset by default
 # next_workspace = ""     # optional, unset by default
+
+# --- workspace navigation & management (active) ---
+# Switching (high frequency): indexed jump + adjacent cycle.
+switch_workspace = "prefix+shift+1..9"
+previous_workspace = "prefix+["
+next_workspace = "prefix+]"
+# Lifecycle (low frequency, herdr defaults): destructive actions gated behind shift.
+workspace_picker = "prefix+w"
+new_workspace = "prefix+shift+n"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+# --- end workspace bindings ---
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
 # focus_agent = ""        # optional indexed binding, e.g. "prefix+alt+1..9"
