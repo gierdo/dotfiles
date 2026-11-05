@@ -1,6 +1,6 @@
 ---
 name: software-engineering
-description: "Default mindset to apply and use for any software engineering task."
+description: "Default software engineering mindset. Use for any software engineering task, e.g. analysis, implementation, planning, architecture."
 ---
 
 # Instructions
