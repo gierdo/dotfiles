@@ -8,7 +8,9 @@ description: >
   pipelines, releases, packages, members, and project settings). Whenever a
   task touches GitLab in any way, consult this skill first so you use the
   correct, safe command on the first try. Prefer glab over raw API calls for
-  all GitLab operations.
+  all GitLab operations. Before firing any action that is not read-only, e.g.
+  triggering a pipeline, posting a comment or deleting an artifact, ask for
+  confirmation.
 metadata:
   source-project: gitlab-org/cli
   source-path: internal/commands/skills/bundled/assets/glab
