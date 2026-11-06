@@ -47,6 +47,8 @@ A workflow YAML defines:
   `exit_gate`, and an ordered `transitions` list of `{ when, to, reason }`. A
   state with `terminal: true` ends the run.
 - optional `herdr` - advisory pane layout when running under Herdr.
+  If it has `subagent_instructions`, include those instructions, the workflow
+  definition, task slug, and active state in every Herdr agent assignment.
 
 ## Execute
 

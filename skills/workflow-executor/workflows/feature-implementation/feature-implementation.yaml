@@ -349,6 +349,23 @@ states:
 # The mapping is advisory; the state machine above is the source of truth.
 # ---------------------------------------------------------------------------
 herdr:
+  subagent_instructions: >-
+    The orchestrator must pass this workflow, the exact <task> OpenSpec change
+    name, the active state, and these instructions to every Herdr agent it
+    launches. Each agent must read the workflow-executor skill and this YAML,
+    stay within its assigned state and pane role, and report results to the
+    orchestrator rather than advancing states independently. Use the OpenSpec
+    skill named by the active state: openspec-explore for optional orientation,
+    openspec-propose for specification, openspec-update-change for
+    planning_revision, openspec-apply-change for implementation, and
+    openspec-archive-change (or openspec-sync-specs when only syncing) for
+    integration. Follow each skill's project/store checks, planning boundary,
+    CLI instructions, and artifact paths; never substitute an ad hoc plan or
+    edit OpenSpec-owned artifacts outside the matching skill. Read OpenSpec
+    status and apply instructions for <task> before acting on an existing
+    change. Verification agents run checks and return evidence; review agents
+    assess behavior against the delta specs and return findings. Only the
+    orchestrator evaluates gates and transitions.
   suggested_panes:
     - role: verify
       lifecycle: persistent
