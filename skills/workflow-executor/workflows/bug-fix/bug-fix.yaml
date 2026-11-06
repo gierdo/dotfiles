@@ -1,11 +1,15 @@
 name: bug-fix
-version: 1
+version: 2
 description: >-
-  Drive a bug from report to a verified fix, root-cause first. The spine is:
+  Drive a bug from report to a verified fix, root-cause first, using OpenSpec as
+  the system of record for the fix plan and tasks. The spine is unchanged:
   reproduce it reliably, diagnose the true cause, fix the cause (not the
-  symptom), and prove the fix with the reproduction plus a regression test.
-  Explicit refinement loops: a fix that does not hold returns to diagnosis, and
-  a diagnosis that cannot be pinned returns to reproduction.
+  symptom), and prove the fix with the reproduction plus a regression test. The
+  difference from v1 is that the plan and the fix tasks live in an OpenSpec
+  change (proposal, optional delta specs, design, tasks) created and edited only
+  through the OpenSpec skills and CLI, not in standalone files. Explicit
+  refinement loops remain: a fix that does not hold returns to diagnosis, and a
+  diagnosis that cannot be pinned returns to reproduction.
 
 # ---------------------------------------------------------------------------
 # Execution model
@@ -19,60 +23,132 @@ description: >-
 # not code it runs. They describe the condition to check; the agent inspects
 # the artifacts and the workspace to decide whether the condition holds.
 #
-# State lives in files on disk (see `artifacts`), not in agent memory or any
-# harness session store. That is what lets a loop resume, a different agent
-# pick up mid-flow, and the same workflow run under any harness.
+# OpenSpec is the system of record for the fix plan. State lives on disk in the
+# OpenSpec change (proposal.md capturing report + reproduction + root cause,
+# optional delta specs for corrected behavior, design.md, tasks.md) plus this
+# workflow's own append-only log. It does NOT live in agent memory or any
+# harness session store. Reconstruct state from the change before acting:
+# `openspec status --change "<task>" --json` and `openspec instructions apply
+# --change "<task>" --json` are authoritative for artifact and task progress;
+# the log is authoritative for which state and loop you are in.
 #
-# `{task}` is a slug for the bug, supplied when the workflow starts. It
-# namespaces this run's artifacts so concurrent fixes do not collide.
+# `{task}` is the OpenSpec change name for this bug, supplied when the workflow
+# starts. It MUST be kebab-case so it is a valid OpenSpec change name, and it
+# namespaces this run's log so concurrent fixes do not collide. The same slug is
+# passed verbatim as `--change "<task>"` to every OpenSpec command.
 # ---------------------------------------------------------------------------
 
 inputs:
   task:
     description: >-
-      Short kebab-case slug identifying this bug (e.g. login-500-on-empty-email).
+      Short kebab-case slug identifying this bug AND naming the OpenSpec change
+      (e.g. login-500-on-empty-email). Must match OpenSpec's change-name rules
+      ([a-z0-9-]+) so it can be passed verbatim as `--change "<task>"`.
     required: true
 
+# ---------------------------------------------------------------------------
+# OpenSpec skills this workflow delegates to. Each state names the skill it
+# drives; invoke that skill rather than re-deriving its steps here. The skills
+# own artifact creation, the CLI calls, store selection, and the OpenSpec
+# project/root checks. This workflow owns only the state transitions and loops.
+#
+#   explore  -> openspec-explore        (optional thinking while diagnosing)
+#   propose  -> openspec-propose        (create the fix change: proposal, delta
+#                                        specs for corrected behavior, design, tasks)
+#   update   -> openspec-update-change  (revise the fix plan in a loop)
+#   apply    -> openspec-apply-change   (implement the fix tasks in tasks.md)
+#   sync     -> openspec-sync-specs     (fold any delta specs into main specs)
+#   archive  -> openspec-archive-change (sync + archive the completed change)
+# ---------------------------------------------------------------------------
+
 artifacts:
-  report:
-    path: "fixes/{task}/report.md"
+  # The planning artifacts below are OWNED by OpenSpec and created/edited only
+  # through the OpenSpec skills and CLI. Never hand-create or hand-path them;
+  # resolve their real locations from `openspec status --change "<task>" --json`
+  # (changeRoot, artifactPaths, actionContext). The paths shown are the
+  # spec-driven schema's defaults, relative to the change root, for orientation
+  # only - a different schema may name or place them differently, in which case
+  # the CLI output wins.
+  proposal:
+    path: "<changeRoot>/proposal.md"
     description: >-
-      The bug as understood: observed behavior, expected behavior, environment,
-      and the exact steps or inputs that trigger it. The definition of "fixed"
-      derives from here.
+      OpenSpec proposal for the fix: the bug as understood (observed vs expected
+      behavior, environment, exact trigger), the proven root cause and its blast
+      radius, and the intended fix approach. This is where the v1 report and
+      diagnosis content now live - what & why. Created by openspec-propose;
+      revised via openspec-update-change.
+  specs_delta:
+    path: "<changeRoot>/specs/<capability-path>/spec.md"
+    description: >-
+      OpenSpec delta spec(s): the corrected behavior expressed as MODIFIED (or
+      ADDED) requirements with scenarios, including a scenario for the bug's
+      trigger that the regression test enforces. These scenarios are the
+      acceptance criteria for the fix. A delta, not a main spec. Conditional:
+      create when the bug represents a real behavioral contract worth recording;
+      a purely internal defect with no spec-level behavior change may skip specs
+      (the schema's skip_specs / conditional-artifact rules decide). Synced to
+      main specs at archive.
+  design:
+    path: "<changeRoot>/design.md"
+    description: >-
+      OpenSpec design: how the fix addresses the root cause, the reproduction
+      and the evidence that proves the cause, and the regression-test strategy.
+      Conditional in spec-driven; create only when the schema's instruction
+      calls for it.
+  tasks:
+    path: "<changeRoot>/tasks.md"
+    description: >-
+      OpenSpec tasks: the ordered, checkbox fix steps, including capturing the
+      reproduction as a failing test, applying the fix at the root cause, and
+      turning the reproduction into a passing regression test. This is the unit
+      of implementation progress; openspec-apply-change checks items off here so
+      a mid-fix handoff resumes at the first unchecked task.
   repro:
-    path: "fixes/{task}/repro.md"
+    path: "<changeRoot>/repro.md"
     description: >-
-      A reliable, minimal reproduction: the smallest steps/inputs that trigger
-      the bug on demand, and ideally a failing automated test (its path noted
-      here) that red-greens the fix. This artifact is the objective signal the
-      later gates judge against.
-  diagnosis:
-    path: "fixes/{task}/diagnosis.md"
-    description: >-
-      The root cause: the specific code/behavior responsible, the evidence that
-      proves it (not a hypothesis), the blast radius, and the intended fix
-      approach.
+      The reliable, minimal reproduction: the smallest steps/inputs that trigger
+      the bug on demand, and the path of the failing automated test that
+      red-greens the fix. Owned by this workflow (OpenSpec has no reproduction
+      artifact); write it inside the change root so it travels with the change
+      and the later gates can judge the fix against it. On a brand-new run the
+      change does not exist yet; hold the reproduction in the conversation until
+      the change root exists, then write it here.
   log:
-    path: "fixes/{task}/workflow-log.md"
+    path: "<changeRoot>/workflow-log.md"
     description: >-
       Append-only record of each state entry/exit and the transition taken,
-      with a one-line reason. The audit trail for loops.
+      with a one-line reason. Owned by this workflow, not OpenSpec. The audit
+      trail for loops and cross-session resume. Written inside the change root
+      so it lives and archives with the change. On a brand-new run the change
+      does not exist yet; keep the first notes in the conversation and write
+      them here as soon as the change root exists.
 
 initial: triage
 
 states:
   triage:
     goal: >-
-      Capture the bug precisely: observed vs expected behavior, environment, and
-      the exact trigger (steps, inputs, data). Resolve ambiguity in the report
-      with the user instead of guessing. Confirm it is a bug (a gap between
-      documented/intended and actual behavior), not a misunderstanding.
-    produces: [report]
+      Capture the bug precisely and confirm OpenSpec is usable here. Run the
+      OpenSpec project check: `openspec list --json` and confirm a non-null
+      `root` (follow the openspec-propose skill's project-check and
+      store-selection rules for how this workflow was reached, `"root": null`,
+      and store declarations). Then capture observed vs expected behavior,
+      environment, and the exact trigger (steps, inputs, data). Resolve
+      ambiguity in the report with the user instead of guessing. Confirm it is a
+      genuine bug (a gap between documented/intended and actual behavior), not a
+      misunderstanding - checking existing OpenSpec specs (`openspec list
+      --specs`, `openspec show`) as well as the code to learn the intended
+      behavior. This is a thinking state: do NOT write code and do NOT create
+      the change yet. Hold the report details in the conversation until the
+      change exists (they become the proposal in diagnose/plan).
     exit_gate: >-
-      Observed and expected behavior are stated, the trigger is described
-      concretely enough to attempt reproduction, and it is confirmed to be a
-      genuine defect.
+      OpenSpec has a usable root (or the user has explicitly chosen how to
+      proceed without it); observed and expected behavior are stated; the
+      trigger is described concretely enough to attempt reproduction; and it is
+      confirmed to be a genuine defect against the intended behavior (code
+      and/or existing specs). If OpenSpec has no root and the situation requires
+      the user's decision per the skill's project check, that decision is a
+      blocker - surface it and do not pass this gate by assumption.
     transitions:
       - when: "exit_gate holds"
         to: reproduce
@@ -82,11 +158,11 @@ states:
     goal: >-
       Make the bug happen on demand. Reduce it to the smallest reliable
       reproduction and, wherever the project allows, capture it as a failing
-      automated test. Record the reproduction so the fix can later be proven
-      against it. Do not attempt a fix yet - a bug you cannot reproduce is a bug
-      you cannot prove fixed.
-    consumes: [report]
-    produces: [repro]
+      automated test. This is still a pre-change state: do NOT attempt a fix and
+      do NOT create the OpenSpec change yet. Hold the reproduction in the
+      conversation for now; it is recorded into repro.md once the change root
+      exists (in the plan state) and drives the regression scenario in the delta
+      specs. A bug you cannot reproduce is a bug you cannot prove fixed.
     exit_gate: >-
       The bug reproduces reliably from the recorded steps (ideally via a test
       that currently fails for the reported reason), with no flakiness that
@@ -106,12 +182,14 @@ states:
     goal: >-
       Find the true root cause, not a symptom. Trace from the reproduction to
       the specific code or behavior responsible, and gather evidence that proves
-      it is the cause (e.g. the failure disappears when that cause is neutralized
-      and reappears when restored). Record the root cause, its blast radius, and
-      the intended fix approach. Do not change code to fix yet; instrumentation
-      to prove the cause is fine.
-    consumes: [report, repro]
-    produces: [diagnosis]
+      it is the cause (e.g. the failure disappears when that cause is
+      neutralized and reappears when restored). Record the root cause, its blast
+      radius, and the intended fix approach. This is a thinking/investigation
+      state: do NOT change code to fix yet (instrumentation to prove the cause
+      is fine), and do NOT create the change yet - optionally drive the
+      openspec-explore skill to reason through the cause. The root cause,
+      evidence, and fix approach feed the proposal/design authored in the plan
+      state.
     exit_gate: >-
       The root cause is identified with evidence (not a hypothesis), its blast
       radius is understood, and a fix approach that addresses the cause rather
@@ -124,29 +202,82 @@ states:
         to: reproduce
         reason: "refinement: diagnosis needs a sharper reproduction"
       - when: "exit_gate holds"
-        to: fix
+        to: plan
         reason: "root cause is proven and a fix approach is chosen"
+
+  plan:
+    goal: >-
+      Turn the report, reproduction, and diagnosis into an OpenSpec change by
+      driving the openspec-propose skill for change "<task>". That skill
+      scaffolds the change with `openspec new change "<task>"` and creates every
+      artifact the apply phase transitively requires: the proposal (bug + root
+      cause + fix approach), a delta spec for the corrected behavior with a
+      regression scenario for the bug's trigger when the fix changes a
+      spec-level behavioral contract (skip specs only when the schema's
+      conditional/skip_specs rules allow it for a purely internal defect),
+      design when the schema calls for it, and tasks (capture the failing test,
+      fix at the root cause, green the regression test). Do NOT hand-create the
+      change directory or artifacts; let the skill and CLI own them. Once the
+      change root exists, write repro.md there and start the workflow log.
+      Respect the propose skill's planning boundary: planning only here, no
+      code changes.
+    produces: [proposal, specs_delta, design, tasks, repro, log]
+    exit_gate: >-
+      `openspec status --change "<task>" --json` shows every artifact in the
+      apply-required set `done` or `skipped` (walk the `requires` edges, not just
+      `applyRequires`); the proposal states the bug and the proven root cause;
+      the corrected behavior and a regression scenario for the trigger are
+      captured (in the delta specs, or deliberately skipped per the schema for a
+      spec-irrelevant defect); tasks.md exists with ordered fix steps that trace
+      to reproducing, fixing, and regression-guarding the bug; and repro.md is
+      recorded in the change root.
+    transitions:
+      - when: >-
+          Authoring the change exposed that the diagnosis is wrong or
+          incomplete - the root cause does not hold up when written down.
+        to: diagnose
+        reason: "refinement: planning the fix invalidated the diagnosis"
+      - when: >-
+          Authoring the change exposed that the report/expectation itself is
+          wrong (the bug as reported is only one facet of a broader defect).
+        to: triage
+        reason: "refinement: planning the fix exposed a deeper reporting gap"
+      - when: "exit_gate holds"
+        to: fix
+        reason: "fix change is proposed with complete, traceable artifacts"
 
   fix:
     goal: >-
-      Implement the chosen fix at the root cause. Keep the change minimal and
-      scoped to the cause; resist refactoring or fixing unrelated issues in the
-      same change. Turn the reproduction into a regression test (or confirm the
-      existing failing test now passes) and keep the rest of the suite green. If
-      the fix forces the diagnosis to change, loop back rather than patching
-      around it.
-    consumes: [report, repro, diagnosis]
+      Implement the fix by driving the openspec-apply-change skill for change
+      "<task>". Work the fix tasks in order from tasks.md, checking each box off
+      via the skill as it lands so a handoff resumes mid-fix rather than
+      restarting. Keep the change minimal and scoped to the root cause; resist
+      refactoring or fixing unrelated issues in the same change. Turn the
+      reproduction into a regression test (or confirm the existing failing test
+      now passes) and keep the rest of the suite green. If the fix forces the
+      diagnosis or the plan to change, loop back via the transitions rather than
+      patching around it or silently narrowing the fix.
+    consumes: [proposal, specs_delta, design, tasks, repro]
+    produces: [tasks]
     exit_gate: >-
-      The fix addresses the root cause, the reproduction no longer triggers the
-      bug, a regression test covers it and passes, the build succeeds, and the
-      full existing suite stays green.
+      `openspec instructions apply --change "<task>" --json` reports all tracked
+      tasks complete (N/N); the fix addresses the root cause; the reproduction
+      no longer triggers the bug; and a regression test covers it and passes.
+      (Full-suite confirmation happens in verification; this gate is about
+      completeness of the fix and its regression guard.)
     transitions:
       - when: >-
           Implementing the fix proved the diagnosis wrong or incomplete - the
           change does not actually stop the reproduction, or it revealed a
-          different cause.
+          different cause. The report/requirements still hold.
         to: diagnose
         reason: "refinement: the fix invalidated the diagnosis"
+      - when: >-
+          Implementing the fix showed the OpenSpec change's plan/tasks or the
+          corrected-behavior specs are wrong or incomplete, but the diagnosis
+          still holds.
+        to: plan_revision
+        reason: "refinement: the fix invalidated the fix plan"
       - when: >-
           The fix revealed the bug as reported is only one facet of a broader
           defect, so the report/expectation itself must be revisited.
@@ -156,31 +287,126 @@ states:
         to: verify
         reason: "fix implemented and reproduction no longer triggers"
 
+  plan_revision:
+    goal: >-
+      Reconcile the change's planning artifacts with what implementation or
+      verification uncovered, by driving the openspec-update-change skill for
+      change "<task>". Revise whichever existing artifacts are now wrong -
+      proposal, delta specs, design, or tasks - and keep them coherent with one
+      another. Planning only: this skill never edits code. If the request has
+      changed the bug's scope into a different problem rather than refining the
+      fix, surface that and ask about starting a fresh change instead.
+    consumes: [proposal, specs_delta, design, tasks, repro]
+    produces: [proposal, specs_delta, design, tasks]
+    exit_gate: >-
+      The affected artifacts are revised and mutually coherent;
+      `openspec status --change "<task>" --json` still shows the apply-required
+      set `done`/`skipped`; and every fix task still traces to reproducing,
+      fixing, or regression-guarding the bug.
+    transitions:
+      - when: "exit_gate holds"
+        to: fix
+        reason: "fix plan reconciled; resume implementing the revised tasks"
+
   verify:
     goal: >-
       Prove the fix independently of the act of writing it. Run the full
       verification suite the project defines (build, tests, lint, and any
-      project-specific checks). Confirm the original reported trigger no longer
+      project-specific checks) using the commands discovered during triage/plan,
+      and run `openspec validate --change "<task>"` to confirm the change's
+      artifacts are well-formed. Confirm the original reported trigger no longer
       produces the bug, the new regression test guards it, and no existing
-      behavior regressed.
-    consumes: [report, repro]
+      behavior regressed. This state is mechanical only - no re-planning.
+    consumes: [proposal, repro]
     exit_gate: >-
-      The full suite passes with no errors or warnings, the original reported
-      scenario is demonstrably fixed, and the regression test fails without the
-      fix and passes with it.
+      The full project suite and `openspec validate --change "<task>"` pass with
+      no errors or warnings, the original reported scenario is demonstrably
+      fixed, and the regression test fails without the fix and passes with it.
+      If the suite cannot be run at all, this gate is not passed; record the
+      blocker in the log and surface it rather than advancing.
     transitions:
       - when: >-
           Verification failed: a check errored, the original scenario still
           reproduces, or an unrelated behavior regressed.
         to: fix
         reason: "verification failed"
+      - when: >-
+          Validation flagged the change's artifacts (not the code) as
+          malformed or inconsistent.
+        to: plan_revision
+        reason: "refinement: validation surfaced a planning-artifact gap"
+      - when: "exit_gate holds"
+        to: integration
+        reason: "fix verified and regression guarded"
+
+  integration:
+    goal: >-
+      Land the fix the way this repository expects AND close out the OpenSpec
+      change. Commit and/or open a PR per the project's git conventions, update
+      docs or changelog if the project keeps them, and clean up any temporary
+      artifacts. Then fold any delta specs into the main specs and archive the
+      change by driving the openspec-archive-change skill for change "<task>"
+      (which runs the openspec-sync-specs merge inline before moving the change
+      to the archive); drive openspec-sync-specs on its own only if the user
+      wants specs synced without archiving yet. If the change deliberately
+      skipped specs, archive handles that case too. Respect git-safety: do not
+      push to protected branches or perform destructive operations without
+      explicit user confirmation. The workflow log and repro.md archive with the
+      change.
+    consumes: [proposal, specs_delta, repro]
+    exit_gate: >-
+      The fix is committed (and a PR opened if that is the project's flow), any
+      required docs/changelog updates are made, no stray temporary artifacts
+      remain, and the OpenSpec change has been synced and archived (or the user
+      explicitly deferred sync/archive for this run). If the user opted out of
+      integration for this run, the gate holds vacuously.
+    transitions:
+      - when: "A problem surfaced while landing that requires a code change."
+        to: fix
+        reason: "integration surfaced a defect; fix then re-verify"
+      - when: >-
+          Sync or archive reported a blocking condition in the planning
+          artifacts (e.g. a delta the main spec cannot absorb).
+        to: plan_revision
+        reason: "refinement: sync/archive surfaced a planning-artifact gap"
       - when: "exit_gate holds"
         to: done
-        reason: "fix verified and regression guarded"
+        reason: "fix landed and OpenSpec change archived per project conventions"
 
   done:
     terminal: true
-    goal: "The bug is reproduced, root-caused, fixed, and verified with a regression test."
+    goal: >-
+      The bug is reproduced, root-caused, fixed, and verified with a regression
+      test - captured as an OpenSpec change whose delta specs are synced into
+      the main specs and whose change is archived.
+
+# ---------------------------------------------------------------------------
+# OpenSpec compatibility notes
+#
+# - The workflow-executor skill still drives this: it reads this YAML,
+#   reconstructs state from disk, and follows transitions. The difference from
+#   v1 is that the fix plan/implementation artifacts are OpenSpec's, created and
+#   edited ONLY through the OpenSpec skills and CLI, never hand-pathed. Only the
+#   reproduction (repro.md) and the workflow log remain workflow-owned, written
+#   inside the change root so they archive with the change.
+# - `{task}` is simultaneously the workflow task slug and the OpenSpec change
+#   name. Keep it kebab-case so it is valid for both. It is passed verbatim as
+#   `--change "<task>"`.
+# - triage/reproduce/diagnose are pre-change thinking states: the change does
+#   not exist yet, so their findings live in the conversation and move into the
+#   proposal/design/tasks (and repro.md) during the plan state. Determining
+#   current state on resume: if the change does not exist yet, you are in
+#   triage/reproduce/diagnose - use the log (if the change root exists) or the
+#   conversation. Once the change exists, read `openspec status --change
+#   "<task>" --json` (artifact completeness -> plan/plan_revision) and
+#   `openspec instructions apply --change "<task>" --json` (task progress ->
+#   fix). Trust disk over memory.
+# - Store selection, the OpenSpec project/root checks, and the planning boundary
+#   are owned by the OpenSpec skills each state names - follow them there rather
+#   than duplicating them here. triage/reproduce/diagnose never edit code
+#   (reproduction tests and instrumentation are allowed where the project
+#   supports them, consistent with the v1 behavior).
+# ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Herdr integration (optional execution layer)

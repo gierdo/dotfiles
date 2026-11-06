@@ -35,7 +35,13 @@ A workflow YAML defines:
   (kebab-case) that namespaces this run's artifacts.
 - `artifacts` - files on disk that hold state. Paths may contain `{input}`
   references (e.g. `specs/{task}/spec.md`). These files ARE the state: never
-  track workflow progress only in your own memory.
+  track workflow progress only in your own memory. Some workflows do not own
+  their artifacts directly: they delegate creation to another skill or tool and
+  resolve the real paths at runtime (e.g. an OpenSpec-backed workflow whose
+  paths are placeholders like `<changeRoot>` resolved via `openspec status
+  --json`). When a workflow or an artifact description says to resolve a path or
+  to drive another skill, follow that rather than substituting `{input}` into a
+  literal path, and let the named skill own the writes.
 - `initial` - the starting state.
 - `states` - each has a `goal`, optional `consumes`/`produces` artifacts, an
   `exit_gate`, and an ordered `transitions` list of `{ when, to, reason }`. A
