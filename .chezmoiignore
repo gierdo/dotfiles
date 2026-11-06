@@ -1,6 +1,9 @@
 # General repository documentation & metadata
 README.md
 LICENSE
+# Source-of-truth for global agent instructions; distributed by
+# run_onchange_after_12_agent_instructions, not deployed to ~/AGENTS.md.
+AGENTS.md
 container-images/**
 gists/**
 skills/**

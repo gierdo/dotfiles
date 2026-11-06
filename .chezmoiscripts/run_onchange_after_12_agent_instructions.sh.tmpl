@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Distribute the shared global agent instructions (AGENTS.md) to every tool's
+# global config location. Single source of truth: chezmoi source AGENTS.md.
+# Re-runs whenever that file's content changes:
+# AGENTS.md hash: {{ include (joinPath .chezmoi.sourceDir "AGENTS.md") | sha256sum }}
+
+SRC="{{ .chezmoi.sourceDir }}/AGENTS.md"
+
+# Global instruction file each tool reads, by full destination path. Most use
+# the cross-tool AGENTS.md standard; a few expect a tool-specific name:
+#   - Antigravity/Gemini reads GEMINI.md (the default contextFileName).
+#   - Kiro CLI ignores AGENTS.md and reads user-level steering from
+#     ~/.kiro/steering/*.md.
+TARGETS=(
+  "${HOME}/.codex/AGENTS.md"
+  "${HOME}/.config/opencode/AGENTS.md"
+  "${HOME}/.gemini/GEMINI.md"
+  "${HOME}/.kiro/steering/00-global.md"
+)
+
+for target in "${TARGETS[@]}"; do
+  mkdir -p "$(dirname "$target")"
+  cp "$SRC" "$target"
+done
