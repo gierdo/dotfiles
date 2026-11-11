@@ -14,6 +14,7 @@ SRC="{{ .chezmoi.sourceDir }}/AGENTS.md"
 #   - Kiro CLI ignores AGENTS.md and reads user-level steering from
 #     ~/.kiro/steering/*.md.
 TARGETS=(
+  "${HOME}/.pi/agent/AGENTS.md"
   "${HOME}/.codex/AGENTS.md"
   "${HOME}/.config/opencode/AGENTS.md"
   "${HOME}/.gemini/GEMINI.md"

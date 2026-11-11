@@ -43,4 +43,9 @@ if ! command -v git-credential-libsecret >/dev/null 2>&1; then
     rm -rf "$build_dir"
   fi
 fi
+
+if ! command -v pi >/dev/null 2>&1; then
+  curl -fsSL https://pi.dev/install.sh | sh || true
+fi
+
 {{ end -}}
