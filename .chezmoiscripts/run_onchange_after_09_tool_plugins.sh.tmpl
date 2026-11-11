@@ -12,3 +12,15 @@ if command -v herdr >/dev/null 2>&1; then
     herdr plugin install "$plugin" -y || true
   done
 fi
+
+if command -v pi >/dev/null 2>&1; then
+  extensions=(
+    {{- range .packages.pi.extensions }}
+    {{ . | quote }}
+    {{- end }}
+  )
+
+  for extension in "${extensions[@]}"; do
+    pi install "$extension" || true
+  done
+fi

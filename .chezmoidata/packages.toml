@@ -183,6 +183,14 @@ plugins = [
   "njs14/herdr-kiro-pulse",
 ]
 
+[packages.pi]
+extensions = [
+  "npm:context-mode",
+  "npm:pi-web-access",
+  "git:https://github.com/hasit/pi-community-themes",
+  "git:https://github.com/gierdo/nvim-editor-mcp",
+]
+
 [packages.fonts]
 nerdfonts = [
   "0xProto",
