@@ -6,6 +6,8 @@ packages = [
   "swaybg",
   "wl-clipboard",
   "slurp",
+  "dunst",
+  "kanshi",
   # general build dependencies
   "build-essential",
   "cmake",
@@ -82,6 +84,7 @@ crates = [
   "pay-respects",
   "pay-respects-module-runtime-rules",
   "ripgrep",
+  "tuicr",
   "tree-sitter-cli",
   "yazi-build",
   "zoxide",
