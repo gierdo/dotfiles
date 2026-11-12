@@ -188,7 +188,8 @@ plugins = [
 extensions = [
   "npm:context-mode",
   "npm:pi-web-access",
-  "npm:pi-permission-system",
+  "npm:pi-subagent-herdr",
+  "npm:@gotgenes/pi-permission-system",
   "git:https://github.com/hasit/pi-community-themes",
   "git:https://github.com/gierdo/nvim-editor-mcp",
 ]

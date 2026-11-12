@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/gotgenes/pi-packages/main/packages/pi-permission-system/schemas/permissions.schema.json",
+
+  // Runtime knobs
+  "debugLog": false,
+  "permissionReviewLog": true,
+  "yoloMode": false,
+  "doublePressToConfirm": true,
+  "forwardingTimeoutMs": 600000,
+  "piInfrastructureReadPaths": [],
+
+  // Non-bash tools that carry shell semantics
+  "shellTools": {
+    "exec_command": { "commandArgument": "cmd", "workdirArgument": "workdir" }
+  },
+
+  // Ordered names of registered live-authority chain links (empty = none)
+  "authorizerChain": [],
+
+  // Flat permission policy
+  "permission": {
+    "*": "ask",                              // universal fallback
+    "path": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*.direnv": "deny"
+    },
+    "read": "allow",
+    "write": "ask",
+    "edit": "ask",
+    "bash": {
+      "git *": "allow",
+      "git add": "ask",
+      "git push": "ask",
+      "git commit": "ask",
+      "npm *": { "action": "deny", "reason": "Use pnpm instead" }
+    },
+    "mcp": { "mcp_status": "allow" },
+    "skill": { "*": "allow" },
+    "external_directory": "ask"
+  }
+}
