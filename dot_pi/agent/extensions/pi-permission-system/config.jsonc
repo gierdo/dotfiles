@@ -7,36 +7,131 @@
   "yoloMode": false,
   "doublePressToConfirm": true,
   "forwardingTimeoutMs": 600000,
+  // "promptTimeoutMs": 300000,            // opt-in: deny unanswered prompts; keep BELOW forwardingTimeoutMs for subagents
   "piInfrastructureReadPaths": [],
 
-  // Non-bash tools that carry shell semantics
+  // Non-bash tools that carry shell semantics.
+  // NOTE: if serena/nvim expose a tool that runs shell under a different argument
+  // name, add it here so it is gated at bash parity.
   "shellTools": {
     "exec_command": { "commandArgument": "cmd", "workdirArgument": "workdir" }
   },
 
-  // Ordered names of registered live-authority chain links (empty = none)
+  // Ordered names of registered live-authority chain links (empty = none).
+  // Each name must be registered at runtime via registerAuthorizer(name, fn).
+  // Links are consulted in this order on every `ask`; the first to return
+  // allow/deny settles it, otherwise the human is prompted.
+  //   "auto-reader"  -> extensions/authorizer-auto-reader.ts (example)
   "authorizerChain": [],
 
-  // Flat permission policy
+  // Flat permission policy. Within each pattern map, the LAST matching pattern
+  // wins, so broad fallbacks go first and specific exceptions go after them.
   "permission": {
     "*": "ask",                              // universal fallback
+
     "path": {
       "*": "allow",
+
+      // dotenv (keep *.env.example allow AFTER the denies)
       "*.env": "deny",
       "*.env.*": "deny",
       "*.env.example": "allow",
-      "*.direnv": "deny"
+      ".direnv/*": "deny",                   // protect the .direnv dir, not "*.direnv"
+
+      // private keys / certs
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.p12": "deny",
+      "*.pfx": "deny",
+      "*.ppk": "deny",
+      "id_rsa": "deny",
+      "id_dsa": "deny",
+      "id_ecdsa": "deny",
+      "id_ed25519": "deny",
+      "*id_rsa*": "deny",
+
+      // ssh / aws / gcp / kube / package-registry auth
+      "~/.ssh/*": "deny",
+      "*/.ssh/*": "deny",
+      "~/.aws/credentials": "deny",
+      "~/.aws/*": "deny",
+      "*/.aws/credentials": "deny",
+      "~/.config/gcloud/*": "deny",
+      "~/.kube/config": "deny",
+      "~/.netrc": "deny",
+      ".npmrc": "deny",
+      ".pypirc": "deny",
+
+      // generic credential/token files
+      "credentials.json": "deny",
+      "*credentials*.json": "deny",
+      "*.credentials": "deny",
+      "*.token": "deny",
+      "secrets.*": "deny",
+      "*secret*.yml": "deny",
+      "*secret*.yaml": "deny"
     },
+
     "read": "allow",
     "write": "ask",
     "edit": "ask",
+
     "bash": {
-      "git *": "allow",
-      "git add": "ask",
-      "git push": "ask",
-      "git commit": "ask",
-      "npm *": { "action": "deny", "reason": "Use pnpm instead" }
+      "*": "ask",                            // explicit baseline (also silences the fail-closed warning)
+
+      // irrecoverable operations: hard-deny with a teaching reason
+      "rm -rf *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
+      "rm -fr *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
+      "dd *":     { "action": "deny", "reason": "Raw disk write is not permitted" },
+      "mkfs*":    { "action": "deny", "reason": "Filesystem creation is not permitted" },
+      "chmod -R *": "ask",
+      "chown -R *": "ask",
+      "sudo *":   "ask",
+
+      // git: prompt by default, allow read-only inspection, gate the mutating/destructive ops.
+      // Read-only subcommands below are the set the permission docs enumerate as safe.
+      "git *": "ask",
+      "git status": "allow",
+      "git status *": "allow",
+      "git diff": "allow",
+      "git diff *": "allow",
+      "git log": "allow",
+      "git log *": "allow",
+      "git show": "allow",
+      "git show *": "allow",
+      "git branch": "allow",
+      "git branch --list*": "allow",
+      "git fetch": "allow",
+      "git fetch *": "allow",
+      "git remote -v": "allow",
+      "git stash list": "allow",
+      "git add *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask",
+      "git reset --hard *": "ask",
+      "git clean -f*": "ask",
+      "git clean -d*": "ask",
+      "git push --force*": "ask",
+      "git push -f*": "ask",
+      "git branch -D*": "ask",
+      "git checkout -- *": "ask",
+      "git stash drop*": "ask",
+      "git stash clear": "ask",
+
+      // enforce pnpm
+      "pnpm install": "allow",
+      "pnpm install *": "ask",               // pulling a new dep prompts (supply-chain)
+      "pnpm run *": "allow",
+      "pnpm test*": "allow",
+      "pnpm build*": "allow",
+      "pnpm dlx *": "ask",
+      "pnpm *": "ask",
+      "npm *":  { "action": "deny", "reason": "Use pnpm instead" },
+      "npx *":  { "action": "deny", "reason": "Use pnpm dlx instead" },
+      "yarn *": { "action": "deny", "reason": "Use pnpm instead" },
+      "bun *":  { "action": "deny", "reason": "Use pnpm instead" }
     },
+
     "mcp": { "mcp_status": "allow" },
     "skill": { "*": "allow" },
     "external_directory": "ask"
