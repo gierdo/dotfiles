@@ -18,6 +18,7 @@ glab = { version = "1.130.0", exe = "glab" }
 chezmoi = "2.74.0"
 sops = "3.13.3"
 herdr = "0.9.5"
+flutter = "3.50.0-stable"
 
 [settings]
 fetch_remote_versions_cache = "365d"

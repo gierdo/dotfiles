@@ -1,0 +1,13 @@
+{
+  "defaultPolicy": {
+    "tools": "ask",
+    "bash": "ask",
+    "mcp": "allow",
+    "skills": "allow",
+    "special": "ask"
+  },
+  "tools": {
+    "read": "allow",
+    "write": "ask"
+  }
+}
