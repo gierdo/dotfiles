@@ -1,44 +1,22 @@
 {
-  "$schema": "https://raw.githubusercontent.com/gotgenes/pi-packages/main/packages/pi-permission-system/schemas/permissions.schema.json",
-
-  // Runtime knobs
   "debugLog": false,
   "permissionReviewLog": true,
   "yoloMode": false,
   "doublePressToConfirm": true,
   "forwardingTimeoutMs": 600000,
-  // "promptTimeoutMs": 300000,            // opt-in: deny unanswered prompts; keep BELOW forwardingTimeoutMs for subagents
   "piInfrastructureReadPaths": [],
-
-  // Non-bash tools that carry shell semantics.
-  // NOTE: if serena/nvim expose a tool that runs shell under a different argument
-  // name, add it here so it is gated at bash parity.
   "shellTools": {
     "exec_command": { "commandArgument": "cmd", "workdirArgument": "workdir" }
   },
-
-  // Ordered names of registered live-authority chain links (empty = none).
-  // Each name must be registered at runtime via registerAuthorizer(name, fn).
-  // Links are consulted in this order on every `ask`; the first to return
-  // allow/deny settles it, otherwise the human is prompted.
-  //   "auto-reader"  -> extensions/authorizer-auto-reader.ts (example)
   "authorizerChain": [],
-
-  // Flat permission policy. Within each pattern map, the LAST matching pattern
-  // wins, so broad fallbacks go first and specific exceptions go after them.
   "permission": {
-    "*": "ask",                              // universal fallback
-
+    "*": "ask",
     "path": {
       "*": "allow",
-
-      // dotenv (keep *.env.example allow AFTER the denies)
       "*.env": "deny",
       "*.env.*": "deny",
       "*.env.example": "allow",
-      ".direnv/*": "deny",                   // protect the .direnv dir, not "*.direnv"
-
-      // private keys / certs
+      ".direnv/*": "deny",
       "*.pem": "deny",
       "*.key": "deny",
       "*.p12": "deny",
@@ -49,8 +27,6 @@
       "id_ecdsa": "deny",
       "id_ed25519": "deny",
       "*id_rsa*": "deny",
-
-      // ssh / aws / gcp / kube / package-registry auth
       "~/.ssh/*": "deny",
       "*/.ssh/*": "deny",
       "~/.aws/credentials": "deny",
@@ -61,8 +37,6 @@
       "~/.netrc": "deny",
       ".npmrc": "deny",
       ".pypirc": "deny",
-
-      // generic credential/token files
       "credentials.json": "deny",
       "*credentials*.json": "deny",
       "*.credentials": "deny",
@@ -75,21 +49,53 @@
     "read": "allow",
     "write": "ask",
     "edit": "ask",
-
     "bash": {
-      "*": "ask",                            // explicit baseline (also silences the fail-closed warning)
+      "*": "ask",
 
-      // irrecoverable operations: hard-deny with a teaching reason
+      "ls": "allow",
+      "ls *": "allow",
+      "pwd": "allow",
+      "cd *": "allow",
+      "echo *": "allow",
+      "cat *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "wc *": "allow",
+      "file *": "allow",
+      "stat *": "allow",
+      "tree": "allow",
+      "tree *": "allow",
+      "find *": "allow",
+      "grep *": "allow",
+      "rg *": "allow",
+      "fd *": "allow",
+      "which *": "allow",
+      "type *": "allow",
+      "env": "allow",
+      "printenv*": "allow",
+      "date": "allow",
+      "whoami": "allow",
+      "hostname": "allow",
+      "uname *": "allow",
+      "realpath *": "allow",
+      "dirname *": "allow",
+      "basename *": "allow",
+      "diff *": "allow",
+      "sort *": "allow",
+      "uniq *": "allow",
+      "cut *": "allow",
+      "column *": "allow",
+      "jq *": "allow",
+      "sed -n *": "allow",
+      "awk *": "allow",
+
       "rm -rf *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
       "rm -fr *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
       "dd *":     { "action": "deny", "reason": "Raw disk write is not permitted" },
       "mkfs*":    { "action": "deny", "reason": "Filesystem creation is not permitted" },
       "chmod -R *": "ask",
       "chown -R *": "ask",
-      "sudo *":   "ask",
-
-      // git: prompt by default, allow read-only inspection, gate the mutating/destructive ops.
-      // Read-only subcommands below are the set the permission docs enumerate as safe.
+      "sudo *":   "deny",
       "git *": "ask",
       "git status": "allow",
       "git status *": "allow",
@@ -118,9 +124,9 @@
       "git stash drop*": "ask",
       "git stash clear": "ask",
 
-      // enforce pnpm
+
       "pnpm install": "allow",
-      "pnpm install *": "ask",               // pulling a new dep prompts (supply-chain)
+      "pnpm install *": "ask",
       "pnpm run *": "allow",
       "pnpm test*": "allow",
       "pnpm build*": "allow",
@@ -131,9 +137,12 @@
       "yarn *": { "action": "deny", "reason": "Use pnpm instead" },
       "bun *":  { "action": "deny", "reason": "Use pnpm instead" }
     },
-
-    "mcp": { "mcp_status": "allow" },
+    "mcp": {
+      "mcp_status": "allow",
+      "npx_*": "allow"
+    },
     "skill": { "*": "allow" },
+    "ctx_*": "allow",
     "external_directory": "ask"
   }
 }
