@@ -8,7 +8,7 @@
   "shellTools": {
     "exec_command": { "commandArgument": "cmd", "workdirArgument": "workdir" }
   },
-  "authorizerChain": [],
+  "authorizerChain": ["subagent-inherit-manual"],
   "permission": {
     "*": "ask",
     "path": {
