@@ -1,0 +1,206 @@
+name: task-implementation
+version: 1
+description: >-
+  Implement a single pre-planned task from a plan and verify it, without
+  re-planning or expanding scope. The invariant is bounded execution: the task
+  arrives with examples, references, and acceptance criteria already decided;
+  this workflow implements exactly that, proves it with evidence, and stops. A
+  task that lacks the context to be implemented is reported back, not guessed
+  at.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the artifacts and the workspace to decide whether the condition holds.
+#
+# The governing invariant of this workflow is BOUNDED EXECUTION. The task was
+# planned elsewhere (by a planner or a feature/bug workflow) and arrives with
+# its approach, examples, constraints, and acceptance criteria already decided.
+# This workflow does not re-plan, re-design, or widen scope. If the task is
+# under-specified it is handed back; if the plan turns out wrong, that is a loop
+# back to planning, not an improvisation here.
+#
+# State lives in files on disk (see `artifacts`), not in agent memory or any
+# harness session store. That is what lets a loop resume, a different agent
+# pick up mid-flow, and the same workflow run under any harness.
+#
+# `{task}` is a slug for this unit of implementation work, supplied when the
+# workflow starts. It namespaces this run's artifacts so concurrent work does
+# not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying this unit of implementation work
+      (e.g. add-pagination-handler). Namespaces this run's artifacts.
+    required: true
+
+artifacts:
+  plan:
+    path: ".pi/plans/{task}/plan.md"
+    description: >-
+      The plan this task belongs to, OWNED by the planning step upstream. It
+      holds the task description, its acceptance criteria, the Ideal State
+      Criteria (ISC), the constraints, and the code example or reference the
+      task must follow. This workflow reads it; it does not author it. The
+      orchestrator may pass a different plan path in the task message; when it
+      does, read there.
+  evidence:
+    path: ".pi/plans/{task}/implementation-evidence.md"
+    description: >-
+      The record of what was changed and the proof it works: files touched, the
+      verification commands run and their actual results, and which ISC items
+      were met with the evidence that shows it. "Should work" is not evidence;
+      command output, file paths, and test results are.
+  log:
+    path: ".pi/plans/{task}/workflow-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops and cross-session
+      resume.
+
+initial: intake
+
+states:
+  intake:
+    goal: >-
+      Read the task and confirm it can actually be implemented before touching
+      code. Everything needed is in the task message and the plan it references:
+      what to implement, the acceptance criteria, and the ISC. Verify the task
+      carries a code example or snippet (imports, patterns, structure) OR an
+      explicit reference to existing code to extrapolate from, AND explicit
+      constraints (libraries to use, patterns to follow, anti-patterns to
+      avoid). This is quality control, not optional.
+    consumes: [plan]
+    exit_gate: >-
+      The task is understood, and it carries either a code example or a concrete
+      reference to existing code, plus explicit constraints - enough to
+      implement without guessing.
+    transitions:
+      - when: >-
+          The task is missing its examples/references or its constraints, so
+          implementing it would mean guessing and building the wrong thing.
+        to: blocked
+        reason: "task under-specified: report back rather than guess"
+      - when: "exit_gate holds"
+        to: implement
+        reason: "the task has the context to be implemented"
+
+  implement:
+    goal: >-
+      Implement exactly the task. Follow the existing patterns the example or
+      reference points to, keep changes minimal and focused on this task, and
+      test as you go. Do not redesign, re-plan, or expand scope beyond what the
+      task and plan specify. If the task proves wrong or infeasible, loop rather
+      than improvising a different approach.
+    consumes: [plan]
+    exit_gate: >-
+      The task's code is written, it follows the referenced patterns and stated
+      constraints, the scope is exactly the task (no unrequested extras), and
+      the build compiles.
+    transitions:
+      - when: >-
+          Implementing revealed the task or the plan it rests on is wrong,
+          infeasible, or incomplete - the fix is to the plan, not to this code.
+        to: blocked
+        reason: "plan invalidated: hand back to planning rather than improvise"
+      - when: "exit_gate holds"
+        to: verify
+        reason: "the task is implemented; prove it works"
+
+  verify:
+    goal: >-
+      Prove the task works, do not assume it. Run the project's build/compile
+      step and the relevant tests (discover the real commands from the project's
+      config, not by assumption); a clean exit is not proof, so check the result
+      against what the task asked. Check for regressions. For
+      integration/framework changes (new hooks, decorators, state management,
+      API changes) run the thing - start the dev server and hit the endpoint or
+      load the page, because type checks pass while runtime still crashes.
+      Verify each relevant ISC item with evidence and record it. Clean up any
+      temporary files created.
+    consumes: [plan]
+    produces: [evidence]
+    exit_gate: >-
+      The build and relevant tests were run and pass, integration/framework
+      changes were exercised at runtime, each relevant ISC item is confirmed
+      with concrete evidence (command output, file path, test result), no
+      regressions were introduced, and temporary files are cleaned up.
+    transitions:
+      - when: >-
+          Verification failed - a check errored, a test failed, a regression
+          appeared, or an ISC item is not met - and the fix is in this task's
+          code.
+        to: implement
+        reason: "verification failed; fix the implementation"
+      - when: >-
+          Verification cannot be run at all (build or tests will not execute in
+          this environment) so the task cannot be proven done here.
+        to: blocked
+        reason: "cannot verify: surface the blocker rather than assume done"
+      - when: "exit_gate holds"
+        to: report
+        reason: "the task is implemented and proven"
+
+  report:
+    goal: >-
+      Summarize what changed, the verification evidence (commands run and their
+      actual results), and the ISC items met, and record it in the evidence
+      artifact. Report clearly and exit. Do not paper over anything the
+      verification left open.
+    consumes: [evidence]
+    exit_gate: >-
+      The change, the verification evidence, and the ISC items met are recorded
+      and reported, with any remaining caveat stated plainly rather than hidden.
+    transitions:
+      - when: "exit_gate holds"
+        to: done
+        reason: "the task is delivered with evidence"
+
+  blocked:
+    terminal: true
+    goal: >-
+      Stopped and handed back: the task is under-specified, the plan it rests on
+      is wrong, or verification cannot be run in this environment. Report exactly
+      what is missing or wrong so the planning step can provide the context or
+      fix the plan and re-assign. This is quality control, not failure.
+
+  done:
+    terminal: true
+    goal: >-
+      The task is implemented exactly as planned, verified with evidence, and
+      reported.
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes:
+#   - a persistent "verify" pane running the build/test watcher gives the
+#     implement and verify gates live green/red signal;
+#   - the plan artifact can be shown in a sibling pane for reference.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  subagent_instructions: >-
+    The orchestrator must pass this workflow, the exact <task> slug, the plan
+    path, the active state, and these instructions to the worker agent it
+    launches. The worker must read the workflow-executor skill and this YAML,
+    stay within the task's scope, report missing context or an invalidated plan
+    back to the orchestrator rather than guessing or advancing states, and
+    return verification evidence. Only the orchestrator evaluates gates and
+    transitions.
+  suggested_panes:
+    - role: verify
+      lifecycle: persistent
+      purpose: "Live build/test status for the implement and verify gates."

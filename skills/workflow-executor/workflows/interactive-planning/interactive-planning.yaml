@@ -1,0 +1,313 @@
+name: interactive-planning
+version: 1
+description: >-
+  Turn a user's request into a concrete plan with a worker-ready task breakdown,
+  interactively. Clarify WHAT to build (lightly) and design HOW, one phase per
+  user turn, confirming as you go. The deliverable is a plan artifact with a
+  task breakdown - never the implementation itself. The invariant is consent:
+  each phase ends by presenting its output and waiting for the user before the
+  next begins, so the plan reflects the user's intent at every step.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the artifacts and the conversation to decide whether the condition holds.
+#
+# The governing invariants of this workflow are INTERACTIVITY and the PLANNING
+# BOUNDARY. Interactivity: each state does one phase of work, presents its
+# output, asks one clear question, and ENDS - the agent waits for the user's
+# reply before taking any transition. A state's exit_gate does not hold until
+# the user has confirmed. Planning boundary: this workflow NEVER implements the
+# feature - no production code, no package installs beyond a throwaway
+# validation script, no deliverable edits, no feature builds/tests. It produces
+# a plan.md with a task breakdown and hands off to implementation.
+#
+# If the project uses OpenSpec, the openspec-* skills own planning and produce
+# better-structured artifacts: hand off to feature-implementation (which drives
+# openspec-propose / openspec-update-change) instead of running this workflow's
+# plan/task states. The clarify-intent and requirements states here still add
+# value as input to that handoff.
+#
+# State lives in files on disk (see `artifacts`) and in the running
+# conversation, not in a harness session store. The plan artifact captures the
+# durable decisions; the log records which phase the conversation is in so a
+# resumed session re-enters at the right place.
+#
+# `{task}` is a slug for this planning run, supplied when the workflow starts.
+# It namespaces this run's artifacts so concurrent planning does not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying what is being planned
+      (e.g. add-user-pagination). Namespaces this run's artifacts.
+    required: true
+
+artifacts:
+  plan:
+    path: ".pi/plans/{task}/plan.md"
+    description: >-
+      The single deliverable: intent, user story, behavior (happy path + edge
+      cases), scope, effort/quality level, constraints, Ideal State Criteria
+      (ISC), the chosen approach and key decisions, architecture, dependencies,
+      risks from the premortem, and finally a Tasks section. Each task is
+      bite-sized (2-5 minutes of worker effort), names the files to touch, the
+      constraints that apply, a MANDATORY code example or reference, named
+      anti-patterns, and verifiable acceptance criteria tied to the ISC. The
+      orchestrator may override this path; when it does, write there and report
+      the real path.
+  log:
+    path: ".pi/plans/{task}/planning-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops and cross-session
+      resume. Started once the plan directory exists; until then the active
+      phase is tracked in the conversation.
+
+initial: investigate
+
+states:
+  investigate:
+    goal: >-
+      Orient quickly: tech stack, conventions, relevant existing code. Read
+      config files to learn the real tooling. If the orchestrator passed scout
+      context, read it first; if the system is unfamiliar or complex, spawn a
+      scout for codebase facts and wait for it. Present a 2-4 sentence summary of
+      what you see, then END and wait for the user.
+    exit_gate: >-
+      Enough context exists to understand the request in its setting, the
+      summary has been presented to the user, and the user has responded.
+    transitions:
+      - when: >-
+          The project uses OpenSpec (an openspec/ directory, or the user
+          confirms it), so planning belongs to the openspec-* skills.
+        to: handoff
+        reason: "OpenSpec project: hand off to the OpenSpec-backed workflow"
+      - when: "exit_gate holds"
+        to: clarify_intent
+        reason: "oriented; reverse-engineer the request"
+
+  clarify_intent:
+    goal: >-
+      Reverse-engineer the request: explicit asks, implicit needs, what is out
+      of scope, how fast the user wants it, and the single most important thing
+      to get right. Present this understanding and ask whether it matches, then
+      END and wait. This is the foundation; do not proceed until the user
+      confirms.
+    exit_gate: >-
+      The user has confirmed the stated understanding of intent (or corrected it
+      and confirmed the correction).
+    transitions:
+      - when: "exit_gate holds"
+        to: requirements
+        reason: "intent confirmed; clarify genuine ambiguity"
+
+  requirements:
+    goal: >-
+      Clarify only genuine ambiguity - scope boundaries, non-obvious behavior,
+      edge cases that would change the design, integration constraints. Keep it
+      lightweight: group questions, prefer multiple choice, do not re-ask what
+      the user already said or what the code already answers. A code-fact gap
+      goes to a scout; an external-knowledge gap goes to your own research. Ask,
+      then END and wait. Usually 1-2 rounds; more than 3 means over-speccing.
+    exit_gate: >-
+      Meaningful ambiguity is resolved (by the user's answers or a noted
+      sensible-default assumption), and the feature is understood well enough
+      that a stranger could build roughly the right thing.
+    transitions:
+      - when: >-
+          An answer reshaped the intent itself rather than just filling a
+          detail.
+        to: clarify_intent
+        reason: "refinement: a requirement answer changed the intent"
+      - when: "exit_gate holds"
+        to: effort_and_isc
+        reason: "requirements clear enough; set effort and define done"
+
+  effort_and_isc:
+    goal: >-
+      Establish the effort level (prototype / MVP / production / critical) with
+      test and doc strategy, then draft the Ideal State Criteria: a compact
+      checklist of atomic, binary, testable YES/NO criteria (core functionality,
+      edge cases, anti-criteria). Split any criterion containing "and"/"with" or
+      "all"/"every". Present both and ask what is missing or out of scope, then
+      END and wait.
+    exit_gate: >-
+      The effort level and test/doc strategy are set, the ISC is a compact set
+      of atomic binary criteria, and the user has confirmed it captures "done".
+    transitions:
+      - when: >-
+          Defining done exposed that a requirement or the intent is wrong or
+          missing.
+        to: requirements
+        reason: "refinement: the ISC exposed a requirements gap"
+      - when: "exit_gate holds"
+        to: explore_approaches
+        reason: "done is defined; explore how to build it"
+
+  explore_approaches:
+    goal: >-
+      Propose 2-3 approaches with real tradeoffs, leading with a recommendation
+      tied to the ISC and effort level. Research external unknowns yourself and
+      scout existing-code behavior before presenting; fold findings in. Apply
+      YAGNI - no gold-plated architecture for an MVP. Present and ask which the
+      user prefers, then END and wait.
+    exit_gate: >-
+      Approaches with honest tradeoffs were presented and the user has chosen
+      one (or asked for a revised set and then chosen).
+    transitions:
+      - when: >-
+          Exploring approaches showed the ISC or effort level is wrong for what
+          is actually wanted.
+        to: effort_and_isc
+        reason: "refinement: approach exploration exposed an ISC gap"
+      - when: "exit_gate holds"
+        to: validate_design
+        reason: "an approach is chosen; validate the design"
+
+  validate_design:
+    goal: >-
+      Validate the chosen design in sections of ~200-300 words, stopping between
+      each: architecture overview (always), then components/modules, data flow,
+      and edge cases as the project warrants. Scout any existing-code behavior a
+      section depends on before presenting it. Present each section with its one
+      question, then END and wait. Use judgment on which sections apply, but
+      always validate architecture.
+    exit_gate: >-
+      Each applicable design section has been validated with the user, and the
+      architecture in particular is confirmed.
+    transitions:
+      - when: >-
+          Validating the design showed the chosen approach does not hold up.
+        to: explore_approaches
+        reason: "refinement: design validation rejected the approach"
+      - when: "exit_gate holds"
+        to: premortem
+        reason: "design validated; stress-test it before writing the plan"
+
+  premortem:
+    goal: >-
+      Assume the plan has already failed and work backwards: list 2-5 riskiest
+      assumptions (untested, load-bearing, implicit) with what happens if each
+      is wrong, and 2-5 realistic failure modes. Present them and ask whether to
+      mitigate any or proceed as-is, then END and wait. Skip the premortem only
+      for trivial tasks (single file, easy rollback, pure exploration), noting
+      that you did.
+    exit_gate: >-
+      Risky assumptions and failure modes are surfaced and the user has decided
+      what to mitigate versus accept (or the task is trivial and the premortem
+      was explicitly skipped).
+    transitions:
+      - when: >-
+          The premortem revealed a flaw in the design that must be reworked
+          before planning.
+        to: validate_design
+        reason: "refinement: the premortem found a design flaw"
+      - when: "exit_gate holds"
+        to: write_plan
+        reason: "risks resolved; write the plan"
+
+  write_plan:
+    goal: >-
+      Write the plan artifact: intent, user story, behavior (happy path and edge
+      cases), scope (in/out), effort and quality, constraints, the ISC, the
+      chosen approach with key decisions, architecture and data flow,
+      dependencies, and the premortem risks as accepted or mitigated. Present
+      the path and ask whether anything needs adjusting before the task
+      breakdown, then END and wait.
+    produces: [plan]
+    exit_gate: >-
+      The plan artifact is written at the agreed path capturing every confirmed
+      decision, and the user has approved it (or requested edits that were made
+      and re-confirmed).
+    transitions:
+      - when: >-
+          Writing the plan exposed an unresolved design or requirements gap.
+        to: validate_design
+        reason: "refinement: writing the plan exposed a design gap"
+      - when: "exit_gate holds"
+        to: task_breakdown
+        reason: "plan approved; break it into worker-ready tasks"
+
+  task_breakdown:
+    goal: >-
+      Break the plan into bite-sized tasks (2-5 minutes of worker effort each)
+      appended under a Tasks section of plan.md. Each task names the files to
+      create/modify, repeats the architectural constraints that apply, and - the
+      MANDATORY part - includes either an inline code example (imports,
+      patterns, structure) OR a concrete reference to existing code (file path +
+      line range + what to look at), plus named anti-patterns and verifiable
+      acceptance criteria tied to the ISC. Sequence tasks so each builds on the
+      last. A task with no example or reference will be reported back as
+      incomplete, so never emit one.
+    consumes: [plan]
+    produces: [plan]
+    exit_gate: >-
+      Every task is independently implementable, carries a code example or a
+      concrete reference, names its files, constraints, anti-patterns, and
+      acceptance criteria, and the tasks are ordered coherently. If scope has
+      ballooned (>10 tasks, multiple subsystems), splitting into phases was
+      proposed first.
+    transitions:
+      - when: >-
+          Breaking down the work exposed a plan-level gap that must be fixed
+          before the tasks are coherent.
+        to: write_plan
+        reason: "refinement: task breakdown exposed a plan gap"
+      - when: "exit_gate holds"
+        to: done
+        reason: "plan and task breakdown are ready"
+
+  handoff:
+    terminal: true
+    goal: >-
+      The project uses OpenSpec, so planning is handed off to the
+      feature-implementation workflow (which drives openspec-propose /
+      openspec-update-change). The intent and requirements clarified here are
+      passed in as a sharp request rather than re-derived.
+
+  done:
+    terminal: true
+    goal: >-
+      A plan artifact with a worker-ready task breakdown is written and
+      approved. Implementation is handed off to the task-implementation or
+      feature-implementation workflow; this workflow never implements.
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes:
+#   - a persistent "plan" pane holds the plan.md artifact as it takes shape
+#     across the write_plan and task_breakdown states;
+#   - a "scout" pane can host a scout agent spawned to fill a codebase-fact gap
+#     during investigate, requirements, explore_approaches, or validate_design.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  subagent_instructions: >-
+    The orchestrator must pass this workflow, the exact <task> slug, the active
+    state, and these instructions to the planner agent it launches. The planner
+    must read the workflow-executor skill and this YAML, run one phase per user
+    turn and wait for the user before advancing, never implement the feature,
+    and report the plan artifact path to the orchestrator. It may spawn a scout
+    for codebase facts during the investigation-style states. Only the user's
+    confirmation satisfies an interactive state's exit_gate; the agent evaluates
+    transitions after that confirmation.
+  suggested_panes:
+    - role: plan
+      lifecycle: persistent
+      purpose: "Holds the plan.md artifact as it takes shape during write_plan and task_breakdown."
+    - role: scout
+      lifecycle: on-demand
+      purpose: "Hosts a scout agent spawned to fill a codebase-fact gap mid-planning."

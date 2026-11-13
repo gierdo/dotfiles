@@ -93,8 +93,10 @@
       "jq *": "allow",
       "sed -n *": "allow",
       "awk *": "allow",
+      "serena *": "allow",
       "sleep *": "allow",
       "python3 *": "ask",
+      "uv run *": "allow",
       "node *": "allow",
 
       "rm -rf *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
@@ -148,13 +150,12 @@
       "pnpm build*": "allow",
       "pnpm dlx *": "ask",
       "pnpm *": "ask",
-      "npm *":  { "action": "deny", "reason": "Use pnpm instead" },
-      "npx *":  { "action": "deny", "reason": "Use pnpm dlx instead" },
-      "yarn *": { "action": "deny", "reason": "Use pnpm instead" },
-      "bun *":  { "action": "deny", "reason": "Use pnpm instead" },
-
-      "subagent *": "allow"
+      "npm *":  { "action": "deny", "reason": "Use pnpm instead" }
     },
+    "subagent": "allow",
+    "subagent_interrupt": "allow",
+    "subagents_list": "allow",
+    "subagent_resume": "allow",
     "mcp": {
       "mcp_status": "allow",
       "npx_*": "allow",

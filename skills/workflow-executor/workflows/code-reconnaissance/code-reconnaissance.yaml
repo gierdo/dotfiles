@@ -1,0 +1,194 @@
+name: code-reconnaissance
+version: 1
+description: >-
+  Map an existing codebase to gather the context another agent needs before it
+  plans or implements. Read-only: produce a factual context report (relevant
+  files, structure, conventions, dependencies, gotchas) grounded in code
+  actually read, never in guesses. The invariant is grounding: every claim in
+  the report traces to a file actually read, not assumed.
+
+# ---------------------------------------------------------------------------
+# Execution model
+#
+# This is a state machine, not a checklist. Exactly one state is active at a
+# time. The active state's `goal` is the agent's current objective. When the
+# active state's work is done, the agent evaluates that state's `transitions`
+# top to bottom and follows the first whose `when` condition holds.
+#
+# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
+# not code it runs. They describe the condition to check; the agent inspects
+# the artifacts and the workspace to decide whether the condition holds.
+#
+# The governing invariant of this workflow is GROUNDING. Reconnaissance is only
+# useful if its findings are true. Every file, convention, and gotcha in the
+# report must come from code actually read, not inferred from filenames or
+# assumed from habit. An ungrounded claim is worse than a missing one, because
+# a downstream agent will build on it.
+#
+# This workflow is READ-ONLY. It never edits code, runs builds, or makes
+# implementation/design decisions - those belong to the implementation and
+# planning workflows. It only reads and reports.
+#
+# State lives in files on disk (see `artifacts`), not in agent memory or any
+# harness session store. That is what lets a loop resume, a different agent
+# pick up mid-flow, and the same workflow run under any harness.
+#
+# `{task}` is a slug for the reconnaissance, supplied when the workflow starts.
+# It namespaces this run's artifacts so concurrent work does not collide.
+# ---------------------------------------------------------------------------
+
+inputs:
+  task:
+    description: >-
+      Short kebab-case slug identifying what this reconnaissance is for
+      (e.g. map-auth-module). Namespaces this run's artifacts.
+    required: true
+
+artifacts:
+  context:
+    path: ".pi/plans/{task}/scout-context.md"
+    description: >-
+      The reconnaissance report another agent consumes: the relevant files and
+      why they matter, the parts of the project structure that bear on the task,
+      the conventions to follow, the dependencies in play, the key findings that
+      affect implementation, and the gotchas that could trip it up. Every claim
+      is grounded in code actually read. Only sections with substance are
+      included. The orchestrator may override this path; when it does, write
+      there and report the real path.
+  log:
+    path: ".pi/plans/{task}/recon-log.md"
+    description: >-
+      Append-only record of each state entry/exit and the transition taken,
+      with a one-line reason. The audit trail for loops and cross-session
+      resume.
+
+initial: orient
+
+states:
+  orient:
+    goal: >-
+      Understand what the reconnaissance is for before reading anything: what
+      is being built, fixed, or changed, and therefore what context the
+      downstream agent will need. Confirm there is an existing codebase to
+      explore - with no codebase there is nothing to do. Frame the specific
+      questions the report must answer rather than "learn the whole codebase".
+    exit_gate: >-
+      The purpose of the reconnaissance is clear, an existing codebase is
+      present, and the concrete questions the report must answer are framed.
+    transitions:
+      - when: >-
+          There is no existing codebase to explore, or the request is for a
+          design/implementation decision rather than factual reconnaissance.
+        to: abort
+        reason: "nothing to reconnoitre: no codebase or wrong kind of task"
+      - when: "exit_gate holds"
+        to: map
+        reason: "purpose and questions are clear; start mapping the territory"
+
+  map:
+    goal: >-
+      Find the territory before reading it in depth. Locate the relevant files,
+      modules, entry points, and their relationships for the questions framed in
+      orient. Identify where execution starts and how data flows through the
+      area in scope, and find the config files that reveal the real tooling
+      (package.json, tsconfig.json, pom.xml, Cargo.toml, Makefile,
+      pyproject.toml, etc.) rather than assuming the build/test/lint commands.
+    exit_gate: >-
+      The relevant files, entry points, and their relationships are located, and
+      the config files that define the real tooling are identified - enough of a
+      map that reading can be targeted rather than exhaustive.
+    transitions:
+      - when: >-
+          Mapping showed the framing from orient is wrong or too narrow to find
+          what the report needs - the questions must be reframed.
+        to: orient
+        reason: "refinement: the map exposed a framing gap"
+      - when: "exit_gate holds"
+        to: read
+        reason: "the territory is mapped; read the important code in depth"
+
+  read:
+    goal: >-
+      Read the important code, do not just list it. Understand the actual logic
+      of the files that matter, surface the conventions in use (style, naming,
+      structure, error handling, test patterns), note how the relevant
+      dependencies are actually used, and flag gotchas - implicit assumptions,
+      tight coupling, missing validation, undocumented behavior. Every finding
+      must come from code read, not inferred from a filename.
+    exit_gate: >-
+      The important code is understood well enough to answer the framed
+      questions, the conventions and relevant dependency usage are established
+      from code actually read, and the gotchas that could trip up a downstream
+      agent are identified - with nothing load-bearing left as a guess.
+    transitions:
+      - when: >-
+          Reading revealed the map missed a relevant area, so more of the
+          territory must be located before the picture is complete.
+        to: map
+        reason: "refinement: reading exposed an unmapped area"
+      - when: "exit_gate holds"
+        to: report
+        reason: "the relevant code is understood and grounded; write it up"
+
+  report:
+    goal: >-
+      Write the reconnaissance report to the context artifact so a downstream
+      agent can act on it. Include only sections with substance: relevant files
+      and why they matter, the parts of the project structure that bear on the
+      task, conventions to follow, dependencies in play, key findings that
+      affect implementation, and gotchas. Keep it factual and grounded; report
+      the real artifact path in the final summary so downstream agents can read
+      it.
+    produces: [context]
+    exit_gate: >-
+      The context artifact is written with every included claim grounded in code
+      actually read, it answers the questions framed in orient, empty sections
+      are omitted, and the real path has been reported for downstream agents.
+    transitions:
+      - when: >-
+          Writing the report exposed a gap - a question that cannot be answered
+          from what was read - that must be closed by reading more code.
+        to: read
+        reason: "refinement: writing exposed an unanswered question"
+      - when: "exit_gate holds"
+        to: done
+        reason: "the grounded context report is delivered"
+
+  abort:
+    terminal: true
+    goal: >-
+      Stopped: there is no existing codebase to explore, or the task is a
+      design/implementation decision rather than factual reconnaissance. Record
+      what was learned and hand off to the appropriate workflow.
+
+  done:
+    terminal: true
+    goal: >-
+      The relevant codebase is mapped and a grounded context report is delivered
+      for the downstream agent.
+
+# ---------------------------------------------------------------------------
+# Herdr integration (optional execution layer)
+#
+# When running under Herdr, a runner may map states to panes:
+#   - a persistent "explore" pane holds the files and search results being read
+#     across the map and read states;
+#   - the context artifact can be shown in a sibling pane for the consuming
+#     agent.
+# The mapping is advisory; the state machine above is the source of truth.
+# See the `herdr` skill for pane control and (under CodeCompanion) how to
+# detect Herdr without HERDR_ENV and derive the pane id from the surviving
+# vars.
+# ---------------------------------------------------------------------------
+herdr:
+  subagent_instructions: >-
+    The orchestrator must pass this workflow, the exact <task> slug, the active
+    state, and these instructions to the scout agent it launches. The scout must
+    read the workflow-executor skill and this YAML, stay read-only, ground every
+    finding in code actually read, and report the context artifact path to the
+    orchestrator rather than advancing states or making design decisions. Only
+    the orchestrator evaluates gates and transitions.
+  suggested_panes:
+    - role: explore
+      lifecycle: persistent
+      purpose: "Holds the files and search results being read during map and read."
