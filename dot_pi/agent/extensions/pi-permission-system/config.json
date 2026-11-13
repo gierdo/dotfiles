@@ -5,10 +5,9 @@
   "doublePressToConfirm": true,
   "forwardingTimeoutMs": 600000,
   "piInfrastructureReadPaths": [],
-  "shellTools": {
-    "exec_command": { "commandArgument": "cmd", "workdirArgument": "workdir" }
-  },
-  "authorizerChain": ["subagent-inherit-manual"],
+  "authorizerChain": [
+    "subagent-inherit-manual"
+  ],
   "permission": {
     "*": "ask",
     "path": {
@@ -45,17 +44,11 @@
       "*secret*.yml": "deny",
       "*secret*.yaml": "deny"
     },
-
-    "read": "allow",
-    "write": "allow",
-    "edit": "allow",
-    "ls": "allow",
-    "find": "allow",
+    "external_directory": "ask",
     "external_directory_read": "allow",
     "external_directory_write": "ask",
     "bash": {
       "*": "ask",
-
       "ls": "allow",
       "ls *": "allow",
       "pwd": "allow",
@@ -98,14 +91,25 @@
       "python3 *": "ask",
       "uv run *": "allow",
       "node *": "allow",
-
-      "rm -rf *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
-      "rm -fr *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
-      "dd *":     { "action": "deny", "reason": "Raw disk write is not permitted" },
-      "mkfs*":    { "action": "deny", "reason": "Filesystem creation is not permitted" },
+      "rm -rf *": {
+        "action": "deny",
+        "reason": "Refusing recursive force delete; stage specific paths and confirm"
+      },
+      "rm -fr *": {
+        "action": "deny",
+        "reason": "Refusing recursive force delete; stage specific paths and confirm"
+      },
+      "dd *": {
+        "action": "deny",
+        "reason": "Raw disk write is not permitted"
+      },
+      "mkfs*": {
+        "action": "deny",
+        "reason": "Filesystem creation is not permitted"
+      },
       "chmod -R *": "ask",
       "chown -R *": "ask",
-      "sudo *":   "deny",
+      "sudo *": "deny",
       "git *": "ask",
       "git status": "allow",
       "git status *": "allow",
@@ -141,8 +145,6 @@
       "git checkout -- *": "ask",
       "git stash drop*": "ask",
       "git stash clear": "ask",
-
-
       "pnpm install": "allow",
       "pnpm install *": "ask",
       "pnpm run *": "allow",
@@ -150,21 +152,36 @@
       "pnpm build*": "allow",
       "pnpm dlx *": "ask",
       "pnpm *": "ask",
-      "npm *":  { "action": "deny", "reason": "Use pnpm instead" }
+      "npm *": {
+        "action": "deny",
+        "reason": "Use pnpm instead"
+      }
     },
-    "subagent": "allow",
-    "subagent_interrupt": "allow",
-    "subagents_list": "allow",
-    "subagent_resume": "allow",
     "mcp": {
       "mcp_status": "allow",
       "npx_*": "allow",
       "mcp__nvim_editor_mcp__*": "allow",
       "nvim_editor_mcp": "allow"
     },
-    "skill": { "*": "allow" },
+    "skill": {
+      "*": "allow"
+    },
+    "read": "allow",
+    "write": "allow",
+    "edit": "allow",
+    "ls": "allow",
+    "find": "allow",
+    "subagent": "allow",
+    "subagent_interrupt": "allow",
+    "subagents_list": "allow",
+    "subagent_resume": "allow",
     "ctx_*": "allow",
-    "grep": "allow",
-    "external_directory": "ask"
+    "grep": "allow"
+  },
+  "shellTools": {
+    "exec_command": {
+      "commandArgument": "cmd",
+      "workdirArgument": "workdir"
+    }
   }
 }
