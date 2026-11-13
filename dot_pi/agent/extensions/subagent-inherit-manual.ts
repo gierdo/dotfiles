@@ -29,6 +29,7 @@
 // To activate: add "subagent-inherit-manual" to "authorizerChain" in
 // extensions/pi-permission-system/config.json, then /reload.
 
+import { createRequire } from "node:module";
 import type {
   PermissionsReadyEvent,
   PermissionDecisionEvent,
@@ -67,7 +68,14 @@ function patternMatches(
   return false;
 }
 
-export default function activate(pi: any) {
+export default async function activate(pi: any) {
+  // Local extensions are outside Pi's npm dependency tree. Resolve the public
+  // entry point from its install root, and load it before subscribing so ready
+  // registers synchronously. Import failures now surface as extension errors.
+  const require = createRequire(new URL("../npm/package.json", import.meta.url));
+  const { getPermissionsService } = await import(
+    require.resolve("@gotgenes/pi-permission-system")
+  );
   const disposers = new Map<string, () => void>();
   // Per serving-session set of manual approvals the human granted this session.
   const manualApprovals = new Map<string, Set<string>>();
@@ -104,11 +112,8 @@ export default function activate(pi: any) {
     if (!sessionId || disposers.has(sessionId)) return;
     if (!manualApprovals.has(sessionId)) manualApprovals.set(sessionId, new Set());
 
-    void (async () => {
+    (() => {
       try {
-        const { getPermissionsService } = await import(
-          "@gotgenes/pi-permission-system"
-        );
         const service = getPermissionsService(sessionId);
         if (!service) return;
 
@@ -165,8 +170,8 @@ export default function activate(pi: any) {
         );
 
         disposers.set(sessionId, dispose);
-      } catch {
-        // Permission system not installed - nothing to register.
+      } catch (error) {
+        console.warn("subagent-inherit-manual: authorizer registration failed", error);
       }
     })();
   });
