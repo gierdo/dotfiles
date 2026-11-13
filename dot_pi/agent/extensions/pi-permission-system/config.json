@@ -47,8 +47,12 @@
     },
 
     "read": "allow",
-    "write": "ask",
-    "edit": "ask",
+    "write": "allow",
+    "edit": "allow",
+    "ls": "allow",
+    "find": "allow",
+    "external_directory_read": "allow",
+    "external_directory_write": "ask",
     "bash": {
       "*": "ask",
 
@@ -59,6 +63,7 @@
       "echo *": "allow",
       "cat *": "allow",
       "head *": "allow",
+      "head": "allow",
       "tail *": "allow",
       "wc *": "allow",
       "file *": "allow",
@@ -88,6 +93,9 @@
       "jq *": "allow",
       "sed -n *": "allow",
       "awk *": "allow",
+      "sleep *": "allow",
+      "python3 *": "ask",
+      "node *": "allow",
 
       "rm -rf *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
       "rm -fr *": { "action": "deny", "reason": "Refusing recursive force delete; stage specific paths and confirm" },
@@ -105,6 +113,14 @@
       "git log *": "allow",
       "git show": "allow",
       "git show *": "allow",
+      "git -C * status": "allow",
+      "git -C * status *": "allow",
+      "git -C * diff": "allow",
+      "git -C * diff *": "allow",
+      "git -C * log": "allow",
+      "git -C * log *": "allow",
+      "git -C * show": "allow",
+      "git -C * show *": "allow",
       "git branch": "allow",
       "git branch --list*": "allow",
       "git fetch": "allow",
@@ -135,14 +151,19 @@
       "npm *":  { "action": "deny", "reason": "Use pnpm instead" },
       "npx *":  { "action": "deny", "reason": "Use pnpm dlx instead" },
       "yarn *": { "action": "deny", "reason": "Use pnpm instead" },
-      "bun *":  { "action": "deny", "reason": "Use pnpm instead" }
+      "bun *":  { "action": "deny", "reason": "Use pnpm instead" },
+
+      "subagent *": "allow"
     },
     "mcp": {
       "mcp_status": "allow",
-      "npx_*": "allow"
+      "npx_*": "allow",
+      "mcp__nvim_editor_mcp__*": "allow",
+      "nvim_editor_mcp": "allow"
     },
     "skill": { "*": "allow" },
     "ctx_*": "allow",
+    "grep": "allow",
     "external_directory": "ask"
   }
 }
