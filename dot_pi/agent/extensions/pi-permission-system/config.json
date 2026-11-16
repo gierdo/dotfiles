@@ -45,8 +45,15 @@
       "*secret*.yaml": "deny"
     },
     "external_directory": "ask",
-    "external_directory_read": "allow",
-    "external_directory_write": "ask",
+    "external_directory_read": {
+      "*": "allow"
+    },
+    "external_directory_write": {
+      "*": "ask",
+      "/tmp/*": "allow",
+      "/var/tmp/*": "allow",
+      "~/.cache/*": "allow"
+    },
     "bash": {
       "*": "ask",
       "ls": "allow",
@@ -107,6 +114,10 @@
         "action": "deny",
         "reason": "Filesystem creation is not permitted"
       },
+      "mkdir reviews/*": "allow",
+      "mkdir -p reviews/*": "allow",
+      "rm reviews/*": "allow",
+      "rm -f reviews/*": "allow",
       "chmod -R *": "ask",
       "chown -R *": "ask",
       "sudo *": "deny",
@@ -119,6 +130,14 @@
       "git log *": "allow",
       "git show": "allow",
       "git show *": "allow",
+      "git rev-parse": "allow",
+      "git rev-parse *": "allow",
+      "git cat-file *": "allow",
+      "git blame *": "allow",
+      "git shortlog*": "allow",
+      "git ls-files*": "allow",
+      "git describe*": "allow",
+      "git tag --list*": "allow",
       "git -C * status": "allow",
       "git -C * status *": "allow",
       "git -C * diff": "allow",
@@ -130,7 +149,9 @@
       "git branch": "allow",
       "git branch --list*": "allow",
       "git branch --show-current": "allow",
+      "git merge-base": "allow",
       "git merge-base *": "allow",
+      "git remote -v *": "allow",
       "git fetch": "allow",
       "git fetch *": "allow",
       "git remote -v": "allow",
