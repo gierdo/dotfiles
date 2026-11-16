@@ -6,7 +6,7 @@ Resolve an in-progress git merge or rebase conflict, applying the `software-engi
 
 1. **Skills & Isolation**:
    - Activate the `software-engineering` skill (`/home/dominik/.pi/agent/skills/sw-engineer/SKILL.md`).
-   - If feature isolation from the current workspace is needed before starting, consult the `using-git-worktrees` skill (`/home/dominik/.pi/agent/skills/using-git-worktrees/SKILL.md`).
+   - If feature isolation from the current workspace is needed first, consult the `using-git-worktrees` skill (`/home/dominik/.pi/agent/skills/using-git-worktrees/SKILL.md`).
 
 2. **See the Current State**:
    - Run `git status` to find all unmerged/conflicting files.

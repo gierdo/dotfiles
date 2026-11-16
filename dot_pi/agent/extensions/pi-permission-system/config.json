@@ -129,6 +129,8 @@
       "git -C * show *": "allow",
       "git branch": "allow",
       "git branch --list*": "allow",
+      "git branch --show-current": "allow",
+      "git merge-base *": "allow",
       "git fetch": "allow",
       "git fetch *": "allow",
       "git remote -v": "allow",

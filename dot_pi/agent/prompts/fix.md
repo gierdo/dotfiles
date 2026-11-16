@@ -5,7 +5,7 @@ argument-hint: "[instructions or target]"
 Analyze and fix code issues, applying the `software-engineering` skill mindset.
 
 1. **Skills & Mindset**:
-   - Activate the `software-engineering` skill (`/home/dominik/.pi/agent/skills/sw-engineer/SKILL.md`): favor YAGNI, native platform/standard library solutions, clean error handling at trust boundaries, and minimal code.
+   - Activate the `software-engineering` skill (`/home/dominik/.pi/agent/skills/sw-engineer/SKILL.md`).
    - For complex bugs requiring structured reproduction, root-cause analysis, and regression testing, use the `bug-fix` workflow from the `workflow-executor` skill (`/home/dominik/.pi/agent/skills/workflow-executor/SKILL.md`).
 
 2. **Locate Target Code**:
