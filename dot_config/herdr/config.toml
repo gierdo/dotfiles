@@ -119,8 +119,8 @@ split_horizontal = "prefix+\""
 # --- workspace navigation & management (active) ---
 # Switching (high frequency): indexed jump + adjacent cycle.
 switch_workspace = "prefix+shift+1..9"
-previous_workspace = "prefix+["
-next_workspace = "prefix+]"
+previous_workspace = "prefix+h"
+next_workspace = "prefix+l"
 # Lifecycle (low frequency, herdr defaults): destructive actions gated behind shift.
 workspace_picker = "prefix+w"
 new_workspace = "prefix+shift+n"
