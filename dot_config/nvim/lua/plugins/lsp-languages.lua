@@ -209,9 +209,6 @@ return {
         ensure_installed = {
           -- { "golangci-lint", version = "v1.47.0" },
           -- { "bash-language-server", auto_update = true },
-
-          -- C# Integration
-          { "roslyn" },
         },
         auto_update = false,
         run_on_start = true,
@@ -276,7 +273,6 @@ return {
       "b0o/schemastore.nvim",
       "saghen/blink.cmp",
       "mason-org/mason.nvim",
-      "seblj/roslyn.nvim",
     },
   },
   {
@@ -305,16 +301,6 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-  {
-    "seblj/roslyn.nvim",
-    ft = "cs",
-    opts = {},
-    dependencies = {
-      -- Allow setting up the registry
-      "mason-org/mason.nvim",
-    },
-  },
-
   {
     "nvim-java/nvim-java",
     dependencies = {

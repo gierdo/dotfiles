@@ -123,12 +123,6 @@ _load_zsh_plugin "zsh-autoswitch-virtualenv" "autoswitch_virtualenv.plugin.zsh"
 _load_zsh_plugin "zsh-syntax-highlighting" "zsh-syntax-highlighting.zsh"
 _load_zsh_plugin "nix-zsh-completions" "nix.plugin.zsh"
 
-if [ -f "$HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh" ]; then
-  # we have dotnet, so deal with it
- source $HOME/.local/share/mise/plugins/dotnet/set-dotnet-env.zsh
- export PATH="$HOME/.dotnet/tools:$PATH"
-fi
-
 _load_zsh_plugin "forgit" "forgit.plugin.zsh"
 if [ -d "$HOME/.oh-my-zsh/custom/plugins/forgit/bin" ]; then
   export PATH="$HOME/.oh-my-zsh/custom/plugins/forgit/bin:$PATH"

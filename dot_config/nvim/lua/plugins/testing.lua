@@ -9,7 +9,6 @@ return {
           require("neotest-python")({
             args = { "--no-cov", "-s", "-v" }, -- no-cov is required for single-test-execution
           }),
-          require("neotest-dotnet"),
           require("neotest-golang")({
             testify_enabled = true,
             dap_go_opts = {
@@ -83,7 +82,6 @@ return {
       "nvim-neotest/neotest-python",
       "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
-      "Issafalcon/neotest-dotnet",
       "weilbith/neotest-gradle",
       "folke/which-key.nvim",
       "mfussenegger/nvim-dap",
