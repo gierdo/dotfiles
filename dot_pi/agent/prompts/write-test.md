@@ -5,7 +5,7 @@ argument-hint: "[target or function]"
 Write the smallest test that proves this code works, applying the `software-engineering` skill.
 
 1. **Skills & Mindset**:
-   - Activate the `software-engineering` skill (`/home/dominik/.pi/agent/skills/sw-engineer/SKILL.md`) and follow its guidance on the smallest runnable check.
+   - Activate the `software-engineering` skill (`skills/sw-engineer/SKILL.md`) and follow its guidance on the smallest runnable check.
 
 2. **Identify Target Code**:
    - If a target file, function, or description is specified in `${@:-}`, inspect it.

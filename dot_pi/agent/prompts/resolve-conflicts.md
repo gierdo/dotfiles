@@ -5,8 +5,8 @@ argument-hint: "[optional instructions]"
 Resolve an in-progress git conflict, applying the `software-engineering` skill. This covers every conflict-producing operation: `merge`, `rebase` (including interactive and `git am`), `cherry-pick`, `revert`, and `stash pop`/`apply`.
 
 1. **Skills & Isolation**:
-   - Activate the `software-engineering` skill (`/home/dominik/.pi/agent/skills/sw-engineer/SKILL.md`).
-   - If feature isolation from the current workspace is needed first, consult the `using-git-worktrees` skill (`/home/dominik/.pi/agent/skills/using-git-worktrees/SKILL.md`).
+   - Activate the `software-engineering` skill (`skills/sw-engineer/SKILL.md`).
+   - If feature isolation from the current workspace is needed first, consult the `using-git-worktrees` skill (`skills/using-git-worktrees/SKILL.md`).
 
 2. **Detect Which Operation Is In Progress**:
    - Run `git status` first; it usually names the operation and the correct continue/abort commands.
