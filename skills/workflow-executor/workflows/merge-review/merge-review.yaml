@@ -7,30 +7,8 @@ description: >-
   send work back to understanding when context is missing, and triage loops
   while the author responds to findings.
 
-# ---------------------------------------------------------------------------
-# Execution model
-#
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the diff, the artifacts, and the workspace to decide whether it holds.
-#
-# This workflow REVIEWS a change; it does not author one. The agent reads and
-# reasons about the diff and writes review artifacts. It does not modify the
-# code under review - fixes are the author's job. The only writes are to the
-# review artifacts on disk (and, at the end, posting the review).
-#
-# State lives in files on disk (see `artifacts`), not in agent memory or any
-# harness session store. That is what lets a loop resume, a different agent
-# pick up mid-flow, and the same workflow run under any harness.
-#
-# `{task}` is a slug for the review, supplied when the workflow starts. It
-# namespaces this run's artifacts so concurrent reviews do not collide.
-# ---------------------------------------------------------------------------
+# Reviews a change it did not author. Reads and writes review artifacts only
+# (and posts the review at the end); never modifies the code under review.
 
 inputs:
   task:
@@ -222,19 +200,6 @@ states:
     terminal: true
     goal: "The change has been reviewed and the findings and verdict delivered."
 
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes so the diff and
-# any supporting signal stay live across loop iterations:
-#   - a persistent "diff" pane showing the change under review (and the project
-#     build/test status) gives the assess state real context across loops;
-#   - a sibling pane can host the author's agent or a second reviewer.
-# The mapping is advisory; the state machine above is the source of truth.
-# See the `herdr` skill for pane control and (under CodeCompanion) how to
-# detect Herdr without HERDR_ENV and derive the pane id from the surviving
-# vars.
-# ---------------------------------------------------------------------------
 herdr:
   suggested_panes:
     - role: diff

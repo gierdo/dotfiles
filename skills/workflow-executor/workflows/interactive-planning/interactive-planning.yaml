@@ -8,41 +8,14 @@ description: >-
   each phase ends by presenting its output and waiting for the user before the
   next begins, so the plan reflects the user's intent at every step.
 
-# ---------------------------------------------------------------------------
-# Execution model
+# Invariants: INTERACTIVITY and the PLANNING BOUNDARY. Each state does one phase,
+# presents its output, asks one clear question, and ENDS; the agent waits for
+# the user before any transition, and the exit_gate does not hold until the user
+# has confirmed. Never implement: no production code, no installs beyond a
+# throwaway validation script, no feature builds or tests.
 #
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the artifacts and the conversation to decide whether the condition holds.
-#
-# The governing invariants of this workflow are INTERACTIVITY and the PLANNING
-# BOUNDARY. Interactivity: each state does one phase of work, presents its
-# output, asks one clear question, and ENDS - the agent waits for the user's
-# reply before taking any transition. A state's exit_gate does not hold until
-# the user has confirmed. Planning boundary: this workflow NEVER implements the
-# feature - no production code, no package installs beyond a throwaway
-# validation script, no deliverable edits, no feature builds/tests. It produces
-# a plan.md with a task breakdown and hands off to implementation.
-#
-# If the project uses OpenSpec, the openspec-* skills own planning and produce
-# better-structured artifacts: hand off to feature-implementation (which drives
-# openspec-propose / openspec-update-change) instead of running this workflow's
-# plan/task states. The clarify-intent and requirements states here still add
-# value as input to that handoff.
-#
-# State lives in files on disk (see `artifacts`) and in the running
-# conversation, not in a harness session store. The plan artifact captures the
-# durable decisions; the log records which phase the conversation is in so a
-# resumed session re-enters at the right place.
-#
-# `{task}` is a slug for this planning run, supplied when the workflow starts.
-# It namespaces this run's artifacts so concurrent planning does not collide.
-# ---------------------------------------------------------------------------
+# If the project uses OpenSpec, hand off to feature-implementation instead of
+# running the plan/task states. clarify_intent and requirements still feed it.
 
 inputs:
   task:
@@ -281,29 +254,7 @@ states:
       approved. Implementation is handed off to the task-implementation or
       feature-implementation workflow; this workflow never implements.
 
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes:
-#   - a persistent "plan" pane holds the plan.md artifact as it takes shape
-#     across the write_plan and task_breakdown states;
-#   - a "scout" pane can host a scout agent spawned to fill a codebase-fact gap
-#     during investigate, requirements, explore_approaches, or validate_design.
-# The mapping is advisory; the state machine above is the source of truth.
-# See the `herdr` skill for pane control and (under CodeCompanion) how to
-# detect Herdr without HERDR_ENV and derive the pane id from the surviving
-# vars.
-# ---------------------------------------------------------------------------
 herdr:
-  subagent_instructions: >-
-    The orchestrator must pass this workflow, the exact <task> slug, the active
-    state, and these instructions to the planner agent it launches. The planner
-    must read the workflow-executor skill and this YAML, run one phase per user
-    turn and wait for the user before advancing, never implement the feature,
-    and report the plan artifact path to the orchestrator. It may spawn a scout
-    for codebase facts during the investigation-style states. Only the user's
-    confirmation satisfies an interactive state's exit_gate; the agent evaluates
-    transitions after that confirmation.
   suggested_panes:
     - role: plan
       lifecycle: persistent

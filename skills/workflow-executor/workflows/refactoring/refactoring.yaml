@@ -8,30 +8,8 @@ description: >-
   loops: a transform that changes behavior or a baseline too thin to prove
   preservation sends work back.
 
-# ---------------------------------------------------------------------------
-# Execution model
-#
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the artifacts and the workspace to decide whether the condition holds.
-#
-# The governing invariant of this workflow is BEHAVIOR PRESERVATION. Every gate
-# is ultimately in service of: observable behavior after == observable behavior
-# before. A change that alters behavior is not a refactoring; it is a feature
-# or a fix and belongs in a different workflow.
-#
-# State lives in files on disk (see `artifacts`), not in agent memory or any
-# harness session store. That is what lets a loop resume, a different agent
-# pick up mid-flow, and the same workflow run under any harness.
-#
-# `{task}` is a slug for the refactoring, supplied when the workflow starts. It
-# namespaces this run's artifacts so concurrent work does not collide.
-# ---------------------------------------------------------------------------
+# Invariant: BEHAVIOR PRESERVATION. Observable behavior after == before. A change
+# that alters behavior is a feature or a fix and belongs in another workflow.
 
 inputs:
   task:
@@ -206,20 +184,6 @@ states:
     terminal: true
     goal: "Structure improved to the target shape with observable behavior provably unchanged."
 
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes so the green/red
-# signal that guards behavior preservation stays live across every step:
-#   - a persistent "verify" pane running the suite on a watcher gives the
-#     characterize, transform, and verify gates real status after each step;
-#   - a "baseline" pane can hold the recorded baseline output for diffing
-#     against current behavior.
-# The mapping is advisory; the state machine above is the source of truth.
-# See the `herdr` skill for pane control and (under CodeCompanion) how to
-# detect Herdr without HERDR_ENV and derive the pane id from the surviving
-# vars.
-# ---------------------------------------------------------------------------
 herdr:
   suggested_panes:
     - role: verify

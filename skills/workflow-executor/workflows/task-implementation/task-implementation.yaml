@@ -8,33 +8,9 @@ description: >-
   task that lacks the context to be implemented is reported back, not guessed
   at.
 
-# ---------------------------------------------------------------------------
-# Execution model
-#
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the artifacts and the workspace to decide whether the condition holds.
-#
-# The governing invariant of this workflow is BOUNDED EXECUTION. The task was
-# planned elsewhere (by a planner or a feature/bug workflow) and arrives with
-# its approach, examples, constraints, and acceptance criteria already decided.
-# This workflow does not re-plan, re-design, or widen scope. If the task is
-# under-specified it is handed back; if the plan turns out wrong, that is a loop
-# back to planning, not an improvisation here.
-#
-# State lives in files on disk (see `artifacts`), not in agent memory or any
-# harness session store. That is what lets a loop resume, a different agent
-# pick up mid-flow, and the same workflow run under any harness.
-#
-# `{task}` is a slug for this unit of implementation work, supplied when the
-# workflow starts. It namespaces this run's artifacts so concurrent work does
-# not collide.
-# ---------------------------------------------------------------------------
+# Invariant: BOUNDED EXECUTION. The task arrives planned (approach, examples,
+# constraints, acceptance criteria). Do not re-plan, re-design, or widen scope:
+# an under-specified task is handed back, and a wrong plan loops to planning.
 
 inputs:
   task:
@@ -179,27 +155,7 @@ states:
       The task is implemented exactly as planned, verified with evidence, and
       reported.
 
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes:
-#   - a persistent "verify" pane running the build/test watcher gives the
-#     implement and verify gates live green/red signal;
-#   - the plan artifact can be shown in a sibling pane for reference.
-# The mapping is advisory; the state machine above is the source of truth.
-# See the `herdr` skill for pane control and (under CodeCompanion) how to
-# detect Herdr without HERDR_ENV and derive the pane id from the surviving
-# vars.
-# ---------------------------------------------------------------------------
 herdr:
-  subagent_instructions: >-
-    The orchestrator must pass this workflow, the exact <task> slug, the plan
-    path, the active state, and these instructions to the worker agent it
-    launches. The worker must read the workflow-executor skill and this YAML,
-    stay within the task's scope, report missing context or an invalidated plan
-    back to the orchestrator rather than guessing or advancing states, and
-    return verification evidence. Only the orchestrator evaluates gates and
-    transitions.
   suggested_panes:
     - role: verify
       lifecycle: persistent

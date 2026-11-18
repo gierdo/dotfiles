@@ -6,8 +6,8 @@ description: "Execute a multi-step task workflow defined as a declarative state 
 # Workflow executor
 
 You execute task workflows defined as declarative state machines. A workflow is
-not a linear checklist: states can loop back to earlier states when a later
-state uncovers a gap the earlier one should have closed (e.g. planning reveals a
+not a linear checklist: states loop back to earlier states when a later state
+uncovers a gap the earlier one should have closed (e.g. planning reveals a
 missing requirement, so it loops back to specification).
 
 This skill is harness-neutral. It is the adapter: you read the workflow
@@ -17,113 +17,154 @@ of truth; you supply the judgment.
 
 ## Locate the workflow definitions
 
-Workflow definitions ship inside this skill under `workflows/`. Each workflow is
-a directory containing `<name>.yaml` (the state machine).
+Workflows live under `<this-skill-dir>/workflows/<name>/<name>.yaml`. Read the
+requested workflow's YAML before doing anything else. If the named workflow is
+not present, list `workflows/` and stop.
 
-```bash
-ls "<this-skill-dir>/workflows/"
-```
+## The definition format
 
-Read the requested workflow's YAML before doing anything else. If the user names
-a workflow that is not present, list what is available and stop.
-
-## Understand the definition
-
-A workflow YAML defines:
-
-- `inputs` - parameters supplied at start. Always required: a `task` slug
-  (kebab-case) that namespaces this run's artifacts.
+- `inputs` - parameters beyond `task`. `task` is always required: a kebab-case
+  slug (`[a-z0-9-]+`) that namespaces the run's artifacts. Use the user's; else
+  propose one from the request and confirm it. Never change it mid-run: that
+  orphans the artifacts.
 - `artifacts` - files on disk that hold state. Paths may contain `{input}`
-  references (e.g. `specs/{task}/spec.md`). These files ARE the state: never
-  track workflow progress only in your own memory. Some workflows do not own
-  their artifacts directly: they delegate creation to another skill or tool and
-  resolve the real paths at runtime (e.g. an OpenSpec-backed workflow whose
-  paths are placeholders like `<changeRoot>` resolved via `openspec status
-  --json`). When a workflow or an artifact description says to resolve a path or
-  to drive another skill, follow that rather than substituting `{input}` into a
-  literal path, and let the named skill own the writes.
+  references. Never track progress only in memory. The orchestrator may
+  override any artifact path; then write there and report the real path. A
+  path like `<changeRoot>/...` is resolved at runtime, not substituted; see
+  "OpenSpec-backed workflows".
+- `log` - the artifact every workflow declares: an append-only record of each
+  state entry/exit and the transition taken, with a one-line reason. It is the
+  audit trail and loop counter. Until its directory exists, keep notes in the
+  conversation and write them once it does.
 - `initial` - the starting state.
 - `states` - each has a `goal`, optional `consumes`/`produces` artifacts, an
   `exit_gate`, and an ordered `transitions` list of `{ when, to, reason }`. A
-  state with `terminal: true` ends the run.
-- optional `herdr` - advisory pane layout when running under Herdr.
-  If it has `subagent_instructions`, include those instructions, the workflow
-  definition, task slug, and active state in every Herdr agent assignment.
+  state with `terminal: true` ends the run. A state with `invoke` runs another
+  workflow; see "Sub-workflows".
+- `herdr` - optional; see "Herdr".
+
+`exit_gate` and `when` are natural-language predicates. Judge them by
+inspecting the artifacts and workspace, not by running code.
 
 ## Execute
 
-1. **Resolve inputs.** Get the `task` slug - it namespaces every artifact. If
-   the user gave one, use it. If not, propose a kebab-case slug derived from
-   their request and confirm it before starting. The slug must be kebab-case
-   (`[a-z0-9-]+`); reject spaces, slashes, or uppercase so artifact paths stay
-   predictable. Never invent a slug silently mid-run: a changed slug orphans
-   the existing artifacts.
-
-2. **Determine the current state.** Do not assume `initial`. The log artifact
-   is authoritative: if it exists, the state entered on its last line is the
-   current state. Then cross-check the artifacts - if a `produces` artifact for
-   the recorded state is missing or clearly stale, the previous run did not
-   finish that state's work, so re-enter it rather than trusting the log blindly
-   and note the discrepancy in the log. A fresh run with no artifacts and no log
-   starts at `initial`. This is what makes loops and handoffs between sessions
-   or harnesses work.
-
-3. **Announce the state.** Tell the user the active state and its `goal` in one
-   line before working.
-
-4. **Pursue the goal.** Do the work the active state describes. Read its
-   `consumes` artifacts, write its `produces` artifacts. Stay within the state's
-   scope; if the work reveals a gap belonging to an earlier state, that is a
-   loop, not a reason to improvise outside the current state.
-
-5. **Evaluate transitions.** When the state's work is done, evaluate its
-   `transitions` top to bottom and follow the FIRST whose `when` condition
-   holds. Order matters: when two conditions overlap (e.g. "the plan is wrong"
-   vs "a requirement is wrong"), the earlier, narrower one wins by design, so
-   read them in order rather than picking the one that feels closest. `when`
-   and `exit_gate` are natural-language predicates: judge them by inspecting
-   the artifacts and workspace, not by running code. Backward `to` targets are
-   refinement loops - take them honestly when the condition holds.
-
-6. **Log the transition.** Append one line to the workflow's `log` artifact
-   (its path is declared in the workflow's `artifacts`): the state left, the
-   state entered, and the transition `reason`. This is the audit trail that
-   lets a later session reconstruct the run and resume deterministically.
-
+1. **Resolve inputs.** Get the `task` slug and any other required inputs.
+2. **Determine the current state.** Do not assume `initial`. If the log exists,
+   the state entered on its last line is current. Cross-check: if a `produces`
+   artifact for that state is missing or clearly stale, the previous run did
+   not finish it, so re-enter it and note the discrepancy in the log. No log
+   and no artifacts means `initial`. This is what makes loops and handoffs
+   between sessions or harnesses work.
+3. **Announce the state** and its `goal` in one line.
+4. **Pursue the goal.** Read `consumes`, write `produces`. Stay within the
+   state's scope; a gap belonging to an earlier state is a loop, not a reason
+   to improvise.
+5. **Evaluate transitions** top to bottom and follow the FIRST whose `when`
+   holds. Order matters: when conditions overlap, the earlier, narrower one
+   wins by design. Take backward transitions honestly when they hold.
+6. **Log the transition**: state left, state entered, `reason`.
 7. **Repeat** until a `terminal` state is reached. Report completion.
+
+## Sub-workflows
+
+A state with an `invoke` block runs another workflow as a unit:
+
+```yaml
+state_name:
+  invoke:
+    workflow: debug                      # a directory under workflows/
+    inputs: { require_openspec: true }   # extra child inputs; task is passed through
+    entry: diagnose                      # optional child start state (default: its initial)
+  transitions:
+    - when: "child ended in done"
+      to: next_state
+    - when: "child ended in abort"
+      to: other_state
+```
+
+- Execute the child's YAML with this same procedure. It has its own states,
+  gates, and log; the parent is paused meanwhile. Its `task` is the parent's,
+  verbatim.
+- The child's terminal state is the invoke state's result; match it in the
+  parent's `transitions`. An unmatched terminal state is a stuck condition:
+  report it, do not guess.
+- The parent consumes the child's artifacts as files. A child never advances
+  the parent or edits its artifacts.
+- Re-entry. A transition INTO an invoke state may carry `entry` (the child
+  state to resume at, overriding the invoke block). Its `reason` is passed to
+  the child, which reads its existing artifacts and log and revises them in
+  place rather than starting over.
+- Resume: the parent's log says you are inside the invoke state; the child's
+  log gives its current state. The parent logs entering and leaving the invoke
+  state with the child's terminal state.
+- Re-entries of an invoke state count toward the thrash guard in the parent's
+  log.
+
+## OpenSpec-backed workflows
+
+States that name an `openspec-*` skill (bug-fix, feature-implementation) follow
+these shared conventions instead of repeating them:
+
+- `{task}` is also the OpenSpec change name, passed verbatim as `--change
+  "<task>"`.
+- Drive the named skill for the state: `openspec-explore` (optional thinking),
+  `openspec-propose` (create the change and every apply-required artifact),
+  `openspec-update-change` (revise existing planning artifacts; never edits
+  code), `openspec-apply-change` (implement `tasks.md`),
+  `openspec-archive-change` (sync, then archive), `openspec-sync-specs` (only
+  to sync without archiving). The skills own artifact creation, CLI calls,
+  store selection, the project/root check (`openspec list --json` must show a
+  non-null `root`; if the skill says the user must decide, that is a blocker),
+  and the planning boundary. Never hand-create, hand-path, or edit OpenSpec
+  artifacts outside the matching skill.
+- Resolve `<changeRoot>` and artifact paths from `openspec status --change
+  "<task>" --json`. Default paths shown in a workflow are the spec-driven
+  schema's, for orientation; the CLI output wins. Workflow-owned artifacts (log
+  and others like repro or review) live in the change root so they archive with
+  it.
+- "Apply-required set done/skipped" means every artifact in the status JSON
+  reachable through `requires`, not just `applyRequires`. Delta specs may be
+  skipped only when the schema's conditional/skip rules allow it.
+- "All tasks complete" means `openspec instructions apply --change "<task>"
+  --json` reports N/N. Mechanical verification also runs `openspec validate
+  --change "<task>"` with no errors or warnings.
+- Resume: the log gives the state and loop count; `openspec status` (artifact
+  completeness) and `openspec instructions apply` (task progress) are
+  authoritative for the rest. No change yet means you are before the
+  planning/propose state. Trust disk over memory.
+- Integration lands the work per the repository's conventions (commit and/or
+  PR, docs/changelog, clean up temporary artifacts), then archives the change
+  with `openspec-archive-change`. Do not push to protected branches or do
+  anything destructive without explicit user confirmation.
 
 ## Rules
 
-- State lives in the artifact files, never only in your context. Before acting,
-  reconstruct state from disk.
-- Evaluate gates by judgment against the artifacts; do not invent boolean code
-  to decide them.
-- Take backward transitions when their condition holds. Suppressing a needed
-  refinement loop to appear linear defeats the workflow.
-- Do not expand a state's scope. Loop instead of improvising across phases.
-- One state is active at a time. Do not run a later state's work before its
-  predecessor's exit condition holds.
-- A gate you cannot judge is not a passed gate. If a gate depends on signal you
-  cannot obtain (the build will not run, tests cannot execute, a criterion is
-  not observable), do not pass it by assumption. Say what is blocking, record it
-  in the log, and surface it to the user rather than advancing.
-- Guard against loop thrash. The log is also a loop counter: before taking a
-  backward transition, scan it for the same loop already taken. If a state has
-  been re-entered for the same reason twice without progress, stop looping -
-  the gap is not being closed by repetition. Report the stuck condition to the
-  user and ask how to proceed instead of taking the loop a third time.
+- State lives in artifact files, never only in your context. Reconstruct it
+  from disk before acting.
+- Do not expand a state's scope, and do not run a later state's work before its
+  predecessor's exit gate holds.
+- A gate you cannot judge is not passed. If it depends on signal you cannot
+  obtain (build or tests will not run, a criterion is not observable), say
+  what is blocking, record it in the log, and surface it. Do not pass it by
+  assumption.
+- Loop thrash guard. Before taking a backward transition, scan the log for the
+  same loop already taken. If a state was re-entered for the same reason twice
+  without progress, stop and ask the user instead of a third time.
 
-## Herdr (optional execution layer)
+## Herdr
 
 If a workflow has a `herdr` block and you are running inside Herdr, you may map
-states to panes as suggested: a persistent pane running the build/test watcher
-gives the implementation and validation gates live signal, and a reviewer pane
-can host a review agent. The mapping is advisory; the state machine remains the
-source of truth. See the `herdr` skill for pane control.
+`suggested_panes` to panes (advisory; the state machine stays the source of
+truth). See the `herdr` skill for pane control.
+
+When you launch an agent for a state (in Herdr or otherwise), pass it the
+workflow YAML, the `task` slug, the active state, and, for OpenSpec-backed
+states, the skill the state names. The agent reads this skill and the YAML, stays within its assigned state and role, and reports to
+you. Only the orchestrator evaluates gates and transitions.
 
 Detecting Herdr: do not gate solely on `HERDR_ENV=1`. Some hosts (e.g. nvim
 launching an agent inside CodeCompanion) blank `HERDR_ENV` and `HERDR_PANE_ID`
 even though the session is Herdr-managed. Treat yourself as inside Herdr when
 `HERDR_WORKSPACE_ID` and `HERDR_SOCKET_PATH` are set and `herdr status`
-succeeds. In that case derive your own pane id from the surviving vars rather
-than relying on `HERDR_PANE_ID` or `--current`; see the `herdr` skill for how.
+succeeds. Then derive your own pane id from the surviving vars rather than
+relying on `HERDR_PANE_ID` or `--current`; see the `herdr` skill.

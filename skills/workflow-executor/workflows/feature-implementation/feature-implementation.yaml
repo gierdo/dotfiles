@@ -1,109 +1,42 @@
 name: feature-implementation
-version: 3
+version: 4
 description: >-
-  Drive a feature from orientation through integration, using OpenSpec as the
-  system of record for planning and tasks. This is the workflow-executor's
-  state machine laid over the intended OpenSpec lifecycle: explore (optional) ->
-  propose -> apply -> verify -> review -> sync/archive. Each state delegates the
-  artifact work to the matching OpenSpec skill and CLI; the state machine only
-  supplies judgment, gates, and the refinement loops OpenSpec itself does not
-  model. Mechanical verification still gates entry to behavioral review, so the
-  reviewer always reasons about confirmed-green code.
+  Drive a feature from orientation through integration, with OpenSpec as the
+  system of record for planning and tasks: explore (optional) -> propose ->
+  apply -> verify -> review -> archive. Each state delegates artifact work to
+  the matching OpenSpec skill; this workflow supplies the gates and refinement
+  loops OpenSpec does not model. Mechanical verification gates entry to
+  behavioral review, so the reviewer always reasons about confirmed-green code.
 
-# ---------------------------------------------------------------------------
-# Execution model
-#
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the artifacts and the workspace to decide whether the condition holds.
-#
-# OpenSpec is the system of record. State lives on disk in the OpenSpec change
-# (proposal.md, the specs delta, design.md, tasks.md) plus this workflow's own
-# append-only log. It does NOT live in agent memory or any harness session
-# store. Reconstruct state from the change before acting: `openspec status
-# --change "<task>" --json` and `openspec instructions apply --change "<task>"
-# --json` are authoritative for artifact and task progress; the log is
-# authoritative for which state and loop you are in.
-#
-# `{task}` is the OpenSpec change name for this unit of work, supplied when the
-# workflow starts. It MUST be kebab-case so it is a valid OpenSpec change name,
-# and it namespaces this run's log so concurrent features do not collide. The
-# same slug is passed verbatim as `--change "<task>"` to every OpenSpec command.
-# ---------------------------------------------------------------------------
+# OpenSpec conventions (skills, changeRoot, gates, resume) are in the executor
+# skill. `{task}` is also the change name.
 
 inputs:
   task:
-    description: >-
-      Short kebab-case slug identifying this feature AND naming the OpenSpec
-      change (e.g. add-user-pagination). Must match OpenSpec's change-name rules
-      ([a-z0-9-]+) so it can be passed verbatim as `--change "<task>"`.
+    description: "Kebab-case feature slug, also the OpenSpec change name (e.g. add-user-pagination)."
     required: true
 
-# ---------------------------------------------------------------------------
-# OpenSpec skills this workflow delegates to. Each state names the skill it
-# drives; invoke that skill rather than re-deriving its steps here. The skills
-# own artifact creation, the CLI calls, store selection, and the OpenSpec
-# project/root checks. This workflow owns only the state transitions and loops.
-#
-#   explore  -> openspec-explore        (optional thinking / scoping)
-#   propose  -> openspec-propose        (create proposal, specs delta, design, tasks)
-#   update   -> openspec-update-change  (revise existing planning artifacts in a loop)
-#   apply    -> openspec-apply-change   (implement tasks.md)
-#   sync     -> openspec-sync-specs     (fold delta specs into main specs)
-#   archive  -> openspec-archive-change (sync + archive the completed change)
-# ---------------------------------------------------------------------------
-
 artifacts:
-  # The planning artifacts below are OWNED by OpenSpec and created/edited only
-  # through the OpenSpec skills and CLI. Never hand-create or hand-path them;
-  # resolve their real locations from `openspec status --change "<task>" --json`
-  # (changeRoot, artifactPaths, actionContext). The paths shown are the
-  # spec-driven schema's defaults, relative to the change root, for orientation
-  # only - a different schema may name or place them differently, in which case
-  # the CLI output wins.
   proposal:
     path: "<changeRoot>/proposal.md"
-    description: >-
-      OpenSpec proposal: what & why, scope boundaries. Created by
-      openspec-propose; revised via openspec-update-change.
+    description: "What and why, with scope boundaries."
   specs_delta:
     path: "<changeRoot>/specs/<capability-path>/spec.md"
-    description: >-
-      OpenSpec delta spec(s): ADDED/MODIFIED/REMOVED/RENAMED requirements with
-      testable scenarios. These are the acceptance criteria. A delta, not a main
-      spec. Created by openspec-propose; synced to main specs at archive.
+    description: "ADDED/MODIFIED/REMOVED/RENAMED requirements with testable scenarios. These are the acceptance criteria."
   design:
     path: "<changeRoot>/design.md"
-    description: >-
-      OpenSpec design: how the change is built. Conditional in spec-driven;
-      create only when the schema's instruction calls for it.
+    description: "How the change is built. Conditional: only when the schema calls for it."
   tasks:
     path: "<changeRoot>/tasks.md"
-    description: >-
-      OpenSpec tasks: the ordered, checkbox implementation steps. This is the
-      unit of implementation progress; openspec-apply-change checks items off
-      here so a mid-implementation handoff resumes at the first unchecked task.
-      Replaces the old standalone plan.md + progress.md.
+    description: "Ordered checkbox implementation steps; the unit of progress, so a handoff resumes at the first unchecked task."
   review:
     path: "<changeRoot>/review.md"
-    description: >-
-      Behavioral review findings against the proposal, delta specs, and design.
-      Owned by this workflow (OpenSpec has no review artifact); write it inside
-      the change root so it travels with the change.
+    description: "Behavioral review findings against the proposal, delta specs, and design."
   log:
     path: "<changeRoot>/workflow-log.md"
     description: >-
-      Append-only record of each state entry/exit and the transition taken,
-      with a one-line reason. Owned by this workflow, not OpenSpec. The audit
-      trail for loops and cross-session resume. Written inside the change root
-      so it lives and archives with the change. On a brand-new run the change
-      does not exist yet; keep the first orientation note in the conversation
-      and write it here as soon as the change root exists.
+      Append-only state/transition log. Until the change root exists, keep the
+      first orientation note in the conversation and write it here afterwards.
 
 initial: orientation
 
@@ -111,94 +44,65 @@ states:
   orientation:
     goal: >-
       Understand the problem in its real context before proposing anything, and
-      confirm OpenSpec is usable here. Run the OpenSpec project check:
-      `openspec list --json` and confirm a non-null `root` (follow the
-      openspec-propose skill's project-check and store-selection rules for how
-      this workflow was reached, `"root": null`, and store declarations). Read
-      the affected code, confirm the feature (or part of it) does not already
-      exist - check existing OpenSpec capabilities with `openspec list --specs`
-      and `openspec show` as well as the codebase - and capture constraints.
-      Critically, discover and record the project's actual build, test, lint,
-      and verification commands; later gates depend on knowing how to run them.
-      This is a thinking state: optionally drive the openspec-explore skill for
-      scoping, but do NOT write code and do NOT create the change yet. Hold
-      orientation findings and the verification commands in the conversation
-      until the change exists; they move into proposal/design/tasks during
-      specification and into the log once the change root exists.
+      run the OpenSpec project check. Read the affected code; confirm the
+      feature (or part of it) does not already exist, checking existing
+      OpenSpec capabilities (`openspec list --specs`, `openspec show`) as well
+      as the code; capture constraints. Discover and record the project's real
+      build, test, lint, and verification commands: later gates need them.
+      Thinking state: `openspec-explore` is optional; write no code and do not
+      create the change. Hold findings and commands in the conversation until
+      the change exists.
     exit_gate: >-
-      OpenSpec has a usable root (or the user has explicitly chosen how to
-      proceed without it); the affected components and any existing/overlapping
-      behavior (code AND existing OpenSpec specs) are identified; the concrete
-      verification commands are recorded; and relevant constraints and open
-      questions are captured. If OpenSpec has no root and the situation requires
-      the user's decision per the skill's project check, that decision is a
-      blocker - surface it and do not pass this gate by assumption.
+      OpenSpec has a usable root (or the user chose how to proceed); affected
+      components and existing/overlapping behavior (code and specs) are
+      identified; the verification commands are recorded; constraints and open
+      questions are captured.
     transitions:
       - when: "exit_gate holds"
         to: specification
-        reason: "oriented: enough context to propose a change against"
+        reason: "enough context to propose a change"
 
   specification:
     goal: >-
-      Turn the orientation findings into a complete OpenSpec change by driving
-      the openspec-propose skill for change "<task>". That skill scaffolds the
-      change with `openspec new change "<task>"` and creates every artifact the
-      apply phase transitively requires (proposal, the specs delta with testable
-      scenarios as acceptance criteria, design when the schema calls for it, and
-      tasks). Do NOT hand-create the change directory or artifacts; let the
-      skill and CLI own them. Feed the recorded verification commands and
-      constraints into the artifacts. Record open questions explicitly and
-      resolve material ones with the user before leaving this state. Respect the
-      propose skill's planning boundary: planning only here, no implementation.
-      Once the change root exists, start the workflow log there.
+      Turn the orientation findings into a complete change via
+      `openspec-propose`: proposal, delta specs with testable scenarios, design
+      when the schema calls for it, and tasks. Feed the recorded verification
+      commands and constraints into the artifacts. Record open questions and
+      resolve material ones with the user. Planning only: no implementation.
+      Start the log once the change root exists.
     produces: [proposal, specs_delta, design, tasks, log]
     exit_gate: >-
-      `openspec status --change "<task>" --json` shows every artifact in the
-      apply-required set `done` or `skipped` (walk the `requires` edges, not just
-      `applyRequires`); the delta spec states testable acceptance criteria via
-      its scenarios; scope boundaries are explicit in the proposal; tasks.md
-      exists with ordered steps that trace to those criteria; and there are no
-      unresolved material open questions.
+      The apply-required artifacts are done/skipped; the delta spec states
+      testable acceptance criteria; scope boundaries are explicit; tasks.md has
+      ordered steps tracing to those criteria; no material open questions remain.
     transitions:
-      - when: >-
-          Proposing exposed a gap in orientation that must be investigated in
-          the codebase or existing specs before the change can be settled.
+      - when: "Proposing exposed an orientation gap that needs investigating in the code or specs."
         to: orientation
         reason: "refinement: proposal surfaced a context gap"
       - when: "exit_gate holds"
         to: implementation
-        reason: "change is proposed with complete, traceable planning artifacts"
+        reason: "change proposed with traceable planning artifacts"
 
   implementation:
     goal: >-
-      Implement the change by driving the openspec-apply-change skill for change
-      "<task>". Work tasks in order from tasks.md, checking each box off via the
-      skill as it lands so a handoff resumes mid-change rather than restarting.
-      Keep the build compiling and the test suite green as you go, and add or
-      update tests for new behavior. Do not expand scope beyond the tasks and
-      delta specs; if the plan is wrong, loop back via the transitions rather
-      than improvising or silently narrowing specified behavior. If apply
-      reports a blocked state or a task needs work beyond the specs, pause and
-      loop rather than guessing.
+      Implement via `openspec-apply-change`, in task order, checking boxes off
+      as they land. Keep the build compiling and tests green, and add or update
+      tests for new behavior. Do not expand scope beyond the tasks and delta
+      specs. If apply reports a blocked state or a task needs work beyond the
+      specs, loop rather than guess or narrow specified behavior silently.
     consumes: [proposal, specs_delta, design, tasks]
     produces: [tasks]
     exit_gate: >-
-      `openspec instructions apply --change "<task>" --json` reports all tracked
-      tasks complete (N/N), and every piece of non-trivial new behavior has at
-      least one runnable check that fails if that behavior breaks. (Full-suite
-      confirmation happens in verification; this gate is about completeness of
-      the work and its checks.)
+      All tracked tasks complete, and every piece of non-trivial new behavior has
+      a runnable check that fails if it breaks. (Full-suite confirmation is in
+      verification.)
     transitions:
       - when: >-
           A task proved infeasible, wrong, or incomplete, or implementation
-          revealed a design issue, but the underlying requirements still hold.
-          The fix is to the plan/design/tasks, not the requirements.
+          revealed a design issue, but the requirements still hold.
         to: planning_revision
         reason: "refinement: implementation invalidated part of the plan/design"
-      - when: >-
-          Implementation revealed that a requirement itself (in the proposal or
-          delta specs) is wrong, missing, or infeasible - a deeper gap than the
-          plan.
+      - when: "A requirement itself (proposal or delta specs) is wrong, missing, or infeasible."
         to: planning_revision
         reason: "refinement: implementation invalidated a requirement"
       - when: "exit_gate holds"
@@ -207,40 +111,28 @@ states:
 
   planning_revision:
     goal: >-
-      Reconcile the change's planning artifacts with what implementation or
-      review uncovered, by driving the openspec-update-change skill for change
-      "<task>". Revise whichever existing artifacts are now wrong - proposal,
-      delta specs, design, or tasks - and keep them coherent with one another.
-      This state covers both a shallow plan/task fix and a deeper requirement
-      fix; the openspec-update-change skill revises any existing artifact in any
-      direction. Planning only: this skill never edits code. If the request has
-      changed the change's intent rather than refining it, surface that and ask
-      about starting a fresh change instead.
+      Reconcile the planning artifacts with what implementation or review
+      uncovered, via `openspec-update-change`, for both a shallow plan fix and a
+      deeper requirement fix. Revise whichever of proposal, delta specs, design,
+      tasks are wrong and keep them coherent. If the intent has changed rather
+      than been refined, surface it and ask about a fresh change.
     consumes: [proposal, specs_delta, design, tasks, review]
     produces: [proposal, specs_delta, design, tasks]
     exit_gate: >-
-      The affected artifacts are revised and mutually coherent;
-      `openspec status --change "<task>" --json` still shows the apply-required
-      set `done`/`skipped`; every task still traces to an acceptance criterion
-      and every criterion is still covered by at least one task.
+      Affected artifacts are revised and coherent, the apply-required set is
+      still done/skipped, every task traces to an acceptance criterion, and
+      every criterion is covered by at least one task.
     transitions:
       - when: "exit_gate holds"
         to: implementation
-        reason: "plan reconciled; resume implementing the revised tasks"
+        reason: "plan reconciled; resume the revised tasks"
 
   verification:
     goal: >-
-      Run the project's full mechanical verification suite using the commands
-      recorded during orientation (build, tests, lint, and any project-specific
-      checks). Also run `openspec validate --change "<task>"` to confirm the
-      change's artifacts are well-formed. This state is mechanical only - no
-      behavioral judgment - and it gates entry to review so the reviewer always
-      reasons about confirmed-green code.
-    exit_gate: >-
-      The full project suite and `openspec validate --change "<task>"` run and
-      pass with no errors or warnings. If the suite cannot be run at all, this
-      gate is not passed; record the blocker in the log and surface it rather
-      than advancing.
+      Run the full mechanical verification suite with the commands recorded in
+      orientation (build, tests, lint, project checks) and `openspec validate`.
+      Mechanical only: no behavioral judgment.
+    exit_gate: "The full suite and `openspec validate` run and pass with no errors or warnings."
     transitions:
       - when: "A check errored, failed, or could not be run."
         to: implementation
@@ -251,25 +143,20 @@ states:
 
   review:
     goal: >-
-      Review the diff behaviorally against the OpenSpec change: does it do what
-      the delta specs' scenarios (the acceptance criteria) require, are edge
-      cases handled, is the change coherent with the proposal and design? The
-      code is already confirmed green, so focus on behavior and design, not
-      mechanical status. Record findings as actionable items in review.md inside
-      the change root.
+      Review the diff behaviorally against the change: does it do what the delta
+      specs' scenarios require, are edge cases handled, is it coherent with the
+      proposal and design? The code is already green, so focus on behavior and
+      design. Record actionable findings in review.md.
     consumes: [proposal, specs_delta, design]
     produces: [review]
     exit_gate: >-
-      The review found no defects that block acceptance, or all such defects
-      have been resolved, and every acceptance criterion in the delta specs is
-      demonstrably met by the running software.
+      No blocking defects remain (or all were resolved), and every acceptance
+      criterion in the delta specs is demonstrably met by the running software.
     transitions:
-      - when: "The review found defects that must be fixed in the implementation."
+      - when: "Defects must be fixed in the implementation."
         to: implementation
-        reason: "review found defects; fix then re-verify before re-review"
-      - when: >-
-          The review found that the proposal, delta specs, or design themselves
-          are wrong or incomplete.
+        reason: "review found defects; fix then re-verify"
+      - when: "The proposal, delta specs, or design themselves are wrong or incomplete."
         to: planning_revision
         reason: "refinement: review surfaced a spec/plan gap"
       - when: "exit_gate holds"
@@ -278,94 +165,32 @@ states:
 
   integration:
     goal: >-
-      Land the work the way this repository expects AND close out the OpenSpec
-      change. Commit and/or open a PR per the project's git conventions, update
-      docs or changelog if the project keeps them, and clean up any temporary
-      artifacts. Then fold the delta specs into the main specs and archive the
-      change by driving the openspec-archive-change skill for change "<task>"
-      (which runs the openspec-sync-specs merge inline before moving the change
-      to the archive); drive openspec-sync-specs on its own only if the user
-      wants specs synced without archiving yet. Respect git-safety: do not push
-      to protected branches or perform destructive operations without explicit
-      user confirmation. The workflow log and review.md archive with the change.
+      Land the work per the repository's conventions and archive the change
+      (`openspec-archive-change`). The log and review.md archive with it.
     consumes: [proposal, specs_delta]
     exit_gate: >-
-      The change is committed (and a PR opened if that is the project's flow),
-      any required docs/changelog updates are made, no stray temporary artifacts
-      remain, and the OpenSpec change has been synced and archived (or the user
-      explicitly deferred sync/archive for this run). If the user opted out of
-      integration for this run, the gate holds vacuously.
+      Committed (and PR opened if that is the flow), docs/changelog updated if
+      kept, no stray temporary artifacts, change synced and archived (or the
+      user explicitly deferred it). Holds vacuously if the user opted out of
+      integration.
     transitions:
-      - when: "A problem surfaced while landing that requires a code change."
+      - when: "Landing surfaced a problem needing a code change."
         to: implementation
         reason: "integration surfaced a defect; fix then re-verify"
-      - when: >-
-          Sync or archive reported a blocking condition in the planning
-          artifacts (e.g. a delta the main spec cannot absorb).
+      - when: "Sync or archive hit a blocking condition in the planning artifacts."
         to: planning_revision
-        reason: "refinement: sync/archive surfaced a planning-artifact gap"
+        reason: "refinement: sync/archive surfaced a planning gap"
       - when: "exit_gate holds"
         to: done
-        reason: "work landed and OpenSpec change archived per project conventions"
+        reason: "work landed and change archived"
 
   done:
     terminal: true
     goal: >-
-      Feature is oriented, proposed as an OpenSpec change, implemented against
-      its tasks, verified, reviewed, and integrated - with the change's delta
-      specs synced into the main specs and the change archived.
+      Oriented, proposed, implemented, verified, reviewed, and integrated, with
+      delta specs synced and the change archived.
 
-# ---------------------------------------------------------------------------
-# OpenSpec compatibility notes
-#
-# - The workflow-executor skill still drives this: it reads this YAML,
-#   reconstructs state from disk, and follows transitions. The difference from
-#   v2 is that the planning/implementation artifacts are OpenSpec's, created and
-#   edited ONLY through the OpenSpec skills and CLI, never hand-pathed.
-# - `{task}` is simultaneously the workflow task slug and the OpenSpec change
-#   name. Keep it kebab-case so it is valid for both. It is passed verbatim as
-#   `--change "<task>"`.
-# - Determining current state on resume: read the log for the recorded state and
-#   loop count, then cross-check with `openspec status --change "<task>" --json`
-#   (artifact completeness) and `openspec instructions apply --change "<task>"
-#   --json` (task progress). If the change does not exist yet, you are at
-#   orientation/specification. If artifacts are incomplete, you are at
-#   specification (or planning_revision). If tasks remain, you are at
-#   implementation. Trust disk over memory.
-# - Store selection, the OpenSpec project/root checks, and the planning boundary
-#   are owned by the OpenSpec skills each state names - follow them there rather
-#   than duplicating them here. Honor the propose/explore planning boundary:
-#   orientation and specification never edit code.
-# ---------------------------------------------------------------------------
-
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes so long-running
-# signal (a test watcher, a build tail) stays live across loop iterations:
-#   - a persistent "verify" pane running the test/build watcher feeds the
-#     implementation and verification exit_gates with real status;
-#   - entering `review` can start a reviewer agent in a sibling pane.
-# The mapping is advisory; the state machine above is the source of truth.
-# ---------------------------------------------------------------------------
 herdr:
-  subagent_instructions: >-
-    The orchestrator must pass this workflow, the exact <task> OpenSpec change
-    name, the active state, and these instructions to every Herdr agent it
-    launches. Each agent must read the workflow-executor skill and this YAML,
-    stay within its assigned state and pane role, and report results to the
-    orchestrator rather than advancing states independently. Use the OpenSpec
-    skill named by the active state: openspec-explore for optional orientation,
-    openspec-propose for specification, openspec-update-change for
-    planning_revision, openspec-apply-change for implementation, and
-    openspec-archive-change (or openspec-sync-specs when only syncing) for
-    integration. Follow each skill's project/store checks, planning boundary,
-    CLI instructions, and artifact paths; never substitute an ad hoc plan or
-    edit OpenSpec-owned artifacts outside the matching skill. Read OpenSpec
-    status and apply instructions for <task> before acting on an existing
-    change. Verification agents run checks and return evidence; review agents
-    assess behavior against the delta specs and return findings. Only the
-    orchestrator evaluates gates and transitions.
   suggested_panes:
     - role: verify
       lifecycle: persistent

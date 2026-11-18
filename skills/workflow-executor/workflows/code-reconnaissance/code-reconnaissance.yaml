@@ -7,35 +7,10 @@ description: >-
   actually read, never in guesses. The invariant is grounding: every claim in
   the report traces to a file actually read, not assumed.
 
-# ---------------------------------------------------------------------------
-# Execution model
-#
-# This is a state machine, not a checklist. Exactly one state is active at a
-# time. The active state's `goal` is the agent's current objective. When the
-# active state's work is done, the agent evaluates that state's `transitions`
-# top to bottom and follows the first whose `when` condition holds.
-#
-# Gates (`when`, `exit_gate`) are natural-language predicates the agent judges,
-# not code it runs. They describe the condition to check; the agent inspects
-# the artifacts and the workspace to decide whether the condition holds.
-#
-# The governing invariant of this workflow is GROUNDING. Reconnaissance is only
-# useful if its findings are true. Every file, convention, and gotcha in the
-# report must come from code actually read, not inferred from filenames or
-# assumed from habit. An ungrounded claim is worse than a missing one, because
-# a downstream agent will build on it.
-#
-# This workflow is READ-ONLY. It never edits code, runs builds, or makes
-# implementation/design decisions - those belong to the implementation and
-# planning workflows. It only reads and reports.
-#
-# State lives in files on disk (see `artifacts`), not in agent memory or any
-# harness session store. That is what lets a loop resume, a different agent
-# pick up mid-flow, and the same workflow run under any harness.
-#
-# `{task}` is a slug for the reconnaissance, supplied when the workflow starts.
-# It namespaces this run's artifacts so concurrent work does not collide.
-# ---------------------------------------------------------------------------
+# Invariant: GROUNDING. Every file, convention, and gotcha in the report comes
+# from code actually read, never inferred from filenames or habit; an ungrounded
+# claim is worse than a missing one. Read-only: no edits, no builds, no
+# design or implementation decisions.
 
 inputs:
   task:
@@ -167,27 +142,7 @@ states:
       The relevant codebase is mapped and a grounded context report is delivered
       for the downstream agent.
 
-# ---------------------------------------------------------------------------
-# Herdr integration (optional execution layer)
-#
-# When running under Herdr, a runner may map states to panes:
-#   - a persistent "explore" pane holds the files and search results being read
-#     across the map and read states;
-#   - the context artifact can be shown in a sibling pane for the consuming
-#     agent.
-# The mapping is advisory; the state machine above is the source of truth.
-# See the `herdr` skill for pane control and (under CodeCompanion) how to
-# detect Herdr without HERDR_ENV and derive the pane id from the surviving
-# vars.
-# ---------------------------------------------------------------------------
 herdr:
-  subagent_instructions: >-
-    The orchestrator must pass this workflow, the exact <task> slug, the active
-    state, and these instructions to the scout agent it launches. The scout must
-    read the workflow-executor skill and this YAML, stay read-only, ground every
-    finding in code actually read, and report the context artifact path to the
-    orchestrator rather than advancing states or making design decisions. Only
-    the orchestrator evaluates gates and transitions.
   suggested_panes:
     - role: explore
       lifecycle: persistent
