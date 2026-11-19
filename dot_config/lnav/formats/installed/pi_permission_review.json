@@ -1,0 +1,50 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "pi_permission_review": {
+    "description": "Pi permission review audit events",
+    "file-pattern": "(^|/)pi-permission-system-permission-review\\.jsonl$",
+    "json": true,
+    "timestamp-field": "timestamp",
+    "level-field": "event",
+    "level": {
+      "error": "^permission_request\\.blocked$",
+      "warning": "^permission_request\\.denied$"
+    },
+    "hide-extra": true,
+    "line-format": [
+      { "field": "__timestamp__" }, "  ",
+      { "field": "event", "min-width": 31 }, "  ",
+      { "field": "toolName", "default-value": "-" }, "  ",
+      { "field": "resolution", "default-value": "-" }, "  ",
+      { "field": "denialReason", "default-value": "" }
+    ],
+    "value": {
+      "event": { "kind": "string" },
+      "extension": { "kind": "string" },
+      "stream": { "kind": "string" },
+      "sessionId": { "kind": "string", "identifier": true },
+      "requestId": { "kind": "string", "identifier": true },
+      "toolCallId": { "kind": "string", "identifier": true },
+      "toolName": { "kind": "string" },
+      "source": { "kind": "string" },
+      "agentName": { "kind": "string" },
+      "surface": { "kind": "string" },
+      "skillName": { "kind": "string" },
+      "path": { "kind": "string" },
+      "command": { "kind": "string" },
+      "target": { "kind": "string" },
+      "toolInputPreview": { "kind": "string" },
+      "resolution": { "kind": "string" },
+      "denialReason": { "kind": "string" },
+      "matchedPattern": { "kind": "string" },
+      "decidedBy": { "kind": "json" },
+      "sessionGrantWidth": { "kind": "string" },
+      "sessionApprovalPattern": { "kind": "string" },
+      "origin": { "kind": "string" },
+      "decidingPath": { "kind": "string" },
+      "effect": { "kind": "string" },
+      "effectSource": { "kind": "string" },
+      "links": { "kind": "json" }
+    }
+  }
+}
