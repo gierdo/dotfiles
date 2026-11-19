@@ -254,7 +254,9 @@ sidebar_collapsed_mode = "hidden"
 
 # Ask for a tab name before creating a new tab.
 # Set false to create tabs immediately with generated names.
-# prompt_new_tab_name = true
+
+# We have an auto-naming plugin active
+prompt_new_tab_name = false
 
 # Ask for a workspace name before interactive creation.
 # prompt_new_workspace_name = false
