@@ -182,6 +182,7 @@ type = "popup"
 command = "lazygit"
 width = "80%"
 height = "80%"
+description = "Open lazygit"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
@@ -424,41 +425,49 @@ pane_history = false
 key = "ctrl+h"
 type = "plugin_action"
 command = "herdr-splits.nav-left"
+description = "Focus split - left"
 
 [[keys.command]]
 key = "ctrl+j"
 type = "plugin_action"
 command = "herdr-splits.nav-down"
+description = "Focus split - down"
 
 [[keys.command]]
 key = "ctrl+k"
 type = "plugin_action"
 command = "herdr-splits.nav-up"
+description = "Focus split - up"
 
 [[keys.command]]
 key = "ctrl+l"
 type = "plugin_action"
 command = "herdr-splits.nav-right"
+description = "Focus split - right"
 
 [[keys.command]]
 key = "alt+h"
 type = "plugin_action"
 command = "herdr-splits.resize-left"
+description = "Resize - left"
 
 [[keys.command]]
 key = "alt+j"
 type = "plugin_action"
 command = "herdr-splits.resize-down"
+description = "Resize - down"
 
 [[keys.command]]
 key = "alt+k"
 type = "plugin_action"
 command = "herdr-splits.resize-up"
+description = "Resize - up"
 
 [[keys.command]]
 key = "alt+l"
 type = "plugin_action"
 command = "herdr-splits.resize-right"
+description = "Resize - right"
 
 ## herdr-bar
 
@@ -466,4 +475,4 @@ command = "herdr-splits.resize-right"
 key = "prefix+k"
 type = "plugin_action"
 command = "herdr-bar.open"
-description = "command bar"
+description = "Open herdr command bar"

@@ -206,6 +206,8 @@
       "npx_*": "allow",
       "mcp__nvim_editor_mcp__list_nvim_instances": "allow",
       "mcp__nvim_editor_mcp__get_diagnostics": "allow",
+      "mcp__nvim_editor_mcp__set_quickfix": "allow",
+      "mcp__nvim_editor_mcp__attach_nvim": "allow",
       "mcp__nvim_editor_mcp__nvim_exec_lua": "ask",
       "nvim_editor_mcp:nvim_exec_lua": "ask"
     },
