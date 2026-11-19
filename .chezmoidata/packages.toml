@@ -144,6 +144,7 @@ packages = [
   "which",
   "yaml-language-server",
   "yarn",
+  "@earendil-works/gondolin",
 ]
 
 [packages.uv]

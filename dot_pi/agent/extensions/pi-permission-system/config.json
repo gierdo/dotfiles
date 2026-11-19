@@ -221,14 +221,19 @@
     "subagent_interrupt": "allow",
     "subagents_list": "allow",
     "subagent_resume": "allow",
+    "subagent_done": "allow",
     "ctx_search": "allow",
     "ctx_resume": "allow",
     "ctx_stats": "allow",
-    "ctx_execute": "ask",
+    "ctx_execute": "allow",
     "list_mcp_resources": "allow",
     "list_mcp_resource_templates": "allow",
     "read_mcp_resource": "allow",
-    "grep": "allow"
+    "grep": "allow",
+    "web_search": "allow",
+    "fetch_content": "allow",
+    "get_search_content": "allow",
+    "web_enable": "allow"
   },
   "shellTools": {
     "exec_command": {
