@@ -83,7 +83,7 @@ return {
           after = "fg",
           pattern = [[.*<(KEYWORDS)\s*%(\(.*\)|\[.*\]|\{.*\})?:]],
           comments_only = true,
-          max_line_len = 200,
+          max_line_len = 2000,
           exclude = {},
         },
         colors = {
