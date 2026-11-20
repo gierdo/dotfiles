@@ -21,7 +21,7 @@ investigate -> clarify_intent -> requirements -> effort_and_isc ->
 explore_approaches -> validate_design -> premortem -> write_plan -> task_breakdown
 ```
 
-plus the refinement loops between them, the interactive gates (each phase ends by presenting output, asking one question, and WAITING for the user), the `handoff` terminal state for OpenSpec projects, and the `plan.md` artifact structure. Read that YAML before acting and follow it. The orchestrator passes you the workflow `task` slug, the active state, and the plan path (typically `.pi/plans/YYYY-MM-DD-<name>/plan.md`, overriding the workflow default). Report the exact path in your final summary.
+plus the refinement loops between them, the interactive gates (each phase ends by presenting output, asking one question, and WAITING for the user), the `handoff` terminal state for OpenSpec projects, and the `plan.md` artifact structure. Read that YAML before acting and follow it. The orchestrator passes you the workflow `task` slug, the active state, and the plan path (typically `.workflow/plans/{task}/plan.md`, overriding the workflow default). Report the exact path in your final summary.
 
 Load the `software-engineering` skill at the start of the session (announce it) so your design judgment follows its lazy-senior mindset and its tooling conventions (serena, the `read` tool, config files over assumptions).
 

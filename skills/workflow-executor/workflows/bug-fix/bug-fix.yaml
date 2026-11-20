@@ -49,11 +49,11 @@ artifacts:
       so it archives with the change and the gates can judge the fix against
       it. Refresh it after any `debug` re-entry that revises the reproduction.
   log:
-    path: "<changeRoot>/workflow-log.md"
+    path: ".workflow/runs/bug-fix/{task}/workflow-log.md"
     description: >-
       Append-only state/transition log. Records entering and leaving `debug`
       and the child's terminal state; the child keeps `bugs/{task}/debug-log.md`.
-      Backfill from the conversation once the change root exists.
+      Available before change creation and after archive.
 
 initial: debug
 
@@ -82,11 +82,11 @@ states:
       Turn `diagnosis.md` into an OpenSpec change via `openspec-propose`:
       proposal (bug, root cause, fix approach), delta spec with a regression
       scenario for the trigger, design when the schema calls for it, and tasks.
-      Then copy the reproduction into repro.md and start the log. After a
+      Then copy the reproduction into repro.md. After a
       `debug` re-entry, update the existing change via `openspec-update-change`
       instead of creating one. Planning only: no code.
     consumes: [diagnosis]
-    produces: [proposal, specs_delta, design, tasks, repro, log]
+    produces: [proposal, specs_delta, design, tasks, repro]
     exit_gate: >-
       The apply-required artifacts are done/skipped; the proposal states the bug
       and proven root cause; the corrected behavior and a regression scenario
@@ -179,7 +179,7 @@ states:
   integration:
     goal: >-
       Land the fix per the repository's conventions and archive the change
-      (`openspec-archive-change`). The log and repro.md archive with it.
+      (`openspec-archive-change`). The repro.md archives with it; record its archived path in the journal.
     consumes: [proposal, specs_delta, repro]
     exit_gate: >-
       Committed (and PR opened if that is the flow), docs/changelog updated if

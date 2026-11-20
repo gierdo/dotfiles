@@ -26,7 +26,7 @@ inputs:
 
 artifacts:
   plan:
-    path: ".pi/plans/{task}/plan.md"
+    path: ".workflow/plans/{task}/plan.md"
     description: >-
       The single deliverable: intent, user story, behavior (happy path + edge
       cases), scope, effort/quality level, constraints, Ideal State Criteria
@@ -38,12 +38,11 @@ artifacts:
       orchestrator may override this path; when it does, write there and report
       the real path.
   log:
-    path: ".pi/plans/{task}/planning-log.md"
+    path: ".workflow/runs/interactive-planning/{task}/workflow-log.md"
     description: >-
       Append-only record of each state entry/exit and the transition taken,
       with a one-line reason. The audit trail for loops and cross-session
-      resume. Started once the plan directory exists; until then the active
-      phase is tracked in the conversation.
+      resume. Record each phase's output and pending question before yielding.
 
 initial: investigate
 
@@ -52,8 +51,8 @@ states:
     goal: >-
       Orient quickly: tech stack, conventions, relevant existing code. Read
       config files to learn the real tooling. If the orchestrator passed scout
-      context, read it first; if the system is unfamiliar or complex, spawn a
-      scout for codebase facts and wait for it. Present a 2-4 sentence summary of
+      context, read it first; consider delegating codebase research to a scout
+      if the system is unfamiliar or complex. Present a 2-4 sentence summary of
       what you see, then END and wait for the user.
     exit_gate: >-
       Enough context exists to understand the request in its setting, the

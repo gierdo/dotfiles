@@ -21,7 +21,7 @@ When you are reviewing the `review` state of a `feature-implementation` run (beh
 
 Load the `software-engineering` skill when the review needs engineering judgment on design, and announce it. It governs the mindset you review against (simplest code that works, no unrequested abstractions) and the tooling conventions (serena for tracing a change through its call sites, the `read` tool). For GitLab merge requests, consult the `glab` skill before running any `glab` command. Skill activation is yours - the orchestrator cannot do it for you.
 
-The orchestrator passes you the workflow `task` slug, the active state, and the review output path (typically `.pi/plans/YYYY-MM-DD-<name>/review.md`). Record findings there and report the exact path in your summary.
+The orchestrator passes you the workflow `task` slug, the active state, and the review output path (typically `reviews/{task}/findings.md`). Record findings there and report the exact path in your summary.
 
 ---
 

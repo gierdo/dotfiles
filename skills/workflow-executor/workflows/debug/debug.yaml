@@ -48,7 +48,7 @@ states:
       behavior), checking docs and existing specs as well as code. If
       `require_openspec`, run the OpenSpec project check first. Thinking state:
       write no code. Start `diagnosis.md` with the Report section.
-    produces: [diagnosis, log]
+    produces: [diagnosis]
     exit_gate: >-
       Observed and expected behavior are stated, the trigger is concrete enough
       to attempt reproduction, it is confirmed a genuine defect, and (if

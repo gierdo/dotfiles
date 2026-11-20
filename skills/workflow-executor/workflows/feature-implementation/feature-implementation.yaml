@@ -3,7 +3,7 @@ version: 4
 description: >-
   Drive a feature from orientation through integration, with OpenSpec as the
   system of record for planning and tasks: explore (optional) -> propose ->
-  apply -> verify -> review -> archive. Each state delegates artifact work to
+  apply -> verify -> review -> archive. OpenSpec artifact work follows
   the matching OpenSpec skill; this workflow supplies the gates and refinement
   loops OpenSpec does not model. Mechanical verification gates entry to
   behavioral review, so the reviewer always reasons about confirmed-green code.
@@ -33,10 +33,8 @@ artifacts:
     path: "<changeRoot>/review.md"
     description: "Behavioral review findings against the proposal, delta specs, and design."
   log:
-    path: "<changeRoot>/workflow-log.md"
-    description: >-
-      Append-only state/transition log. Until the change root exists, keep the
-      first orientation note in the conversation and write it here afterwards.
+    path: ".workflow/runs/feature-implementation/{task}/workflow-log.md"
+    description: "Run journal, available before change creation and after archive."
 
 initial: orientation
 
@@ -50,8 +48,7 @@ states:
       as the code; capture constraints. Discover and record the project's real
       build, test, lint, and verification commands: later gates need them.
       Thinking state: `openspec-explore` is optional; write no code and do not
-      create the change. Hold findings and commands in the conversation until
-      the change exists.
+      create the change. Record findings and commands in the run journal.
     exit_gate: >-
       OpenSpec has a usable root (or the user chose how to proceed); affected
       components and existing/overlapping behavior (code and specs) are
@@ -69,8 +66,7 @@ states:
       when the schema calls for it, and tasks. Feed the recorded verification
       commands and constraints into the artifacts. Record open questions and
       resolve material ones with the user. Planning only: no implementation.
-      Start the log once the change root exists.
-    produces: [proposal, specs_delta, design, tasks, log]
+    produces: [proposal, specs_delta, design, tasks]
     exit_gate: >-
       The apply-required artifacts are done/skipped; the delta spec states
       testable acceptance criteria; scope boundaries are explicit; tasks.md has
@@ -166,7 +162,7 @@ states:
   integration:
     goal: >-
       Land the work per the repository's conventions and archive the change
-      (`openspec-archive-change`). The log and review.md archive with it.
+      (`openspec-archive-change`). The review.md archives with it; record its archived path in the journal.
     consumes: [proposal, specs_delta]
     exit_gate: >-
       Committed (and PR opened if that is the flow), docs/changelog updated if

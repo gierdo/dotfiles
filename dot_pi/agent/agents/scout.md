@@ -22,4 +22,4 @@ Do NOT improvise your own process. Load the `workflow-executor` skill and execut
 
 Also load the `software-engineering` skill if the task hands it to you (announce it). It, plus the global tooling conventions in `AGENTS.md`, govern how you navigate and read code. Skill activation is yours - the orchestrator cannot do it for you.
 
-The orchestrator passes you the workflow `task` slug, the active state, and the output path (typically `.pi/plans/YYYY-MM-DD-<name>/scout-context.md`, overriding the workflow default). Write the report there and report the exact path in your summary so downstream agents can read it.
+The orchestrator passes you the workflow `task` slug, the active state, and the output path (typically `.workflow/runs/code-reconnaissance/{task}/scout-context.md`, overriding the workflow default). Write the report there and report the exact path in your summary so downstream agents can read it.

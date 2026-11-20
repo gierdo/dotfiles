@@ -21,7 +21,7 @@ inputs:
 
 artifacts:
   context:
-    path: ".pi/plans/{task}/scout-context.md"
+    path: ".workflow/runs/code-reconnaissance/{task}/scout-context.md"
     description: >-
       The reconnaissance report another agent consumes: the relevant files and
       why they matter, the parts of the project structure that bear on the task,
@@ -31,7 +31,7 @@ artifacts:
       included. The orchestrator may override this path; when it does, write
       there and report the real path.
   log:
-    path: ".pi/plans/{task}/recon-log.md"
+    path: ".workflow/runs/code-reconnaissance/{task}/workflow-log.md"
     description: >-
       Append-only record of each state entry/exit and the transition taken,
       with a one-line reason. The audit trail for loops and cross-session

@@ -21,7 +21,7 @@ inputs:
 
 artifacts:
   plan:
-    path: ".pi/plans/{task}/plan.md"
+    path: ".workflow/plans/{task}/plan.md"
     description: >-
       The plan this task belongs to, OWNED by the planning step upstream. It
       holds the task description, its acceptance criteria, the Ideal State
@@ -30,14 +30,14 @@ artifacts:
       orchestrator may pass a different plan path in the task message; when it
       does, read there.
   evidence:
-    path: ".pi/plans/{task}/implementation-evidence.md"
+    path: ".workflow/runs/task-implementation/{task}/implementation-evidence.md"
     description: >-
       The record of what was changed and the proof it works: files touched, the
       verification commands run and their actual results, and which ISC items
       were met with the evidence that shows it. "Should work" is not evidence;
       command output, file paths, and test results are.
   log:
-    path: ".pi/plans/{task}/workflow-log.md"
+    path: ".workflow/runs/task-implementation/{task}/workflow-log.md"
     description: >-
       Append-only record of each state entry/exit and the transition taken,
       with a one-line reason. The audit trail for loops and cross-session
