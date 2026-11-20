@@ -29,6 +29,8 @@
 // To activate: add "subagent-inherit-manual" to "authorizerChain" in
 // extensions/pi-permission-system/config.json, then /reload.
 
+import { existsSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { createRequire } from "node:module";
 import type {
   PermissionsReadyEvent,
@@ -38,6 +40,70 @@ import type {
   AuthorizerLog,
   AuthorizerVerdict,
 } from "@gotgenes/pi-permission-system";
+
+// Auto-detect and populate PI_SUBAGENT_PARENT_SESSION in child subagent processes
+// when the spawner (such as pi-herdr-subagents) does not pass it into the terminal env.
+function ensureSubagentParentSessionEnv(): void {
+  if (
+    process.env.PI_SUBAGENT_PARENT_SESSION ||
+    process.env.PI_AGENT_ROUTER_PARENT_SESSION_ID
+  ) {
+    return;
+  }
+
+  const isSubagent = Boolean(
+    process.env.PI_SUBAGENT_NAME ||
+      process.env.PI_SUBAGENT_ID ||
+      process.env.PI_SUBAGENT_SESSION ||
+      process.env.PI_SUBAGENT_ACTIVITY_FILE,
+  );
+  if (!isSubagent) return;
+
+  // 1. Try extracting parentSessionId from PI_SUBAGENT_ACTIVITY_FILE:
+  // Format: <sessionDir>/artifacts/<parentSessionId>/subagent-activity-<id>.json
+  const activityFile = process.env.PI_SUBAGENT_ACTIVITY_FILE;
+  if (activityFile) {
+    const match = activityFile.match(/artifacts\/([^/]+)\//);
+    if (match?.[1]) {
+      process.env.PI_SUBAGENT_PARENT_SESSION = match[1];
+      return;
+    }
+  }
+
+  // 2. Fallback: inspect active serving sessions
+  // Serving sessions write heartbeats in ~/.pi/agent/sessions/permission-forwarding/serving/<sessionId>.json
+  try {
+    const homeDir = process.env.HOME || "";
+    const servingDir = join(
+      homeDir,
+      ".pi/agent/sessions/permission-forwarding/serving",
+    );
+    if (existsSync(servingDir)) {
+      const files = readdirSync(servingDir).filter((f) => f.endsWith(".json"));
+      if (files.length === 1) {
+        process.env.PI_SUBAGENT_PARENT_SESSION = files[0].replace(/\.json$/, "");
+        return;
+      }
+      if (files.length > 1) {
+        let newestFile = files[0];
+        let newestMtime = 0;
+        for (const file of files) {
+          try {
+            const mtime = statSync(join(servingDir, file)).mtimeMs;
+            if (mtime > newestMtime) {
+              newestMtime = mtime;
+              newestFile = file;
+            }
+          } catch {}
+        }
+        process.env.PI_SUBAGENT_PARENT_SESSION = newestFile.replace(/\.json$/, "");
+        return;
+      }
+    }
+  } catch {}
+}
+
+ensureSubagentParentSessionEnv();
 
 // A manual approval is keyed by the gate surface plus the pattern/value the
 // human approved. Matching a later ask to it is done on the same key shape.
@@ -60,9 +126,11 @@ function patternMatches(
     if (!key.startsWith(prefix)) continue;
     const pattern = key.slice(prefix.length);
     if (pattern === value) return true;
+    // Guard: never allow a lone "*" wildcard to match everything
+    if (pattern === "*") continue;
     if (pattern.endsWith("*")) {
       const head = pattern.slice(0, -1);
-      if (value.startsWith(head)) return true;
+      if (head.length > 0 && value.startsWith(head)) return true;
     }
   }
   return false;
@@ -79,6 +147,8 @@ export default async function activate(pi: any) {
   const disposers = new Map<string, () => void>();
   // Per serving-session set of manual approvals the human granted this session.
   const manualApprovals = new Map<string, Set<string>>();
+  // Fallback set for this process in case sessionId isn't bound yet.
+  const globalManualApprovals = new Set<string>();
 
   // Learn the parent human's manual approvals by watching gate decisions.
   // Only decisions made directly by the human in THIS session count, so we
@@ -97,14 +167,26 @@ export default async function activate(pi: any) {
     ) {
       return;
     }
-    // The decision event does not carry its own session id; attribute it to
-    // every serving session we track. In the common single-parent case there is
-    // exactly one, so this is precise. The pattern (or value as fallback) is the
-    // thing the human agreed to.
-    const pattern = ev.matchedPattern ?? ev.value ?? "";
-    if (!pattern) return;
-    const key = approvalKey(ev.surface, pattern);
+    // For single-shot approvals, ev.value is the exact command/path the human
+    // approved. Do not fall back to ev.matchedPattern (which is the gate's triggering
+    // config rule, e.g. "*" on "bash", and would over-grant).
+    const val = ev.value?.trim();
+    if (!val) return;
+    const key = approvalKey(ev.surface, val);
+    globalManualApprovals.add(key);
     for (const set of manualApprovals.values()) set.add(key);
+
+    // If an explicit pattern was approved (e.g. for-session wildcard that is not "*"):
+    if (
+      ev.resolution === "user_approved_for_session" &&
+      ev.matchedPattern &&
+      ev.matchedPattern !== "*" &&
+      ev.matchedPattern !== val
+    ) {
+      const patKey = approvalKey(ev.surface, ev.matchedPattern.trim());
+      globalManualApprovals.add(patKey);
+      for (const set of manualApprovals.values()) set.add(patKey);
+    }
   });
 
   pi.events.on("permissions:ready", (raw: unknown) => {
@@ -128,18 +210,28 @@ export default async function activate(pi: any) {
             //    left for the human (or a later link) to decide.
             if (!details.forwarding) return { kind: "defer" };
 
-            const surface = details.surface ?? details.toolName ?? "";
-            const value = details.command ?? details.value ?? "";
+            const surface = (
+              details.accessIntent?.surface ??
+              details.surface ??
+              details.toolName ??
+              ""
+            ).trim();
+            const value = (
+              details.value ||
+              details.command ||
+              details.path ||
+              ""
+            ).trim();
             if (!surface || !value) return { kind: "defer" };
 
             // 2. Did the parent human already manually approve a matching
-            //    request this session? The human may have approved either the
-            //    exact value or a session pattern (e.g. "git status *"); match
-            //    the ask's value against both spellings we recorded.
-            const known = manualApprovals.get(sessionId);
+            //    request this session?
+            const sessionSet = manualApprovals.get(sessionId);
             const matched =
-              (known?.has(approvalKey(surface, value)) ?? false) ||
-              patternMatches(known, surface, value);
+              sessionSet?.has(approvalKey(surface, value)) ||
+              globalManualApprovals.has(approvalKey(surface, value)) ||
+              patternMatches(sessionSet, surface, value) ||
+              patternMatches(globalManualApprovals, surface, value);
 
             if (!matched) {
               // No prior manual approval exists -> keep asking the human.
