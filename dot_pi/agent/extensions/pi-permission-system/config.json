@@ -204,12 +204,22 @@
     "mcp": {
       "mcp_status": "allow",
       "npx_*": "allow",
-      "mcp__nvim_editor_mcp__list_nvim_instances": "allow",
-      "mcp__nvim_editor_mcp__get_diagnostics": "allow",
-      "mcp__nvim_editor_mcp__set_quickfix": "allow",
-      "mcp__nvim_editor_mcp__attach_nvim": "allow",
-      "mcp__nvim_editor_mcp__nvim_exec_lua": "ask",
-      "nvim_editor_mcp:nvim_exec_lua": "ask"
+      "nvim_editor_mcp:list_nvim_instances": "allow",
+      "nvim_editor_mcp:get_diagnostics": "allow",
+      "nvim_editor_mcp:set_quickfix": "allow",
+      "nvim_editor_mcp:attach_nvim": "allow",
+      "nvim_editor_mcp:nvim_exec_lua": "allow",
+      "serena:initial_instructions": "allow",
+      "serena:list_dir": "allow",
+      "serena:find_file": "allow",
+      "serena:read_file": "allow",
+      "serena:search_for_pattern": "allow",
+      "serena:get_symbols_overview": "allow",
+      "serena:find_symbol": "allow",
+      "serena:find_referencing_symbols": "allow",
+      "serena:find_implementations": "allow",
+      "serena:find_declaration": "allow",
+      "serena:get_diagnostics_for_file": "allow"
     },
     "skill": {
       "*": "allow"
@@ -227,7 +237,8 @@
     "ctx_search": "allow",
     "ctx_resume": "allow",
     "ctx_stats": "allow",
-    "ctx_execute": "allow",
+    "ctx_execute": "ask",
+    "codemode": "allow",
     "list_mcp_resources": "allow",
     "list_mcp_resource_templates": "allow",
     "read_mcp_resource": "allow",
