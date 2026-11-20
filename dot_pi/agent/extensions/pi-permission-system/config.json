@@ -240,6 +240,7 @@
     "ctx_execute": "ask",
     "codemode": "allow",
     "workflow_transition": "allow",
+    "workflow_list": "allow",
     "list_mcp_resources": "allow",
     "list_mcp_resource_templates": "allow",
     "read_mcp_resource": "allow",

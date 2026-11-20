@@ -21,15 +21,17 @@ Users control workflows through the `/workflow` slash command in Pi.
 
 ### Starting a New Run
 ```text
-/workflow <name> [task-slug] [instructions]
+/workflow <name> [prompt...]
 ```
 - `<name>`: The name of one of the 8 shipped workflows (e.g., `interactive-planning`, `task-implementation`, `bug-fix`).
-- `[task-slug]`: Optional kebab-case identifier for the task (e.g. `add-auth-tokens`). Defaults to `main` if omitted.
-- `[instructions]`: Optional instructions passed directly to the initial turn of the agent.
+- `[prompt...]`: Natural language description of what you want to achieve or build. The task slug is cleanly derived from the first 1-4 words of the prompt.
+- Optional explicit slug: Pass `--slug <custom-slug>` anywhere in the command to override the auto-derived slug.
+- In interactive sessions, Pi prompts you with the pre-filled slug so you can accept with Enter or customize it.
 
-**Example**:
+**Examples**:
 ```text
-/workflow interactive-planning user-pagination "Design pagination with cursor support"
+/workflow interactive-planning Design pagination with cursor support
+/workflow bug-fix --slug auth-fix Fix login button state on error
 ```
 
 ### Resuming an Interrupted Run

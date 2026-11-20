@@ -75,7 +75,7 @@ function resolveSkillDir(): string {
 
 const skillDir = resolveSkillDir();
 const workflowsDir = join(skillDir, "workflows");
-const usage = "Usage: /workflow <name> [task-slug] [instructions]";
+const usage = "Usage: /workflow <name> [prompt...]";
 
 function definitionPath(name: string): string {
   return join(workflowsDir, name, `${name}.yaml`);
@@ -92,6 +92,80 @@ function workflowNames(): string[] {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
     throw error;
   }
+}
+
+/**
+ * Simple, dictionary-free slugifier.
+ * Converts raw prompt into a clean kebab-case identifier (max 4 words).
+ */
+export function slugify(text: string, maxWords = 4): string {
+  const words = text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, " ")
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.replace(/^-+|-+$/g, ""))
+    .filter(Boolean);
+
+  if (!words.length) return "main";
+  return words.slice(0, maxWords).join("-");
+}
+
+export interface ParsedWorkflowInvocation {
+  name: string;
+  task: string;
+  prompt: string;
+}
+
+export async function parseWorkflowInvocation(
+  rawArgs: string,
+  ctx: any
+): Promise<ParsedWorkflowInvocation | null> {
+  let trimmed = rawArgs.trim();
+  if (!trimmed) return null;
+
+  if (trimmed.startsWith("/workflow")) {
+    trimmed = trimmed.replace(/^\/workflow\s*/, "").trim();
+    if (!trimmed) return null;
+  }
+
+  // First token is the workflow name
+  const firstSpace = trimmed.search(/\s/);
+  const name = firstSpace === -1 ? trimmed : trimmed.slice(0, firstSpace).trim();
+  let rest = firstSpace === -1 ? "" : trimmed.slice(firstSpace + 1).trim();
+
+  // Check for optional explicit --slug <name> or --task <name>
+  let explicitSlug: string | null = null;
+  const slugMatch = rest.match(/(?:--slug|--task)\s+["']?([a-z0-9-]+)["']?/i);
+  if (slugMatch) {
+    explicitSlug = slugMatch[1].toLowerCase();
+    rest = rest.replace(slugMatch[0], "").replace(/\s+/g, " ").trim();
+  }
+
+  // Strip optional surrounding quotes if the entire prompt was quoted
+  const prompt = rest.replace(/^["']|["']$/g, "").trim();
+
+  let task = explicitSlug || (prompt ? slugify(prompt) : "main");
+
+  // In interactive UI, let user confirm or customize pre-filled slug if auto-derived
+  if (!explicitSlug && ctx?.ui?.input) {
+    try {
+      const promptText = "Workflow task slug (press Enter to accept):";
+      const promptArg = Object.assign(new String(promptText), {
+        prompt: promptText,
+        value: task,
+      });
+      const confirmed = await ctx.ui.input(promptArg, task);
+      const val = typeof confirmed === "string" ? confirmed : confirmed?.value;
+      if (val && typeof val === "string" && val.trim()) {
+        task = val.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      }
+    } catch {
+      // User cancelled; retain derived task
+    }
+  }
+
+  return { name, task: task || "main", prompt };
 }
 
 export default async function (pi: ExtensionAPI) {
@@ -183,12 +257,13 @@ export default async function (pi: ExtensionAPI) {
         return;
       }
 
-      // Quote-aware argument extraction
-      const matches = args.trim().match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g) || [];
-      const cleanArgs = matches.map(m => m.replace(/^["']|["']$/g, "").trim());
-      const name = cleanArgs[0];
-      const rawTask = cleanArgs[1];
-      const instructions = cleanArgs.slice(2).join(" ");
+      const parsed = await parseWorkflowInvocation(args, ctx);
+      if (!parsed) {
+        await showWorkflowsInterface(ctx);
+        return;
+      }
+
+      const { name, task, prompt: instructions } = parsed;
 
       const names = workflowNames();
       if (!names.length) {
@@ -205,8 +280,6 @@ export default async function (pi: ExtensionAPI) {
       const def = parseYaml(rawYaml);
       const db = getDB();
 
-      // Convert task to kebab-case slug if provided, default to 'main'
-      const task = rawTask ? rawTask.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") : "main";
       const runId = `${name}-${task || "main"}`;
 
       let run = runner.getRun(db, runId);
