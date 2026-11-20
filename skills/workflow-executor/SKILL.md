@@ -22,28 +22,85 @@ not present, list `workflows/` and stop.
 
 ## The definition format
 
-- `inputs` - parameters beyond `task`. `task` is always required: a kebab-case
-  slug (`[a-z0-9-]+`) that namespaces the run's artifacts. Use the user's; else
-  propose one from the request and confirm it. Never change it mid-run: that
-  orphans the artifacts.
-- `artifacts` - files on disk that hold state. Paths may contain `{input}`
-  references. Never track progress only in memory. The orchestrator may
-  override any artifact path; then write there and report the real path. A
-  path like `<changeRoot>/...` is resolved at runtime, not substituted; see
-  "OpenSpec-backed workflows".
-- `log` - the append-only run journal and loop counter. Use the declared
-  path if available from the start and through completion. Otherwise use
-  `.workflow/runs/<workflow>/{task}/workflow-log.md` in the project from the
-  start and keep it authoritative for the whole run.
-- `initial` - the starting state.
-- `states` - each has a `goal`, optional `consumes`/`produces` artifacts, an
-  `exit_gate`, and an ordered `transitions` list of `{ when, to, reason }`. A
-  state with `terminal: true` ends the run. A state with `invoke` runs another
-  workflow; see "Sub-workflows".
-- `herdr` - optional; see "Herdr".
+Workflows are defined in YAML. The schema supports both classic natural-language
+agent orchestration and machine-enforced execution via the transition runner.
+
+### Compatibility with classic agent orchestration
+
+The schema is **100% backward compatible** with the classic agent mindset:
+
+- All transitions retain their natural-language `when` predicates, `to` targets,
+  and `reason` explanations. An agent executing without the runner continues to
+  evaluate `when` top-to-bottom and commit transitions to the log.
+- New fields (`outcome`, `requires_approval`, `max_retries`) are purely additive:
+  - `outcome` provides a stable token for tool-based transition submission.
+  - `requires_approval: true` formalizes the skill's existing "do not skip required
+    user confirmation" rule.
+  - `max_retries` formalizes the skill's existing "loop thrash guard" rule.
+
+### Schema specification
+
+#### Workflow (Root)
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `name` | string | Yes | Kebab-case identifier matching the directory name (`[a-z0-9-]+`). |
+| `version` | int / string | No | Workflow schema or definition version. |
+| `description` | string | No | High-level summary of intent, scope, and invariants. |
+| `inputs` | map | No | Input parameters. `task` is always required (`[a-z0-9-]+`). |
+| `artifacts` | map | No | Output/intermediate files. Supports `{task}` and `{input}` placeholders. |
+| `log` | map | No | Append-only Markdown journal declaration (`path`, `description`). |
+| `initial` | string | Yes | ID of the initial starting state (must exist in `states`). |
+| `states` | map | Yes | State definitions dictionary keyed by state ID. |
+| `herdr` | map | No | Optional Herdr multiplexer layout hints (`suggested_panes`). |
+
+#### State Definition
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `goal` | string | No | Plain-text goal and scope boundary for the state. |
+| `consumes` | string[] | No | Artifacts read during this state. |
+| `produces` | string[] | No | Artifacts written during this state. |
+| `exit_gate` | string | No | Natural-language predicate that must hold before forward transition. |
+| `terminal` | boolean | No | If `true`, ends the run (`completed`/`aborted`). No outgoing transitions. |
+| `invoke` | object | No | Sub-workflow block: `{ workflow: string, inputs?: map, entry?: string }`. |
+| `subagent` | string / object | No | Indicates this state should be handed over to a named subagent (e.g. `reviewer`, `worker`, `scout`). |
+| `transitions` | object[] | Yes* | List of transition rules (*required for all non-terminal states). |
+
+#### Transition Definition
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `outcome` | string | Yes* | Unique token for this transition branch (*required for transition runner). |
+| `when` | string | No | Natural-language condition or trigger for this transition. |
+| `to` | string | Yes | Target state ID (must exist in `states`). |
+| `reason` | string | No | Descriptive reason committed to logs and shown in approval prompts. |
+| `requires_approval` | boolean | No | If `true`, pauses run and requires user confirmation before advancing. |
+| `max_retries` | integer | No | Maximum consecutive loop entries before thrash guard halts the run. |
+| `entry` | string | No | Child entry state override when transitioning into an invoked state. |
 
 `exit_gate` and `when` are natural-language predicates. Judge them by
 inspecting the artifacts and workspace, not by running code.
+
+## Transition runner integration
+
+When running under Pi with the transition runner extension:
+
+- The slash command `/workflow <name> [task] [instructions]` starts or resumes runs.
+  Running `/workflow` with no args (or `/workflow list`) opens an interactive
+  selector listing all active, paused, and finished runs, allowing direct resumption.
+- The transition runner stores authoritative state in `.workflow/state.db` (SQLite).
+- Agents advance state by calling the `workflow_transition` tool with `runId`, `outcomeId`,
+  `expectedRevision`, and optional `evidence`.
+- Gated transitions marked with `requires_approval: true` pause automatically and prompt the
+  user through an interactive dialog (`ctx.ui.select`) with 3 options:
+  1. Approve transition
+  2. Reject transition
+  3. Chat about it (ask question / discuss; agent answers in chat and re-presents the dialog).
+  The agent cannot bypass or self-approve.
+- Refinement loops are bounded by `max_retries` (default 2) to halt thrashing.
+- The Markdown journal (`.workflow/runs/<workflow>/{task}/workflow-log.md`) is synchronized
+  automatically as a one-way read-only projection from SQLite.
 
 ## Execute
 
@@ -88,13 +145,20 @@ inspecting the artifacts and workspace, not by running code.
 
 ## Orchestrate and delegate
 
-- Decide per state whether to work directly or dispatch subagents. Use them
-  when they add expertise, independence, or useful parallelism: for example, a
-  scout for research, a planner for design, a worker for changes, or a
-  reviewer/tester for independent review or verification. Use herdr for the
-  subagent orchestration.
-- Keep user decisions and small or tightly coupled work with the orchestrator
-  when that works better.
+- When a state declares `subagent: <name>` (or `{ agent: <name>, ... }`), the
+  orchestrator MUST hand over that state's work to the declared subagent (e.g.
+  `reviewer`, `scout`, `worker`) via the `subagent` tool or Herdr.
+- Pass the subagent its active state, scoped goal, inputs, consumes/produces
+  artifact paths, and applicable skills.
+- The subagent performs the state's work and writes deliverables to the declared
+  artifact paths.
+- The orchestrator inspects the subagent's delivered artifacts and evidence,
+  evaluates the state's exit gate, and commits the state transition via
+  `workflow_transition`. Subagents never commit transitions or approve gates
+  directly; the orchestrator retains authoritative process control.
+- For states without `subagent`, decide per state whether to work directly or
+  dispatch subagents. Keep user decisions and small or tightly coupled work
+  with the orchestrator.
 - Give each agent the workflow YAML and executor skill, task slug, active
   state, scoped goal, inputs, artifact paths, allowed writes, and applicable
   skills. Give parallel writers disjoint outputs and isolate workspace changes

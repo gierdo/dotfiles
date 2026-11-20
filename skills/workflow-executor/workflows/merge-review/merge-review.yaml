@@ -94,7 +94,8 @@ states:
       artifact, the change's intent is stated, the criteria/standards to judge
       against are written down, and the in/out-of scope boundary is explicit.
     transitions:
-      - when: "exit_gate holds"
+      - outcome: scope_established
+        when: "exit_gate holds"
         to: understand
         reason: "scope and yardstick are established"
 
@@ -114,13 +115,16 @@ states:
       the code paths it touches, and how it relates to the stated intent are
       clear, with no comprehension gap that would make a finding a guess.
     transitions:
-      - when: >-
+      - outcome: scope_gap_found
+        when: >-
           Understanding the change revealed that the scope or stated intent is
           itself wrong, missing, or ambiguous and must be settled before
           judging.
         to: scope
         reason: "refinement: understanding exposed a scope/intent gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: understood
+        when: "exit_gate holds"
         to: assess
         reason: "the change is understood well enough to assess"
 
@@ -133,6 +137,7 @@ states:
       artifact with location, severity, reason, and a suggested direction. Also
       record the areas you checked and found sound. Judge the change as written;
       do not fix it.
+    subagent: reviewer
     consumes: [scope]
     produces: [findings]
     exit_gate: >-
@@ -140,12 +145,15 @@ states:
       and every issue found is recorded as an actionable finding with a
       severity.
     transitions:
-      - when: >-
+      - outcome: comprehension_gap_found
+        when: >-
           Assessment hit a comprehension gap - a part of the change cannot be
           judged without understanding it better first.
         to: understand
         reason: "refinement: assessment needs deeper understanding"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: assessed
+        when: "exit_gate holds"
         to: triage
         reason: "assessment complete; findings recorded"
 
@@ -161,19 +169,25 @@ states:
       Findings are prioritized, each blocking finding is actionable, and a clear
       overall verdict is recorded in the findings artifact.
     transitions:
-      - when: >-
+      - outcome: misread_finding
+        when: >-
           Triage revealed that a finding rests on a misunderstanding of the
           change rather than a real defect.
         to: understand
         reason: "refinement: a finding was based on a misread"
-      - when: >-
+        max_retries: 2
+      - outcome: criteria_gap_found
+        when: >-
           Triage revealed the judging criteria themselves are wrong or
           incomplete, so findings cannot be prioritized fairly.
         to: scope
         reason: "refinement: triage surfaced a criteria gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: triaged
+        when: "exit_gate holds"
         to: deliver
         reason: "findings triaged and a verdict reached"
+        requires_approval: true
 
   deliver:
     goal: >-
@@ -187,12 +201,15 @@ states:
       The findings and verdict have been delivered to the author through the
       project's review channel, and the delivery is recorded in the log.
     transitions:
-      - when: >-
+      - outcome: changes_pushed
+        when: >-
           Before or during delivery, the author pushed changes or responded such
           that at least one finding must be re-judged against new code.
         to: understand
         reason: "loop: author responded; re-review the updated change"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: delivered
+        when: "exit_gate holds"
         to: done
         reason: "review delivered"
 

@@ -61,12 +61,14 @@ states:
       reference to existing code, plus explicit constraints - enough to
       implement without guessing.
     transitions:
-      - when: >-
+      - outcome: under_specified
+        when: >-
           The task is missing its examples/references or its constraints, so
           implementing it would mean guessing and building the wrong thing.
         to: blocked
         reason: "task under-specified: report back rather than guess"
-      - when: "exit_gate holds"
+      - outcome: context_ready
+        when: "exit_gate holds"
         to: implement
         reason: "the task has the context to be implemented"
 
@@ -77,18 +79,21 @@ states:
       test as you go. Do not redesign, re-plan, or expand scope beyond what the
       task and plan specify. If the task proves wrong or infeasible, loop rather
       than improvising a different approach.
+    subagent: worker
     consumes: [plan]
     exit_gate: >-
       The task's code is written, it follows the referenced patterns and stated
       constraints, the scope is exactly the task (no unrequested extras), and
       the build compiles.
     transitions:
-      - when: >-
+      - outcome: plan_invalidated
+        when: >-
           Implementing revealed the task or the plan it rests on is wrong,
           infeasible, or incomplete - the fix is to the plan, not to this code.
         to: blocked
         reason: "plan invalidated: hand back to planning rather than improvise"
-      - when: "exit_gate holds"
+      - outcome: implemented
+        when: "exit_gate holds"
         to: verify
         reason: "the task is implemented; prove it works"
 
@@ -111,18 +116,22 @@ states:
       with concrete evidence (command output, file path, test result), no
       regressions were introduced, and temporary files are cleaned up.
     transitions:
-      - when: >-
+      - outcome: verification_failed
+        when: >-
           Verification failed - a check errored, a test failed, a regression
           appeared, or an ISC item is not met - and the fix is in this task's
           code.
         to: implement
         reason: "verification failed; fix the implementation"
-      - when: >-
+        max_retries: 2
+      - outcome: cannot_verify
+        when: >-
           Verification cannot be run at all (build or tests will not execute in
           this environment) so the task cannot be proven done here.
         to: blocked
         reason: "cannot verify: surface the blocker rather than assume done"
-      - when: "exit_gate holds"
+      - outcome: verified
+        when: "exit_gate holds"
         to: report
         reason: "the task is implemented and proven"
 
@@ -137,7 +146,8 @@ states:
       The change, the verification evidence, and the ISC items met are recorded
       and reported, with any remaining caveat stated plainly rather than hidden.
     transitions:
-      - when: "exit_gate holds"
+      - outcome: reported
+        when: "exit_gate holds"
         to: done
         reason: "the task is delivered with evidence"
 

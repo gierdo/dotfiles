@@ -51,12 +51,14 @@ states:
       The purpose of the reconnaissance is clear, an existing codebase is
       present, and the concrete questions the report must answer are framed.
     transitions:
-      - when: >-
+      - outcome: no_codebase
+        when: >-
           There is no existing codebase to explore, or the request is for a
           design/implementation decision rather than factual reconnaissance.
         to: abort
         reason: "nothing to reconnoitre: no codebase or wrong kind of task"
-      - when: "exit_gate holds"
+      - outcome: questions_framed
+        when: "exit_gate holds"
         to: map
         reason: "purpose and questions are clear; start mapping the territory"
 
@@ -68,17 +70,21 @@ states:
       area in scope, and find the config files that reveal the real tooling
       (package.json, tsconfig.json, pom.xml, Cargo.toml, Makefile,
       pyproject.toml, etc.) rather than assuming the build/test/lint commands.
+    subagent: scout
     exit_gate: >-
       The relevant files, entry points, and their relationships are located, and
       the config files that define the real tooling are identified - enough of a
       map that reading can be targeted rather than exhaustive.
     transitions:
-      - when: >-
+      - outcome: framing_gap_found
+        when: >-
           Mapping showed the framing from orient is wrong or too narrow to find
           what the report needs - the questions must be reframed.
         to: orient
         reason: "refinement: the map exposed a framing gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: territory_mapped
+        when: "exit_gate holds"
         to: read
         reason: "the territory is mapped; read the important code in depth"
 
@@ -90,18 +96,22 @@ states:
       dependencies are actually used, and flag gotchas - implicit assumptions,
       tight coupling, missing validation, undocumented behavior. Every finding
       must come from code read, not inferred from a filename.
+    subagent: scout
     exit_gate: >-
       The important code is understood well enough to answer the framed
       questions, the conventions and relevant dependency usage are established
       from code actually read, and the gotchas that could trip up a downstream
       agent are identified - with nothing load-bearing left as a guess.
     transitions:
-      - when: >-
+      - outcome: unmapped_area_found
+        when: >-
           Reading revealed the map missed a relevant area, so more of the
           territory must be located before the picture is complete.
         to: map
         reason: "refinement: reading exposed an unmapped area"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: code_understood
+        when: "exit_gate holds"
         to: report
         reason: "the relevant code is understood and grounded; write it up"
 
@@ -120,12 +130,15 @@ states:
       actually read, it answers the questions framed in orient, empty sections
       are omitted, and the real path has been reported for downstream agents.
     transitions:
-      - when: >-
+      - outcome: unanswered_question_found
+        when: >-
           Writing the report exposed a gap - a question that cannot be answered
           from what was read - that must be closed by reading more code.
         to: read
         reason: "refinement: writing exposed an unanswered question"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: report_delivered
+        when: "exit_gate holds"
         to: done
         reason: "the grounded context report is delivered"
 

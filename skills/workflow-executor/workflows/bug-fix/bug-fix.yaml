@@ -70,10 +70,12 @@ states:
     produces: [diagnosis]
     exit_gate: "The child ended in `done`: reliable reproduction, proven root cause, fix approach chosen."
     transitions:
-      - when: "The child ended in `abort`."
-        to: done
+      - outcome: debug_aborted
+        when: "The child ended in `abort`."
+        to: abort
         reason: "debug aborted; nothing to plan - report the child's findings"
-      - when: "exit_gate holds"
+      - outcome: debug_completed
+        when: "exit_gate holds"
         to: plan
         reason: "root cause proven"
 
@@ -93,15 +95,20 @@ states:
       are captured (or deliberately skipped per the schema); tasks.md traces to
       reproducing, fixing, and regression-guarding the bug; repro.md is recorded.
     transitions:
-      - when: "Writing the change exposed that the diagnosis is wrong or incomplete."
+      - outcome: diagnosis_invalidated
+        when: "Writing the change exposed that the diagnosis is wrong or incomplete."
         to: debug
         entry: diagnose
         reason: "refinement: planning invalidated the diagnosis"
-      - when: "Writing the change exposed that the report/expectation itself is wrong or only one facet."
+        max_retries: 2
+      - outcome: reporting_gap_found
+        when: "Writing the change exposed that the report/expectation itself is wrong or only one facet."
         to: debug
         entry: triage
         reason: "refinement: planning exposed a deeper reporting gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: plan_ready
+        when: "exit_gate holds"
         to: fix
         reason: "fix change proposed with traceable artifacts"
 
@@ -120,20 +127,27 @@ states:
       reproduction no longer triggers the bug; a regression test covers it and
       passes. (Full-suite confirmation is in verify.)
     transitions:
-      - when: >-
+      - outcome: fix_invalidated_diagnosis
+        when: >-
           The fix proved the diagnosis wrong or incomplete (it does not stop the
           reproduction, or revealed a different cause).
         to: debug
         entry: diagnose
         reason: "refinement: the fix invalidated the diagnosis"
-      - when: "The change's plan/tasks or corrected-behavior specs are wrong or incomplete, but the diagnosis holds."
+        max_retries: 2
+      - outcome: fix_invalidated_plan
+        when: "The change's plan/tasks or corrected-behavior specs are wrong or incomplete, but the diagnosis holds."
         to: plan_revision
         reason: "refinement: the fix invalidated the plan"
-      - when: "The bug as reported is only one facet of a broader defect."
+        max_retries: 2
+      - outcome: fix_exposed_reporting_gap
+        when: "The bug as reported is only one facet of a broader defect."
         to: debug
         entry: triage
         reason: "refinement: the fix exposed a deeper reporting gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: fix_implemented
+        when: "exit_gate holds"
         to: verify
         reason: "fix implemented, reproduction no longer triggers"
 
@@ -150,7 +164,8 @@ states:
       still done/skipped, and every task still traces to reproducing, fixing, or
       regression-guarding the bug.
     transitions:
-      - when: "exit_gate holds"
+      - outcome: plan_reconciled
+        when: "exit_gate holds"
         to: fix
         reason: "plan reconciled; resume the revised tasks"
 
@@ -166,13 +181,18 @@ states:
       Suite and validation pass cleanly, the original scenario is demonstrably
       fixed, and the regression test fails without the fix and passes with it.
     transitions:
-      - when: "A check errored, the original scenario still reproduces, or unrelated behavior regressed."
+      - outcome: code_verification_failed
+        when: "A check errored, the original scenario still reproduces, or unrelated behavior regressed."
         to: fix
         reason: "verification failed"
-      - when: "Validation flagged the artifacts (not the code) as malformed or inconsistent."
+        max_retries: 2
+      - outcome: artifact_validation_failed
+        when: "Validation flagged the artifacts (not the code) as malformed or inconsistent."
         to: plan_revision
         reason: "refinement: validation surfaced a planning gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: fix_verified
+        when: "exit_gate holds"
         to: integration
         reason: "fix verified and regression guarded"
 
@@ -187,22 +207,33 @@ states:
       user explicitly deferred it). Holds vacuously if the user opted out of
       integration.
     transitions:
-      - when: "Landing surfaced a problem needing a code change."
+      - outcome: integration_code_defect
+        when: "Landing surfaced a problem needing a code change."
         to: fix
         reason: "integration surfaced a defect; fix then re-verify"
-      - when: "Sync or archive hit a blocking condition in the planning artifacts."
+        max_retries: 2
+      - outcome: sync_artifact_blocked
+        when: "Sync or archive hit a blocking condition in the planning artifacts."
         to: plan_revision
         reason: "refinement: sync/archive surfaced a planning gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: integration_completed
+        when: "exit_gate holds"
         to: done
         reason: "fix landed and change archived"
+        requires_approval: true
+
+  abort:
+    terminal: true
+    goal: >-
+      Ended without a fix because the debug sub-workflow aborted (not a defect,
+      declined, or could not be reproduced). Report the child findings.
 
   done:
     terminal: true
     goal: >-
       Reproduced, root-caused, fixed, and verified with a regression test, as an
-      archived OpenSpec change with delta specs synced. Also the end state when
-      `debug` aborted: report why and stop.
+      archived OpenSpec change with delta specs synced.
 
 herdr:
   suggested_panes:

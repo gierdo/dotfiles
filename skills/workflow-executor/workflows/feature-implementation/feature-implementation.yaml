@@ -49,13 +49,15 @@ states:
       build, test, lint, and verification commands: later gates need them.
       Thinking state: `openspec-explore` is optional; write no code and do not
       create the change. Record findings and commands in the run journal.
+    subagent: scout
     exit_gate: >-
       OpenSpec has a usable root (or the user chose how to proceed); affected
       components and existing/overlapping behavior (code and specs) are
       identified; the verification commands are recorded; constraints and open
       questions are captured.
     transitions:
-      - when: "exit_gate holds"
+      - outcome: oriented
+        when: "exit_gate holds"
         to: specification
         reason: "enough context to propose a change"
 
@@ -66,42 +68,43 @@ states:
       when the schema calls for it, and tasks. Feed the recorded verification
       commands and constraints into the artifacts. Record open questions and
       resolve material ones with the user. Planning only: no implementation.
+    subagent: planner
     produces: [proposal, specs_delta, design, tasks]
     exit_gate: >-
       The apply-required artifacts are done/skipped; the delta spec states
       testable acceptance criteria; scope boundaries are explicit; tasks.md has
       ordered steps tracing to those criteria; no material open questions remain.
     transitions:
-      - when: "Proposing exposed an orientation gap that needs investigating in the code or specs."
+      - outcome: context_gap_found
+        when: "Proposing exposed an orientation gap that needs investigating in the code or specs."
         to: orientation
         reason: "refinement: proposal surfaced a context gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: specified
+        when: "exit_gate holds"
         to: implementation
         reason: "change proposed with traceable planning artifacts"
 
   implementation:
+    invoke:
+      workflow: task-implementation
     goal: >-
-      Implement via `openspec-apply-change`, in task order, checking boxes off
-      as they land. Keep the build compiling and tests green, and add or update
-      tests for new behavior. Do not expand scope beyond the tasks and delta
-      specs. If apply reports a blocked state or a task needs work beyond the
-      specs, loop rather than guess or narrow specified behavior silently.
+      Execute implementation of the planned tasks via the task-implementation
+      sub-workflow. The child workflow's worker runs quality intake, implements
+      tasks in order, verifies code checks, and records implementation evidence.
+      If the child reports a blocked condition (infeasible, under-specified, or
+      unresolvable checks), hand off to planning_revision.
     consumes: [proposal, specs_delta, design, tasks]
     produces: [tasks]
-    exit_gate: >-
-      All tracked tasks complete, and every piece of non-trivial new behavior has
-      a runnable check that fails if it breaks. (Full-suite confirmation is in
-      verification.)
+    exit_gate: "The child ended in `done`: all tasks implemented and verified with evidence."
     transitions:
-      - when: >-
-          A task proved infeasible, wrong, or incomplete, or implementation
-          revealed a design issue, but the requirements still hold.
+      - outcome: implementation_blocked
+        when: "The child ended in `blocked`: task infeasible, under-specified, or verification failed."
         to: planning_revision
-        reason: "refinement: implementation invalidated part of the plan/design"
-      - when: "A requirement itself (proposal or delta specs) is wrong, missing, or infeasible."
-        to: planning_revision
-        reason: "refinement: implementation invalidated a requirement"
-      - when: "exit_gate holds"
+        reason: "refinement: task implementation blocked; revise plan or specs"
+        max_retries: 2
+      - outcome: implemented
+        when: "exit_gate holds"
         to: verification
         reason: "all tasks implemented with checks"
 
@@ -112,6 +115,7 @@ states:
       deeper requirement fix. Revise whichever of proposal, delta specs, design,
       tasks are wrong and keep them coherent. If the intent has changed rather
       than been refined, surface it and ask about a fresh change.
+    subagent: planner
     consumes: [proposal, specs_delta, design, tasks, review]
     produces: [proposal, specs_delta, design, tasks]
     exit_gate: >-
@@ -119,7 +123,8 @@ states:
       still done/skipped, every task traces to an acceptance criterion, and
       every criterion is covered by at least one task.
     transitions:
-      - when: "exit_gate holds"
+      - outcome: plan_reconciled
+        when: "exit_gate holds"
         to: implementation
         reason: "plan reconciled; resume the revised tasks"
 
@@ -130,10 +135,13 @@ states:
       Mechanical only: no behavioral judgment.
     exit_gate: "The full suite and `openspec validate` run and pass with no errors or warnings."
     transitions:
-      - when: "A check errored, failed, or could not be run."
+      - outcome: verification_failed
+        when: "A check errored, failed, or could not be run."
         to: implementation
         reason: "verification failed"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: verified
+        when: "exit_gate holds"
         to: review
         reason: "suite green; safe to review behavior"
 
@@ -143,19 +151,25 @@ states:
       specs' scenarios require, are edge cases handled, is it coherent with the
       proposal and design? The code is already green, so focus on behavior and
       design. Record actionable findings in review.md.
+    subagent: reviewer
     consumes: [proposal, specs_delta, design]
     produces: [review]
     exit_gate: >-
       No blocking defects remain (or all were resolved), and every acceptance
       criterion in the delta specs is demonstrably met by the running software.
     transitions:
-      - when: "Defects must be fixed in the implementation."
+      - outcome: review_defects_found
+        when: "Defects must be fixed in the implementation."
         to: implementation
         reason: "review found defects; fix then re-verify"
-      - when: "The proposal, delta specs, or design themselves are wrong or incomplete."
+        max_retries: 2
+      - outcome: review_spec_gap
+        when: "The proposal, delta specs, or design themselves are wrong or incomplete."
         to: planning_revision
         reason: "refinement: review surfaced a spec/plan gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: review_passed
+        when: "exit_gate holds"
         to: integration
         reason: "review passed and criteria met"
 
@@ -170,15 +184,21 @@ states:
       user explicitly deferred it). Holds vacuously if the user opted out of
       integration.
     transitions:
-      - when: "Landing surfaced a problem needing a code change."
+      - outcome: integration_defect
+        when: "Landing surfaced a problem needing a code change."
         to: implementation
         reason: "integration surfaced a defect; fix then re-verify"
-      - when: "Sync or archive hit a blocking condition in the planning artifacts."
+        max_retries: 2
+      - outcome: sync_gap
+        when: "Sync or archive hit a blocking condition in the planning artifacts."
         to: planning_revision
         reason: "refinement: sync/archive surfaced a planning gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: integrated
+        when: "exit_gate holds"
         to: done
         reason: "work landed and change archived"
+        requires_approval: true
 
   done:
     terminal: true

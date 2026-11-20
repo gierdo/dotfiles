@@ -58,12 +58,14 @@ states:
       Enough context exists to understand the request in its setting, the
       summary has been presented to the user, and the user has responded.
     transitions:
-      - when: >-
+      - outcome: openspec_detected
+        when: >-
           The project uses OpenSpec (an openspec/ directory, or the user
           confirms it), so planning belongs to the openspec-* skills.
         to: handoff
         reason: "OpenSpec project: hand off to the OpenSpec-backed workflow"
-      - when: "exit_gate holds"
+      - outcome: oriented
+        when: "exit_gate holds"
         to: clarify_intent
         reason: "oriented; reverse-engineer the request"
 
@@ -78,9 +80,11 @@ states:
       The user has confirmed the stated understanding of intent (or corrected it
       and confirmed the correction).
     transitions:
-      - when: "exit_gate holds"
+      - outcome: intent_confirmed
+        when: "exit_gate holds"
         to: requirements
         reason: "intent confirmed; clarify genuine ambiguity"
+        requires_approval: true
 
   requirements:
     goal: >-
@@ -95,14 +99,18 @@ states:
       sensible-default assumption), and the feature is understood well enough
       that a stranger could build roughly the right thing.
     transitions:
-      - when: >-
+      - outcome: intent_reshaped
+        when: >-
           An answer reshaped the intent itself rather than just filling a
           detail.
         to: clarify_intent
         reason: "refinement: a requirement answer changed the intent"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: requirements_confirmed
+        when: "exit_gate holds"
         to: effort_and_isc
         reason: "requirements clear enough; set effort and define done"
+        requires_approval: true
 
   effort_and_isc:
     goal: >-
@@ -116,14 +124,18 @@ states:
       The effort level and test/doc strategy are set, the ISC is a compact set
       of atomic binary criteria, and the user has confirmed it captures "done".
     transitions:
-      - when: >-
+      - outcome: requirements_gap_found
+        when: >-
           Defining done exposed that a requirement or the intent is wrong or
           missing.
         to: requirements
         reason: "refinement: the ISC exposed a requirements gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: isc_confirmed
+        when: "exit_gate holds"
         to: explore_approaches
         reason: "done is defined; explore how to build it"
+        requires_approval: true
 
   explore_approaches:
     goal: >-
@@ -136,14 +148,18 @@ states:
       Approaches with honest tradeoffs were presented and the user has chosen
       one (or asked for a revised set and then chosen).
     transitions:
-      - when: >-
+      - outcome: isc_gap_found
+        when: >-
           Exploring approaches showed the ISC or effort level is wrong for what
           is actually wanted.
         to: effort_and_isc
         reason: "refinement: approach exploration exposed an ISC gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: approach_selected
+        when: "exit_gate holds"
         to: validate_design
         reason: "an approach is chosen; validate the design"
+        requires_approval: true
 
   validate_design:
     goal: >-
@@ -157,13 +173,17 @@ states:
       Each applicable design section has been validated with the user, and the
       architecture in particular is confirmed.
     transitions:
-      - when: >-
+      - outcome: approach_rejected
+        when: >-
           Validating the design showed the chosen approach does not hold up.
         to: explore_approaches
         reason: "refinement: design validation rejected the approach"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: design_validated
+        when: "exit_gate holds"
         to: premortem
         reason: "design validated; stress-test it before writing the plan"
+        requires_approval: true
 
   premortem:
     goal: >-
@@ -178,14 +198,18 @@ states:
       what to mitigate versus accept (or the task is trivial and the premortem
       was explicitly skipped).
     transitions:
-      - when: >-
+      - outcome: design_flaw_found
+        when: >-
           The premortem revealed a flaw in the design that must be reworked
           before planning.
         to: validate_design
         reason: "refinement: the premortem found a design flaw"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: risks_resolved
+        when: "exit_gate holds"
         to: write_plan
         reason: "risks resolved; write the plan"
+        requires_approval: true
 
   write_plan:
     goal: >-
@@ -201,13 +225,17 @@ states:
       decision, and the user has approved it (or requested edits that were made
       and re-confirmed).
     transitions:
-      - when: >-
+      - outcome: design_gap_found
+        when: >-
           Writing the plan exposed an unresolved design or requirements gap.
         to: validate_design
         reason: "refinement: writing the plan exposed a design gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: plan_approved
+        when: "exit_gate holds"
         to: task_breakdown
         reason: "plan approved; break it into worker-ready tasks"
+        requires_approval: true
 
   task_breakdown:
     goal: >-
@@ -229,14 +257,18 @@ states:
       ballooned (>10 tasks, multiple subsystems), splitting into phases was
       proposed first.
     transitions:
-      - when: >-
+      - outcome: plan_gap_found
+        when: >-
           Breaking down the work exposed a plan-level gap that must be fixed
           before the tasks are coherent.
         to: write_plan
         reason: "refinement: task breakdown exposed a plan gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: tasks_approved
+        when: "exit_gate holds"
         to: done
         reason: "plan and task breakdown are ready"
+        requires_approval: true
 
   handoff:
     terminal: true

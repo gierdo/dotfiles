@@ -55,10 +55,12 @@ states:
       `require_openspec`) OpenSpec has a usable root or the user has chosen how
       to proceed.
     transitions:
-      - when: "The reported behavior is intended, or the user declines to pursue it."
+      - outcome: not_a_defect
+        when: "The reported behavior is intended, or the user declines to pursue it."
         to: abort
         reason: "not a defect, or declined"
-      - when: "exit_gate holds"
+      - outcome: triaged
+        when: "exit_gate holds"
         to: reproduce
         reason: "captured clearly enough to reproduce"
 
@@ -75,17 +77,21 @@ states:
       failing for the reported reason), with no flakiness that would mask
       whether a later fix worked.
     transitions:
-      - when: >-
+      - outcome: report_contradicted
+        when: >-
           Reproduction showed the report is wrong, incomplete, or describes
           expected behavior.
         to: triage
         reason: "refinement: reproduction contradicted the report"
-      - when: >-
+        max_retries: 2
+      - outcome: cannot_reproduce
+        when: >-
           It cannot be reproduced after sustained, varied effort, and the user
           has been told what was tried and what is missing.
         to: abort
         reason: "cannot reproduce"
-      - when: "exit_gate holds"
+      - outcome: reproduced
+        when: "exit_gate holds"
         to: diagnose
         reason: "reproduces reliably"
 
@@ -105,15 +111,20 @@ states:
       radius is understood, a fix approach addressing the cause is chosen, all
       are written in `diagnosis.md`, and no instrumentation remains in the tree.
     transitions:
-      - when: >-
+      - outcome: sharper_repro_needed
+        when: >-
           Diagnosis needs a better reproduction to isolate the cause (too broad,
           flaky, or not exercising the suspected path).
         to: reproduce
         reason: "refinement: needs a sharper reproduction"
-      - when: "The report or expected behavior itself is wrong or only one facet of a broader defect."
+        max_retries: 2
+      - outcome: report_gap_found
+        when: "The report or expected behavior itself is wrong or only one facet of a broader defect."
         to: triage
         reason: "refinement: deeper reporting gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: diagnosed
+        when: "exit_gate holds"
         to: done
         reason: "root cause proven, fix approach chosen"
 

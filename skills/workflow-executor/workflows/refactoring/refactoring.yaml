@@ -63,12 +63,14 @@ states:
       "observable behavior" is concretely defined, and it is confirmed that no
       observable behavior is intended to change.
     transitions:
-      - when: >-
+      - outcome: requires_behavior_change
+        when: >-
           Clarifying the goal revealed the work actually requires changing
           observable behavior - it is a feature or a fix, not a refactoring.
         to: abort
         reason: "not a refactoring: behavior change is required"
-      - when: "exit_gate holds"
+      - outcome: goal_defined
+        when: "exit_gate holds"
         to: characterize
         reason: "structural goal and preservation boundary are clear"
 
@@ -87,12 +89,15 @@ states:
       the coverage is sufficient to detect a behavior change introduced by the
       refactoring, and a green baseline is recorded.
     transitions:
-      - when: >-
+      - outcome: scope_gap_found
+        when: >-
           Characterizing the code revealed the goal's scope or its definition of
           observable behavior is wrong or incomplete and must be corrected.
         to: goal
         reason: "refinement: characterization exposed a goal/scope gap"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: baseline_established
+        when: "exit_gate holds"
         to: plan
         reason: "a trustworthy behavioral baseline exists"
 
@@ -110,17 +115,22 @@ states:
       behavior-preserving steps that together reach the target shape, each
       traceable to the baseline it must not disturb.
     transitions:
-      - when: >-
+      - outcome: weak_baseline_found
+        when: >-
           Planning showed the baseline is too thin to keep a step safe - some
           step could change behavior undetected without more coverage.
         to: characterize
         reason: "refinement: plan needs a stronger baseline"
-      - when: >-
+        max_retries: 2
+      - outcome: goal_invalidated
+        when: >-
           Planning revealed the target shape or scope in the goal is wrong or
           unachievable without a behavior change.
         to: goal
         reason: "refinement: plan invalidated the goal"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: plan_ready
+        when: "exit_gate holds"
         to: transform
         reason: "a safe, incremental plan exists"
 
@@ -137,17 +147,22 @@ states:
       build succeeds, and the full suite (baseline plus characterization tests)
       passes with no behavior change observed at any step.
     transitions:
-      - when: >-
+      - outcome: step_unsafe
+        when: >-
           A step changed observable behavior or proved unsafe, but the plan's
           overall approach still holds - the step needs reworking.
         to: plan
         reason: "refinement: a transform step was unsafe or wrong"
-      - when: >-
+        max_retries: 2
+      - outcome: goal_flaw_found
+        when: >-
           Transforming revealed the goal's target shape or preservation
           definition is itself wrong.
         to: goal
         reason: "refinement: transformation invalidated the goal"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: transformed
+        when: "exit_gate holds"
         to: verify
         reason: "target shape reached with the suite green throughout"
 
@@ -164,12 +179,15 @@ states:
       matches the recorded baseline, no baseline/characterization test was
       weakened to achieve it, and the structural goal is met.
     transitions:
-      - when: >-
+      - outcome: behavior_diverged
+        when: >-
           Verification failed: a check errored, behavior diverged from the
           baseline, or a test was weakened to pass.
         to: transform
         reason: "verification failed or behavior diverged"
-      - when: "exit_gate holds"
+        max_retries: 2
+      - outcome: verified
+        when: "exit_gate holds"
         to: done
         reason: "behavior preserved and structural goal met"
 
