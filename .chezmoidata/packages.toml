@@ -193,6 +193,7 @@ extensions = [
   "npm:@gotgenes/pi-permission-system",
   "git:https://github.com/hasit/pi-community-themes",
   "git:https://github.com/gierdo/nvim-editor-mcp",
+  "git:https://github.com/gierdo/pi-workflow-executor",
 ]
 
 [packages.fonts]
