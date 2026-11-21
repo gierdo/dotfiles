@@ -19,6 +19,7 @@ sops = "3.13.3"
 herdr = "0.9.5"
 flutter = "3.50.0-stable"
 lnav = "0.14.1"
+pnpm = "12.22.0"
 
 [settings]
 fetch_remote_versions_cache = "365d"

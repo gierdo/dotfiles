@@ -237,7 +237,7 @@
     "ctx_search": "allow",
     "ctx_resume": "allow",
     "ctx_stats": "allow",
-    "ctx_execute": "ask",
+    "ctx_execute": "allow",
     "codemode": "allow",
     "workflow_transition": "allow",
     "workflow_list": "allow",
@@ -254,6 +254,9 @@
     "exec_command": {
       "commandArgument": "cmd",
       "workdirArgument": "workdir"
+    },
+    "ctx_execute": {
+      "commandArgument": "code"
     }
   }
 }
