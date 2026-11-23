@@ -64,6 +64,7 @@
       "cat *": "allow",
       "head *": "allow",
       "head": "allow",
+      "herdr *": "allow",
       "tail *": "allow",
       "wc *": "allow",
       "file *": "allow",
@@ -200,6 +201,8 @@
       "git stash drop*": "ask",
       "git stash clear": "ask",
       "pnpm *": "ask",
+      "pnpm test*": "allow",
+      "npx tsc*": "allow",
       "npm *": {
         "action": "deny",
         "reason": "Use pnpm instead"
@@ -249,6 +252,8 @@
     "read_mcp_resource": "allow",
     "grep": "allow",
     "web_search": "allow",
+    "google_search": "allow",
+    "read_url_content": "allow",
     "fetch_content": "allow",
     "get_search_content": "allow",
     "web_enable": "allow"
