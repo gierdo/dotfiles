@@ -70,11 +70,11 @@
           "gemini-3.8-flash"
         ],
         "kiro": [
+          "auto",
           "claude-sonnet-4-6",
           "claude-sonnet-4-5",
           "claude-sonnet-4",
-          "qwen3-coder-next",
-          "auto"
+          "qwen3-coder-next"
         ],
         "openai-codex": [
           "gpt-6.1-terra",

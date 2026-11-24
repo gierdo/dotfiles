@@ -8,9 +8,13 @@ import {
   type Model,
   type ModelThinkingLevel,
 } from "@earendil-works/pi-ai";
-import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import type {
+  ExtensionAPI,
+  ExtensionContext,
+} from "@earendil-works/pi-coding-agent";
 
-export type ThinkingLevel = "off" | "minimal" | "low" | "medium" | "high" | "xhigh" | "max";
+export type ThinkingLevel =
+  "off" | "minimal" | "low" | "medium" | "high" | "xhigh" | "max";
 
 export interface TierConfig {
   thinking?: ThinkingLevel;
@@ -77,12 +81,18 @@ function stripQuotes(value: string): string {
   return trimmed;
 }
 
-function getFrontmatterField(frontmatter: string, key: string): string | undefined {
+function getFrontmatterField(
+  frontmatter: string,
+  key: string,
+): string | undefined {
   const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, "m"));
   return match ? stripQuotes(match[1]) : undefined;
 }
 
-export function readAgentFrontmatter(agentName: string, cwd: string): AgentFrontmatter | null {
+export function readAgentFrontmatter(
+  agentName: string,
+  cwd: string,
+): AgentFrontmatter | null {
   const agentDir = getAgentConfigDir();
   // Precedence matches pi-herdr-subagents: project -> global -> bundled package
   const dirs = [
@@ -133,14 +143,20 @@ export function readAgentFrontmatter(agentName: string, cwd: string): AgentFront
 }
 
 export function loadRouterConfig(cwd?: string): RouterConfig {
-  const localPath = cwd ? join(cwd, ".pi", "subagent-model-router.json") : undefined;
-  const targetPath = localPath && existsSync(localPath) ? localPath : GLOBAL_CONFIG_PATH;
+  const localPath = cwd
+    ? join(cwd, ".pi", "subagent-model-router.json")
+    : undefined;
+  const targetPath =
+    localPath && existsSync(localPath) ? localPath : GLOBAL_CONFIG_PATH;
   const raw = readFileSync(targetPath, "utf8");
   return JSON.parse(raw) as RouterConfig;
 }
 
 /** Match an ID or "provider/id" against an exact string or "*" wildcard pattern (case-insensitive). */
-export function matchesPattern(pattern: string, model: CandidateModel): boolean {
+export function matchesPattern(
+  pattern: string,
+  model: CandidateModel,
+): boolean {
   const clean = pattern.trim().toLowerCase();
   if (!clean) return false;
   const target = clean.includes("/")
@@ -186,9 +202,15 @@ export function clampModelThinking(
   if (!desired) return undefined;
   if (!model) return desired;
   const piModel = asPiModel(model);
-  const clamped = clampThinkingLevel(piModel, desired as ModelThinkingLevel) as ThinkingLevel;
+  const clamped = clampThinkingLevel(
+    piModel,
+    desired as ModelThinkingLevel,
+  ) as ThinkingLevel;
   const supported = getSupportedThinkingLevels(piModel);
-  if (supported.length > 0 && !supported.includes(clamped as ModelThinkingLevel)) {
+  if (
+    supported.length > 0 &&
+    !supported.includes(clamped as ModelThinkingLevel)
+  ) {
     return supported[0] as ThinkingLevel;
   }
   return clamped;
@@ -207,15 +229,17 @@ function getAuthenticatedModels(ctx: {
     return ctx.scopedModels.map((entry) => entry.model);
   }
   const direct = ctx.modelRegistry.getAvailable?.() ?? [];
-  const source = direct.length > 0 ? direct : ctx.modelRegistry.getAll?.() ?? [];
+  const source =
+    direct.length > 0 ? direct : (ctx.modelRegistry.getAll?.() ?? []);
   const result: CandidateModel[] = [];
   const seen = new Set<string>();
 
   for (const m of source) {
-    if (!m || typeof m.provider !== "string" || typeof m.id !== "string") continue;
+    if (!m || typeof m.provider !== "string" || typeof m.id !== "string")
+      continue;
     if (ctx.modelRegistry.hasConfiguredAuth) {
       const original = ctx.modelRegistry.find
-        ? ctx.modelRegistry.find(m.provider, m.id) ?? m
+        ? (ctx.modelRegistry.find(m.provider, m.id) ?? m)
         : m;
       if (!ctx.modelRegistry.hasConfiguredAuth(original)) continue;
     }
@@ -268,10 +292,14 @@ function selectByCostHeuristic(
   pool: CandidateModel[],
 ): CandidateModel | undefined {
   // simplification: heuristic uses input token price to rank fast/balanced/deep for unconfigured providers; add explicit provider entries in subagent-model-router.json for custom catalogs.
-  const withCost = pool.filter((m) => typeof m.cost?.input === "number" && m.cost.input > 0);
+  const withCost = pool.filter(
+    (m) => typeof m.cost?.input === "number" && m.cost.input > 0,
+  );
   if (withCost.length < 2) return undefined;
 
-  const sorted = [...withCost].sort((a, b) => (a.cost?.input ?? 0) - (b.cost?.input ?? 0));
+  const sorted = [...withCost].sort(
+    (a, b) => (a.cost?.input ?? 0) - (b.cost?.input ?? 0),
+  );
   if (tierName === "fast") return sorted[0];
   if (tierName === "deep") {
     const reasoning = [...sorted].reverse().find((m) => m.reasoning);
@@ -372,8 +400,9 @@ export function resolveSubagentRouting(
 
   if (!targetModel && ctx.model) {
     targetModel =
-      available.find((m) => m.provider === ctx.model!.provider && m.id === ctx.model!.id) ??
-      ctx.modelRegistry.find?.(ctx.model.provider, ctx.model.id);
+      available.find(
+        (m) => m.provider === ctx.model!.provider && m.id === ctx.model!.id,
+      ) ?? ctx.modelRegistry.find?.(ctx.model.provider, ctx.model.id);
   }
 
   let resolvedThinking: ThinkingLevel | undefined;
@@ -410,60 +439,28 @@ export default function activate(pi: ExtensionAPI) {
   });
 
   pi.registerCommand("subagent-models", {
-    description: "Show resolved model and thinking level per subagent for the active provider",
+    description:
+      "Show resolved model and thinking level per subagent for the active provider",
     handler: async (_args, ctx) => {
       const config = loadRouterConfig(ctx.cwd);
-      const agents = Object.keys(config.agentTiers ?? {
-        scout: "fast",
-        worker: "balanced",
-        "visual-tester": "balanced",
-        planner: "deep",
-        reviewer: "deep",
-      });
+      const agents = Object.keys(
+        config.agentTiers ?? {
+          scout: "fast",
+          worker: "balanced",
+          "visual-tester": "balanced",
+          planner: "deep",
+          reviewer: "deep",
+        },
+      );
       const lines = agents.map((agent) => {
-        const res = resolveSubagentRouting({ agent }, ctx as unknown as ExtensionContext, config);
+        const res = resolveSubagentRouting(
+          { agent },
+          ctx as unknown as ExtensionContext,
+          config,
+        );
         return `${agent} [${res.tier ?? "unmapped"}] -> model: ${res.model ?? "(inherit parent)"}, thinking: ${res.thinking ?? "(inherit parent)"}`;
       });
       ctx.ui.notify(lines.join("\n"), "info");
     },
   });
 }
-
-// Self-check when executed directly
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const cwd = getAgentConfigDir();
-  const sampleModels: CandidateModel[] = [
-    { provider: "antigravity", id: "gemini-3.8-flash", reasoning: true },
-    { provider: "antigravity", id: "gemini-4-argon", reasoning: true },
-    { provider: "antigravity", id: "gemini-4-hydrogen", reasoning: true },
-    { provider: "kiro", id: "claude-haiku-4-5", reasoning: false },
-    { provider: "kiro", id: "claude-sonnet-4-6", reasoning: true },
-    { provider: "kiro", id: "claude-opus-4-7", reasoning: true },
-    { provider: "openai-codex", id: "gpt-6-luna", reasoning: true },
-    { provider: "openai-codex", id: "gpt-6.1-terra", reasoning: true },
-    { provider: "openai-codex", id: "gpt-6.2-astra", reasoning: true },
-  ];
-  const check = (provider: string, agent: string, expectedModel: string, expectedThinking: string) => {
-    const res = resolveSubagentRouting(
-      { agent },
-      {
-        cwd,
-        model: { provider, id: "" },
-        modelRegistry: { getAvailable: () => sampleModels.filter((m) => m.provider === provider) },
-      },
-    );
-    if (res.model !== expectedModel || res.thinking !== expectedThinking) {
-      throw new Error(`${provider}/${agent}: got ${JSON.stringify(res)}, expected ${expectedModel} (${expectedThinking})`);
-    }
-  };
-  check("antigravity", "scout", "antigravity/gemini-3.8-flash", "low");
-  check("antigravity", "worker", "antigravity/gemini-4-argon", "medium");
-  check("antigravity", "planner", "antigravity/gemini-4-hydrogen", "high");
-  check("kiro", "scout", "kiro/claude-haiku-4-5", "off");
-  check("kiro", "worker", "kiro/claude-sonnet-4-6", "medium");
-  check("kiro", "planner", "kiro/claude-opus-4-7", "high");
-  check("openai-codex", "scout", "openai-codex/gpt-6-luna", "low");
-  check("openai-codex", "worker", "openai-codex/gpt-6.1-terra", "medium");
-  check("openai-codex", "planner", "openai-codex/gpt-6.2-astra", "high");
-}
-
