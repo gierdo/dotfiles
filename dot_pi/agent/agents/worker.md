@@ -1,6 +1,7 @@
 ---
 name: worker
 description: Implements tasks from a plan - writes code, runs tests
+tier: balanced
 tools: read, bash, write, edit
 spawning: false
 auto-exit: true

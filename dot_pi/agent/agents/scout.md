@@ -1,6 +1,7 @@
 ---
 name: scout
 description: Fast codebase reconnaissance - maps existing code, conventions, and patterns for a task
+tier: fast
 tools: read, bash
 output: context.md
 spawning: false

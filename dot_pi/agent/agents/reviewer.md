@@ -1,6 +1,7 @@
 ---
 name: reviewer
 description: Code review agent - reviews changes for quality, security, and correctness
+tier: deep
 tools: read, bash
 spawning: false
 auto-exit: true
