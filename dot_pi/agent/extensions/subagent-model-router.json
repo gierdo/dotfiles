@@ -1,0 +1,159 @@
+{
+  "preferActiveProvider": true,
+  "providerOrder": [
+    "antigravity",
+    "openai-codex",
+    "kiro",
+    "amazon-bedrock",
+    "openai",
+    "anthropic",
+    "google"
+  ],
+  "defaultTier": "balanced",
+  "agentTiers": {
+    "scout": "fast",
+    "worker": "balanced",
+    "visual-tester": "balanced",
+    "planner": "deep",
+    "reviewer": "deep"
+  },
+  "tiers": {
+    "fast": {
+      "thinking": "low",
+      "providers": {
+        "antigravity": [
+          "gemini-3.8-flash",
+          "gpt-oss-120b"
+        ],
+        "kiro": [
+          "claude-haiku-4-5",
+          "qwen3-coder-next",
+          "deepseek-3-2",
+          "minimax-m2-5"
+        ],
+        "openai-codex": [
+          "gpt-6-luna",
+          "gpt-5.6-luna"
+        ],
+        "amazon-bedrock": [
+          "*claude-haiku-5-5*",
+          "*claude-haiku-4-5*",
+          "*nova-2-lite*",
+          "*nova-lite*"
+        ],
+        "openai": [
+          "gpt-6-luna",
+          "gpt-5.6-luna",
+          "gpt-5.3-codex-spark",
+          "gpt-5.4-mini",
+          "gpt-5-mini",
+          "o4-mini",
+          "gpt-4.1-mini"
+        ]
+      },
+      "fallbackPatterns": [
+        "*flash*",
+        "*haiku*",
+        "*luna*",
+        "*mini*",
+        "*nano*",
+        "*lite*"
+      ]
+    },
+    "balanced": {
+      "thinking": "medium",
+      "providers": {
+        "antigravity": [
+          "gemini-4-argon",
+          "gemini-4-carbon",
+          "claude-sonnet-5-5",
+          "gemini-3.8-flash"
+        ],
+        "kiro": [
+          "claude-sonnet-4-6",
+          "claude-sonnet-4-5",
+          "claude-sonnet-4",
+          "qwen3-coder-next",
+          "auto"
+        ],
+        "openai-codex": [
+          "gpt-6.1-terra",
+          "gpt-6.2-sol",
+          "gpt-6.1-sol",
+          "gpt-6-sol",
+          "gpt-5.6-terra",
+          "gpt-5.6-sol"
+        ],
+        "amazon-bedrock": [
+          "*claude-sonnet-5-5*",
+          "*claude-sonnet-5*",
+          "*claude-sonnet-4-6*",
+          "*claude-sonnet-4-5*",
+          "*nova-pro*"
+        ],
+        "openai": [
+          "gpt-6.1-terra",
+          "gpt-6.2-sol",
+          "gpt-6.1-sol",
+          "gpt-5.3-codex",
+          "gpt-5.4",
+          "gpt-5.2"
+        ]
+      },
+      "fallbackPatterns": [
+        "*sonnet*",
+        "*argon*",
+        "*carbon*",
+        "*terra*",
+        "*sol*",
+        "*codex*"
+      ]
+    },
+    "deep": {
+      "thinking": "high",
+      "providers": {
+        "antigravity": [
+          "gemini-4-hydrogen",
+          "claude-opus-5-5",
+          "gemini-4-neon",
+          "gemini-4-hydrogen-tiered",
+          "claude-sonnet-5-5"
+        ],
+        "kiro": [
+          "claude-opus-4-7",
+          "claude-opus-4-6",
+          "claude-sonnet-4-6"
+        ],
+        "openai-codex": [
+          "gpt-6.2-astra",
+          "gpt-6-astra",
+          "gpt-6.2-sol",
+          "gpt-6.1-sol",
+          "gpt-5.6-sol"
+        ],
+        "amazon-bedrock": [
+          "*claude-opus-5-5*",
+          "*claude-opus-5*",
+          "*claude-opus-4-8*",
+          "*claude-opus-4-7*",
+          "*claude-opus-4-6*"
+        ],
+        "openai": [
+          "gpt-6.2-astra",
+          "gpt-6-astra",
+          "gpt-5.4-pro",
+          "gpt-5-pro",
+          "o3"
+        ]
+      },
+      "fallbackPatterns": [
+        "*opus*",
+        "*hydrogen*",
+        "*neon*",
+        "*astra*",
+        "*-pro*",
+        "*o3*"
+      ]
+    }
+  }
+}
