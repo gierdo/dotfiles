@@ -194,6 +194,7 @@ extensions = [
   "git:https://github.com/hasit/pi-community-themes",
   "git:https://github.com/gierdo/nvim-editor-mcp",
   "git:https://github.com/gierdo/pi-workflow-executor",
+  "git:https://github.com/gierdo/pi-subagent-model-router",
 ]
 
 [packages.fonts]
