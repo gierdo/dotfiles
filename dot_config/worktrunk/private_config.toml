@@ -221,6 +221,9 @@ worktree-path = "{{ repo_path }}/worktrees/{{ branch | sanitize }}"
 #
 # [step.copy-ignored]
 # exclude = []   # Additional excludes (e.g., [".cache/", ".turbo/"])
+
+[step.copy-ignored]
+exclude = ["woktrees/"]
 #
 # Built-in excludes (VCS metadata and tool-state directories) always apply; the `wt step copy-ignored` docs (https://worktrunk.dev/step/#wt-step-copy-ignored) list them. User config and project config exclusions are combined.
 #
