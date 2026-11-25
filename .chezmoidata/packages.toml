@@ -86,6 +86,7 @@ crates = [
   "ripgrep",
   "tuicr",
   "tree-sitter-cli",
+  "worktrunk",
   "yazi-build",
   "zoxide",
 ]
