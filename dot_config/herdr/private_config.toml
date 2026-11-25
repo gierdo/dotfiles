@@ -204,12 +204,6 @@ description = "Open lazygit"
 # directory = "~/.herdr/worktrees"
 
 [ui]
-# >>> HERDR-SCOPE-BEGIN tab-bar
-tab_bar_right_separator = " · "
-tab_bar_right = [
-  { type = 'command', command = 'cat "~/.local/state/herdr/plugins/kriuchkov.herdr-scope/tabbar${HERDR_SESSION:+-$HERDR_SESSION}.txt"', interval_seconds = 3, timeout_seconds = 2 },
-]
-# <<< HERDR-SCOPE-END tab-bar
 # Sidebar width (auto-scaled based on workspace names, this sets the default)
 # sidebar_width = 26
 
