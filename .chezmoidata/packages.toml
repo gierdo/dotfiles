@@ -182,7 +182,8 @@ plugins = [
   "jeffarese/herdr-bar",
   "lmilojevicc/herdr-splits.nvim",
   "njs14/herdr-kiro-pulse",
-  "kryptamine/herdr-auto-title"
+  "kryptamine/herdr-auto-title",
+  "kriuchkov/herdr-scope"
 ]
 
 [packages.pi]
