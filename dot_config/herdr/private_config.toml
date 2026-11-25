@@ -475,6 +475,40 @@ type = "plugin_action"
 command = "herdr-splits.resize-right"
 description = "Resize - right"
 
+# Override herdr's built-in "new worktree" key (prefix+shift+g) with worktrunk's
+# default-branch switch/create picker:
+[[keys.command]]
+key = "prefix+shift+g"
+type = "plugin_action"
+command = "worktrunk.open"
+description = "Worktree: switch / create from default branch"
+
+# Optional: bind current-branch creation separately.
+[[keys.command]]
+key = "prefix+shift+c"
+type = "plugin_action"
+command = "worktrunk.open-current"
+description = "Worktree: switch / create from current branch"
+
+# Optional: include remote-tracking branches for this picker.
+[[keys.command]]
+key = "prefix+shift+r"
+type = "plugin_action"
+command = "worktrunk.open-with-remotes"
+description = "Worktree: switch / create from local or remote branches"
+
+[[keys.command]]
+key = "prefix+shift+d"
+type = "plugin_action"
+command = "worktrunk.remove"
+description = "Worktree: remove"
+
+[[keys.command]]
+key = "prefix+shift+m"
+type = "plugin_action"
+command = "worktrunk.merge"
+description = "Worktree: merge into the target branch"
+
 ## herdr-bar
 
 [[keys.command]]
