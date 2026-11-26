@@ -211,11 +211,7 @@
     "mcp": {
       "mcp_status": "allow",
       "npx_*": "allow",
-      "nvim_editor_mcp:list_nvim_instances": "allow",
-      "nvim_editor_mcp:get_diagnostics": "allow",
-      "nvim_editor_mcp:set_quickfix": "allow",
-      "nvim_editor_mcp:attach_nvim": "allow",
-      "nvim_editor_mcp:nvim_exec_lua": "allow",
+      "nvim_editor_mcp:*": "allow",
       "serena:initial_instructions": "allow",
       "serena:list_dir": "allow",
       "serena:find_file": "allow",
