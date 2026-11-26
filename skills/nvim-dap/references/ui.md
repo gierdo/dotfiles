@@ -41,22 +41,12 @@ windows the plugin manages, and do not repurpose the window the debugger jumped.
 
 ```lua
 return AgentDAP.ui_text(40)      -- text of the dap-view pane, section by section
-```
-
-```lua
--- window inventory
-local lines = {}
-for _, w in ipairs(vim.api.nvim_list_wins()) do
-  local b = vim.api.nvim_win_get_buf(w)
-  local c = vim.api.nvim_win_get_cursor(w)
-  lines[#lines+1] = string.format("win=%d ft=%s buf=%s cur=%d:%d", w,
-    vim.bo[b].filetype, vim.api.nvim_buf_get_name(b):gsub(".*/",""), c[1], c[2])
-end
-return table.concat(lines, "\n")
+     .. "\n" .. Bridge.ui_inventory()
 ```
 
 `require("dap-view.state").current_section` tells you which section is focused,
-so you can say "look at the Scopes tab" accurately.
+so you can say "look at the Scopes tab" accurately. `Bridge.ui_inventory()`
+labels float windows, which matters here: noice pops a float during DAP runs.
 
 ## Directing attention
 
@@ -104,27 +94,22 @@ over - `notify("at parser.py:212, token is wrong - continue with <leader>dc")`.
 
 ## Restoring the layout
 
-After teardown, put the windows back (`_G.AgentLayout` was saved by the snippet
-in SKILL.md, before the first window-mutating call):
+`Bridge.layout_save()` before the session, `Bridge.layout_restore()` after
+`AgentDAP.terminate()` - both in `nvim-bridge`. Note that `layout_save` skips
+floats, so the notification windows a DAP run opens are not what you restore.
+
+DAP leaves one extra thing behind, so clean that specifically:
 
 ```lua
-local out = {}
-for _, sv in ipairs(_G.AgentLayout or {}) do
-  if vim.api.nvim_win_is_valid(sv.win) then
-    pcall(vim.api.nvim_win_set_buf, sv.win, sv.buf)
-    pcall(vim.api.nvim_win_set_cursor, sv.win, sv.cursor)
-  end
-end
-_G.AgentLayout = nil
 for _, b in ipairs(vim.api.nvim_list_bufs()) do
   if vim.bo[b].filetype == "dap-repl" then pcall(vim.api.nvim_buf_delete, b, { force = true }) end
 end
-out[#out+1] = "windows=" .. tostring(#vim.api.nvim_list_wins())
-out[#out+1] = "bufs=" .. tostring(#vim.api.nvim_list_bufs())
-return table.concat(out, " ")
+return Bridge.assess()
 ```
 
 Terminating a session closes the dap-view window via `auto_toggle`, but the
 window that jumped to the debuggee still shows that file, and a `[dap-repl-N]`
-buffer can linger. Say what you restored, and note anything you deliberately
-left (for example a breakpoint they asked you to keep).
+buffer can linger - as does any library source pulled in by stepping with
+`justMyCode = false` (`runpy.py` showed up in testing). Say what you restored,
+and note anything you deliberately left (for example a breakpoint they asked you
+to keep).

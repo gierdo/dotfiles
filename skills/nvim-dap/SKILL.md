@@ -12,14 +12,20 @@ There is no DAP tool. `nvim-editor-mcp` exposes only `list_nvim_instances`,
 Lua against `require("dap")` inside the editor. That is not a limitation - it is
 the whole surface of nvim-dap, including the parts the UI itself uses.
 
+## Prerequisite
+
+`nvim-bridge` holds the rules that apply to any plugin work over this bridge:
+instance attach and orientation, JSON-safe return values, the coroutine/`vim.wait`
+async contract, prompt avoidance, layout save and restore, and error recovery.
+This skill assumes those rules and adds what is specific to nvim-dap.
+
 ## Three facts that make this work
 
 **1. Async becomes synchronous inside one bridge call.** nvim-dap is entirely
 callback-driven, but `Session:request(cmd, args)` called *without* a callback
 yields the current coroutine (`dap/session.lua:1887-1915`), and nvim-dap resumes
-it from `vim.schedule` when the adapter answers. `vim.wait()` pumps the event
-loop, so it resumes inside your call. One bridge call can therefore issue a
-request, wait for it, and return the answer.
+it from `vim.schedule` when the adapter answers. `AgentDAP` wraps this internally
+and does not depend on `Bridge` being loaded - it stays usable on its own.
 
 **2. Everything the human needs already happens on its own.** With the usual
 nvim-dap + nvim-dap-view setup, a breakpoint hit automatically: opens the DAP
@@ -49,6 +55,14 @@ local f = assert(io.open(p))
 return assert(load(f:read("a"), p))() .. " / " .. AgentDAP.install()
 ```
 
+If `nvim-bridge` is already loaded this is one call shorter, and it also reports
+failures instead of raising them:
+
+```lua
+return Bridge.load(vim.fn.expand("$HOME/.pi/agent/skills/nvim-dap/scripts/agent_dap.lua"))
+  .. " / " .. AgentDAP.install()
+```
+
 Then each step is short and readable:
 
 ```lua
@@ -65,9 +79,9 @@ return AgentDAP.cont(30000)
 return AgentDAP.terminate()
 ```
 
-`AgentDAP` returns strings on purpose: a Lua table mixing array and hash parts
-makes the bridge fail with `Cannot convert given Lua table`, and every debug
-answer is meant to be read, not re-parsed.
+`AgentDAP` returns strings on purpose - the bridge cannot encode a table with
+both array and hash parts (see `nvim-bridge`), and debug output is meant to be
+read, not re-parsed.
 
 Read `references/api.md` for the full function list and the raw nvim-dap calls
  underneath. Read `references/ui.md` before touching windows, watches, or the
@@ -75,9 +89,9 @@ quickfix list. Read `references/languages.md` for launch configs per language.
 
 ## The loop
 
-1. **Attach.** `list_nvim_instances`, then `attach_nvim(socket=...)` on the
-   instance in the same Herdr workspace and working directory. Confirm the
-   filetype and buffer the human is actually looking at before debugging it.
+1. **Attach and orient.** `list_nvim_instances`, `attach_nvim(socket=...)` per
+   `nvim-bridge`, then `Bridge.env()` if loaded, and confirm the filetype and
+   buffer the human is actually looking at before debugging it.
 2. **Preflight.** `AgentDAP.preflight(ftype)` lists registered adapters and
    preset configurations and checks the adapter binary exists. A mason
    `ensure_installed` entry does not imply a registered adapter, and some
@@ -91,26 +105,21 @@ quickfix list. Read `references/languages.md` for launch configs per language.
 5. **Inspect.** `state`, `frames`, `locals(depth)`, `eval(expr)`, `threads`.
 6. **Drive.** `step("over"|"into"|"out"|"back")`, `cont`, `up`/`down`, `rewind`,
    `exception_breaks`.
-7. **Report**, then **teardown**: `terminate`, `clear_bps`, `uninstall`, restore
-   the layout you saved.
+7. **Report**, then **teardown**: `AgentDAP.terminate`, `clear_bps`,
+   `uninstall`, delete leftover `dap-repl` buffers (`references/ui.md`),
+   `Bridge.layout_restore()`, `Bridge.assess()`.
 
 ## Keep the human in the loop
 
 This is a shared session, not a headless harness. Before the first
-window-mutating call, save the layout (`references/ui.md` has the matching
-restore snippet, which also drops leftover `dap-repl` buffers):
+window-mutating call:
 
 ```lua
-local saved = {}
-for _, w in ipairs(vim.api.nvim_list_wins()) do
-  table.insert(saved, { win = w, buf = vim.api.nvim_win_get_buf(w), cursor = vim.api.nvim_win_get_cursor(w) })
-end
-_G.AgentLayout = saved
-return #saved
+return Bridge.layout_save()      -- nvim-bridge; floats are skipped on purpose
 ```
 
-and after teardown put it back with `nvim_win_set_buf` + `nvim_win_get_cursor`
-/`nvim_win_set_cursor`. Then:
+and after teardown `Bridge.layout_restore()` followed by `Bridge.assess()` to
+prove the editor is where it started. Then:
 
 - **Re-read state before every action.** The human has real keymaps and will use
   them (`<leader>dc` continue, `<leader>dbt` toggle breakpoint, `<leader>dr` run
@@ -120,8 +129,9 @@ and after teardown put it back with `nvim_win_set_buf` + `nvim_win_get_cursor`
   line per milestone - launching, stopped where, finishing - costs nothing and
   stops them fighting your breakpoints.
 - **Long waits do not freeze them.** `vim.wait` processes user events, so they
-  can keep typing while you wait. Still bound every wait: the bridge call is
-  in flight, and an unbounded one looks like a hang.
+  can keep typing while you wait - but bound it anyway (`nvim-bridge` Rule 2),
+  and remember a `TIMEOUT` from `cont` usually means the program never stopped,
+  not that the bridge broke.
 - **Their state is yours to read, not to reset.** Watches survive a session, so
   a stale `watched_expressions` may be theirs. Ask before clearing.
 - **Use `set_quickfix` for your own findings** rather than
@@ -132,8 +142,9 @@ and after teardown put it back with `nvim_win_set_buf` + `nvim_win_get_cursor`
 
 ## What hangs, and why
 
-Anything that opens a picker or prompt waits on the *human* inside a synchronous
-RPC call, so the bridge stalls until they act. The traps in this stack:
+The general rule and recovery live in `nvim-bridge` - a prompt waits on the human
+inside your synchronous call, and `:help`/`:Telescope`/`vim.ui.*` all do it. The
+DAP-specific traps:
 
 | Call | Problem |
 |---|---|
@@ -144,22 +155,11 @@ RPC call, so the bridge stalls until they act. The traps in this stack:
 | `dapbp_api.set_breakpoint` / `set_conditional_breakpoint` / `set_log_point` | `vim.ui.select` / `vim.ui.input` prompts |
 | `dap.run_to_cursor()` | calls `breakpoints.clear()` and installs a temp breakpoint; wipes the set mid-flight (`dap.lua:1094-1108`) |
 | `python` config `Python: Launch file with arguments` | `vim.fn.input("Arguments: ")` |
-| `:help`, `:Telescope`, `vim.ui.*` | not DAP, but same hang, and they add windows you must clean up |
 
-If a call returns `EOF`, the nvim-side handler is wedged: `detach_nvim`, then
-`attach_nvim` again. That recovered it every time here.
+An `EOF` here is the generic bridge wedge: detach and re-attach (`nvim-bridge`).
 
 ## Failure modes worth knowing
 
-- A listener that returns a truthy value **self-unregisters** (`call_listener`
-  does `if remove then listeners[key] = nil end`, `dap/session.lua:1069-1077`).
-  Return nothing for a persistent listener, `true` for one-shot.
-- `call_listener` iterates with `pairs()` and does **not** `pcall`. One throwing
-  listener silently kills every later listener for that event - including
-  dap-view's. Observed: a leftover agent listener closing over a deleted `_G`
-  table swallowed all `event_output` delivery for the rest of the nvim session.
-  Register under one namespace, remove it in teardown, and check
-  `AgentDAP.listeners()` when output or UI updates look missing.
 - Breakpoints added through `dap.breakpoints.set` are invisible to a running
   adapter until `session:set_breakpoints(bps)` with the shape
   `{[bufnr] = {bp, ...}}`. Pass the flat list and it no-ops silently.
@@ -186,6 +186,13 @@ If a call returns `EOF`, the nvim-side handler is wedged: `detach_nvim`, then
   DAP pane for the human). A program needing stdin wants `integratedTerminal`.
 - `dap.status()` can be stale ("Starting adapter python" mid-session). Trust
   `dap.session()`, `stopped_thread_id`, and `current_frame`.
-- `vim.fn` calls receive Lua `nil` as `v:null`, which errors on optional args
-  (`sign_getplaced(nil, ...)` -> E158). Pass explicit values.
-- Namespace your globals (`_G.AgentDAP`, `_G.AgentLayout`) and clear them.
+- A listener that returns a truthy value **self-unregisters** (`call_listener`
+  does `if remove then listeners[key] = nil end`, `dap/session.lua:1069-1077`).
+  Return nothing for a persistent listener, `true` for one-shot.
+- `call_listener` iterates with `pairs()` and does **not** `pcall`, so one
+  throwing listener kills every later one for that event - including dap-view's.
+  This is the `nvim-bridge` Rule 5 failure, and here it is easy to trigger:
+  observed a leftover agent listener closing over a deleted `_G` table swallow
+  all `event_output` delivery for the rest of the nvim session. Register under
+  one namespace, remove it in teardown, and check `AgentDAP.listeners()` when
+  output or UI updates look missing.
