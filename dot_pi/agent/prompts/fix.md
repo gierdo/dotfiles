@@ -6,7 +6,7 @@ Analyze and fix code issues, applying the `software-engineering` skill mindset.
 
 1. **Skills & Mindset**:
    - Activate the `software-engineering` skill (`skills/sw-engineer/SKILL.md`).
-   - For complex bugs requiring structured reproduction, root-cause analysis, and regression testing, use the `bug-fix` workflow from the `workflow-executor` skill (`skills/workflow-executor/SKILL.md`).
+   - For complex bugs requiring structured reproduction, root-cause analysis, and regression testing, start the `bug-fix` workflow with `workflow_start({ workflow: "bug-fix", task: "<bug-slug>" })` and follow the definition path the tool returns. The `pi-workflow-executor` package provides it; there is no `workflow-executor` skill to load.
 
 2. **Locate Target Code**:
    - If a target file, function, or description is specified in `${@:-}`, inspect it.
