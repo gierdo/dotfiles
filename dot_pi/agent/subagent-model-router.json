@@ -1,6 +1,8 @@
 {
   "preferActiveProvider": true,
   "providerOrder": [
+    "opencode-go",
+    "opencode",
     "antigravity",
     "openai-codex",
     "kiro",
@@ -49,6 +51,31 @@
           "gpt-5-mini",
           "o4-mini",
           "gpt-4.1-mini"
+        ],
+        "opencode-go": [
+          "beam-free",
+          "hy4-flash-free",
+          "hungerg-free",
+          "iceman-contributor-free",
+          "deepseek-v4.1-flash",
+          "mimo-v2.6-flash",
+          "glm-5.3-flash",
+          "qwen3.8-flash",
+          "gpt-6-luna",
+          "minimax-m3.1-flash",
+          "gpt-5.6-luna"
+        ],
+        "opencode": [
+          "gpt-5-nano",
+          "gpt-6-luna",
+          "claude-haiku-5-5",
+          "deepseek-v4.1-flash",
+          "gpt-5.6-luna",
+          "gpt-5.4-nano",
+          "minimax-m2.5",
+          "gemini-3.8-flash",
+          "gpt-5.4-mini",
+          "claude-haiku-4-5"
         ]
       },
       "fallbackPatterns": [
@@ -98,6 +125,28 @@
           "gpt-5.3-codex",
           "gpt-5.4",
           "gpt-5.2"
+        ],
+        "opencode-go": [
+          "longcat-2.5",
+          "mimo-v2.6-pro",
+          "minimax-m3",
+          "hy4",
+          "glm-5.3",
+          "kimi-k2.7-code",
+          "gemini-4-argon",
+          "qwen3.8-max"
+        ],
+        "opencode": [
+          "gpt-6-sol",
+          "gpt-6.1-sol",
+          "claude-sonnet-5-5",
+          "gemini-4-argon",
+          "gemini-4-carbon",
+          "gpt-5.6-terra",
+          "gpt-5.3-codex",
+          "gpt-5.4",
+          "claude-sonnet-4-6",
+          "kimi-k3"
         ]
       },
       "fallbackPatterns": [
@@ -144,6 +193,26 @@
           "gpt-5.4-pro",
           "gpt-5-pro",
           "o3"
+        ],
+        "opencode-go": [
+          "deepseek-v4-pro",
+          "qwen4-max",
+          "grok-4.7",
+          "kimi-k3.1-pro",
+          "kimi-k3"
+        ],
+        "opencode": [
+          "grok-4.7",
+          "gemini-4-hydrogen",
+          "kimi-k3.1-pro",
+          "gemini-4-neon",
+          "claude-opus-5-5",
+          "claude-opus-4-8",
+          "claude-opus-4-7",
+          "gpt-6.2-astra",
+          "gpt-6-astra",
+          "gpt-5.5-pro",
+          "gpt-5.4-pro"
         ]
       },
       "fallbackPatterns": [
