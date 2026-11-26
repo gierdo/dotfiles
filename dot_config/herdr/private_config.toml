@@ -124,8 +124,8 @@ next_workspace = "prefix+l"
 # Lifecycle (low frequency, herdr defaults): destructive actions gated behind shift.
 workspace_picker = "prefix+w"
 new_workspace = "prefix+shift+n"
-rename_workspace = "prefix+shift+w"
-close_workspace = "prefix+shift+d"
+# rename_workspace = "prefix+shift+w"
+# close_workspace = "prefix+shift+d"
 # --- end workspace bindings ---
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
