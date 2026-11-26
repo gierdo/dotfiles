@@ -184,7 +184,6 @@ plugins = [
   "lmilojevicc/herdr-splits.nvim",
   "njs14/herdr-kiro-pulse",
   "kryptamine/herdr-auto-title",
-  "kriuchkov/herdr-scope",
   "devashish2203/herdr-worktrunk"
 ]
 
