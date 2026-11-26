@@ -2,9 +2,11 @@
 -- nvim-editor-mcp bridge (nvim_exec_lua). Load once per Neovim session;
 -- _G.Bridge survives across bridge calls.
 --
---   local f = assert(io.open(os.getenv("HOME") .. "/.pi/agent/skills/nvim-bridge/scripts/bridge.lua"))
+-- Paths are relative to this skill's directory, which your harness reports; do
+-- not hardcode a home or a harness-specific install path. From nvim_exec_lua:
+--   local f = assert(io.open("<SKILL_DIR>/scripts/bridge.lua"))
 --   return assert(load(f:read("a"), "bridge"))()
---
+-- No path available at all? Use the inline tier in references/portability.md.
 -- Every function returns a string (or a number/boolean for the predicates), so
 -- the result always JSON-encodes across the bridge.
 

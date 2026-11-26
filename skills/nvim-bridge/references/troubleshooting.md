@@ -134,12 +134,12 @@ source file pulled in by stepping into dependencies (`runpy.py` showed up here).
 
 ### Your file edit did not take effect in the editor
 
-The buffer in Neovim is not the file on disk, or the human has unsaved edits. The
-Pi extension runs `:wall` and protects dirty buffers for you, but when driving
-state directly: check `vim.bo[buf].modified` before overwriting, and prefer
-editing through the editor (`nvim_buf_set_text` then `:wall`) when the human must
-see the change land. Never write a buffer the human is mid-edit in without
-saying so.
+The buffer in Neovim is not the file on disk, or the human has unsaved edits. If
+you are running under the Pi extension it runs `:wall` and protects dirty
+buffers for you; under any other harness that protection does not exist, so check
+`vim.bo[buf].modified` before overwriting, and prefer editing through the editor
+(`nvim_buf_set_text` then `:wall`) when the human must see the change land. Never
+write a buffer the human is mid-edit in without saying so.
 
 ### Everything looks right but it is the wrong editor
 

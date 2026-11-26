@@ -1,7 +1,7 @@
 ---
 name: nvim-bridge
-description: Ground rules and primitives for driving a live Neovim through the nvim-editor-mcp bridge - attaching to the right instance, turning async plugin calls into synchronous ones, returning JSON-safe values, avoiding prompts that hang the editor, and leaving the layout as you found it. Use whenever you call nvim_exec_lua, attach_nvim, open_file, set_quickfix, get_diagnostics, or notify: to run plugin APIs (nvim-dap, neotest, LSP, overseer, conform, oil), inspect or report editor state, or recover when a bridge call errors, times out, hangs, or returns EOF.
-compatibility: Requires the nvim-editor-mcp MCP server (or Pi extension) and a running Neovim.
+description: Ground rules and primitives for driving a live Neovim through the nvim-editor-mcp bridge - attaching to the right instance, turning async plugin calls into synchronous ones, returning JSON-safe values, avoiding prompts that hang the editor, and leaving the layout as you found it. Use whenever you call nvim_exec_lua, attach_nvim, open_file, set_quickfix, get_diagnostics, or notify: to run plugin APIs (nvim-dap, neotest, LSP, overseer, conform, oil), inspect or report editor state, or recover when a bridge call errors, times out, hangs, or returns EOF. Every other nvim skill should build on this one.
+compatibility: Any harness that exposes the nvim-editor-mcp tools (Pi, Claude Code, Codex, or a raw MCP client) and a running Neovim. Verified on nvim 0.12.6. No absolute paths are assumed - see references/portability.md.
 ---
 
 # Working over the Neovim bridge
@@ -13,8 +13,8 @@ Lua on Neovim's main loop and JSON-encodes whatever you return, which means the
 entire plugin API surface is available to you - and every way that surface is
 awkward (async, prompts, buffer state, UI side effects) lands on you.
 
-These are the rules that hold for every plugin. `nvim-dap` is the worked example
-in `~/.pi/agent/skills/nvim-dap/`.
+These are the rules that hold for every plugin, in any harness that can reach a
+running Neovim over the bridge. The `nvim-dap` skill is the worked example.
 
 ## Attach, then look
 
@@ -34,23 +34,38 @@ different editor than the human is looking at. If `env()` shows an unexpected
 ## Load the helper
 
 `scripts/bridge.lua` holds the primitives that every bridge task repeats. It
-lives in `_G.Bridge` for the whole Neovim session, so load once per session:
+lives in `_G.Bridge` for the whole Neovim session, so load once per session.
+Paths are relative to **this skill's directory** - your harness reports where it
+loaded the skill from (Pi: the `location:` in the `<available_skills>` entry;
+Claude Code and other Agent Skills runners: the skill path given with the
+instructions). Never bake a home path into a snippet or a note you leave behind.
 
 ```lua
--- nvim_exec_lua, once
-local p = vim.fn.expand("$HOME/.pi/agent/skills/nvim-bridge/scripts/bridge.lua")
-local f = assert(io.open(p))
-return assert(load(f:read("a"), p))()
+-- nvim_exec_lua, once. Replace <SKILL_DIR> with the resolved directory.
+local p = "<SKILL_DIR>/scripts/bridge.lua"
+local f = io.open(p)
+if not f then return "no helper at " .. p .. " - see references/portability.md" end
+local chunk, err = load(f:read("a"), p)
+f:close()
+if not chunk then return "SYNTAX ERROR: " .. tostring(err) end
+return chunk()
 ```
 
+If the path is unknown, or there is no filesystem on the editor side, use the
+inline tier in `references/portability.md` - one self-contained chunk, no path
+needed, covering the same primitives. That document also explains why making the
+helper `require`-able from inside Neovim is not free (verified: neither
+`stdpath("data").."/lua"` nor `site/after` resolves it), so a persistent install
+is a user config change to ask about, not something to do quietly.
+
 | Call | Use it for |
-| --- | --- |
-| `Bridge.env()` | First call, always: nvim version, pid, cwd, current buffer + filetype + modified + buftype, window/buffer/tabpage counts, mapleader, `switchbuf`, whether `dap`/`neotest`/`overseer` are require-able, which skill globals are live |
+|---|---|
+| `Bridge.env()` | First call, always: nvim version, pid, cwd, current buffer + filetype + modified + buftype, window/buffer/tabpage counts, mapleader, `switchbuf`, whether a few common plugin APIs (dap, neotest, overseer) are require-able, which skill globals are live |
 | `Bridge.await(fn, ms)` | Finish a call that suspends a coroutine until someone resumes it |
 | `Bridge.cb(fn, ms)` | Finish a callback API: `fn(cb)` where `cb(err, result, ...)` |
 | `Bridge.settle(pred, ms, label)` | Bounded wait that reports `settled` vs `TIMEOUT`, never silence |
 | `Bridge.text(v)` | Flatten any table into a JSON-safe string |
-| `Bridge.load(path)` | Run another file inside Neovim - how plugin skills install their helpers |
+| `Bridge.load(path)` | Run another file inside Neovim - how plugin skills install their helpers once `Bridge` itself exists |
 | `Bridge.layout_save(tag)` / `Bridge.layout_restore(tag)` | Snapshot and put back the human's windows (floats excluded) |
 | `Bridge.ui_inventory()` | Windows, buffers, filetypes, cursors - notice windows you forgot to close |
 | `Bridge.buf_dump(what, limit, from)` | Read a buffer as text: test output, HTTP responses, DAP panes, terminals |
@@ -157,12 +172,13 @@ You are mutating a live session, not a scratch instance.
   windows; `Bridge.layout_restore()` after; `Bridge.assess()` as the final call
   to prove you got back to the start.
 - Save the cursor position of the buffer you are about to move, if you move it.
-- Unsaved changes matter: the Pi extension runs `:wall` and protects dirty
-  buffers, so do not stomp a buffer the human is editing, and report unsaved
-  files rather than writing them.
-- `set_quickfix` and `:copen` own the quickfix list; `dap.list_breakpoints(true)`
-  and other plugin commands rewrite it too. If something else (a `/qf` test-failure
-  sync) may be using it, use a loclist or report locations in text instead.
+- Unsaved changes matter: if you are running under the Pi extension it runs
+  `:wall` and protects dirty buffers for you, but in any harness the rule is the
+  same - do not stomp a buffer the human is editing, and report unsaved files
+  rather than writing them.
+- `set_quickfix` and `:copen` own the quickfix list; plugin commands rewrite it
+  too. If something else in your harness reuses it (Pi's `/qf` test-failure sync,
+  for example), use a loclist or report locations in text instead.
 - Clean up: delete buffers you created, `Bridge.wipe("Bridge", ...)` your globals,
   remove temp files. Namespace scratch globals (`Bridge`, `AgentDAP`,
   `AgentLayout`) so collisions are visible in `env()`.
@@ -187,10 +203,10 @@ quiet with no visible error. Two rules follow:
 ## When something goes wrong
 
 Short list; `references/troubleshooting.md` has the full symptom -> cause -> fix
-table, including how to recover state after each.
+table, and `references/portability.md` covers harness and path questions.
 
 | Symptom | Cause |
-| --- | --- |
+|---|---|
 | `EOF` from `nvim_exec_lua`, then everything fails | nvim-side handler wedged; `detach_nvim` then `attach_nvim` |
 | `Cannot convert given Lua table` | return value mixed array+hash; use `Bridge.text` |
 | `v:null` / `E158` style errors | Lua `nil` into `vim.fn`; pass explicit values |

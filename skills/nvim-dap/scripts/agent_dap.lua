@@ -2,9 +2,13 @@
 -- through an RPC bridge (nvim-editor-mcp `nvim_exec_lua`).
 --
 -- Install once per Neovim session; the table survives in _G across bridge calls:
---   local f = assert(io.open(os.getenv("HOME") .. "/.pi/agent/skills/nvim-dap/scripts/agent_dap.lua"))
+--   local f = assert(io.open("<SKILL_DIR>/scripts/agent_dap.lua"))
 --   assert(load(f:read("a"), "agent_dap"))()
 --   return AgentDAP.install()
+-- <SKILL_DIR> is this skill's directory as reported by your harness; see the
+-- nvim-bridge skill, references/portability.md, for resolution and for the
+-- path-free options. Self-contained: it does not call Bridge, so load order
+-- never matters and the shared await primitive is duplicated on purpose.
 --
 -- Every public function returns a plain string. That is deliberate: the bridge
 -- JSON-encodes the return value, and a table mixing array and hash parts fails

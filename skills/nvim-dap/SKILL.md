@@ -49,18 +49,20 @@ functions. The `_G.AgentDAP` table survives across bridge calls for the whole
 Neovim session, so install once and reuse.
 
 ```lua
--- nvim_exec_lua, once. Adjust the path if this skill lives elsewhere.
-local p = vim.fn.expand("$HOME/.pi/agent/skills/nvim-dap/scripts/agent_dap.lua")
-local f = assert(io.open(p))
+-- nvim_exec_lua, once. <SKILL_DIR> is this skill's directory, as reported by
+-- your harness (nvim-bridge/references/portability.md lists how to resolve it,
+-- and what to do when it cannot be). Do not hardcode a home path.
+local p = "<SKILL_DIR>/scripts/agent_dap.lua"
+local f = io.open(p)
+if not f then return "no helper at " .. p end
 return assert(load(f:read("a"), p))() .. " / " .. AgentDAP.install()
 ```
 
-If `nvim-bridge` is already loaded this is one call shorter, and it also reports
-failures instead of raising them:
+If `nvim-bridge` is already loaded, `Bridge.load` is the same call with better
+error text:
 
 ```lua
-return Bridge.load(vim.fn.expand("$HOME/.pi/agent/skills/nvim-dap/scripts/agent_dap.lua"))
-  .. " / " .. AgentDAP.install()
+return Bridge.load("<SKILL_DIR>/scripts/agent_dap.lua") .. " / " .. AgentDAP.install()
 ```
 
 Then each step is short and readable:
@@ -135,8 +137,9 @@ prove the editor is where it started. Then:
 - **Their state is yours to read, not to reset.** Watches survive a session, so
   a stale `watched_expressions` may be theirs. Ask before clearing.
 - **Use `set_quickfix` for your own findings** rather than
-  `dap.list_breakpoints(true)`, which overwrites the quickfix list (it reuses
-  the title-tagged list) and would clobber test failures from `/qf`.
+  `dap.list_breakpoints(true)`, which rewrites the quickfix list (it reuses the
+  title-tagged list) and would clobber anything else in there - under Pi, that
+  includes `/qf` test-failure sync.
 - `open_file(path, line)` is the polite way to show them a frame or a caller;
   it moves them to the source without you re-implementing `switchbuf`.
 
