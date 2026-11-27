@@ -163,6 +163,7 @@ tools = [
   "pylint",
   "pysentry-rs",
   "pytype",
+  "rumdl",
   "virtualenv",
   "visidata",
 ]

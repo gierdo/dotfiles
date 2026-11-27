@@ -25,7 +25,7 @@ return {
             "gofmt",
           },
           markdown = {
-            "markdownlint",
+            "rumdl",
           },
           javascript = {
             "prettierd",
@@ -127,7 +127,7 @@ return {
           "write_good",
         },
         markdown = {
-          "markdownlint",
+          "rumdl",
         },
         c = {
           "clangtidy",
