@@ -22,7 +22,6 @@
   "fluoride": { "branch": "main", "commit": "df30862c6144f250250a340d183d0d324fe6f075" },
   "friendly-snippets": { "branch": "main", "commit": "7a1c9f7897a4eb078b157a04c7af81e5869215b1" },
   "fzf": { "branch": "master", "commit": "ed173e71e44b2a5fa6264ecf232a153dee6994d0" },
-  "gentags.nvim": { "branch": "main", "commit": "b0f5096a534e8d41b6792c0bd1c9a60e78f11c37" },
   "gitsigns.nvim": { "branch": "main", "commit": "166c03131e6a3528f692dd89f37668d991f17baa" },
   "go.nvim": { "branch": "master", "commit": "7be72a67e3850d9dae7fd46681c7c8d521e1d98c" },
   "grug-far.nvim": { "branch": "main", "commit": "91b7e58b6ffc6ddad5acb7a7c1df21257724449e" },
