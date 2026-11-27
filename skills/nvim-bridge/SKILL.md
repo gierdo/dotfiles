@@ -1,6 +1,8 @@
 ---
 name: nvim-bridge
-description: Ground rules and primitives for driving a live Neovim through the nvim-editor-mcp bridge - attaching to the right instance, turning async plugin calls into synchronous ones, returning JSON-safe values, avoiding prompts that hang the editor, and leaving the layout as you found it. Use whenever you call nvim_exec_lua, attach_nvim, open_file, set_quickfix, get_diagnostics, or notify: to run plugin APIs (nvim-dap, neotest, LSP, overseer, conform, oil), inspect or report editor state, or recover when a bridge call errors, times out, hangs, or returns EOF. Every other nvim skill should build on this one.
+description: >-
+  Ground rules and primitives for driving a live Neovim through the nvim-editor-mcp bridge - attaching to the right instance, turning async plugin calls into synchronous ones, returning JSON-safe values, avoiding prompts that hang the editor, and leaving the layout as you found it.
+  Use whenever you call nvim_exec_lua, attach_nvim, open_file, set_quickfix, get_diagnostics, or notify: to run plugin APIs (nvim-dap, neotest, LSP, overseer, conform, oil), inspect or report editor state, or recover when a bridge call errors, times out, hangs, or returns EOF. Every other nvim skill should build on this one.
 compatibility: Any harness that exposes the nvim-editor-mcp tools (Pi, Claude Code, Codex, or a raw MCP client) and a running Neovim. Verified on nvim 0.12.6. No absolute paths are assumed - see references/portability.md.
 ---
 

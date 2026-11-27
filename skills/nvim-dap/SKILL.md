@@ -1,6 +1,8 @@
 ---
 name: nvim-dap
-description: Steer a live nvim-dap debugging session in the user's running Neovim through the nvim-editor-mcp bridge: set and verify breakpoints, launch, step, inspect frames and variables, evaluate expressions, capture program output, and restore the editor afterwards. Use whenever the user wants to debug, step through, reproduce, or investigate a runtime bug while Neovim is open, mentions dap, breakpoints, debugpy, delve, cppdbg, the DAP pane, or "debug this in vim", or wants to watch while an agent drives a debugger.
+description: >-
+  Steer a live nvim-dap debugging session in the user's running Neovim through the nvim-editor-mcp bridge: set and verify breakpoints, launch, step, inspect frames and variables, evaluate expressions, capture program output, and restore the editor afterwards.
+  Use whenever the user wants to debug, step through, reproduce, or investigate a runtime bug while Neovim is open, mentions dap, breakpoints, debugpy, delve, cppdbg, the DAP pane, or "debug this in vim", or wants to watch while an agent drives a debugger.
 compatibility: Requires the nvim-editor-mcp MCP tools and a Neovim running mfussenegger/nvim-dap. Verified against nvim 0.12.6, nvim-dap with nvim-dap-view.
 ---
 
